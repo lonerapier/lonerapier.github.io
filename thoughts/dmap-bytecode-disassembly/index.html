@@ -1,0 +1,811 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="DMAP dmap is basically a simple global registry that stores (zone, name, meta, data).
+Usage is divided into mainly two functions:"><title>lonerapier.xyz</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://dsam82.github.io//icon.png><link href=https://dsam82.github.io/styles.b3e1e36b0403ac565c9392b3e23ef3b6.min.css rel=stylesheet><link href=https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://dsam82.github.io/js/darkmode.99bf74b17084665b02e60f42b67a6c02.min.js></script>
+<script src=https://dsam82.github.io/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://dsam82.github.io/js/popover.abe6a51cc7138c5dff00f151dd627ad1.min.js></script>
+<script src=https://dsam82.github.io/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://dsam82.github.io/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://dsam82.github.io/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://dsam82.github.io/",fetchData=Promise.all([fetch("https://dsam82.github.io/indices/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://dsam82.github.io/indices/contentIndex.91b99abe7aed5217fcdab04e6372af47.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://dsam82.github.io",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://dsam82.github.io",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/dsam82.github.io\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://dsam82.github.io/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://dsam82.github.io/>lonerapier.xyz</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><p class=meta>Last updated
+Sep 2, 2022
+<a href=https://github.com/dsam82/dsam82.github.io//thoughts/dmap-bytecode-disassembly.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#examples>Examples</a></li><li><a href=#get>GET</a></li><li><a href=#set>SET</a></li></ol></nav></details></aside><a href=#dmap><h1 id=dmap><span class=hanchor arialabel=Anchor># </span>DMAP</h1></a><p><code>dmap</code> is basically a simple global registry that stores <code>(zone, name, meta, data)</code>.</p><p>Usage is divided into mainly two functions:</p><ol><li><code>set(name, meta, data)</code>: sets <code>s=keccak256(msg.sender, name)</code> slot to <code>meta</code> and <code>s+1</code> slot to <code>data</code>.</li><li><code>get(name)</code>: returns <code>s=keccak256(msg.sender, name)</code> slot as <code>meta</code> and <code>s+1</code> as <code>data</code>.</li></ol><p>Decompiled using
+<a href=https://ethervm.io/decompile/0x90949c9937A11BA943C7A72C3FA073a37E3FdD96 rel=noopener>ethervm&rsquo;s decompiler</a>.</p><a href=#examples><h2 id=examples><span class=hanchor arialabel=Anchor># </span>Examples</h2></a><p>Let&rsquo;s manually step through <code>dmap</code> bytecode using set and get example.</p><p>Create <code>set</code> calldata using <code>abi.encodePacked(SEL, name, meta, data)</code> where SEL is a <code>4byte</code> selector and others are <code>bytes32</code>. So, for <code>set</code> calls, calldata length should be <strong>100</strong> bytes. And, <code>get</code> calldata should be <strong>36</strong> bytes. using <code>abi.encodePacked(SEL, s)</code> where <code>s</code> is the storage slot from <code>keccak256(msg.sender, name)</code>.</p><p>First start with a <code>get</code> example.</p><a href=#get><h2 id=get><span class=hanchor arialabel=Anchor># </span>GET</h2></a><ol><li>Set up the free-memory pointer.</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0000</span>    <span class=m>60</span>  PUSH1 0x80
+</span></span><span class=line><span class=cl><span class=m>0002</span>    <span class=m>60</span>  PUSH1 0x40
+</span></span><span class=line><span class=cl><span class=m>0004</span>    <span class=m>52</span>  MSTORE
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0040: 0x0000000000000000000000000000000000000000000000000000000000000080
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>Check <code>calldatasize</code> to be equal to <em>36</em> as <code>get</code> calldata = <em>36</em> bytes.</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0005</span>    <span class=m>36</span>  CALLDATASIZE
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000024 <span class=o>(</span>calldatasize<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0006</span>    <span class=m>60</span>  PUSH1 0x24
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000024 <span class=o>(</span><span class=m>36</span> bytes<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000024 <span class=o>(</span>calldatasize<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0008</span>    <span class=m>03</span>  SUB
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>sub<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0009</span>    <span class=m>60</span>  PUSH1 0x22
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000022 <span class=o>(</span>jump location<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>jump condition<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>000B    <span class=m>57</span>  *JUMPI
+</span></span><span class=line><span class=cl>STACK: <span class=m>0</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>load slot to stack</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>000C    <span class=m>60</span>  PUSH1 0x04
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000004 <span class=o>(</span>calldata offset<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>000E    <span class=m>35</span>  CALLDATALOAD
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000001 <span class=o>(</span>load calldata<span class=o>[</span>0x04:0x24<span class=o>])</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=4><li>load storage slot to stack and store to <code>mem[0x00:0x20]</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>000F    <span class=m>54</span>  SLOAD
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000 <span class=o>(</span>slot value<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0010</span>    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>0001: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0012</span>    <span class=m>52</span>  MSTORE
+</span></span><span class=line><span class=cl>STACK: <span class=m>0</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000 <span class=o>(</span>slot value<span class=o>)</span>
+</span></span><span class=line><span class=cl>0040: 0x0000000000000000000000000000000000000000000000000000000000000080
+</span></span></code></pre></td></tr></table></div></div><ol start=5><li>load s+1 slot to stack</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0013</span>    <span class=m>60</span>  PUSH1 0x04
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000004
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>0040: 0x0000000000000000000000000000000000000000000000000000000000000080
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0015</span>    <span class=m>35</span>  CALLDATALOAD
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000001 <span class=o>(</span>slot to retrieve<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0016</span>    <span class=m>60</span>  PUSH1 0x01
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000001
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000001
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0018</span>    <span class=m>01</span>  ADD
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000002
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0019</span>    <span class=m>54</span>  SLOAD
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol start=6><li>store loaded slot to <code>mem[0x20:0x40]</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>001A    <span class=m>60</span>  PUSH1 0x20
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000020
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>001C    <span class=m>52</span>  MSTORE
+</span></span><span class=line><span class=cl>STACK: <span class=m>0</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>0020: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol start=7><li>return <code>mem[0x00:0x40]</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>001D    <span class=m>60</span>  PUSH1 0x40
+</span></span><span class=line><span class=cl>001F    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>memory offset<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000040 <span class=o>(</span>memory length<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x022ea9ba506e38ef6093b6ab53e48bbd60f86832000000000000000000000000
+</span></span><span class=line><span class=cl>0020: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0021</span>    F3  *RETURN
+</span></span></code></pre></td></tr></table></div></div><a href=#set><h2 id=set><span class=hanchor arialabel=Anchor># </span>SET</h2></a><p>Now, let&rsquo;s walkthrough a <code>set</code> case.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>name: &#34;dmap&#34; = 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>meta: &#34;meta&#34; = 0x6d65746100000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>data: &#34;data&#34; = 0x6461746100000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>calldata: `abi.encodePacked(0x00000000,name,meta,data)` = 0x000000006e616d65000000000000000000000000000000000000000000000000000000006d657461000000000000000000000000000000000000000000000000000000006461746100000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol><li>Jump to <code>0x22</code> if <code>calldatasize > 36</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0022</span>    5B  JUMPDEST
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>push <code>name=calldata[0x04:0x24]</code>, <code>meta=calldata[0x24:0x44]</code>, <code>calldata[0x44:0x64]</code> to stack</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0023</span>    <span class=m>60</span>  PUSH1 0x04
+</span></span><span class=line><span class=cl><span class=m>0025</span>    <span class=m>35</span>  CALLDATALOAD
+</span></span><span class=line><span class=cl><span class=m>0026</span>    <span class=m>60</span>  PUSH1 0x24
+</span></span><span class=line><span class=cl><span class=m>0028</span>    <span class=m>35</span>  CALLDATALOAD
+</span></span><span class=line><span class=cl><span class=m>0029</span>    <span class=m>60</span>  PUSH1 0x44
+</span></span><span class=line><span class=cl>002B    <span class=m>35</span>  CALLDATALOAD
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>3</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>store msg.sender at mem[0x00:0x20]</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>002C    <span class=m>33</span>  CALLER
+</span></span><span class=line><span class=cl>002D    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl>002F    <span class=m>52</span>  MSTORE
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>3</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=4><li>store <code>name</code> at mem[0x20:0x40]</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0030</span>    <span class=m>82</span>  DUP3
+</span></span><span class=line><span class=cl><span class=m>0031</span>    <span class=m>60</span>  PUSH1 0x20
+</span></span><span class=line><span class=cl><span class=m>0033</span>    <span class=m>52</span>  MSTORE
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>3</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol start=5><li>calculate <code>keccak256(mem[0x00:0x40])</code> to find the storage slot</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0034</span>    <span class=m>60</span>  PUSH1 0x40
+</span></span><span class=line><span class=cl><span class=m>0036</span>    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl><span class=m>0038</span>    <span class=m>20</span>  SHA3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>4</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol start=6><li>log the event <code>(0, 0, msg.sender, name, meta, data)</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0039</span>    <span class=m>81</span>  DUP2
+</span></span><span class=line><span class=cl>003A    <span class=m>83</span>  DUP4
+</span></span><span class=line><span class=cl>003B    <span class=m>85</span>  DUP6
+</span></span><span class=line><span class=cl>003C    <span class=m>33</span>  CALLER
+</span></span><span class=line><span class=cl>003D    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl>003F    <span class=m>80</span>  DUP1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>9</span>
+</span></span><span class=line><span class=cl>0000: <span class=m>0</span>
+</span></span><span class=line><span class=cl>0001: <span class=m>0</span>
+</span></span><span class=line><span class=cl>0002: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0005: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0040</span>    A4  LOG4
+</span></span><span class=line><span class=cl>STACK: <span class=m>4</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Store <code>data</code> at <code>slot + 1</code></p></blockquote><ol start=7><li>duplicate <code>data</code> to stack top and push <code>1</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0041</span>    <span class=m>81</span>  DUP2
+</span></span><span class=line><span class=cl>STACK: <span class=m>5</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0042</span>    <span class=m>60</span>  PUSH1 0x01
+</span></span><span class=line><span class=cl>STACK: <span class=m>7</span>
+</span></span><span class=line><span class=cl>0000: <span class=m>01</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=8><li>duplicate slot and add 1.</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0044</span>    <span class=m>82</span>  DUP3
+</span></span><span class=line><span class=cl><span class=m>0045</span>    <span class=m>01</span>  ADD
+</span></span><span class=line><span class=cl>STACK: <span class=m>6</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab923 <span class=o>(</span>slot + 1<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=9><li>store at <code>storage[slot+1] = data</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0046</span>    <span class=m>55</span>  SSTORE
+</span></span><span class=line><span class=cl>STACK: <span class=m>4</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Next code block checks that <code>calldatasize=100</code> and storage slot should be empty.</p></blockquote><ol start=10><li>load slot and perform and with 1 to check if slot is empty or not</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0047</span>    <span class=m>80</span>  DUP1
+</span></span><span class=line><span class=cl>STACK: <span class=m>5</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0048</span>    <span class=m>54</span>  SLOAD
+</span></span><span class=line><span class=cl>STACK: <span class=m>5</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>slot value<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0049</span>    <span class=m>60</span>  PUSH1 0x01
+</span></span><span class=line><span class=cl>STACK: <span class=m>6</span>
+</span></span><span class=line><span class=cl>0000: 0x01
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>slot value<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0005: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>004B    <span class=m>16</span>  AND
+</span></span><span class=line><span class=cl>STACK: <span class=m>5</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>0001: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=11><li>check <code>calldatasize=100</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>004C    <span class=m>36</span>  CALLDATASIZE
+</span></span><span class=line><span class=cl>STACK: <span class=m>6</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000064 <span class=o>(</span>calldatasize<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>slot filled or not<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0005: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>004D    <span class=m>60</span>  PUSH1 0x64
+</span></span><span class=line><span class=cl>STACK: <span class=m>7</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000064 <span class=o>(</span><span class=m>100</span> bytes<span class=o>)</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000064 <span class=o>(</span>calldatasize<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>slot filled or not<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0005: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>004F    <span class=m>18</span>  XOR
+</span></span><span class=line><span class=cl>STACK: <span class=m>6</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span><span class=nv>calldatasize</span><span class=o>=</span><span class=m>100</span> or not<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>slot filled or not<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0005: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0050</span>    <span class=m>17</span>  OR
+</span></span><span class=line><span class=cl>STACK: <span class=m>5</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>0001: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=12><li>if true, jump to <code>0x58</code> and revert according to calldatasize</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0051</span>    <span class=m>60</span>  PUSH1 0x58
+</span></span><span class=line><span class=cl><span class=m>0053</span>    <span class=m>57</span>  *JUMPI
+</span></span></code></pre></td></tr></table></div></div><ol start=13><li>conditions are fulfilled, store <code>meta</code> at storage slot and return</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0054</span>    <span class=m>82</span>  DUP3
+</span></span><span class=line><span class=cl>STACK: <span class=m>5</span>
+</span></span><span class=line><span class=cl>0000: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0055</span>    <span class=m>81</span>  DUP2
+</span></span><span class=line><span class=cl>STACK: <span class=m>6</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0004: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0005: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0056</span>    <span class=m>55</span>  SSTORE
+</span></span><span class=line><span class=cl>STACK: <span class=m>4</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0057</span>    <span class=m>00</span>  *STOP
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Jump here, if conditions aren&rsquo;t fulfilled i.e. either lock is set or calldata is incorrect.</p></blockquote><ol start=14><li>pop everything</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0058</span>    5B  JUMPDEST
+</span></span><span class=line><span class=cl>STACK: <span class=m>4</span>
+</span></span><span class=line><span class=cl>0000: 0xf7fbcbda33204447e5b6bf43e1ab2765746799462c92f997afb4e0d6a2fab922 <span class=o>(</span>slot<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x6461746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>data<span class=o>)</span>
+</span></span><span class=line><span class=cl>0002: 0x6d65746100000000000000000000000000000000000000000000000000000000 <span class=o>(</span>meta<span class=o>)</span>
+</span></span><span class=line><span class=cl>0003: 0x6e616d6500000000000000000000000000000000000000000000000000000000 <span class=o>(</span>name<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0059</span>    <span class=m>50</span>  POP
+</span></span><span class=line><span class=cl>005A    <span class=m>50</span>  POP
+</span></span><span class=line><span class=cl>005B    <span class=m>50</span>  POP
+</span></span><span class=line><span class=cl>005C    <span class=m>50</span>  POP
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>0</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=15><li>check if attempted to write at locked slot by checking <code>calldatasize=100</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>005D    <span class=m>36</span>  CALLDATASIZE
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000064 <span class=o>(</span>calldatasize<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>005E    <span class=m>60</span>  PUSH1 0x64
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x64
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000064 <span class=o>(</span>calldatasize<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0060</span>    <span class=m>03</span>  SUB
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>calldatasize - 100<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=17><li>jump to <code>0x74</code> if calldatasize was wrong</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0061</span>    <span class=m>60</span>  PUSH1 0x74
+</span></span><span class=line><span class=cl><span class=m>0063</span>    <span class=m>57</span>  *JUMPI
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Revert if attempt to write to a locked slot.</p></blockquote><ol start=18><li>push <code>LOCKED()</code> converted to 4bytes</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0064</span>    <span class=m>63</span>  PUSH4 0xa1422f69
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0x00000000000000000000000000000000000000000000000000000000a1422f69 <span class=o>(</span>4byte error<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol start=19><li>shift left by 224 bytes to left align the 4byte error</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0069</span>    <span class=m>60</span>  PUSH1 0xe0
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0xe0
+</span></span><span class=line><span class=cl>0001: 0x00000000000000000000000000000000000000000000000000000000a1422f69 <span class=o>(</span>4byte error<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>006B    1B  SHL
+</span></span><span class=line><span class=cl>STACK: <span class=m>1</span>
+</span></span><span class=line><span class=cl>0000: 0xa1422f6900000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0x000000000000000000000000be862ad9abfe6f22bcb087716c7d89a26051f74c <span class=o>(</span><span class=nb>caller</span><span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span></code></pre></td></tr></table></div></div><ol start=20><li>store the error and revert</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>006C    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl>006E    <span class=m>52</span>  MSTORE
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>STACK: <span class=m>0</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0xa1422f6900000000000000000000000000000000000000000000000000000000 <span class=o>(</span>4byte error left aligned<span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>006F    <span class=m>60</span>  PUSH1 0x04
+</span></span><span class=line><span class=cl><span class=m>0071</span>    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x0000000000000000000000000000000000000000000000000000000000000000 <span class=o>(</span>memory offset<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x0000000000000000000000000000000000000000000000000000000000000004 <span class=o>(</span>memory length<span class=o>)</span>
+</span></span><span class=line><span class=cl>MEMORY:
+</span></span><span class=line><span class=cl>0000: 0xa1422f6900000000000000000000000000000000000000000000000000000000 <span class=o>(</span>4byte error left aligned<span class=o>)</span>
+</span></span><span class=line><span class=cl>0020: 0x6e616d6500000000000000000000000000000000000000000000000000000000
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0073</span>    FD  *REVERT
+</span></span></code></pre></td></tr></table></div></div><ol start=21><li>revert, if no conditions fulfilled</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0074</span>    5B  JUMPDEST
+</span></span><span class=line><span class=cl>STACK: <span class=m>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0075</span>    <span class=m>60</span>  PUSH1 0x00
+</span></span><span class=line><span class=cl><span class=m>0077</span>    <span class=m>80</span>  DUP1
+</span></span><span class=line><span class=cl>STACK: <span class=m>2</span>
+</span></span><span class=line><span class=cl>0000: 0x00 <span class=o>(</span>memory offset<span class=o>)</span>
+</span></span><span class=line><span class=cl>0001: 0x00 <span class=o>(</span>memory length<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>0078</span>    FD  *REVERT
+</span></span></code></pre></td></tr></table></div></div><ol start=22><li>remaining init opcodes</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=m>0079</span>    FE    *ASSERT
+</span></span><span class=line><span class=cl>007A    A2    LOG2
+</span></span><span class=line><span class=cl>007B    <span class=m>64</span>    PUSH5 0x6970667358
+</span></span><span class=line><span class=cl><span class=m>0081</span>    <span class=m>22</span>    <span class=m>22</span>
+</span></span><span class=line><span class=cl><span class=m>0082</span>    <span class=m>12</span>    SLT
+</span></span><span class=line><span class=cl><span class=m>0083</span>    <span class=m>20</span>    SHA3
+</span></span><span class=line><span class=cl><span class=m>0084</span>    <span class=m>47</span>    SELFBALANCE
+</span></span><span class=line><span class=cl><span class=m>0085</span>    5E    5E
+</span></span><span class=line><span class=cl><span class=m>0086</span>    <span class=m>23</span>    <span class=m>23</span>
+</span></span><span class=line><span class=cl><span class=m>0087</span>    8F    DUP16
+</span></span><span class=line><span class=cl><span class=m>0088</span>    <span class=m>09</span>    MULMOD
+</span></span><span class=line><span class=cl><span class=m>0089</span>    C0    C0
+</span></span><span class=line><span class=cl>008A    7B    PUSH28 0x2df011287cd0b887d9e0864657776ab6a3484c43f79237fefa64736f
+</span></span><span class=line><span class=cl>00A7    6C    PUSH13 0x634300080d0033
+</span></span></code></pre></td></tr></table></div></div></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://dsam82.github.io/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Sambhav <lonerapier>using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://dsam82.github.io/>Home</a></li><li><a href=https://twitter.com/lonerapier>Twitter</a></li><li><a href=https://github.com/dsam82>Github</a></li></ul></footer></div></div></body></html>

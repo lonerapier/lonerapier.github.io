@@ -1,32 +1,517 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="ECC Resources  Group Theory | Brilliant Math & Science Wiki
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="ECC Resources  Group Theory | Brilliant Math &amp; Science Wiki
  Picking a Base Point in ECC
- What’s The Order in ECC?"><title>lonerapier.xyz</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://dsam82.github.io//icon.png><link href=https://dsam82.github.io/styles.b3e1e36b0403ac565c9392b3e23ef3b6.min.css rel=stylesheet><link href=https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://dsam82.github.io/js/darkmode.99bf74b17084665b02e60f42b67a6c02.min.js></script>
-<script src=https://dsam82.github.io/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
-<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
-<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
-<script src=https://dsam82.github.io/js/popover.abe6a51cc7138c5dff00f151dd627ad1.min.js></script>
-<script src=https://dsam82.github.io/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
-<script src=https://dsam82.github.io/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
-<script src=https://dsam82.github.io/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
-<script>const BASE_URL="https://dsam82.github.io/",fetchData=Promise.all([fetch("https://dsam82.github.io/indices/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://dsam82.github.io/indices/contentIndex.91b99abe7aed5217fcdab04e6372af47.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://dsam82.github.io",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://dsam82.github.io",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})}</script><script type=module>
+ What’s The Order in ECC?"
+  />
+  <title>
+    lonerapier.xyz
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://dsam82.github.io//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://dsam82.github.io/styles.b3e1e36b0403ac565c9392b3e23ef3b6.min.css" rel="stylesheet" />
+
+  
+  <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://dsam82.github.io/js/darkmode.99bf74b17084665b02e60f42b67a6c02.min.js"></script>
+  
+  
+  
+  <script src="https://dsam82.github.io/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+
+
+    
+  <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script src="https://dsam82.github.io/js/popover.abe6a51cc7138c5dff00f151dd627ad1.min.js"></script>
+
+  
+  
+  
+  <script src="https://dsam82.github.io/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js"></script>
+  
+
+  
+  
+  <script src="https://dsam82.github.io/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js"></script>
+  
+
+  
+  
+  <script src="https://dsam82.github.io/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const BASE_URL = "https://dsam82.github.io/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.b59c0ef7c3d320a1c114f7fc829bad60.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+     
+      
+      initPopover(
+        "https://dsam82.github.io",
+         true ,
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://dsam82.github.io",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
     import { attachSPARouting } from "https:\/\/dsam82.github.io\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
     attachSPARouting(init, render)
-  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
-<script defer src=https://dsam82.github.io/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://dsam82.github.io/>lonerapier.xyz</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
-<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><p class=meta>Last updated
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://dsam82.github.io/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a href="https://dsam82.github.io/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      
+      <p class="meta">
+        Last updated 
 Sep 2, 2022
-<a href=https://github.com/dsam82/dsam82.github.io//posts/ECC.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#resources>Resources</a></li><li><a href=#elliptic-curve-cryptography>Elliptic Curve Cryptography</a></li><li><a href=#eip55>EIP55</a></li><li><a href=#discrete-log-problem-dlp>Discrete Log Problem (DLP)</a><ol><li><a href=#why-discrete-logarithm>Why Discrete logarithm?</a></li></ol></li><li><a href=#security>Security</a></li><li><a href=#secp256k1-vs-secp256r1>secp256k1 v/s secp256r1</a></li><li><a href=#bls-signatures>BLS Signatures</a></li><li><a href=#to-read>To-Read</a></li></ol></nav></details></aside><a href=#ecc><h1 id=ecc><span class=hanchor arialabel=Anchor># </span>ECC</h1></a><a href=#resources><h2 id=resources><span class=hanchor arialabel=Anchor># </span>Resources</h2></a><p><a href=https://brilliant.org/wiki/group-theory-introduction/ rel=noopener>Group Theory | Brilliant Math & Science Wiki</a></p><p><a href=https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6 rel=noopener>Picking a Base Point in ECC</a></p><p><a href=https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8 rel=noopener>What’s The Order in ECC?</a></p><ul><li><a href=https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve rel=noopener>https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve</a>
-<a href=https://river.com/learn/terms/s/secp256k1/ rel=noopener>Secp256k1 | River Glossary</a></li></ul><p><a href=https://river.com/learn/terms/d/discrete-log-problem-dlp/ rel=noopener>Discrete Log Problem (DLP) | River Glossary</a></p><p><a href=https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/ rel=noopener>Elliptic curves secp256k1 and secp256r1</a></p><p><a href=https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/ rel=noopener>Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks</a></p><p><a href=https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627 rel=noopener>Exploring Elliptic Curve Pairings</a></p><a href=#elliptic-curve-cryptography><h2 id=elliptic-curve-cryptography><span class=hanchor arialabel=Anchor># </span>Elliptic Curve Cryptography</h2></a><p>$$y^2 = x^3 + ax^2 + bx + c$$</p><p>secp256k1: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p><p>ECDSA: Elliptic Curve Digital Signature Algorithm</p><p>Public key cryptography uses this method to calculate public keys which is a point on ECC curve.</p><p>$$K = (k * G) % p$$</p><ul><li>K = 512-bit public key</li><li>k = 256-bit randomly generated private key</li><li>G = base point on the curve</li><li>p = prime number</li></ul><p>Take a base point $G$, add it $n$ (private key) times to make $nG (% p)$ (public key).</p><blockquote><p><strong>Note</strong>: addition here means addition in elliptic curve and not addition in field of integers mod p.</p></blockquote><p>Order of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.</p><p>Thus, choosing a good base point is necessary in any public key generation curves.</p><p>secp256k1:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>x = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798
-</span></span><span class=line><span class=cl>y = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
-</span></span><span class=line><span class=cl>p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
-</span></span></code></pre></td></tr></table></div></div><p>The order is:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>N = FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
-</span></span></code></pre></td></tr></table></div></div><p>Ethereum public keys are serialization of 130 hex characters</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>04 + x-coord (64) + y-coord (64)
-</span></span></code></pre></td></tr></table></div></div><blockquote><p>04 is prefixed as it is used to define uncompressed point on the ECC.</p></blockquote><p>Ethereum addresses are hexadecimal numbers, identifiers derived from the last 20 bytes of the Keccak256 hash of the public key.</p><a href=#eip55><h2 id=eip55><span class=hanchor arialabel=Anchor># </span>EIP55</h2></a><p>Mixed capitalisation of letters in the address</p><p>Take keccak256 hash of the address, capitalize character if hex digit of hash is greater than 8.</p><a href=#discrete-log-problem-dlp><h2 id=discrete-log-problem-dlp><span class=hanchor arialabel=Anchor># </span>Discrete Log Problem (DLP)</h2></a><p>describes that there are currently no known method for calculating point division on an elliptic curve.</p><a href=#why-discrete-logarithm><h3 id=why-discrete-logarithm><span class=hanchor arialabel=Anchor># </span>Why Discrete logarithm?</h3></a><p>ECC is significant because solving $k<em>G$ is trivial but obtaining $k$ from product $k</em>G$ is not.</p><p>k*G can be obtained using Fast-Exponentiation algorithm but solving for k requires computing discrete logarithms.</p><a href=#security><h2 id=security><span class=hanchor arialabel=Anchor># </span>Security</h2></a><p>Big-O Notation of discrete logarithm problem is $O(\sqrt{n})$.</p><p>Base point G, is chosen to be closer to $2^{256}$ and thus is in the order of 256.</p><p>So, $\sqrt{256} = 128$ bits level of security is provided by curves like secp256k1.</p><a href=#secp256k1-vs-secp256r1><h2 id=secp256k1-vs-secp256r1><span class=hanchor arialabel=Anchor># </span>secp256k1 v/s secp256r1</h2></a><p>secp256k1 is a Koblitz curve defined in a characteristic 2 finite field while secp256r1 is a prime field curve.</p><p>Not going into details as to what a characteristic 2 finite field is, we can specify secp256r1 as a pseudo-randomised curve and secp256k1 as completely random curve which can’t be solved using discrete logarithm problem <strong>yet</strong>.</p><a href=#bls-signatures><h2 id=bls-signatures><span class=hanchor arialabel=Anchor># </span>BLS Signatures</h2></a><a href=#to-read><h2 id=to-read><span class=hanchor arialabel=Anchor># </span>To-Read</h2></a><ol><li><a href=https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627 rel=noopener>https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627</a></li><li><a href=https://eth2book.info/altair/part2/building_blocks/signatures rel=noopener>https://eth2book.info/altair/part2/building_blocks/signatures</a></li></ol></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://dsam82.github.io/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Sambhav <lonerapier>using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://dsam82.github.io/>Home</a></li><li><a href=https://twitter.com/lonerapier>Twitter</a></li><li><a href=https://github.com/dsam82>Github</a></li></ul></footer></div></div></body></html>
+
+ 
+          
+<a href="https://github.com/dsam82/dsam82.github.io//posts/ECC.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+      </ul>
+      
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#elliptic-curve-cryptography">Elliptic Curve Cryptography</a></li>
+    <li><a href="#eip55">EIP55</a></li>
+    <li><a href="#discrete-log-problem-dlp">Discrete Log Problem (DLP)</a>
+      <ol>
+        <li><a href="#why-discrete-logarithm">Why Discrete logarithm?</a></li>
+      </ol>
+    </li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#secp256k1-vs-secp256r1">secp256k1 v/s secp256r1</a></li>
+    <li><a href="#bls-signatures">BLS Signatures</a></li>
+    <li><a href="#to-read">To-Read</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+  
+  
+
+
+<a href="#ecc"><h1 id="ecc"><span class="hanchor" ariaLabel="Anchor"># </span>ECC</h1></a>
+<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<p>
+
+<a href="https://brilliant.org/wiki/group-theory-introduction/" rel="noopener">Group Theory | Brilliant Math &amp; Science Wiki</a></p>
+<p>
+
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6" rel="noopener">Picking a Base Point in ECC</a></p>
+<p>
+
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8" rel="noopener">What’s The Order in ECC?</a></p>
+<ul>
+<li>
+
+<a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve" rel="noopener">https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve</a>
+
+
+<a href="https://river.com/learn/terms/s/secp256k1/" rel="noopener">Secp256k1 | River Glossary</a></li>
+</ul>
+<p>
+
+<a href="https://river.com/learn/terms/d/discrete-log-problem-dlp/" rel="noopener">Discrete Log Problem (DLP) | River Glossary</a></p>
+<p>
+
+<a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/" rel="noopener">Elliptic curves secp256k1 and secp256r1</a></p>
+<p>
+
+<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/" rel="noopener">Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks</a></p>
+<p>
+
+<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Exploring Elliptic Curve Pairings</a></p>
+<a href="#elliptic-curve-cryptography"><h2 id="elliptic-curve-cryptography"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curve Cryptography</h2></a>
+<p>$$y^2 = x^3 + ax^2 + bx + c$$</p>
+<p>secp256k1: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
+<p>ECDSA: Elliptic Curve Digital Signature Algorithm</p>
+<p>Public key cryptography uses this method to calculate public keys which is a point on ECC curve.</p>
+<p>$$K = (k * G) % p$$</p>
+<ul>
+<li>K = 512-bit public key</li>
+<li>k = 256-bit randomly generated private key</li>
+<li>G = base point on the curve</li>
+<li>p = prime number</li>
+</ul>
+<p>Take a base point $G$, add it $n$ (private key) times to make $nG (% p)$ (public key).</p>
+<blockquote>
+<p><strong>Note</strong>: addition here means addition in elliptic curve and not addition in field of integers mod p.</p>
+</blockquote>
+<p>Order of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.</p>
+<p>Thus, choosing a good base point is necessary in any public key generation curves.</p>
+<p>secp256k1:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">x = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798
+</span></span><span class="line"><span class="cl">y = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
+</span></span><span class="line"><span class="cl">p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The order is:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">N = FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ethereum public keys are serialization of 130 hex characters</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">04 + x-coord (64) + y-coord (64)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>04 is prefixed as it is used to define uncompressed point on the ECC.</p>
+</blockquote>
+<p>Ethereum addresses are hexadecimal numbers, identifiers derived from the last 20 bytes of the Keccak256 hash of the public key.</p>
+<a href="#eip55"><h2 id="eip55"><span class="hanchor" ariaLabel="Anchor"># </span>EIP55</h2></a>
+<p>Mixed capitalisation of letters in the address</p>
+<p>Take keccak256 hash of the address, capitalize character if hex digit of hash is greater than 8.</p>
+<a href="#discrete-log-problem-dlp"><h2 id="discrete-log-problem-dlp"><span class="hanchor" ariaLabel="Anchor"># </span>Discrete Log Problem (DLP)</h2></a>
+<p>describes that there are currently no known method for calculating point division on an elliptic curve.</p>
+<a href="#why-discrete-logarithm"><h3 id="why-discrete-logarithm"><span class="hanchor" ariaLabel="Anchor"># </span>Why Discrete logarithm?</h3></a>
+<p>ECC is significant because solving $k<em>G$ is trivial but obtaining $k$ from product $k</em>G$ is not.</p>
+<p>k*G can be obtained using Fast-Exponentiation algorithm but solving for k requires computing discrete logarithms.</p>
+<a href="#security"><h2 id="security"><span class="hanchor" ariaLabel="Anchor"># </span>Security</h2></a>
+<p>Big-O Notation of discrete logarithm problem is $O(\sqrt{n})$.</p>
+<p>Base point G, is chosen to be closer to $2^{256}$ and thus is in the order of 256.</p>
+<p>So, $\sqrt{256} = 128$ bits level of security is provided by curves like secp256k1.</p>
+<a href="#secp256k1-vs-secp256r1"><h2 id="secp256k1-vs-secp256r1"><span class="hanchor" ariaLabel="Anchor"># </span>secp256k1 v/s secp256r1</h2></a>
+<p>secp256k1 is a Koblitz curve defined in a characteristic 2 finite field while secp256r1 is a prime field curve.</p>
+<p>Not going into details as to what a characteristic 2 finite field is, we can specify secp256r1 as a pseudo-randomised curve and secp256k1 as completely random curve which can’t be solved using discrete logarithm problem <strong>yet</strong>.</p>
+<a href="#bls-signatures"><h2 id="bls-signatures"><span class="hanchor" ariaLabel="Anchor"># </span>BLS Signatures</h2></a>
+<a href="#to-read"><h2 id="to-read"><span class="hanchor" ariaLabel="Anchor"># </span>To-Read</h2></a>
+<ol>
+<li>
+
+<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627</a></li>
+<li>
+
+<a href="https://eth2book.info/altair/part2/building_blocks/signatures" rel="noopener">https://eth2book.info/altair/part2/building_blocks/signatures</a></li>
+</ol>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://dsam82.github.io/js/graph.abd4bc2af3869a96524d7d23b76152c7.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2022</p>
+        <ul>
+            
+            <li><a href="https://dsam82.github.io/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/dsam82">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

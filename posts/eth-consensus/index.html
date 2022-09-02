@@ -1,22 +1,572 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="ETH 2.0 ELI5 understanding of ETH 2.0 specs
-Safety: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus."><title>lonerapier.xyz</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://dsam82.github.io//icon.png><link href=https://dsam82.github.io/styles.b3e1e36b0403ac565c9392b3e23ef3b6.min.css rel=stylesheet><link href=https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://dsam82.github.io/js/darkmode.99bf74b17084665b02e60f42b67a6c02.min.js></script>
-<script src=https://dsam82.github.io/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
-<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
-<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
-<script src=https://dsam82.github.io/js/popover.abe6a51cc7138c5dff00f151dd627ad1.min.js></script>
-<script src=https://dsam82.github.io/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
-<script src=https://dsam82.github.io/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
-<script src=https://dsam82.github.io/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
-<script>const BASE_URL="https://dsam82.github.io/",fetchData=Promise.all([fetch("https://dsam82.github.io/indices/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://dsam82.github.io/indices/contentIndex.91b99abe7aed5217fcdab04e6372af47.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://dsam82.github.io",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://dsam82.github.io",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})}</script><script type=module>
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="ETH 2.0 ELI5 understanding of ETH 2.0 specs
+Safety: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus."
+  />
+  <title>
+    lonerapier.xyz
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://dsam82.github.io//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://dsam82.github.io/styles.b3e1e36b0403ac565c9392b3e23ef3b6.min.css" rel="stylesheet" />
+
+  
+  <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://dsam82.github.io/js/darkmode.99bf74b17084665b02e60f42b67a6c02.min.js"></script>
+  
+  
+  
+  <script src="https://dsam82.github.io/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+
+
+    
+  <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script src="https://dsam82.github.io/js/popover.abe6a51cc7138c5dff00f151dd627ad1.min.js"></script>
+
+  
+  
+  
+  <script src="https://dsam82.github.io/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js"></script>
+  
+
+  
+  
+  <script src="https://dsam82.github.io/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js"></script>
+  
+
+  
+  
+  <script src="https://dsam82.github.io/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const BASE_URL = "https://dsam82.github.io/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.b59c0ef7c3d320a1c114f7fc829bad60.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+     
+      
+      initPopover(
+        "https://dsam82.github.io",
+         true ,
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://dsam82.github.io",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
     import { attachSPARouting } from "https:\/\/dsam82.github.io\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
     attachSPARouting(init, render)
-  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
-<script defer src=https://dsam82.github.io/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://dsam82.github.io/>lonerapier.xyz</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
-<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><p class=meta>Last updated
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://dsam82.github.io/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a href="https://dsam82.github.io/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      
+      <p class="meta">
+        Last updated 
 Sep 2, 2022
-<a href=https://github.com/dsam82/dsam82.github.io//posts/eth-consensus.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#why-pos><strong>Why PoS</strong></a></li><li><a href=#different-types-of-pos>Different types of PoS</a></li><li><a href=#proof-of-stake><strong>Proof Of Stake</strong></a></li><li><a href=#phases><strong>Phases</strong></a></li><li><a href=#sharding><strong>Sharding</strong></a></li><li><a href=#beacon-chain><strong>Beacon Chain</strong></a></li><li><a href=#slots--epochs><strong>Slots & Epochs</strong></a></li><li><a href=#crosslinks><strong>Crosslinks</strong></a></li><li><a href=#committee><strong>Committee</strong></a><ol><li><a href=#beacon-chain-checkpoints><strong>Beacon Chain Checkpoints</strong></a></li><li><a href=#votes>Votes</a></li></ol></li><li><a href=#finality>Finality</a></li><li><a href=#flp-impossibility>FLP Impossibility</a></li><li><a href=#questions><strong>Questions</strong></a></li><li><a href=#checkpoints><strong>Checkpoints</strong></a></li></ol></nav></details></aside><a href=#eth-20><h1 id=eth-20><span class=hanchor arialabel=Anchor># </span>ETH 2.0</h1></a><p>ELI5 understanding of ETH 2.0 specs</p><p><strong>Safety</strong>: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</p><p><strong>Liveness</strong>: something good eventually occurs. Example: POW, Casper used by Ethereum.</p><a href=#why-pos><h2 id=why-pos><span class=hanchor arialabel=Anchor># </span><strong>Why PoS</strong></h2></a><p>An individual autonomy should always be greater than the power of any state. Cryptography solved this issue, by using ECC, individuals can now have a pair of keys that only he can access and thus, has the power to defend even state-level attacks.</p><p>Consensus in blockchain is what drives the value of the network, and from where the network derives its value. No attacker should have incentives to attack the network for his own gain. PoW style networks are based on rewards where a consensus participant has almost nothing to lose in case the network is attacked. PoS solves this problem by allocating stakes to network particpants and imposing penalties in case of any malicious actors in the system. The ratio of rewards v/s penalties determines the incentives of consensus participants to behave honestly as penalties are directly proportional to number of wrong validations, if more validators behave maliciously, then slashing is higher.</p><a href=#different-types-of-pos><h2 id=different-types-of-pos><span class=hanchor arialabel=Anchor># </span>Different types of PoS</h2></a><ul><li>Chain-Based PoS: pseudo-random validator assigned at each time slot to create new block behind a previous block</li><li>BFT-style PoS: (partially synchronous) randomly assigned validator proposes a block and canonical chain is assigned using a voting process on which each validator votes for the valid chain</li></ul><a href=#proof-of-stake><h2 id=proof-of-stake><span class=hanchor arialabel=Anchor># </span><strong>Proof Of Stake</strong></h2></a><ul><li>Stake ETH to become validator<ul><li>For each 32 ETH staked, a validator is activated. Anyone can stake any number of ETHs and activate and control validators and execute <strong>validator clients</strong>.</li></ul><blockquote><p>Validator clients has the functionality of following and reading the Beacon Chain. A validator client can make calls into the Beacon nodes.</p></blockquote></li><li>Validator, responsible for adding blocks to the chain by verifying txs and policing blocks being added by other validators<ul><li>Earns by successfully adding blocks</li><li>Staked eths slashed if illegal txs added</li></ul></li><li>Save Energy as selected randomly and not competing</li><li>No need to mine, just validate blocks known as <strong>Attesting</strong></li></ul><a href=#phases><h2 id=phases><span class=hanchor arialabel=Anchor># </span><strong>Phases</strong></h2></a><ul><li>Beacon Chain</li><li>Sharding</li><li>Execution</li></ul><a href=#sharding><h2 id=sharding><span class=hanchor arialabel=Anchor># </span><strong>Sharding</strong></h2></a><ul><li>Scaling nodes horizontally</li><li>At least 128 Validators randomly assigned to a shard where a new block will be added in each slot of an epoch i.e., after 32 slots</li><li>ETH plans for 64 shards</li></ul><a href=#beacon-chain><h2 id=beacon-chain><span class=hanchor arialabel=Anchor># </span><strong>Beacon Chain</strong></h2></a><ul><li>Main functioning body in the blockchain, managing all the shards and the validators</li><li>Functions as heart of the chain</li><li>Creates <strong>committee</strong>, which are the validators used to validate a blockchain on which everyone verifies, stores and downloads</li></ul><a href=#slots--epochs><h2 id=slots--epochs><span class=hanchor arialabel=Anchor># </span><strong>Slots & Epochs</strong></h2></a><ul><li>Chain is divided into <strong>slots</strong> and <strong>epochs</strong></li><li><strong>Slot</strong> → timeframe to propose and validate a new block<ul><li>In a time period pre-determined in a blockchain, 12 seconds in case of Ethereum, all shard blocks are added into the blockchain</li><li>Slots can be empty in case a validator fails to <strong>propose</strong> the block or the committee fails to attest</li><li>Genesis blocks added to both Beacon chain and shards at block 0</li></ul></li><li><strong>Epochs</strong> → 32 slots comprises an epoch. > 12 sec * 32 slots = 6.4 mins</li></ul><a href=#crosslinks><h2 id=crosslinks><span class=hanchor arialabel=Anchor># </span><strong>Crosslinks</strong></h2></a><ul><li>reference to shard blocks</li><li>basically the proof that a shard is valid</li><li>created at beacon chain for every successful block proposed by a shard</li><li>only after a crosslink does a validator get its reward</li></ul><a href=#committee><h2 id=committee><span class=hanchor arialabel=Anchor># </span><strong>Committee</strong></h2></a><ul><li><strong>Beacon chain</strong> gets its name from the random numbers that it emits to the public</li><li>uses RANDAO process to randomly select a group of validators for an epoch to a shard to attest transactions in a block</li><li>crosslinks are made after attestation from validators of that slot</li><li>Every epoch, validators randomnly assigned to a slot which is then subdivided into committees.</li><li>Each committee is assigned a particular shard and they attempt to crosslink a shard block to Beacon chain head in order to gain rewards.</li><li>64 shards, each assigned 128 validators per committee -> Thus, has atleast 8192 validators</li></ul><a href=#beacon-chain-checkpoints><h3 id=beacon-chain-checkpoints><span class=hanchor arialabel=Anchor># </span><strong>Beacon Chain Checkpoints</strong></h3></a><p><img src=https://dsam82.github.io//assets/Beacon-Chain-Checkpoints.jpeg width=auto alt=image></p><p>A <code>checkpoint</code> or an <code>epoch boundary</code> is the first block in an epoch. If no such block, it is the most recent preceding block.</p><a href=#votes><h3 id=votes><span class=hanchor arialabel=Anchor># </span>Votes</h3></a><ul><li><strong><code>LMD GHOST</code></strong>: validator vote for beacon chain head, i.e. what they believe beacon chain head is.</li><li><strong><code>Casper FFG</code></strong>: When casting LMD GHOST vote, validators also vote for checkpoint in current epoch, called <code>target</code>. This also includes previous epoch checkpoint called <code>source</code>.</li></ul><a href=#finality><h2 id=finality><span class=hanchor arialabel=Anchor># </span>Finality</h2></a><blockquote><p><code>Supermajority vote</code>: which is made by 2/3 of the total <strong>balance</strong> of all validators.</p></blockquote><p><img src=https://dsam82.github.io//assets/Beacon-Chain-Justification-and-Finalization.png width=auto alt=image></p><p>When an epoch checkpoint gets supermajority vote, it is said to be <em>justified</em>.
+
+ 
+          
+<a href="https://github.com/dsam82/dsam82.github.io//posts/eth-consensus.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+      </ul>
+      
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#why-pos"><strong>Why PoS</strong></a></li>
+    <li><a href="#different-types-of-pos">Different types of PoS</a></li>
+    <li><a href="#proof-of-stake"><strong>Proof Of Stake</strong></a></li>
+    <li><a href="#phases"><strong>Phases</strong></a></li>
+    <li><a href="#sharding"><strong>Sharding</strong></a></li>
+    <li><a href="#beacon-chain"><strong>Beacon Chain</strong></a></li>
+    <li><a href="#slots--epochs"><strong>Slots &amp; Epochs</strong></a></li>
+    <li><a href="#crosslinks"><strong>Crosslinks</strong></a></li>
+    <li><a href="#committee"><strong>Committee</strong></a>
+      <ol>
+        <li><a href="#beacon-chain-checkpoints"><strong>Beacon Chain Checkpoints</strong></a></li>
+        <li><a href="#votes">Votes</a></li>
+      </ol>
+    </li>
+    <li><a href="#finality">Finality</a></li>
+    <li><a href="#flp-impossibility">FLP Impossibility</a></li>
+    <li><a href="#questions"><strong>Questions</strong></a></li>
+    <li><a href="#checkpoints"><strong>Checkpoints</strong></a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+  
+  
+
+
+<a href="#eth-20"><h1 id="eth-20"><span class="hanchor" ariaLabel="Anchor"># </span>ETH 2.0</h1></a>
+<p>ELI5 understanding of ETH 2.0 specs</p>
+<p><strong>Safety</strong>: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</p>
+<p><strong>Liveness</strong>: something good eventually occurs. Example: POW, Casper used by Ethereum.</p>
+<a href="#why-pos"><h2 id="why-pos"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Why PoS</strong></h2></a>
+<p>An individual autonomy should always be greater than the power of any state. Cryptography solved this issue, by using ECC, individuals can now have a pair of keys that only he can access and thus, has the power to defend even state-level attacks.</p>
+<p>Consensus in blockchain is what drives the value of the network, and from where the network derives its value. No attacker should have incentives to attack the network for his own gain. PoW style networks are based on rewards where a consensus participant has almost nothing to lose in case the network is attacked. PoS solves this problem by allocating stakes to network particpants and imposing penalties in case of any malicious actors in the system. The ratio of rewards v/s penalties determines the incentives of consensus participants to behave honestly as penalties are directly proportional to number of wrong validations, if more validators behave maliciously, then slashing is higher.</p>
+<a href="#different-types-of-pos"><h2 id="different-types-of-pos"><span class="hanchor" ariaLabel="Anchor"># </span>Different types of PoS</h2></a>
+<ul>
+<li>Chain-Based PoS: pseudo-random validator assigned at each time slot to create new block behind a previous block</li>
+<li>BFT-style PoS: (partially synchronous) randomly assigned validator proposes a block and canonical chain is assigned using a voting process on which each validator votes for the valid chain</li>
+</ul>
+<a href="#proof-of-stake"><h2 id="proof-of-stake"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Proof Of Stake</strong></h2></a>
+<ul>
+<li>Stake ETH to become validator
+<ul>
+<li>For each 32 ETH staked, a validator is activated. Anyone can stake any number of ETHs and activate and control validators and execute <strong>validator clients</strong>.</li>
+</ul>
+<blockquote>
+<p>Validator clients has the functionality of following and reading the Beacon Chain. A validator client can make calls into the Beacon nodes.</p>
+</blockquote>
+</li>
+<li>Validator, responsible for adding blocks to the chain by verifying txs and policing blocks being added by other validators
+<ul>
+<li>Earns by successfully adding blocks</li>
+<li>Staked eths slashed if illegal txs added</li>
+</ul>
+</li>
+<li>Save Energy as selected randomly and not competing</li>
+<li>No need to mine, just validate blocks known as <strong>Attesting</strong></li>
+</ul>
+<a href="#phases"><h2 id="phases"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Phases</strong></h2></a>
+<ul>
+<li>Beacon Chain</li>
+<li>Sharding</li>
+<li>Execution</li>
+</ul>
+<a href="#sharding"><h2 id="sharding"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Sharding</strong></h2></a>
+<ul>
+<li>Scaling nodes horizontally</li>
+<li>At least 128 Validators randomly assigned to a shard where a new block will be added in each slot of an epoch i.e., after 32 slots</li>
+<li>ETH plans for 64 shards</li>
+</ul>
+<a href="#beacon-chain"><h2 id="beacon-chain"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Beacon Chain</strong></h2></a>
+<ul>
+<li>Main functioning body in the blockchain, managing all the shards and the validators</li>
+<li>Functions as heart of the chain</li>
+<li>Creates <strong>committee</strong>, which are the validators used to validate a blockchain on which everyone verifies, stores and downloads</li>
+</ul>
+<a href="#slots--epochs"><h2 id="slots--epochs"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Slots &amp; Epochs</strong></h2></a>
+<ul>
+<li>Chain is divided into <strong>slots</strong> and <strong>epochs</strong></li>
+<li><strong>Slot</strong> → timeframe to propose and validate a new block
+<ul>
+<li>In a time period pre-determined in a blockchain, 12 seconds in case of Ethereum, all shard blocks are added into the blockchain</li>
+<li>Slots can be empty in case a validator fails to <strong>propose</strong> the block or the committee fails to attest</li>
+<li>Genesis blocks added to both Beacon chain and shards at block 0</li>
+</ul>
+</li>
+<li><strong>Epochs</strong> → 32 slots comprises an epoch. &gt; 12 sec * 32 slots = 6.4 mins</li>
+</ul>
+<a href="#crosslinks"><h2 id="crosslinks"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Crosslinks</strong></h2></a>
+<ul>
+<li>reference to shard blocks</li>
+<li>basically the proof that a shard is valid</li>
+<li>created at beacon chain for every successful block proposed by a shard</li>
+<li>only after a crosslink does a validator get its reward</li>
+</ul>
+<a href="#committee"><h2 id="committee"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Committee</strong></h2></a>
+<ul>
+<li><strong>Beacon chain</strong> gets its name from the random numbers that it emits to the public</li>
+<li>uses RANDAO process to randomly select a group of validators for an epoch to a shard to attest transactions in a block</li>
+<li>crosslinks are made after attestation from validators of that slot</li>
+<li>Every epoch, validators randomnly assigned to a slot which is then subdivided into committees.</li>
+<li>Each committee is assigned a particular shard and they attempt to crosslink a shard block to Beacon chain head in order to gain rewards.</li>
+<li>64 shards, each assigned 128 validators per committee -&gt; Thus, has atleast 8192 validators</li>
+</ul>
+<a href="#beacon-chain-checkpoints"><h3 id="beacon-chain-checkpoints"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Beacon Chain Checkpoints</strong></h3></a>
+<p>
+
+
+<img src="https://dsam82.github.io//assets/Beacon-Chain-Checkpoints.jpeg" width="auto" alt="image"  /></p>
+<p>A <code>checkpoint</code> or an <code>epoch boundary</code> is the first block in an epoch. If no such block, it is the most recent preceding block.</p>
+<a href="#votes"><h3 id="votes"><span class="hanchor" ariaLabel="Anchor"># </span>Votes</h3></a>
+<ul>
+<li><strong><code>LMD GHOST</code></strong>: validator vote for beacon chain head, i.e. what they believe beacon chain head is.</li>
+<li><strong><code>Casper FFG</code></strong>: When casting LMD GHOST vote, validators also vote for checkpoint in current epoch, called <code>target</code>. This also includes previous epoch checkpoint called <code>source</code>.</li>
+</ul>
+<a href="#finality"><h2 id="finality"><span class="hanchor" ariaLabel="Anchor"># </span>Finality</h2></a>
+<blockquote>
+<p><code>Supermajority vote</code>: which is made by 2/3 of the total <strong>balance</strong> of all validators.</p>
+</blockquote>
+<p>
+
+
+<img src="https://dsam82.github.io//assets/Beacon-Chain-Justification-and-Finalization.png" width="auto" alt="image"  /></p>
+<p>When an epoch checkpoint gets supermajority vote, it is said to be <em>justified</em>.
 An epoch is <em>finalised</em> when it is justified and next epoch checkpoint gets justified.
-When a epoch checkpoint, i.e. slot gets finalised, all preceding blocks also gets finalised.</p><ul><li>Finality is important as it gives gurantees to shards and ethereum parties regarding transactions.</li><li>Reduces complexity with cross-shard communications.</li></ul><a href=#flp-impossibility><h2 id=flp-impossibility><span class=hanchor arialabel=Anchor># </span>FLP Impossibility</h2></a><p><img src=https://dsam82.github.io//assets/FLP-Impossibility.png width=auto alt=image></p><p>In a distributed system, it is not possible to simultaneously have safetly, liveness and full asynchrony unless some unreasonable assumptions are made.</p><p>Ethereum uses both <code>LMD-GHOST</code> and <code>Casper FFG</code> as its protocol to justify and finalise blocks.</p><p><strong>LMD-GHOST</strong> preferes liveness over safety in the form that validator can attest to a chain head and keep producing blocks while <strong>Casper</strong> prefers safety over liveness such that a block is finalised only when it is justified and in a later epoch, majority of validators attest it again to finalise it. Once, a block is finalised, it is added forever in the chain.</p><p>Due to <strong>LMD-GHOST</strong> prefering liveness over safety, there is a chance of reorgs. Capser FFG helps here as it prefers safety and decisions made under Casper is considered final. It has phases, in which nodes indicate they&rsquo;d like to agree on something(justification), then agree that they&rsquo;ve seen each other agreeing(finalisation).</p><a href=#questions><h2 id=questions><span class=hanchor arialabel=Anchor># </span><strong>Questions</strong></h2></a><ol><li>MEV in PoS</li><li>Reorgs</li></ol><a href=#checkpoints><h2 id=checkpoints><span class=hanchor arialabel=Anchor># </span><strong>Checkpoints</strong></h2></a><ol><li><a href=https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/ rel=noopener>https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/</a></li><li><a href=https://eth2book.info/altair/contents rel=noopener>eth2book.info</a></li><li><a href=https://github.com/ethereum/annotated-spec/blob/master/phase1/beacon-chain.md#introduction rel=noopener>https://github.com/ethereum/annotated-spec/blob/master/phase1/beacon-chain.md#introduction</a></li><li><a href=https://ethos.dev/beacon-chain/ rel=noopener>https://ethos.dev/beacon-chain/</a></li><li><a href=https://ethresear.ch/t/two-ways-to-do-cross-links/2074 rel=noopener>https://ethresear.ch/t/two-ways-to-do-cross-links/2074</a></li><li><a href=https://vitalik.ca/general/2017/12/31/pos_faq.html rel=noopener>https://vitalik.ca/general/2017/12/31/pos_faq.html</a></li><li><a href=https://medium.com/codechain/safety-and-liveness-blockchain-in-the-point-of-view-of-flp-impossibility-182e33927ce6 rel=noopener>https://medium.com/codechain/safety-and-liveness-blockchain-in-the-point-of-view-of-flp-impossibility-182e33927ce6</a></li><li><a href=https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51 rel=noopener>https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51</a></li><li><a href=https://hackmd.io/@benjaminion/eth2_news/https%3A%2F%2Fhackmd.io%2F%40benjaminion%2Fwnie2_220311 rel=noopener>Ben Eddington blog</a></li><li><a href=https://eth2.incessant.ink/book/03__eth1/07__clients.html rel=noopener>eth2book</a></li><li><a href=https://arxiv.org/pdf/2203.01315.pdf rel=noopener>https://arxiv.org/pdf/2203.01315.pdf</a></li><li><a href=https://blog.ethereum.org/2020/02/12/validated-staking-on-eth2-2-two-ghosts-in-a-trench-coat/ rel=noopener>LMD GHOST and Casper FFG</a></li><li><a href=https://blog.ethereum.org/2019/12/30/eth1x-files-state-of-stateless-ethereum/ rel=noopener>https://blog.ethereum.org/2019/12/30/eth1x-files-state-of-stateless-ethereum/</a></li><li><a href=https://www.attestant.io/posts/understanding-validator-effective-balancehttps://www.attestant.io/posts/understanding-validator-effective-balance/ rel=noopener>Understanding validator effective balance</a></li><li><a href=https://0xfoobar.substack.com/p/ethereum-proof-of-stake rel=noopener>0xfoobar&rsquo;s Proof of Stake</a></li></ol></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://dsam82.github.io/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Sambhav <lonerapier>using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://dsam82.github.io/>Home</a></li><li><a href=https://twitter.com/lonerapier>Twitter</a></li><li><a href=https://github.com/dsam82>Github</a></li></ul></footer></div></div></body></html>
+When a epoch checkpoint, i.e. slot gets finalised, all preceding blocks also gets finalised.</p>
+<ul>
+<li>Finality is important as it gives gurantees to shards and ethereum parties regarding transactions.</li>
+<li>Reduces complexity with cross-shard communications.</li>
+</ul>
+<a href="#flp-impossibility"><h2 id="flp-impossibility"><span class="hanchor" ariaLabel="Anchor"># </span>FLP Impossibility</h2></a>
+<p>
+
+
+<img src="https://dsam82.github.io//assets/FLP-Impossibility.png" width="auto" alt="image"  /></p>
+<p>In a distributed system, it is not possible to simultaneously have safetly, liveness and full asynchrony unless some unreasonable assumptions are made.</p>
+<p>Ethereum uses both <code>LMD-GHOST</code> and <code>Casper FFG</code> as its protocol to justify and finalise blocks.</p>
+<p><strong>LMD-GHOST</strong> preferes liveness over safety in the form that validator can attest to a chain head and keep producing blocks while <strong>Casper</strong> prefers safety over liveness such that a block is finalised only when it is justified and in a later epoch, majority of validators attest it again to finalise it. Once, a block is finalised, it is added forever in the chain.</p>
+<p>Due to <strong>LMD-GHOST</strong> prefering liveness over safety, there is a chance of reorgs. Capser FFG helps here as it prefers safety and decisions made under Casper is considered final. It has phases, in which nodes indicate they&rsquo;d like to agree on something(justification), then agree that they&rsquo;ve seen each other agreeing(finalisation).</p>
+<a href="#questions"><h2 id="questions"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Questions</strong></h2></a>
+<ol>
+<li>MEV in PoS</li>
+<li>Reorgs</li>
+</ol>
+<a href="#checkpoints"><h2 id="checkpoints"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Checkpoints</strong></h2></a>
+<ol>
+<li>
+
+<a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/" rel="noopener">https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/</a></li>
+<li>
+
+<a href="https://eth2book.info/altair/contents" rel="noopener">eth2book.info</a></li>
+<li>
+
+<a href="https://github.com/ethereum/annotated-spec/blob/master/phase1/beacon-chain.md#introduction" rel="noopener">https://github.com/ethereum/annotated-spec/blob/master/phase1/beacon-chain.md#introduction</a></li>
+<li>
+
+<a href="https://ethos.dev/beacon-chain/" rel="noopener">https://ethos.dev/beacon-chain/</a></li>
+<li>
+
+<a href="https://ethresear.ch/t/two-ways-to-do-cross-links/2074" rel="noopener">https://ethresear.ch/t/two-ways-to-do-cross-links/2074</a></li>
+<li>
+
+<a href="https://vitalik.ca/general/2017/12/31/pos_faq.html" rel="noopener">https://vitalik.ca/general/2017/12/31/pos_faq.html</a></li>
+<li>
+
+<a href="https://medium.com/codechain/safety-and-liveness-blockchain-in-the-point-of-view-of-flp-impossibility-182e33927ce6" rel="noopener">https://medium.com/codechain/safety-and-liveness-blockchain-in-the-point-of-view-of-flp-impossibility-182e33927ce6</a></li>
+<li>
+
+<a href="https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51" rel="noopener">https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51</a></li>
+<li>
+
+<a href="https://hackmd.io/@benjaminion/eth2_news/https%3A%2F%2Fhackmd.io%2F%40benjaminion%2Fwnie2_220311" rel="noopener">Ben Eddington blog</a></li>
+<li>
+
+<a href="https://eth2.incessant.ink/book/03__eth1/07__clients.html" rel="noopener">eth2book</a></li>
+<li>
+
+<a href="https://arxiv.org/pdf/2203.01315.pdf" rel="noopener">https://arxiv.org/pdf/2203.01315.pdf</a></li>
+<li>
+
+<a href="https://blog.ethereum.org/2020/02/12/validated-staking-on-eth2-2-two-ghosts-in-a-trench-coat/" rel="noopener">LMD GHOST and Casper FFG</a></li>
+<li>
+
+<a href="https://blog.ethereum.org/2019/12/30/eth1x-files-state-of-stateless-ethereum/" rel="noopener">https://blog.ethereum.org/2019/12/30/eth1x-files-state-of-stateless-ethereum/</a></li>
+<li>
+
+<a href="https://www.attestant.io/posts/understanding-validator-effective-balancehttps://www.attestant.io/posts/understanding-validator-effective-balance/" rel="noopener">Understanding validator effective balance</a></li>
+<li>
+
+<a href="https://0xfoobar.substack.com/p/ethereum-proof-of-stake" rel="noopener">0xfoobar&rsquo;s Proof of Stake</a></li>
+</ol>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://dsam82.github.io/js/graph.abd4bc2af3869a96524d7d23b76152c7.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2022</p>
+        <ul>
+            
+            <li><a href="https://dsam82.github.io/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/dsam82">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

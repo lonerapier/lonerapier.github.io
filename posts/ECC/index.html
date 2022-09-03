@@ -8,9 +8,8 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="Resources  Group Theory | Brilliant Math &amp; Science Wiki
- Picking a Base Point in ECC
- What’s The Order in ECC?"
+    content="Elliptic Curve Cryptography $$y^2 = x^3 &#43; ax^2 &#43; bx &#43; c$$
+secp256k1: used by Bitcoin and Ethereum to implement public key cryptography."
   />
   <title>
     Elliptic Curve Cryptography
@@ -131,7 +130,7 @@
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.f704e1d9abba263b17308f9c4907ff4f.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.c28e52a350ddd0edf86eafb3961fe8ad.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -293,7 +292,6 @@ Aug 21, 2022
         <summary>Table of Contents</summary>
         <nav id="TableOfContents">
   <ol>
-    <li><a href="#resources">Resources</a></li>
     <li><a href="#elliptic-curve-cryptography">Elliptic Curve Cryptography</a></li>
     <li><a href="#eip55">EIP55</a></li>
     <li><a href="#discrete-log-problem-dlp">Discrete Log Problem (DLP)</a>
@@ -305,6 +303,7 @@ Aug 21, 2022
     <li><a href="#secp256k1-vs-secp256r1">secp256k1 v/s secp256r1</a></li>
     <li><a href="#bls-signatures">BLS Signatures</a></li>
     <li><a href="#to-read">To-Read</a></li>
+    <li><a href="#resources">Resources</a></li>
   </ol>
 </nav>
     </details>
@@ -363,36 +362,6 @@ Aug 21, 2022
   
 
 
-<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
-<p>
-
-<a href="https://brilliant.org/wiki/group-theory-introduction/" rel="noopener">Group Theory | Brilliant Math &amp; Science Wiki</a></p>
-<p>
-
-<a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6" rel="noopener">Picking a Base Point in ECC</a></p>
-<p>
-
-<a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8" rel="noopener">What’s The Order in ECC?</a></p>
-<ul>
-<li>
-
-<a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve" rel="noopener">https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve</a>
-
-
-<a href="https://river.com/learn/terms/s/secp256k1/" rel="noopener">Secp256k1 | River Glossary</a></li>
-</ul>
-<p>
-
-<a href="https://river.com/learn/terms/d/discrete-log-problem-dlp/" rel="noopener">Discrete Log Problem (DLP) | River Glossary</a></p>
-<p>
-
-<a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/" rel="noopener">Elliptic curves secp256k1 and secp256r1</a></p>
-<p>
-
-<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/" rel="noopener">Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks</a></p>
-<p>
-
-<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Exploring Elliptic Curve Pairings</a></p>
 <a href="#elliptic-curve-cryptography"><h2 id="elliptic-curve-cryptography"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curve Cryptography</h2></a>
 <p>$$y^2 = x^3 + ax^2 + bx + c$$</p>
 <p>secp256k1: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
@@ -452,7 +421,7 @@ Aug 21, 2022
 <a href="#discrete-log-problem-dlp"><h2 id="discrete-log-problem-dlp"><span class="hanchor" ariaLabel="Anchor"># </span>Discrete Log Problem (DLP)</h2></a>
 <p>describes that there are currently no known method for calculating point division on an elliptic curve.</p>
 <a href="#why-discrete-logarithm"><h3 id="why-discrete-logarithm"><span class="hanchor" ariaLabel="Anchor"># </span>Why Discrete logarithm?</h3></a>
-<p>ECC is significant because solving $k<em>G$ is trivial but obtaining $k$ from product $k</em>G$ is not.</p>
+<p>ECC is significant because solving $k * G$ is trivial but obtaining $k$ from product $k * G$ is not.</p>
 <p>k*G can be obtained using Fast-Exponentiation algorithm but solving for k requires computing discrete logarithms.</p>
 <a href="#security"><h2 id="security"><span class="hanchor" ariaLabel="Anchor"># </span>Security</h2></a>
 <p>Big-O Notation of discrete logarithm problem is $O(\sqrt{n})$.</p>
@@ -471,6 +440,54 @@ Aug 21, 2022
 
 <a href="https://eth2book.info/altair/part2/building_blocks/signatures" rel="noopener">https://eth2book.info/altair/part2/building_blocks/signatures</a></li>
 </ol>
+<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<ul>
+<li>
+<p>
+
+<a href="https://brilliant.org/wiki/group-theory-introduction/" rel="noopener">Group Theory | Brilliant Math &amp; Science Wiki</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6" rel="noopener">Picking a Base Point in ECC</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8" rel="noopener">What’s The Order in ECC?</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve" rel="noopener">https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://river.com/learn/terms/s/secp256k1/" rel="noopener">Secp256k1 | River Glossary</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://river.com/learn/terms/d/discrete-log-problem-dlp/" rel="noopener">Discrete Log Problem (DLP) | River Glossary</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/" rel="noopener">Elliptic curves secp256k1 and secp256r1</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/" rel="noopener">Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks</a></p>
+</li>
+<li>
+<p>
+
+<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Exploring Elliptic Curve Pairings</a></p>
+</li>
+</ul>
 
 
     </article>

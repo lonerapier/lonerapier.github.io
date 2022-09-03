@@ -13,7 +13,7 @@
       <pubDate>Sun, 21 Aug 2022 14:02:48 -0700</pubDate>
       
       <guid>https://dsam82.github.io/posts/ECC/</guid>
-      <description>Elliptic Curve Cryptography $$y^2 = x^3 + ax^2 + bx + c$$
+      <description>Elliptic Curve Cryptography $$ y^2 = x^3 + ax^2 + bx + c $$
 secp256k1: used by Bitcoin and Ethereum to implement public key cryptography.</description>
     </item>
     

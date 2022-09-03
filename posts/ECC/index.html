@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="Elliptic Curve Cryptography $$y^2 = x^3 &#43; ax^2 &#43; bx &#43; c$$
+    content="Elliptic Curve Cryptography $$ y^2 = x^3 &#43; ax^2 &#43; bx &#43; c $$
 secp256k1: used by Bitcoin and Ethereum to implement public key cryptography."
   />
   <title>
@@ -130,7 +130,7 @@ secp256k1: used by Bitcoin and Ethereum to implement public key cryptography."
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.c28e52a350ddd0edf86eafb3961fe8ad.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.3ea2a2c1e4a5e6103bb59ab9f8791dc2.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -363,11 +363,11 @@ Aug 21, 2022
 
 
 <a href="#elliptic-curve-cryptography"><h2 id="elliptic-curve-cryptography"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curve Cryptography</h2></a>
-<p>$$y^2 = x^3 + ax^2 + bx + c$$</p>
+<p>$$ y^2 = x^3 + ax^2 + bx + c $$</p>
 <p>secp256k1: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
 <p>ECDSA: Elliptic Curve Digital Signature Algorithm</p>
 <p>Public key cryptography uses this method to calculate public keys which is a point on ECC curve.</p>
-<p>$$K = (k * G) % p$$</p>
+<p>$$ K = (k * G) % p $$</p>
 <ul>
 <li>K = 512-bit public key</li>
 <li>k = 256-bit randomly generated private key</li>

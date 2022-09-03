@@ -129,7 +129,7 @@
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.eea6f454dcb907c6f0839673de463826.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.f704e1d9abba263b17308f9c4907ff4f.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -430,7 +430,7 @@ If auction is not completed successfully, collateral asset is distributed amont 
 <p>
 
 
-<img src="https://dsam82.github.io//images/yieldspace_curve.png" width="auto" alt="yieldspace curve"  /></p>
+<img src="https://dsam82.github.io//thoughts/images/yieldspace_curve.png" width="auto" alt="yieldspace curve"  /></p>
 <p>This formula works as constant sum protocol when $t-&gt;0$, and constant product formula when $t-&gt;1$.</p>
 <p>This formula is defined in the yield space rather than the price space as designed in previous AMM formulas such that marginal interest rate of fyTokens at any time is equal to ratio of fyToken reserve to underlying token reserve minus 1.</p>
 <p>$$r = \frac{y}{x} - 1$$</p>
@@ -448,12 +448,12 @@ If auction is not completed successfully, collateral asset is distributed amont 
 <p>
 
 
-<img src="https://dsam82.github.io//images/dai_price_vs_dai_reserves.png" width="auto" alt="token price vs reserves"  /></p>
+<img src="https://dsam82.github.io//thoughts/images/dai_price_vs_dai_reserves.png" width="auto" alt="token price vs reserves"  /></p>
 <p>Looking at interest rates,</p>
 <p>
 
 
-<img src="https://dsam82.github.io//images/interest_rate_vs_dai_reserves.png" width="auto" alt="interest rate vs dai reserves"  />
+<img src="https://dsam82.github.io//thoughts/images/interest_rate_vs_dai_reserves.png" width="auto" alt="interest rate vs dai reserves"  />
 $$\frac{y}{x} - 1 = \frac{(x_{start}^{1-t} + y_{start}^{1-t} - x^{1-t})^\frac{1}{1-t}}{x} - 1$$</p>
 <a href="#fees"><h2 id="fees"><span class="hanchor" ariaLabel="Anchor"># </span>Fees</h2></a>
 <p>LP are incentivised to provide liquidity using the fees that they earn. Since, constant sum power formula is defined in yield space and not price space, it&rsquo;s not meaningful to impose fees on price and rather on interest rates i.e. any buyer of fyToken should get lesser interest rates or higher buy price.</p>

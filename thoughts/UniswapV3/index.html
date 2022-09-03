@@ -8,11 +8,11 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="UniswapV3 Features:
+    content="Features:
  Concentrated Liquidity Improved Price Oracle Flexible Fees  Uniswap V2 IL Market with Liquidity $L$ and Asset $X$ and $Y$ with amounts $x$ and $y$ respectively."
   />
   <title>
-    lonerapier.xyz
+    Uniswap V3
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -62,7 +62,7 @@
     
   
   
-  <link href="https://dsam82.github.io/styles.992fdc3c531684dcd8502f0024614203.min.css" rel="stylesheet" />
+  <link href="https://dsam82.github.io/styles.5063cec551d650db070f34ff2af9f725.min.css" rel="stylesheet" />
 
   
   <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -124,13 +124,13 @@
 
     const BASE_URL = "https://dsam82.github.io/"
     const fetchData = Promise.all([
-          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.0d1507c78bd5431434f7f2b201a51070.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.4715aefbc575583d0a9861488ff8e57a.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.eea6f454dcb907c6f0839673de463826.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -268,10 +268,10 @@ if (!doNotTrack) {
 
 
     <article>
-      
+      <h1>Uniswap V3</h1>
       <p class="meta">
         Last updated 
-Sep 2, 2022
+May 20, 2022
 
  
           
@@ -280,6 +280,10 @@ Sep 2, 2022
 
       </p>
       <ul class="tags">
+          
+          <li><a href="https://dsam82.github.io/tags/finance/">Finance</a></li>
+          
+          <li><a href="https://dsam82.github.io/tags/notes/">Notes</a></li>
           
       </ul>
       
@@ -407,7 +411,6 @@ Sep 2, 2022
   
 
 
-<a href="#uniswapv3"><h1 id="uniswapv3"><span class="hanchor" ariaLabel="Anchor"># </span>UniswapV3</h1></a>
 <p>Features:</p>
 <ul>
 <li>Concentrated Liquidity</li>
@@ -427,8 +430,8 @@ $$y = L\sqrt{P}$$</p>
 <li>$V_1$, value when kept in pool</li>
 <li>$V_{held}$, value when held</li>
 </ul>
-<p>$$V_0 = y<em>1 + x</em>P = 2L\sqrt{P}$$
-$$V_1 = 2L\sqrt{P&rsquo;} = 2L\sqrt{Pk}$$
+<p>$$V_0 = y * 1 + x * P = 2L\sqrt{P}$$</p>
+<p>$$V_1 = 2L\sqrt{P&rsquo;} = 2L\sqrt{Pk}$$
 $$V_{held} = y + xP&rsquo; = L\sqrt{P}(1+k)$$
 $$IL(k) = \frac{V_1 - V_{held}}{V_{held}} = \frac{L\sqrt{P}(2\sqrt{k} - 1 - k)}{L\sqrt{P}(1 + k)} = \frac{2\sqrt{k}}{1+k} - 1$$</p>
 <a href="#uniswap-v3-pool-maths"><h2 id="uniswap-v3-pool-maths"><span class="hanchor" ariaLabel="Anchor"># </span>Uniswap V3 Pool Maths</h2></a>
@@ -436,14 +439,14 @@ $$IL(k) = \frac{V_1 - V_{held}}{V_{held}} = \frac{L\sqrt{P}(2\sqrt{k} - 1 - k)}{
 <p>
 
 
-<img src="https://dsam82.github.io//assets/UniswapV3Liquidty.png" width="auto" alt="Uniswap V3 Concetrated Liquidity"  /></p>
+<img src="https://dsam82.github.io//thoughts/images/UniswapV3Liquidty.png" width="auto" alt="Uniswap V3 Concetrated Liquidity"  /></p>
 <p>For an $xy=k$ curve, let $P_a$ and $P_b$ be the price range in which liquidity is deployed, then Real Reserves:</p>
 <p>$$(x + x_{offset})(y + y_{offset}) = L^2$$</p>
 <p>where, $x_{offset}$ and $y_{offset}$ is the point A and B at which lines $x=ky$ touch the liquidity curve. $P_b$ &gt; $P_a$, i.e. steeper the slope more is the price. Since, liquidity outside this position is irrelevant, the real reserves are obtained shifting the curve by the offsets.</p>
 <p>
 
 
-<img src="https://dsam82.github.io//assets/UniswapV3Reserves.png" width="auto" alt="Uniswap V3 Virtual Reserves"  /></p>
+<img src="https://dsam82.github.io//thoughts/images/UniswapV3Reserves.png" width="auto" alt="Uniswap V3 Virtual Reserves"  /></p>
 <p>Equation of Real Reserves becomes:
 $$(x + x_{offset})(y + y_{offset}) = L^2$$
 $$(x + \frac{L}{\sqrt{P_b}})(y + L\sqrt{P_a}) = L^2$$</p>

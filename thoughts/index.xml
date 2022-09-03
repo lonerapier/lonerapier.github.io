@@ -5,73 +5,43 @@
     <link>https://dsam82.github.io/thoughts/</link>
     <description>Recent content in Thoughts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://dsam82.github.io/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Jul 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://dsam82.github.io/thoughts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
+      <title>Fixed Income Protocols</title>
+      <link>https://dsam82.github.io/thoughts/fixed-rate-protocols/</link>
+      <pubDate>Fri, 15 Jul 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://dsam82.github.io/thoughts/fixed-rate-protocols/</guid>
+      <description>DeFi&amp;rsquo;s next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.</description>
+    </item>
+    
+    <item>
+      <title>Curve Wars</title>
       <link>https://dsam82.github.io/thoughts/Curve-wars/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 11 Jun 2022 00:01:00 -0700</pubDate>
       
       <guid>https://dsam82.github.io/thoughts/Curve-wars/</guid>
-      <description>Curve Resources   defi 80/20  Back to the basics: uniswap, balancer, curve  Back to the basics: compound, aave  Curve wars  The Curve Wars  curve v2 parameters  </description>
+      <description>Resources   defi 80/20  Back to the basics: uniswap, balancer, curve  Back to the basics: compound, aave  Curve wars  The Curve Wars  curve v2 parameters  </description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://dsam82.github.io/thoughts/dmap-bytecode-disassembly/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/thoughts/dmap-bytecode-disassembly/</guid>
-      <description>DMAP dmap is basically a simple global registry that stores (zone, name, meta, data).
-Usage is divided into mainly two functions:</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/thoughts/eth-basics/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/thoughts/eth-basics/</guid>
-      <description>Ethereum Yellow Paper Transaction based state-machine
-state of the blockchain changes after executing transactions.
-stores states in state root
-Accounts 20-byte hex addresses whose state is stored on the blockchain</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/thoughts/eth-execution/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/thoughts/eth-execution/</guid>
-      <description>ETH Execution Layer TODO</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/thoughts/nomad-xyz/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/thoughts/nomad-xyz/</guid>
-      <description>Nomad Protocol for cross-chain communication. Follows optimistic design inspired from Optimistic Rollups. Nomad&amp;rsquo;s design aims to solve the interoperability trilemma famously coined by Connext but introduces a new component, latency.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/thoughts/socket-dot-tech/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/thoughts/socket-dot-tech/</guid>
-      <description>Socket Dot Tech Registry.sol Structs  RouteData  1 2 3  address route; bool isEnabled; bool isMiddleware    MiddlewareRequest  1 2 3 4  uint256 id; uint256 optionalNativeAmount; address inputToken; bytes data;    BridgeRequest  1 2 3 4  uint256 id; uint256 optionalNativeAmount; address inputToken; bytes data;    UserRequest  1 2 3 4 5  address receiverAddress uint256 toChainId uint256 amount MiddlewareRequest middlewareRequest BridgeRequest bridgeRequest   State Variables  RouteData[] routes NATIVE_TOKEN_ADDRESS  Events  NewRouteAdded RouteDisabled RouteAdded ExecutionCompleted  Functions  addRoutes rescueFunds outboundTransferTo  1 2 3 4 5 6 7 8 9 10  1.</description>
-    </item>
-    
-    <item>
-      <title></title>
+      <title>Uniswap V3</title>
       <link>https://dsam82.github.io/thoughts/UniswapV3/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 May 2022 00:02:48 -0700</pubDate>
       
       <guid>https://dsam82.github.io/thoughts/UniswapV3/</guid>
-      <description>UniswapV3 Features:
+      <description>Features:
  Concentrated Liquidity Improved Price Oracle Flexible Fees  Uniswap V2 IL Market with Liquidity $L$ and Asset $X$ and $Y$ with amounts $x$ and $y$ respectively.</description>
+    </item>
+    
+    <item>
+      <title>Nomad</title>
+      <link>https://dsam82.github.io/thoughts/nomad-xyz/</link>
+      <pubDate>Tue, 05 Apr 2022 01:00:15 -0700</pubDate>
+      
+      <guid>https://dsam82.github.io/thoughts/nomad-xyz/</guid>
+      <description>Protocol for cross-chain communication. Follows optimistic design inspired from Optimistic Rollups. Nomad&amp;rsquo;s design aims to solve the interoperability trilemma famously coined by Connext but introduces a new component, latency.</description>
     </item>
     
   </channel>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ongoing on lonerapier.xyz</title>
+    <link>https://dsam82.github.io/tags/ongoing/</link>
+    <description>Recent content in ongoing on lonerapier.xyz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://dsam82.github.io/tags/ongoing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elliptic Curve Cryptography</title>
+      <link>https://dsam82.github.io/posts/ECC/</link>
+      <pubDate>Sun, 21 Aug 2022 14:02:48 -0700</pubDate>
+      
+      <guid>https://dsam82.github.io/posts/ECC/</guid>
+      <description>Resources  Group Theory | Brilliant Math &amp;amp; Science Wiki
+ Picking a Base Point in ECC
+ What’s The Order in ECC?</description>
+    </item>
+    
+  </channel>
+</rss>

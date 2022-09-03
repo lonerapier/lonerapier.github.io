@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>papers on lonerapier.xyz</title>
+    <link>https://dsam82.github.io/tags/papers/</link>
+    <description>Recent content in papers on lonerapier.xyz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Apr 2020 22:15:20 -0900</lastBuildDate><atom:link href="https://dsam82.github.io/tags/papers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Communication Across Distributed Ledgers</title>
+      <link>https://dsam82.github.io/posts/SoK/</link>
+      <pubDate>Sat, 11 Apr 2020 22:15:20 -0900</pubDate>
+      
+      <guid>https://dsam82.github.io/posts/SoK/</guid>
+      <description>Communication Across Distributed Ledgers
+Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).</description>
+    </item>
+    
+  </channel>
+</rss>

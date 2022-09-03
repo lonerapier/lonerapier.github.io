@@ -8,12 +8,11 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="SoK Link: https://eprint.iacr.org/2019/1128.pdf
-Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).
-Shows that CCC is impossible without third party."
+    content="Communication Across Distributed Ledgers
+Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers)."
   />
   <title>
-    lonerapier.xyz
+    Communication Across Distributed Ledgers
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -63,7 +62,7 @@ Shows that CCC is impossible without third party."
     
   
   
-  <link href="https://dsam82.github.io/styles.992fdc3c531684dcd8502f0024614203.min.css" rel="stylesheet" />
+  <link href="https://dsam82.github.io/styles.5063cec551d650db070f34ff2af9f725.min.css" rel="stylesheet" />
 
   
   <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -125,13 +124,13 @@ Shows that CCC is impossible without third party."
 
     const BASE_URL = "https://dsam82.github.io/"
     const fetchData = Promise.all([
-          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.0d1507c78bd5431434f7f2b201a51070.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.4715aefbc575583d0a9861488ff8e57a.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.eea6f454dcb907c6f0839673de463826.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -269,10 +268,10 @@ if (!doNotTrack) {
 
 
     <article>
-      
+      <h1>Communication Across Distributed Ledgers</h1>
       <p class="meta">
         Last updated 
-Sep 2, 2022
+Apr 11, 2020
 
  
           
@@ -281,6 +280,10 @@ Sep 2, 2022
 
       </p>
       <ul class="tags">
+          
+          <li><a href="https://dsam82.github.io/tags/papers/">Papers</a></li>
+          
+          <li><a href="https://dsam82.github.io/tags/technical/">Technical</a></li>
           
       </ul>
       
@@ -364,10 +367,10 @@ Sep 2, 2022
   
 
 
-<a href="#sok"><h1 id="sok"><span class="hanchor" ariaLabel="Anchor"># </span>SoK</h1></a>
-<p>Link: 
+<p>
 
-<a href="https://eprint.iacr.org/2019/1128.pdf" rel="noopener">https://eprint.iacr.org/2019/1128.pdf</a></p>
+<a href="https://eprint.iacr.org/2019/1128.pdf" rel="noopener">Communication Across Distributed
+Ledgers</a></p>
 <p>Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).</p>
 <p>Shows that CCC is impossible without <strong><em>third party.</em></strong></p>
 <p>Presents a framework keeping these trust assumptions in mind. Classifies current CCC protocols on the basis of framework.</p>

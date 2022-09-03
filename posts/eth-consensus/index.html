@@ -8,11 +8,11 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="ETH 2.0 ELI5 understanding of ETH 2.0 specs
-Safety: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus."
+    content="ELI5 understanding of ETH 2.0 specs
+Safety: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus."
   />
   <title>
-    lonerapier.xyz
+    ETH Consensus
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -62,7 +62,7 @@ Safety: gurantees that something bad never happen. Examples: Tendermint from Cos
     
   
   
-  <link href="https://dsam82.github.io/styles.992fdc3c531684dcd8502f0024614203.min.css" rel="stylesheet" />
+  <link href="https://dsam82.github.io/styles.5063cec551d650db070f34ff2af9f725.min.css" rel="stylesheet" />
 
   
   <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -124,13 +124,13 @@ Safety: gurantees that something bad never happen. Examples: Tendermint from Cos
 
     const BASE_URL = "https://dsam82.github.io/"
     const fetchData = Promise.all([
-          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.0d1507c78bd5431434f7f2b201a51070.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.4715aefbc575583d0a9861488ff8e57a.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.eea6f454dcb907c6f0839673de463826.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -268,10 +268,10 @@ if (!doNotTrack) {
 
 
     <article>
-      
+      <h1>ETH Consensus</h1>
       <p class="meta">
         Last updated 
-Sep 2, 2022
+May 14, 2022
 
  
           
@@ -280,6 +280,10 @@ Sep 2, 2022
 
       </p>
       <ul class="tags">
+          
+          <li><a href="https://dsam82.github.io/tags/technical/">Technical</a></li>
+          
+          <li><a href="https://dsam82.github.io/tags/ELI5/">Eli5</a></li>
           
       </ul>
       
@@ -358,9 +362,8 @@ Sep 2, 2022
   
 
 
-<a href="#eth-20"><h1 id="eth-20"><span class="hanchor" ariaLabel="Anchor"># </span>ETH 2.0</h1></a>
 <p>ELI5 understanding of ETH 2.0 specs</p>
-<p><strong>Safety</strong>: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</p>
+<p><strong>Safety</strong>: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</p>
 <p><strong>Liveness</strong>: something good eventually occurs. Example: POW, Casper used by Ethereum.</p>
 <a href="#why-pos"><h2 id="why-pos"><span class="hanchor" ariaLabel="Anchor"># </span><strong>Why PoS</strong></h2></a>
 <p>An individual autonomy should always be greater than the power of any state. Cryptography solved this issue, by using ECC, individuals can now have a pair of keys that only he can access and thus, has the power to defend even state-level attacks.</p>
@@ -439,7 +442,7 @@ Sep 2, 2022
 <p>
 
 
-<img src="https://dsam82.github.io//assets/Beacon-Chain-Checkpoints.jpeg" width="auto" alt="image"  /></p>
+<img src="https://dsam82.github.io//posts/assets/Beacon-Chain-Checkpoints.jpeg" width="auto" alt="Beacon Chain Checkpoints"  /></p>
 <p>A <code>checkpoint</code> or an <code>epoch boundary</code> is the first block in an epoch. If no such block, it is the most recent preceding block.</p>
 <a href="#votes"><h3 id="votes"><span class="hanchor" ariaLabel="Anchor"># </span>Votes</h3></a>
 <ul>
@@ -453,7 +456,7 @@ Sep 2, 2022
 <p>
 
 
-<img src="https://dsam82.github.io//assets/Beacon-Chain-Justification-and-Finalization.png" width="auto" alt="image"  /></p>
+<img src="https://dsam82.github.io//posts/assets/Beacon-Chain-Justification-and-Finalization.png" width="auto" alt="image"  /></p>
 <p>When an epoch checkpoint gets supermajority vote, it is said to be <em>justified</em>.
 An epoch is <em>finalised</em> when it is justified and next epoch checkpoint gets justified.
 When a epoch checkpoint, i.e. slot gets finalised, all preceding blocks also gets finalised.</p>
@@ -465,7 +468,7 @@ When a epoch checkpoint, i.e. slot gets finalised, all preceding blocks also get
 <p>
 
 
-<img src="https://dsam82.github.io//assets/FLP-Impossibility.png" width="auto" alt="image"  /></p>
+<img src="https://dsam82.github.io//posts/assets/FLP-Impossibility.png" width="auto" alt="image"  /></p>
 <p>In a distributed system, it is not possible to simultaneously have safetly, liveness and full asynchrony unless some unreasonable assumptions are made.</p>
 <p>Ethereum uses both <code>LMD-GHOST</code> and <code>Casper FFG</code> as its protocol to justify and finalise blocks.</p>
 <p><strong>LMD-GHOST</strong> preferes liveness over safety in the form that validator can attest to a chain head and keep producing blocks while <strong>Casper</strong> prefers safety over liveness such that a block is finalised only when it is justified and in a later epoch, majority of validators attest it again to finalise it. Once, a block is finalised, it is added forever in the chain.</p>

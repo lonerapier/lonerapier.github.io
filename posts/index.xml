@@ -5,84 +5,58 @@
     <link>https://dsam82.github.io/posts/</link>
     <description>Recent content in Posts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://dsam82.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://dsam82.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
+      <title>Elliptic Curve Cryptography</title>
       <link>https://dsam82.github.io/posts/ECC/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 21 Aug 2022 14:02:48 -0700</pubDate>
       
       <guid>https://dsam82.github.io/posts/ECC/</guid>
-      <description>ECC Resources  Group Theory | Brilliant Math &amp;amp; Science Wiki
+      <description>Resources  Group Theory | Brilliant Math &amp;amp; Science Wiki
  Picking a Base Point in ECC
  What’s The Order in ECC?</description>
     </item>
     
     <item>
-      <title></title>
+      <title>ETH Consensus</title>
       <link>https://dsam82.github.io/posts/eth-consensus/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 14 May 2022 20:05:45 -0900</pubDate>
       
       <guid>https://dsam82.github.io/posts/eth-consensus/</guid>
-      <description>ETH 2.0 ELI5 understanding of ETH 2.0 specs
-Safety: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</description>
+      <description>ELI5 understanding of ETH 2.0 specs
+Safety: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://dsam82.github.io/posts/fixed-rate-protocols/fixed-rate-protocols/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Ethereum Yellow Paper</title>
+      <link>https://dsam82.github.io/posts/eth-basics/</link>
+      <pubDate>Thu, 10 Mar 2022 00:02:48 -0700</pubDate>
       
-      <guid>https://dsam82.github.io/posts/fixed-rate-protocols/fixed-rate-protocols/</guid>
-      <description>Fixed Income Protocols DeFi&amp;rsquo;s next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.</description>
+      <guid>https://dsam82.github.io/posts/eth-basics/</guid>
+      <description>Transaction based state-machine
+state of the blockchain changes after executing transactions.
+stores states in state root
+Accounts 20-byte hex addresses whose state is stored on the blockchain</description>
     </item>
     
     <item>
-      <title></title>
-      <link>https://dsam82.github.io/posts/fixed-rate-protocols/sense-finance-impl/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/posts/fixed-rate-protocols/sense-finance-impl/</guid>
-      <description>Sense Implementation  Space pool implementation SpaceFactory storage:
-1 2 3 4 5 6  vault divider ts g1 g2 mapping(adapter -&amp;gt; maturity -&amp;gt; poolAddress)   Functions:</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/posts/fixed-rate-protocols/sense-finance/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/posts/fixed-rate-protocols/sense-finance/</guid>
-      <description>Sense Finance Sense space Sense uses yieldspace invariant to create PT/target AMM pools built on balancer. YT can also be traded in the pool using zap transactions.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/posts/fixed-rate-protocols/sense-math/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/posts/fixed-rate-protocols/sense-math/</guid>
-      <description>Sense Math Notation  $s(t)$ the scale at the time $t$, i.e. the price of the Target token in the underlying token terms at the time moment $t$ $\theta$ The tilt value, i.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://dsam82.github.io/posts/Optimistic-Rollups/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://dsam82.github.io/posts/Optimistic-Rollups/</guid>
-      <description>Optimistic Rollups Links  (Almost) Everything you need to know about Optimistic Rollup
- The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think</description>
-    </item>
-    
-    <item>
-      <title></title>
+      <title>Communication Across Distributed Ledgers</title>
       <link>https://dsam82.github.io/posts/SoK/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 11 Apr 2020 22:15:20 -0900</pubDate>
       
       <guid>https://dsam82.github.io/posts/SoK/</guid>
-      <description>SoK Link: https://eprint.iacr.org/2019/1128.pdf
-Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).
-Shows that CCC is impossible without third party.</description>
+      <description>Communication Across Distributed Ledgers
+Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).</description>
+    </item>
+    
+    <item>
+      <title>Optimistic Rollups</title>
+      <link>https://dsam82.github.io/posts/Optimistic-Rollups/</link>
+      <pubDate>Sat, 11 Apr 2020 16:00:48 -0900</pubDate>
+      
+      <guid>https://dsam82.github.io/posts/Optimistic-Rollups/</guid>
+      <description>Asserter/Checker Problem  Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful.</description>
     </item>
     
   </channel>

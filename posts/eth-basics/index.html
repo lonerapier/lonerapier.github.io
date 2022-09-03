@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Transaction based state-machine
+state of the blockchain changes after executing transactions.
+stores states in state root
+Accounts 20-byte hex addresses whose state is stored on the blockchain"
+  />
+  <title>
+    Ethereum Yellow Paper
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://dsam82.github.io//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://dsam82.github.io/styles.5063cec551d650db070f34ff2af9f725.min.css" rel="stylesheet" />
+
+  
+  <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://dsam82.github.io/js/darkmode.99bf74b17084665b02e60f42b67a6c02.min.js"></script>
+  
+  
+  
+  <script src="https://dsam82.github.io/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+
+
+
+  <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script src="https://dsam82.github.io/js/popover.abe6a51cc7138c5dff00f151dd627ad1.min.js"></script>
+
+  
+  
+  
+  <script src="https://dsam82.github.io/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js"></script>
+  
+
+  
+  
+  <script src="https://dsam82.github.io/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js"></script>
+  
+
+  
+  
+  <script src="https://dsam82.github.io/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lastVisit = localStorage.getItem('lastVisitTime')
+    const now = Date.now()
+    let show = 'true'
+    if (lastVisit) {
+      document.documentElement.setAttribute('visited', 'true')
+      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
+      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
+    }
+    document.documentElement.setAttribute('show-animation', show)
+    localStorage.setItem('lastVisitTime', `${now}`)
+
+    const BASE_URL = "https://dsam82.github.io/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.0d1507c78bd5431434f7f2b201a51070.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.eea6f454dcb907c6f0839673de463826.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://dsam82.github.io",
+         true ,
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://dsam82.github.io",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/dsam82.github.io\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://dsam82.github.io/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header class="delay t-3">
+  <h1 id="page-title"><a href="https://dsam82.github.io/">lonerapier.xyz</a></h1>
+  <div class="spacer"></div>
+  <div id="search-icon">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+  </div>
+  <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>Ethereum Yellow Paper</h1>
+      <p class="meta">
+        Last updated 
+Mar 10, 2022
+
+ 
+          
+<a href="https://github.com/dsam82/dsam82.github.io//posts/eth-basics.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://dsam82.github.io/tags/technical/">Technical</a></li>
+          
+          <li><a href="https://dsam82.github.io/tags/notes/">Notes</a></li>
+          
+      </ul>
+      
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#accounts">Accounts</a></li>
+    <li><a href="#each-accounts-has-four-parts">Each accounts has four parts:</a></li>
+    <li><a href="#transactions">Transactions</a></li>
+    <li><a href="#blocks">Blocks</a></li>
+    <li><a href="#ghost">GHOST</a></li>
+    <li><a href="#rlp">RLP</a></li>
+    <li><a href="#hp-encoding">HP Encoding</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+<p>Transaction based state-machine</p>
+<p>state of the blockchain changes after executing transactions.</p>
+<p>stores states in <em><strong>state root</strong></em></p>
+<a href="#accounts"><h2 id="accounts"><span class="hanchor" ariaLabel="Anchor"># </span>Accounts</h2></a>
+<p>20-byte hex addresses whose state is stored on the blockchain</p>
+<p>Two types of accounts:</p>
+<ol>
+<li>EOA: externally owned account</li>
+<li>Contract Accounts</li>
+</ol>
+<a href="#each-accounts-has-four-parts"><h2 id="each-accounts-has-four-parts"><span class="hanchor" ariaLabel="Anchor"># </span>Each accounts has four parts:</h2></a>
+<ol>
+<li>Nonce: for EOA, number of transactions sent from the address. For Contracts, number of contracts creations.</li>
+<li>Balance: amount of ether owned by the account.</li>
+<li>storageRoot: Merkle-Patricia tree that stores data related to the account. Stored in the top-level state root tree.</li>
+<li>codeHash: For EOA, hash of empty string. For contracts, hash of the init code.</li>
+</ol>
+<a href="#transactions"><h2 id="transactions"><span class="hanchor" ariaLabel="Anchor"># </span>Transactions</h2></a>
+<p>Piece of data signed by an external actor.</p>
+<p>Two types of txs:</p>
+<ol>
+<li>Transaction which result in message calls
+Message Calls: Done by contract account, when executing <code>CALL</code> opcode.</li>
+<li>Contract creation</li>
+</ol>
+<p>Fields in a tx:</p>
+<ol>
+<li>nonce</li>
+<li>gasLimit</li>
+<li>gasPrice</li>
+<li>to</li>
+<li>value</li>
+<li>v, r, s: signature identifying sender</li>
+<li>init: in case of contract creating tx, returns code of the contract without constructor</li>
+<li>data: in case of message call tx, data being passed in call</li>
+</ol>
+<a href="#blocks"><h2 id="blocks"><span class="hanchor" ariaLabel="Anchor"># </span>Blocks</h2></a>
+<p>aggregate transactions and include in the blockchain</p>
+<p>Contains:</p>
+<ol>
+<li>parentHash</li>
+<li>ommerHash</li>
+<li>beneficiary</li>
+<li>stateRoot</li>
+<li>transactionsRoot</li>
+<li>receiptsRoot</li>
+<li>timestamp</li>
+<li>number</li>
+<li>difficulty</li>
+<li>gasLimit</li>
+<li>gasUsed</li>
+<li>extraData</li>
+<li>mixHash</li>
+<li>nonce</li>
+</ol>
+<a href="#ghost"><h2 id="ghost"><span class="hanchor" ariaLabel="Anchor"># </span>GHOST</h2></a>
+<p><code>GHOST</code> protocol is used by ethereum to prevent mining centralization and enhance protocol security.</p>
+<p>Longest chain isn’t just the chain with more blocks as ancestor, but it also includes other stale(uncle) blocks in the calculation.</p>
+<p>Uncle blocks are child of the ancestor of the block and not directly related to the block.</p>
+<a href="#rlp"><h2 id="rlp"><span class="hanchor" ariaLabel="Anchor"># </span>RLP</h2></a>
+<p>It is the data encoding used by the protocol to store data in tries.
+There are several rules for encoding mentioned below.</p>
+<p>
+
+<a href="https://medium.com/coinmonks/data-structure-in-ethereum-episode-1-recursive-length-prefix-rlp-encoding-decoding-d1016832f919" rel="noopener">Data structure in Ethereum | Episode 1: Recursive Length Prefix (RLP) Encoding/Decoding.</a></p>
+<a href="#hp-encoding"><h2 id="hp-encoding"><span class="hanchor" ariaLabel="Anchor"># </span>HP Encoding</h2></a>
+<p>This encoding is used for trie paths.</p>
+<p>
+
+<a href="https://medium.com/coinmonks/data-structure-in-ethereum-episode-1-compact-hex-prefix-encoding-12558ae02791" rel="noopener">Data structure in Ethereum | Episode 1+: Compact (Hex-prefix) encoding.</a></p>
+<p>
+
+<a href="https://scrapbox.io/layerx/Ethereum:_Tutorials" rel="noopener">Ethereum: Tutorials - LayerX Research</a></p>
+<p>Patricia tree</p>
+<p>
+
+<a href="https://eth.wiki/fundamentals/patricia-tree" rel="noopener">patricia-tree</a>
+
+
+<a href="https://medium.com/shyft-network-media/understanding-trie-databases-in-ethereum-9f03d2c3325d" rel="noopener">Understanding trie databases</a></p>
+
+
+    </article>
+    <hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://dsam82.github.io/js/graph.abd4bc2af3869a96524d7d23b76152c7.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2022</p>
+        <ul>
+            
+            <li><a href="https://dsam82.github.io/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/dsam82">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

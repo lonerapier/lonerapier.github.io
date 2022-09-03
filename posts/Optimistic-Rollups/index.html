@@ -8,11 +8,10 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="Optimistic Rollups Links  (Almost) Everything you need to know about Optimistic Rollup
- The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think"
+    content="Asserter/Checker Problem  Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful."
   />
   <title>
-    lonerapier.xyz
+    Optimistic Rollups
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -62,7 +61,7 @@
     
   
   
-  <link href="https://dsam82.github.io/styles.992fdc3c531684dcd8502f0024614203.min.css" rel="stylesheet" />
+  <link href="https://dsam82.github.io/styles.5063cec551d650db070f34ff2af9f725.min.css" rel="stylesheet" />
 
   
   <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -124,13 +123,13 @@
 
     const BASE_URL = "https://dsam82.github.io/"
     const fetchData = Promise.all([
-          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.0d1507c78bd5431434f7f2b201a51070.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.4715aefbc575583d0a9861488ff8e57a.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.eea6f454dcb907c6f0839673de463826.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -268,10 +267,10 @@ if (!doNotTrack) {
 
 
     <article>
-      
+      <h1>Optimistic Rollups</h1>
       <p class="meta">
         Last updated 
-Sep 2, 2022
+Apr 11, 2020
 
  
           
@@ -281,6 +280,10 @@ Sep 2, 2022
       </p>
       <ul class="tags">
           
+          <li><a href="https://dsam82.github.io/tags/seed/">Seed</a></li>
+          
+          <li><a href="https://dsam82.github.io/tags/technical/">Technical</a></li>
+          
       </ul>
       
 <aside class="mainTOC">
@@ -288,9 +291,9 @@ Sep 2, 2022
         <summary>Table of Contents</summary>
         <nav id="TableOfContents">
   <ol>
-    <li><a href="#links">Links</a></li>
     <li><a href="#asserterchecker-problem">Asserter/Checker Problem</a></li>
     <li><a href="#technical-details">Technical Details</a></li>
+    <li><a href="#links">Links</a></li>
   </ol>
 </nav>
     </details>
@@ -370,14 +373,6 @@ Sep 2, 2022
   
 
 
-<a href="#optimistic-rollups"><h1 id="optimistic-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>Optimistic Rollups</h1></a>
-<a href="#links"><h2 id="links"><span class="hanchor" ariaLabel="Anchor"># </span>Links</h2></a>
-<p>
-
-<a href="https://research.paradigm.xyz/rollups" rel="noopener">(Almost) Everything you need to know about Optimistic Rollup</a></p>
-<p>
-
-<a href="https://medium.com/offchainlabs/the-cheater-checking-problem-why-the-verifiers-dilemma-is-harder-than-you-think-9c7156505ca1" rel="noopener">The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think</a></p>
 <a href="#asserterchecker-problem"><h2 id="asserterchecker-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Asserter/Checker Problem</h2></a>
 <ul>
 <li>Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful.</li>
@@ -448,6 +443,13 @@ total cost = $0.0006</p>
 <li>Each checker will have different prob of posting on-chain due to use of private key, thus can’t copy others computation.</li>
 <li>Asserter now instead of bribing checker, will try to mislead him into giving false information on-chain.</li>
 </ul>
+<a href="#links"><h2 id="links"><span class="hanchor" ariaLabel="Anchor"># </span>Links</h2></a>
+<p>
+
+<a href="https://research.paradigm.xyz/rollups" rel="noopener">(Almost) Everything you need to know about Optimistic Rollup</a></p>
+<p>
+
+<a href="https://medium.com/offchainlabs/the-cheater-checking-problem-why-the-verifiers-dilemma-is-harder-than-you-think-9c7156505ca1" rel="noopener">The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think</a></p>
 
 
     </article>

@@ -8,7 +8,7 @@ Sense uses yieldspace invariant to create PT/target AMM pools built on balancer.
 
 Yield token trading can occur using sense space.
 
-![trade_yts](../assets/target_trading.png)
+![trade_yts](../posts/assets/target_trading.png)
 
 To trade target for YTs,
 
@@ -30,7 +30,7 @@ Trade YTs for target
 
 Each series has its own space pool built, for which LPs can provide liquidity.
 
-![LPs](../assets/space_lps.png)
+![LPs](../posts/assets/space_lps.png)
 
 To deposit into pools,
 

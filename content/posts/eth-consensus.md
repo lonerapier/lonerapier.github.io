@@ -1,8 +1,14 @@
-# ETH 2.0
+---
+title: "ETH Consensus"
+date: 2022-05-14T20:05:45-09:00
+tags:
+- technical
+- ELI5
+---
 
 ELI5 understanding of ETH 2.0 specs
 
-**Safety**: gurantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.
+**Safety**: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.
 
 **Liveness**: something good eventually occurs. Example: POW, Casper used by Ethereum.
 
@@ -73,7 +79,7 @@ Consensus in blockchain is what drives the value of the network, and from where 
 
 ### **Beacon Chain Checkpoints**
 
-![image](assets/Beacon-Chain-Checkpoints.jpeg)
+![Beacon Chain Checkpoints](posts/assets/Beacon-Chain-Checkpoints.jpeg)
 
 A `checkpoint` or an `epoch boundary` is the first block in an epoch. If no such block, it is the most recent preceding block.
 
@@ -86,7 +92,7 @@ A `checkpoint` or an `epoch boundary` is the first block in an epoch. If no such
 
 > `Supermajority vote`: which is made by 2/3 of the total **balance** of all validators.
 
-![image](assets/Beacon-Chain-Justification-and-Finalization.png)
+![image](posts/assets/Beacon-Chain-Justification-and-Finalization.png)
 
 When an epoch checkpoint gets supermajority vote, it is said to be *justified*.
 An epoch is *finalised* when it is justified and next epoch checkpoint gets justified.
@@ -97,7 +103,7 @@ When a epoch checkpoint, i.e. slot gets finalised, all preceding blocks also get
 
 ## FLP Impossibility
 
-![image](assets/FLP-Impossibility.png)
+![image](posts/assets/FLP-Impossibility.png)
 
 In a distributed system, it is not possible to simultaneously have safetly, liveness and full asynchrony unless some unreasonable assumptions are made.
 
@@ -124,7 +130,7 @@ Due to **LMD-GHOST** prefering liveness over safety, there is a chance of reorgs
 8. [https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51](https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51)
 9. [Ben Eddington blog](https://hackmd.io/@benjaminion/eth2_news/https%3A%2F%2Fhackmd.io%2F%40benjaminion%2Fwnie2_220311)
 10. [eth2book](https://eth2.incessant.ink/book/03__eth1/07__clients.html)
-11. https://arxiv.org/pdf/2203.01315.pdf
+11. <https://arxiv.org/pdf/2203.01315.pdf>
 12. [LMD GHOST and Casper FFG](https://blog.ethereum.org/2020/02/12/validated-staking-on-eth2-2-two-ghosts-in-a-trench-coat/)
 13. [https://blog.ethereum.org/2019/12/30/eth1x-files-state-of-stateless-ethereum/](https://blog.ethereum.org/2019/12/30/eth1x-files-state-of-stateless-ethereum/)
 14. [Understanding validator effective balance](https://www.attestant.io/posts/understanding-validator-effective-balancehttps://www.attestant.io/posts/understanding-validator-effective-balance/)

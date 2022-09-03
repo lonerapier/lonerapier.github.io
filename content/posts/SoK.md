@@ -1,6 +1,14 @@
-# SoK
+---
+title: "Communication Across Distributed
+Ledgers"
+date: 2020-04-11T22:15:20-09:00
+tags:
+- papers
+- technical
+---
 
-Link: [https://eprint.iacr.org/2019/1128.pdf](https://eprint.iacr.org/2019/1128.pdf)
+[Communication Across Distributed
+Ledgers](https://eprint.iacr.org/2019/1128.pdf)
 
 Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).
 

@@ -1,4 +1,10 @@
-# [Nomad](https://nomad.xyz)
+---
+title: "Nomad"
+date: 2022-04-05T01:00:15-07:00
+tags:
+- notes
+- protocols
+---
 
 Protocol for cross-chain communication. Follows **optimistic** design inspired from _Optimistic Rollups_. Nomad's design aims to solve the interoperability trilemma famously coined by Connext but introduces a new component, `latency`.
 

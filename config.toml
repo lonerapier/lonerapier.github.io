@@ -1,4 +1,4 @@
-baseURL = "https://dsam82.github.io/"
+baseURL = "https://lonerapier.xyz/"
 languageCode = "en-us"
 googleAnalytics = "G-XYFD95KB4J"
 relativeURLs = false
@@ -11,6 +11,9 @@ summaryLength = 20
 paginate = 10
 enableGitInfo = true
 title = "lonerapier.xyz"
+
+[author]
+  name = "Sambhav"
 
 [markup]
     [markup.tableOfContents]

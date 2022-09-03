@@ -1,10 +1,10 @@
-# Optimistic Rollups
-
-## Links
-
-[(Almost) Everything you need to know about Optimistic Rollup](https://research.paradigm.xyz/rollups)
-
-[The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think](https://medium.com/offchainlabs/the-cheater-checking-problem-why-the-verifiers-dilemma-is-harder-than-you-think-9c7156505ca1)
+---
+title: "Optimistic Rollups"
+date: 2020-04-11T16:00:48-09:00
+tags:
+- seed
+- technical
+---
 
 ## Asserter/Checker Problem
 
@@ -75,3 +75,9 @@ Checker can guess $f(x)$ with prob. G, then multiply deposit with $1/1-G$
 - If asserter $f(x)$ incorrect, accusation reverted.
 - Each checker will have different prob of posting on-chain due to use of private key, thus can’t copy others computation.
 - Asserter now instead of bribing checker, will try to mislead him into giving false information on-chain.
+
+## Links
+
+[(Almost) Everything you need to know about Optimistic Rollup](https://research.paradigm.xyz/rollups)
+
+[The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think](https://medium.com/offchainlabs/the-cheater-checking-problem-why-the-verifiers-dilemma-is-harder-than-you-think-9c7156505ca1)

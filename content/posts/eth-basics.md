@@ -1,4 +1,10 @@
-# Ethereum Yellow Paper
+---
+title: "Ethereum Yellow Paper"
+date: 2022-03-10T00:02:48-07:00
+tags:
+- technical
+- notes
+---
 
 Transaction based state-machine
 

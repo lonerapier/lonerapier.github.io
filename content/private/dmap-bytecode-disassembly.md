@@ -1,3 +1,10 @@
+---
+title: "DMAP Bytecode"
+date: 2022-05-21T00:00:00-07:00
+tags:
+- technical
+---
+
 # DMAP
 
 `dmap` is basically a simple global registry that stores `(zone, name, meta, data)`.

@@ -1,4 +1,10 @@
-# UniswapV3
+---
+title: "Uniswap V3"
+date: 2022-05-20T00:02:48-07:00
+tags:
+- finance
+- notes
+---
 
 Features:
 
@@ -21,7 +27,8 @@ We, introduce three terms
 - $V_1$, value when kept in pool
 - $V_{held}$, value when held
 
-$$V_0 = y*1 + x*P = 2L\sqrt{P}$$
+$$V_0 = y * 1 + x * P = 2L\sqrt{P}$$
+
 $$V_1 = 2L\sqrt{P'} = 2L\sqrt{Pk}$$
 $$V_{held} = y + xP' = L\sqrt{P}(1+k)$$
 $$IL(k) = \frac{V_1 - V_{held}}{V_{held}} = \frac{L\sqrt{P}(2\sqrt{k} - 1 - k)}{L\sqrt{P}(1 + k)} = \frac{2\sqrt{k}}{1+k} - 1$$
@@ -30,7 +37,7 @@ $$IL(k) = \frac{V_1 - V_{held}}{V_{held}} = \frac{L\sqrt{P}(2\sqrt{k} - 1 - k)}{
 
 Uniswap V3 pools are different from V2 as the liquidity is not uniformly distributed from $0$ to $\infty$, but each position functions as a separate CFMM curve.
 
-![Uniswap V3 Concetrated Liquidity](assets/UniswapV3Liquidty.png)
+![Uniswap V3 Concetrated Liquidity](thoughts/images/UniswapV3Liquidty.png)
 
 For an $xy=k$ curve, let $P_a$ and $P_b$ be the price range in which liquidity is deployed, then Real Reserves:
 
@@ -38,7 +45,7 @@ $$(x + x_{offset})(y + y_{offset}) = L^2$$
 
 where, $x_{offset}$ and $y_{offset}$ is the point A and B at which lines $x=ky$ touch the liquidity curve. $P_b$ > $P_a$, i.e. steeper the slope more is the price. Since, liquidity outside this position is irrelevant, the real reserves are obtained shifting the curve by the offsets.
 
-![Uniswap V3 Virtual Reserves](assets/UniswapV3Reserves.png)
+![Uniswap V3 Virtual Reserves](thoughts/images/UniswapV3Reserves.png)
 
 Equation of Real Reserves becomes:
 $$(x + x_{offset})(y + y_{offset}) = L^2$$

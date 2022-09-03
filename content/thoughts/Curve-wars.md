@@ -1,4 +1,9 @@
-# Curve
+---
+title: "Curve Wars"
+date: 2022-06-11T00:01:00-07:00
+tags:
+- finance
+---
 
 ## Resources
 

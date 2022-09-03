@@ -1,6 +1,6 @@
 # Sense Implementation
 
-![contracts](../assets/22.03.16-v1-contract-diagrams.966aeccc.png)
+![contracts](../posts/assets/22.03.16-v1-contract-diagrams.966aeccc.png)
 
 ## Space pool implementation
 

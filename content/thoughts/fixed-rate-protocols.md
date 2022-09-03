@@ -1,6 +1,11 @@
-# Fixed Income Protocols
+---
+title: "Fixed Income Protocols"
+date: 2022-07-15T10:00:00-07:00
+tags:
+- finance
+---
 
-DeFi's next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.e. [Yield](https://yield.is), [Notional](https://notional.finance), [Uma]().
+DeFi's next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.e. [Yield](https://yield.is), [Notional](https://notional.finance).
 
 ## Yield Protocol
 
@@ -78,7 +83,7 @@ $t$ = time to maturity
 
 ---
 
-![yieldspace curve](../assets/yieldspace_curve.png)
+![yieldspace curve](thoughts/images/yieldspace_curve.png)
 
 This formula works as constant sum protocol when $t->0$, and constant product formula when $t->1$.
 
@@ -102,11 +107,11 @@ Marginal price for a given $x_{start}$, $y_{start}$, and $t$ is given by the for
 
 $$(\frac{y}{x})^t = (\frac{(x_{start}^{1-t} + y_{start}^{1-t} - x^{1-t})^\frac{1}{1-t}}{x})^t$$
 
-![token price vs reserves](../assets/dai_price_vs_dai_reserves.png)
+![token price vs reserves](thoughts/images/dai_price_vs_dai_reserves.png)
 
 Looking at interest rates,
 
-![interest rate vs dai reserves](../assets/interest_rate_vs_dai_reserves.png)
+![interest rate vs dai reserves](thoughts/images/interest_rate_vs_dai_reserves.png)
 $$\frac{y}{x} - 1 = \frac{(x_{start}^{1-t} + y_{start}^{1-t} - x^{1-t})^\frac{1}{1-t}}{x} - 1$$
 
 ## Fees

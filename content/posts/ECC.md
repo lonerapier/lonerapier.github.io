@@ -1,27 +1,15 @@
-# ECC
+---
+title: "Elliptic Curve Cryptography"
+date: 2022-08-21T14:02:48-07:00
+tags:
+- technical
+- ongoing
+---
 
-## Resources
-
-[Group Theory | Brilliant Math & Science Wiki](https://brilliant.org/wiki/group-theory-introduction/)
-
-[Picking a Base Point in ECC](https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6)
-
-[What’s The Order in ECC?](https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8)
-
-- [https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve)
-[Secp256k1 | River Glossary](https://river.com/learn/terms/s/secp256k1/)
-
-[Discrete Log Problem (DLP) | River Glossary](https://river.com/learn/terms/d/discrete-log-problem-dlp/)
-
-[Elliptic curves secp256k1 and secp256r1](https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/)
-
-[Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks](https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)
-
-[Exploring Elliptic Curve Pairings](https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627)
 
 ## Elliptic Curve Cryptography
 
-$$y^2 = x^3 + ax^2 + bx + c$$
+$$ y^2 = x^3 + ax^2 + bx + c $$
 
 secp256k1: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.
 
@@ -29,7 +17,7 @@ ECDSA: Elliptic Curve Digital Signature Algorithm
 
 Public key cryptography uses this method to calculate public keys which is a point on ECC curve.
 
-$$K = (k * G) \% p$$
+$$ K = (k * G) \% p $$
 
 - K = 512-bit public key
 - k = 256-bit randomly generated private key
@@ -80,7 +68,7 @@ describes that there are currently no known method for calculating point divisio
 
 ### Why Discrete logarithm?
 
-ECC is significant because solving $k*G$ is trivial but obtaining $k$ from product $k*G$ is not.
+ECC is significant because solving $k * G$ is trivial but obtaining $k$ from product $k * G$ is not.
 
 k*G can be obtained using Fast-Exponentiation algorithm but solving for k requires computing discrete logarithms.
 
@@ -105,3 +93,23 @@ Not going into details as to what a characteristic 2 finite field is, we can spe
 
 1. [https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627](https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627)
 2. [https://eth2book.info/altair/part2/building_blocks/signatures](https://eth2book.info/altair/part2/building_blocks/signatures)
+
+## Resources
+
+- [Group Theory | Brilliant Math & Science Wiki](https://brilliant.org/wiki/group-theory-introduction/)
+
+- [Picking a Base Point in ECC](https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6)
+
+- [What’s The Order in ECC?](https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8)
+
+- [https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve)
+
+- [Secp256k1 | River Glossary](https://river.com/learn/terms/s/secp256k1/)
+
+- [Discrete Log Problem (DLP) | River Glossary](https://river.com/learn/terms/d/discrete-log-problem-dlp/)
+
+- [Elliptic curves secp256k1 and secp256r1](https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/)
+
+- [Why did Satoshi decide to use secp256k1 instead of secp256r1? - DappWorks](https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)
+
+- [Exploring Elliptic Curve Pairings](https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627)

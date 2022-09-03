@@ -18,6 +18,17 @@ Shows that CCC is impossible without third party."
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+  
   
   
   
@@ -52,7 +63,7 @@ Shows that CCC is impossible without third party."
     
   
   
-  <link href="https://dsam82.github.io/styles.b3e1e36b0403ac565c9392b3e23ef3b6.min.css" rel="stylesheet" />
+  <link href="https://dsam82.github.io/styles.992fdc3c531684dcd8502f0024614203.min.css" rel="stylesheet" />
 
   
   <link href="https://dsam82.github.io/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -74,7 +85,7 @@ Shows that CCC is impossible without third party."
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
 
 
-    
+
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   
@@ -99,6 +110,19 @@ Shows that CCC is impossible without third party."
   
    
   <script>
+    
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lastVisit = localStorage.getItem('lastVisitTime')
+    const now = Date.now()
+    let show = 'true'
+    if (lastVisit) {
+      document.documentElement.setAttribute('visited', 'true')
+      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
+      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
+    }
+    document.documentElement.setAttribute('show-animation', show)
+    localStorage.setItem('lastVisitTime', `${now}`)
+
     const BASE_URL = "https://dsam82.github.io/"
     const fetchData = Promise.all([
           fetch("https:\/\/dsam82.github.io\/indices\/linkIndex.38c5cc7e3870b3f3ba1b02252dd1103d.min.json")
@@ -107,7 +131,7 @@ Shows that CCC is impossible without third party."
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.b59c0ef7c3d320a1c114f7fc829bad60.min.json")
+          fetch("https:\/\/dsam82.github.io\/indices\/contentIndex.4715aefbc575583d0a9861488ff8e57a.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -132,7 +156,7 @@ Shows that CCC is impossible without third party."
 
       addCollapsibleCallouts();
       
-     
+
       
       initPopover(
         "https://dsam82.github.io",
@@ -219,15 +243,14 @@ if (!doNotTrack) {
 
 <div class="singlePage">
     
-    <header>
-    
-    <h1 id="page-title"><a href="https://dsam82.github.io/">lonerapier.xyz</a></h1>
-    <div class="spacer"></div>
-    <div id="search-icon">
-      <p>Search</p>
-      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
-    </div>
-    <div class='darkmode'>
+    <header class="delay t-3">
+  <h1 id="page-title"><a href="https://dsam82.github.io/">lonerapier.xyz</a></h1>
+  <div class="spacer"></div>
+  <div id="search-icon">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+  </div>
+  <div class='darkmode'>
     <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
     <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
@@ -521,9 +544,7 @@ Sep 2, 2022
 
 
     </article>
-    
-
-<hr/>
+    <hr/>
 
 
 <div class="page-end" id="footer">

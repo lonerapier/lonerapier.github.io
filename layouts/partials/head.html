@@ -14,6 +14,17 @@
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Social Tags -->
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="{{ .Scratch.Get "title" | humanize }}" />
+  <meta property="og:description" content="{{ .Scratch.Get "description" }}" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="{{ .Scratch.Get "title" }}">
+  <meta name="twitter:description" content="{{ .Scratch.Get "description" }}" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
   <!-- HTML Favicon -->
   {{ $favicon := $data.favicon  | default $.Site.Data.config.favicon | default (slice (dict "rel" "shortcut icon" "type" "image/png" "href" "icon.png")) }}
   {{ $type := (printf "%T" $favicon) }}
@@ -50,7 +61,7 @@
   <script src="{{$s.Permalink}}"></script>
   {{end}}
   {{partial "katex.html" .}}
-    
+
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   {{ $popover := resources.Get "js/popover.js" | resources.Fingerprint "md5" |
@@ -79,6 +90,19 @@
   "indices/contentIndex.json" | resources.Fingerprint "md5" | resources.Minify
   }}
   <script>
+    // last visit animation calculations
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lastVisit = localStorage.getItem('lastVisitTime')
+    const now = Date.now()
+    let show = 'true'
+    if (lastVisit) {
+      document.documentElement.setAttribute('visited', 'true')
+      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
+      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
+    }
+    document.documentElement.setAttribute('show-animation', show)
+    localStorage.setItem('lastVisitTime', `${now}`)
+
     const BASE_URL = {{.Site.BaseURL}}
     const fetchData = Promise.all([
           fetch("{{ $linkIndex.Permalink }}")
@@ -115,7 +139,7 @@
       {{if $data.enableCallouts | default $.Site.Data.config.enableCallouts -}}
       addCollapsibleCallouts();
       {{ end }}
-     
+
       {{if $data.enableLinkPreview | default $.Site.Data.config.enableLinkPreview}}
       initPopover(
         {{strings.TrimRight "/" .Site.BaseURL }},

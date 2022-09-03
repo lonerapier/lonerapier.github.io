@@ -15,21 +15,21 @@
   z-index: 1;
   opacity: 0;
   transition: 0.12s;
-  
+
   & > svg {
     fill: var(--light);
     filter: contrast(0.3);
   }
-  
+
   &:hover {
     cursor: pointer;
     border-color: var(--primary);
-    
+
     & > svg {
       fill: var(--primary);
     }
   }
-  
+
   &:focus {
     outline: 0;
   }
@@ -37,7 +37,7 @@
 
 .highlight {
   position: relative;
-  
+
   &:hover > .clipboard-button {
     opacity: 1;
     transition: 0.2s;

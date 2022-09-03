@@ -1,9 +1,11 @@
 // Replace this with your own font imports!
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600;700&family=Source+Sans+Pro:wght@400;600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600;700&family=Source+Sans+Pro:wght@400;600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Newsreader:opsz,wght@6..72,400;6..72,700&family=Spectral:wght@400;600&display=swap');
+
 :root {
-  --font-body: "Source Sans Pro";
-  --font-header: "Inter";
-  --font-mono: "Fira Code"
+  --font-body: "Spectral";
+  --font-header: "Newsreader";
+  --font-mono: "JetBrains Mono"
 }
 
 // typography
@@ -30,10 +32,11 @@ html {
 
 body {
   margin: 0;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   max-width: 100%;
   box-sizing: border-box;
+  position: relative;
   background-color: var(--light);
 }
 
@@ -56,7 +59,7 @@ h1, h2, h3, h4, h5, h6, thead {
   color: var(--dark);
 }
 
-p, ul, text, a, tr, td, li, ol, ul {
+p, ul, text, tr, td, li, ol, ul {
   font-family: var(--font-body);
   color: var(--gray);
   fill: var(--gray);
@@ -183,7 +186,7 @@ article {
     margin-top: 2em;
     font-size: 2em;
   }
-  
+
   & > .meta {
     margin: 0 0 1em 0;
     opacity: 0.7;
@@ -201,11 +204,11 @@ article {
 
       &.broken {
         opacity: 0.5;
-        background-color: transparent; 
+        background-color: transparent;
       }
     }
   }
-  
+
   & p {
     overflow-wrap: anywhere;
   }
@@ -233,11 +236,10 @@ article {
   & > li > a {
     border-radius: 8px;
     border: var(--outlinegray) 1px solid;
-    padding: 0.2em 0.5em;
+    padding: 0.1em 0.5em;
     &::before {
       content: "#";
       margin-right: 0.3em;
-      color: var(--outlinegray);
     }
   }
 }
@@ -263,7 +265,7 @@ a {
   font-size: 1em;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   color: var(--secondary);
   &:hover {
     color: var(--tertiary) !important;
@@ -295,7 +297,7 @@ footer {
   text-align: center;
   & ul {
     padding-left: 0;
-  } 
+  }
 }
 
 hr {
@@ -509,7 +511,7 @@ header {
 
   & > .section {
     display: flex;
-    align-items: center; 
+    align-items: center;
 
     @media all and (max-width: 600px) {
       & .tags {
@@ -521,11 +523,11 @@ header {
       font-weight: 700;
       margin: 0;
     }
-    
-    & p {
+
+    & > p {
       margin: 0;
       padding-right: 1em;
-      flex-basis: 6em; 
+      width: clamp(6rem, 6rem, 6rem);
     }
   }
 
@@ -598,7 +600,7 @@ header {
   & > p {
     margin: 0;
     padding: 0.5rem 0;
-  } 
+  }
 
   & > p, & > a {
     font-size: 1rem;

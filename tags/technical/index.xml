@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>technical on lonerapier.xyz</title>
-    <link>https://dsam82.github.io/tags/technical/</link>
+    <link>https://lonerapier.xyz/tags/technical/</link>
     <description>Recent content in technical on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://dsam82.github.io/tags/technical/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/technical/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elliptic Curve Cryptography</title>
-      <link>https://dsam82.github.io/posts/ECC/</link>
+      <link>https://lonerapier.xyz/posts/ECC/</link>
       <pubDate>Sun, 21 Aug 2022 14:02:48 -0700</pubDate>
       
-      <guid>https://dsam82.github.io/posts/ECC/</guid>
+      <guid>https://lonerapier.xyz/posts/ECC/</guid>
       <description>Elliptic Curve Cryptography $$ y^2 = x^3 + ax^2 + bx + c $$
 secp256k1: used by Bitcoin and Ethereum to implement public key cryptography.</description>
     </item>
     
     <item>
       <title>ETH Consensus</title>
-      <link>https://dsam82.github.io/posts/eth-consensus/</link>
+      <link>https://lonerapier.xyz/posts/eth-consensus/</link>
       <pubDate>Sat, 14 May 2022 20:05:45 -0900</pubDate>
       
-      <guid>https://dsam82.github.io/posts/eth-consensus/</guid>
+      <guid>https://lonerapier.xyz/posts/eth-consensus/</guid>
       <description>ELI5 understanding of ETH 2.0 specs
 Safety: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</description>
     </item>
     
     <item>
       <title>Ethereum Yellow Paper</title>
-      <link>https://dsam82.github.io/posts/eth-basics/</link>
+      <link>https://lonerapier.xyz/posts/eth-basics/</link>
       <pubDate>Thu, 10 Mar 2022 00:02:48 -0700</pubDate>
       
-      <guid>https://dsam82.github.io/posts/eth-basics/</guid>
+      <guid>https://lonerapier.xyz/posts/eth-basics/</guid>
       <description>Transaction based state-machine
 state of the blockchain changes after executing transactions.
 stores states in state root
@@ -41,20 +41,20 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain</descript
     
     <item>
       <title>Communication Across Distributed Ledgers</title>
-      <link>https://dsam82.github.io/posts/SoK/</link>
+      <link>https://lonerapier.xyz/posts/SoK/</link>
       <pubDate>Sat, 11 Apr 2020 22:15:20 -0900</pubDate>
       
-      <guid>https://dsam82.github.io/posts/SoK/</guid>
+      <guid>https://lonerapier.xyz/posts/SoK/</guid>
       <description>Communication Across Distributed Ledgers
 Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).</description>
     </item>
     
     <item>
       <title>Optimistic Rollups</title>
-      <link>https://dsam82.github.io/posts/Optimistic-Rollups/</link>
+      <link>https://lonerapier.xyz/posts/Optimistic-Rollups/</link>
       <pubDate>Sat, 11 Apr 2020 16:00:48 -0900</pubDate>
       
-      <guid>https://dsam82.github.io/posts/Optimistic-Rollups/</guid>
+      <guid>https://lonerapier.xyz/posts/Optimistic-Rollups/</guid>
       <description>Asserter/Checker Problem  Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful.</description>
     </item>
     

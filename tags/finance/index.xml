@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>finance on lonerapier.xyz</title>
-    <link>https://dsam82.github.io/tags/finance/</link>
+    <link>https://lonerapier.xyz/tags/finance/</link>
     <description>Recent content in finance on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Jul 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://dsam82.github.io/tags/finance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Jul 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/finance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fixed Income Protocols</title>
-      <link>https://dsam82.github.io/thoughts/fixed-rate-protocols/</link>
+      <link>https://lonerapier.xyz/thoughts/fixed-rate-protocols/</link>
       <pubDate>Fri, 15 Jul 2022 10:00:00 -0700</pubDate>
       
-      <guid>https://dsam82.github.io/thoughts/fixed-rate-protocols/</guid>
+      <guid>https://lonerapier.xyz/thoughts/fixed-rate-protocols/</guid>
       <description>DeFi&amp;rsquo;s next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.</description>
     </item>
     
     <item>
       <title>Curve Wars</title>
-      <link>https://dsam82.github.io/thoughts/Curve-wars/</link>
+      <link>https://lonerapier.xyz/thoughts/Curve-wars/</link>
       <pubDate>Sat, 11 Jun 2022 00:01:00 -0700</pubDate>
       
-      <guid>https://dsam82.github.io/thoughts/Curve-wars/</guid>
+      <guid>https://lonerapier.xyz/thoughts/Curve-wars/</guid>
       <description>Resources   defi 80/20  Back to the basics: uniswap, balancer, curve  Back to the basics: compound, aave  Curve wars  The Curve Wars  curve v2 parameters  </description>
     </item>
     
     <item>
       <title>Uniswap V3</title>
-      <link>https://dsam82.github.io/thoughts/UniswapV3/</link>
+      <link>https://lonerapier.xyz/thoughts/UniswapV3/</link>
       <pubDate>Fri, 20 May 2022 00:02:48 -0700</pubDate>
       
-      <guid>https://dsam82.github.io/thoughts/UniswapV3/</guid>
+      <guid>https://lonerapier.xyz/thoughts/UniswapV3/</guid>
       <description>Features:
  Concentrated Liquidity Improved Price Oracle Flexible Fees  Uniswap V2 IL Market with Liquidity $L$ and Asset $X$ and $Y$ with amounts $x$ and $y$ respectively.</description>
     </item>

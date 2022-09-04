@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ELI5 on lonerapier.xyz</title>
-    <link>https://dsam82.github.io/tags/ELI5/</link>
+    <link>https://lonerapier.xyz/tags/ELI5/</link>
     <description>Recent content in ELI5 on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 May 2022 20:05:45 -0900</lastBuildDate><atom:link href="https://dsam82.github.io/tags/ELI5/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 May 2022 20:05:45 -0900</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/ELI5/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ETH Consensus</title>
-      <link>https://dsam82.github.io/posts/eth-consensus/</link>
+      <link>https://lonerapier.xyz/posts/eth-consensus/</link>
       <pubDate>Sat, 14 May 2022 20:05:45 -0900</pubDate>
       
-      <guid>https://dsam82.github.io/posts/eth-consensus/</guid>
+      <guid>https://lonerapier.xyz/posts/eth-consensus/</guid>
       <description>ELI5 understanding of ETH 2.0 specs
 Safety: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</description>
     </item>

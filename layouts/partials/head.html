@@ -25,6 +25,7 @@
   <meta name="twitter:description" content="{{ .Scratch.Get "description" }}" />
   <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
 
+
   <!-- HTML Favicon -->
   {{ $favicon := $data.favicon  | default $.Site.Data.config.favicon | default (slice (dict "rel" "shortcut icon" "type" "image/png" "href" "icon.png")) }}
   {{ $type := (printf "%T" $favicon) }}
@@ -184,6 +185,9 @@
           {left: '$$', right: '$$', display: true},
           {left: '$', right: '$', display: false},
         ],
+        macros: {
+          '’': "'"
+        },
         throwOnError : false
       });
       {{end}}

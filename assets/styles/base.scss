@@ -5,7 +5,7 @@
 :root {
   --font-body: "Spectral";
   --font-header: "Newsreader";
-  --font-mono: "JetBrains Mono";
+  --font-mono: "JetBrains Mono"
 }
 
 // typography
@@ -38,7 +38,6 @@ body {
   box-sizing: border-box;
   position: relative;
   background-color: var(--light);
-  font-size: 15px;
 }
 
 h1, h2, h3, h4, h5, h6, thead {

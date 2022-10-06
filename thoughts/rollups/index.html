@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="First of all, let&rsquo;s give you a banger to listen along this wild ride that I had while going deep and deep in this amazing rabbit hole of Rollups."
+  />
+  <title>
+    Making Sense of Rollups
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.72f297ead12c82348b1576f11ad27707.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js" integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A" crossorigin="anonymous"></script>
+
+
+
+  <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script src="https://lonerapier.xyz/js/popover.53ad9a087e3feeaaa12b63bfd02d923b.min.js"></script>
+
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js"></script>
+  
+
+  
+  
+  <script src="https://lonerapier.xyz/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js"></script>
+  
+
+  
+  
+  <script src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lastVisit = localStorage.getItem('lastVisitTime')
+    const now = Date.now()
+    let show = 'true'
+    if (lastVisit) {
+      document.documentElement.setAttribute('visited', 'true')
+      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
+      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
+    }
+    document.documentElement.setAttribute('show-animation', show)
+    localStorage.setItem('lastVisitTime', `${now}`)
+
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.a16bd6cabe484a0032bc6f1523686c55.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.a3af764716e2b922e05ae78790ff7002.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true ,
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header class="delay t-3">
+  <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+  <div class="spacer"></div>
+  <div id="search-icon">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+  </div>
+  <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>Making Sense of Rollups</h1>
+      <p class="meta">
+        Last updated 
+Oct 3, 2022
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/rollups.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/tech/">Tech</a></li>
+          
+          <li><a href="https://lonerapier.xyz/tags/seed/">Seed</a></li>
+          
+      </ul>
+      
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lets-dive-in">Let&rsquo;s Dive in!</a></li>
+    <li><a href="#different-rollups">Different Rollups</a></li>
+    <li><a href="#why-rollups">Why Rollups?</a></li>
+    <li><a href="#rollup-fees">Rollup fees</a></li>
+    <li><a href="#mev-in-a-modular-stack">MEV in a modular stack</a></li>
+    <li><a href="#attacks-on-da-layer">Attacks on DA Layer</a>
+      <ol>
+        <li><a href="#33-attack">33% Attack</a></li>
+        <li><a href="#67-attack">67% Attack</a></li>
+      </ol>
+    </li>
+    <li><a href="#rollup-stack">Rollup Stack</a>
+      <ol>
+        <li><a href="#sc-settlement-rollup--sc-recursive-rollup">SC Settlement Rollup &amp; SC Recursive rollup</a></li>
+        <li><a href="#enshrined-rollups">Enshrined Rollups</a></li>
+        <li><a href="#sovereign-rollupshttpsblogcelestiaorgsovereign-rollup-chains"><a href="https://blog.celestia.org/sovereign-rollup-chains/">Sovereign Rollups</a></a></li>
+        <li><a href="#bridging-in-srs">Bridging in SRs</a></li>
+        <li><a href="#aggregated-zk-bridging">Aggregated ZK Bridging</a></li>
+        <li><a href="#eth-sovereign-rollups">ETH Sovereign Rollups</a></li>
+        <li><a href="#celestia-sovereign-settlement-rollup--sc-recursive-rollup">Celestia Sovereign Settlement Rollup &amp; SC Recursive Rollup</a></li>
+      </ol>
+    </li>
+    <li><a href="#questions">Questions</a></li>
+    <li><a href="#readings">Readings</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+        
+        
+      
+    
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+  
+  
+
+
+<p>First of all, let&rsquo;s give you a banger to listen along this wild ride that I had while going deep and deep in this amazing rabbit hole of Rollups. The song is 
+
+<a href="https://open.spotify.com/track/6M6S6DhGZZzmtTjP1iPvxb?si=d35d13e8c74e40ae" rel="noopener">Nine Cats</a> from Porcupine Tree. I listen to them quite often as Prog Rock is one of my favorite genres to listen, it&rsquo;s pretty wild yet sounds soothing to my ears.</p>
+<a href="#lets-dive-in"><h2 id="lets-dive-in"><span class="hanchor" ariaLabel="Anchor"># </span>Let&rsquo;s Dive in!</h2></a>
+<p>Modular Stack divided the monolithic state of a blockchain into four main parts:</p>
+<ol>
+<li>Data Availability (DA): making state and transaction data available to consumers cheaply and quickly</li>
+<li>Consensus: agreement over the transactions included in a block and their ordering</li>
+<li>Settlement: can vary between different implementations, but mainly refers to settling/validating of transactions on the chain through verifying/arbitrating proofs.</li>
+<li>Execution: computation of previous state → transaction → new state</li>
+</ol>
+<p><em><strong>Economic security</strong></em> refers to large amount of monetary value locked into the layer that is being secured by the network. In the end, the most economical secure layer will accrue the most value as that&rsquo;s where most of the premium and profit resides.</p>
+<a href="#different-rollups"><h2 id="different-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>Different Rollups</h2></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/1_Modular-Stacks.jpeg" width="auto" alt="1_Modular-Stacks"  /></p>
+<p>There are 
+
+<a href="https://twitter.com/apolynya/status/1511623759786307586" rel="noopener">four</a> main kinds into which Rollups can be categorised:</p>
+<ol>
+<li>Smart Contract Rollups: they use already decentralised, economic secure L1 for settling through the use of smart contracts for arbitrating proofs.</li>
+<li>Enshrined Rollups: in-protocol rollup which doesn&rsquo;t rely on smart contracts and is built into the L1 spec itself.</li>
+<li>Sovereign Rollups: doesn&rsquo;t use another L1 for settling, and only use another DA layer for data and ordering. These type of rollups have full control over their stack and can outperform other alt-L1s.</li>
+<li>Validium / Celestiums: these use off-chain DA solution for cheap DA and settle proofs on other external chain.</li>
+</ol>
+<a href="#why-rollups"><h2 id="why-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>Why Rollups?</h2></a>
+<p>Because Ethereum in it&rsquo;s older monolithic form was not designed to scale for the demand of thousands of transactions in a second and thus, rollups provide a better environment for apps to exist, with better transaction pricing and scalability. And also provide better grounds for research and technological advancements to take place which can&rsquo;t happen in a monolithic system.</p>
+<p>Any system that wants to house many high valued assets has to capture the monetary premium in the form of fees or MEV to guarantee the economic security. Many believe that to be the settlement layer as that&rsquo;s where a transaction validity gets finalised.</p>
+<a href="#rollup-fees"><h2 id="rollup-fees"><span class="hanchor" ariaLabel="Anchor"># </span>Rollup fees</h2></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/14_Smart-Contract-Rollups.jpeg" width="auto" alt="14_Smart-Contract-Rollups.jpeg"  /></p>
+<p>In its current form i.e. pre <em>EIP-4844</em> and <em>Danksharding</em>, each rollup is essentially a <em>Smart Contract Rollup,</em> which posts its transaction data (in case of ORUs, ZKRs don&rsquo;t need to post complete transaction data), state roots along with proof data to L1 in the form of calldata to smart contracts. These SCRs have fixed cost in terms of state commitments and proofs that they submit and variable costs in the transaction data along with proposers signatures in case of ORs.</p>
+<blockquote>
+<p>Note: ZKRs don&rsquo;t need to submit transaction data and ORUs does is in case of fraud in ORUs, transaction data is needed to check the fraud but ZKRs along with validity proofs prove that the state diffs are valid. Thus, ZKRs post validity proofs every time to L1.</p>
+</blockquote>
+<p>Optimism currently uses two smart contracts at L1 that sequencer and proposer post to:</p>
+<ol>
+<li>Canonical Transaction Chain contract: append-only logs of transactions submitted by sequencer.</li>
+<li>State Commitment Chain contract: state roots proposed by the proposers for each transactions in CTC.</li>
+</ol>
+<p>Posting to both of these contracts incur a cost to L2s. Although most of these contracts will be archived sooner than later as Ethereum eyes its bigger upgrades and Rollups also upgrades to better infra in the form of <em><strong>bedrock</strong></em> for Optimism and <em><strong>Nitro</strong></em> for Arbitrum. Better DA layer, separate EIP-1559 fee market for rollup data will get rid of the smart contracts.</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/8_Value-Flows.jpeg" width="auto" alt="8_Value-Flows.jpeg"  /></p>
+<p>But with EIP-4844 and Danksharding looming, DA supply will overshoot and better compression from rollups as well will scale the TPS metric to an absurd amount. This brings to the question of value accrual as the value acquired as a DA layer won&rsquo;t be much if the DA supply isn&rsquo;t fully exhausted.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Target DA Bandwidth</th>
+<th>Target Useful Data per block</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EIP-4844</td>
+<td>83.33 KB/s</td>
+<td>1 MB</td>
+</tr>
+<tr>
+<td>Danksharding</td>
+<td>1.33 MB/s</td>
+<td>16 MB</td>
+</tr>
+</tbody>
+</table>
+<p>With Danksharding, Ethereum as a DA layer will be able to provide 1.33 MB/s data bandwidth with maximum economic security. Current Eth blocks average around 90KB with calldata being 10 KB of this. Rollups eventually want to optimise for 14 bytes/tx which with 1.33 MB/s bandwidth amounts for 100k sweet sweet TPS. Although, this should be kept in mind that these are best case numbers in a hyper-optimised rollup environment that will be implemented in a very long time horizon.</p>
+<a href="#mev-in-a-modular-stack"><h2 id="mev-in-a-modular-stack"><span class="hanchor" ariaLabel="Anchor"># </span>MEV in a modular stack</h2></a>
+<p>With MEV-Boost running in production with several relayers and in-protocol PBS as part of roadmap, this makes most of the MEV value to accrue to L1 base layer. Similarly, in a rollup environment, sequencers try to bid for block with maximum value from searchers which accrues most of the value to rollup layer. This is still a research area, with how much of the value that will get accrued to L1 DA/settlement layer or L2 stack. MEV value can get leaked to DA layer if it censors or delays settlement layer blocks.</p>
+<p>Celestia wants a small part of a bigger pie here due to optimising for the DA layer.</p>
+<a href="#attacks-on-da-layer"><h2 id="attacks-on-da-layer"><span class="hanchor" ariaLabel="Anchor"># </span>Attacks on DA Layer</h2></a>
+<a href="#33-attack"><h3 id="33-attack"><span class="hanchor" ariaLabel="Anchor"># </span>33% Attack</h3></a>
+<p>This leads to liveness failure in tendermint consensus and is a slashable event in Gasper consensus which leads to inactivity leak until the protocol can finalise again.</p>
+<a href="#67-attack"><h3 id="67-attack"><span class="hanchor" ariaLabel="Anchor"># </span>67% Attack</h3></a>
+<p>There are certain validity condition in the consensus protocols such that even if 100% of the validators are dishonest, they can&rsquo;t just print native tokens out of nothing as the honest nodes won&rsquo;t accept the transactions and protocol can be forked using social consensus.</p>
+<p>Attacks that can happen if 67% of the protocol is malicious are:</p>
+<ol>
+<li>Double signing</li>
+<li>Data withholding</li>
+<li>Fraud proofs censorship</li>
+</ol>
+<p>Thus, both DA and settlement layer is susceptible to frauds. Eventually, only that stack wins which accrues the most value i.e. most economically secure. Every layer has to be designed such that participants can capture a value of the transaction for self-sustaining environment otherwise, it leads to more centralisation. And, as it is put now, DA layer doesn&rsquo;t accrue much of the transactional value and it will be the case for a long time in the future.</p>
+<a href="#rollup-stack"><h2 id="rollup-stack"><span class="hanchor" ariaLabel="Anchor"># </span>Rollup Stack</h2></a>
+<a href="#sc-settlement-rollup--sc-recursive-rollup"><h3 id="sc-settlement-rollup--sc-recursive-rollup"><span class="hanchor" ariaLabel="Anchor"># </span>SC Settlement Rollup &amp; SC Recursive rollup</h3></a>
+<p>One question that comes to mind is why does Rollup has to use Ethereum as its Settlement layer? Because it&rsquo;s an economic secure network which behaves as an apt settlement layer due to its isolated execution environment that can arbitrate proofs submitted by the rollups. The smart contracts on Ethereum also serves as trust-minimised two way bridges between the rollup and the L1. It&rsquo;s trust minimised as <em>rollups operators</em> (proposers, sequencers, provers, challengers) due to the means of smart contracts doesn&rsquo;t need any third party to submit batches to the L1 and it&rsquo;s two way because L1 smart contracts receive block headers along with proofs and thus behaves as a light client.</p>
+<p>Starkware wants to create recursive smart contract rollups on top of Starkware L2, where L2 behaves as a settlement layer for L3s and more use-specific applications can be deployed as L3s on top of L2s. L2s verifier contract receives many validity proofs from L3s and recursively combines it into one proof and submit to L1.</p>
+<a href="#enshrined-rollups"><h3 id="enshrined-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>Enshrined Rollups</h3></a>
+<p>ERs are what rollups would have looked like if an L1 supports them from the start, i.e. in-protocol support for verifying state changes. Currently, to verify if a state is valid, full nodes have to run all the transactions. Perfect game would be when the blocks or rollup batches have proofs attached and state validity could be proven. A single zkEVM which could verify the SNARK submitted with each block for state validity.</p>
+<p>As the name mentions, ERs are currently a theoretical concept, meant to be part of the L1 itself in the spec rather deployed on top of smart contracts. So,</p>
+<ul>
+<li>
+<p>How does rollups settle to L1?</p>
+<p>Full Nodes doesn&rsquo;t have to run all the transactions unless there&rsquo;s a fraud proof in case of ORUs, much better case in case of ZKRs where no re-execution happens due to provers providing validity proof with each batch.</p>
+</li>
+<li>
+<p>Other thing that comes to mind is how will the in-protocol proofs would look like?</p>
+<p>The simplest way for an L1 to support proofs within consensus layer is to re-execute the transactions with pre and post state roots. A zkEVM would get SNARK with every block as a sidecar or on-chain depending on the implementation.</p>
+</li>
+<li>
+<p>What performance upgradation does in-house proof proving could provide?</p>
+<p>With weak statelessness already part of the roadmap, full nodes wouldn&rsquo;t have to execute every transaction to check state validity due to SNARK coming with every block leading to simpler consensus logic. Removing compute bottleneck and statelessness reducing disk I/O also helps in raising the block gas limit. And bandwidth resource increases according to the Nielsen&rsquo;s Law. Also light clients can filter invalid state roots due to SNARKs much more quickly than fraud proofs.</p>
+</li>
+</ul>
+<p><strong>Step 2</strong> would be to deploy parallel zkEVMs ERs. These parallel ERs can verify separate SNARKs and then can settle to one main settlement rollup, performing like execution shards but better.</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/24.-Enshrined-Rollups_00288-1.jpg" width="auto" alt="24.-Enshrined-Rollups_00288-1.jpeg"  /></p>
+<p>zkEVMs ERs have several benefits:</p>
+<ol>
+<li><strong>Social Alignment</strong>: Follows social consensus</li>
+<li><strong>Secure</strong>: No upgrade keys required</li>
+<li><strong>Economic</strong>: maximum value accrual to ETH</li>
+<li><strong>Gas Efficient</strong>: less gas cost as directly arbitrating proofs instead via SCs</li>
+</ol>
+<p>Disadvantages:</p>
+<ol>
+<li>Slow: has to go through vigorous protocol update phases</li>
+<li>Pre-Confirmations: Harder pre-confirmations as no centralised sequencers</li>
+<li>Less VM innovation</li>
+<li>Increased builder cost: more specialised builders that are able to verify the SNARK.</li>
+</ol>
+<p>There are many arguments against zkEVM shards ERs potentially harming SCRs and innovation happening on it. Users wouldn&rsquo;t feel as comfortable using a private SCR and would instead choose a more embedded, easily verifiable ER, thus weakening these SCRs.</p>
+<p>This could potentially lead to a rollup leaving L1 for their own to gain a bigger piece of the pie and gain more control over its users and stack. In my opinion, rollups doing this are just scared of competition, looking for profit and maximalism rather than what blockchains as a tool stands for and, that is, social coordination. ERs and SCRs could easily go hand-in-hand, with SCR housing the innovations in the ecosystem and ERs becoming the efficient, trust-minimised settlement layer.</p>
+<p>DA on its own doesn&rsquo;t accrue much value to the base layer, high-value transactions and massive liquidity is needed to attract more premium and value to the participants and that is achieved by being the best settlement layer. This could be achieved using zkEVM ERs. A successful settlement layer would only benefit the SCRs building on top, as more monetary premium leads to economic security and more trust a user has on the rollup. Rollups breaking away from the base layer would have to again fight the same battle of network effects, decentralisation, retaining users with fragmented liquidity and much lesser scaling options which is the whole point of rollup economics.</p>
+<p>Ethereum as a base layer shouldn&rsquo;t just focus on rollups, but housing as many participants as possible with apps like Uniswap, Aave running and doing massive defi transactions on L1, SCRs, ERs.</p>
+<p>Validiums/Celestiums that use other chains as DA layers suffers from trust assumptions as there are two options for DA, off-chain and on-chain. Off-chain options could be fast and cheap but lacks sufficient decentralisation and On-chain options like Celestia could be a better option but if it goes down so does your chain relying on it for DA. Thus, rollups settling on same chain for DA and settlement avoid these issues as if Ethereum gets 51% attacked and reverts, so does the rollup settling to it. There are benefits that validiums provide that depends on the use case of data availability modes.</p>
+<blockquote>
+<p>Settlement alone then largely provides network effects, while DA adds on full security. These network effects are safely optimised by sharing DA.</p>
+</blockquote>
+<h3 id="sovereign-rollupshttpsblogcelestiaorgsovereign-rollup-chains">
+
+<a href="https://blog.celestia.org/sovereign-rollup-chains/" rel="noopener">Sovereign Rollups</a></h3>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/28_Sovereign-Rollups.jpg" width="auto" alt="28_Sovereign-Rollups.jpeg"  /></p>
+<p>SRs are other type of rollups that doesn&rsquo;t use other L1 as settlement layer but just use external DA and consensus layer. Settlement is handled within the rollup with their own clients. Full Nodes and Light Clients are used to sample DA and fraud/validity proofs for verification. Celestia is a solution in this direction which wants to be the go-to layer for cheap DA, giving sovereignty to chains. A rollup that uses another chain as settlement layer is bounded by the consensus rules of that chain, and doesn&rsquo;t have complete control over its changes. SR nodes verify the correct canonical chain for themselves, relying just for data on the external layer. The trust minimised two-way bridge converts to a one-way bridge for SRs as no verification is happening from the base layer.</p>
+<p>One major drawback of having a chain that can fork endlessly even with minority is that it hurts composability. Apps that rely on other apps for their functionality would also have to fork and follow the new rollup chain which is not feasible in a bigger ecosystem and is quite pointless if the apps prefer the older chain, then you are just left with a new fork which no one is using. Thus, SRs make more sense for specific and single purpose DApps. DeFi is the most significant use case for decentralised applications at the moment and most of it relies on other apps for composability and yields, it wouldn&rsquo;t make much sense for apps to just spin up their own rollup chain to have sovereignty away from the base layer.</p>
+<p>One advantage that SRs flex is the flexibility of having their own execution environments tailored for the specific use case rollup chain is designed for. This is not the case with ERs or SCRs that only supports base layer native execution environment for arbitrating proofs.</p>
+<a href="#fraud-proofs-in-srs"><h4 id="fraud-proofs-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Fraud Proofs in SRs</h4></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/30_IVG.jpg" width="auto" alt="30_IVG.jpeg"  /></p>
+<ul>
+<li>Non-Interactive: simple flavour of proofs where the challenger submits the claim and the light clients execute the transactions completely to check if the claim is true.</li>
+<li>Interactive: Challenger submits claim and responder responds to defend themselves. These entities play a <em><strong>Interactive Verification Game</strong></em> (IVG) with a referee.</li>
+</ul>
+<p>There are two methods to distribute FPs over the network:</p>
+<ul>
+<li>P2P layer: distributed via nodes to other nodes, faster light client finality, no censoring by L1 miners/validators.</li>
+<li>On-chain inclusion</li>
+</ul>
+<p>Celestia is a dirty ledger that means it doesn&rsquo;t check for validity and there&rsquo;s no concept of finality and just focuses on putting the data out there. Now, if a challenger wants to prove a Tx is an invalid transaction, it needs to have all the related transactions that could prove the malicious transaction is invalid and thus, this again brings us to the same place of archival nodes having to store all of the transactions. To mitigate this, weak subjectivity assumption is introduced. SCRs challengers has to keep the transaction data for the challenging period while SRs challengers now need to keep the data for the weak subjectivity period.</p>
+<p>IVG also introduces synchrony assumptions where all the light clients have to be connected to the honest challengers in order to distribute proofs. Thus, SRs are likely to use single round FPs as light clients can then participate in the distribution of proofs.</p>
+<a href="#bridging-in-srs"><h3 id="bridging-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Bridging in SRs</h3></a>
+<p>SRs do add additional design considerations over bridging as the settlement is happening on the rollup side and not on the base layer.</p>
+<p>There can be two types of bridges:</p>
+<ul>
+<li>
+<p>Committee-based: A validator set of source chain attest to the validity of a block that is being used by another chain. Not trust-minimised as committee can steal funds. IBC is an example of this.</p>
+</li>
+<li>
+<p>Proof-based: Trust-minimised bridging where SRs can verify each other&rsquo;s state using proofs, much more complex than other types.</p>
+<p>Two types of bridging settlement here:</p>
+<ul>
+<li>P2P settlement: where light clients are embedded in the chain and receive proofs over P2P network. Both SRs have bridging contract allowing for lock-and-mint mechanism.</li>
+<li>On-chain settlement: both rollups run light clients as smart contracts. proofs and transaction data stored on-chain in these contracts.</li>
+</ul>
+<p>Two types of upgrade mechanisms possible:</p>
+<ul>
+<li>Static Bridging: In which the rollup $SR_A$ doesn&rsquo;t support $SR_B$&rsquo;s execution environment and has to support it node software upgrades. Now, if $SR_B$ forks, $SR_A$ has to fork itself to support $SR_A$ execution environment again. Thus, social consensus or governance is needed to add bridge.</li>
+<li>Dynamic bridging: rollup&rsquo;s support each other execution environment, thus not needed to fork and can support other&rsquo;s proofs directly.</li>
+</ul>
+<p>Two types of bridging possible in SRs:</p>
+<ul>
+<li>Pairwise Bridging: every rollup has a bridge to every other rollup which means $N^2$ bridges for N rollups.</li>
+<li>Hub-and-Spoke model: a central hub SR which aggregates all the liquidity and communication from all the rollups. Similar to what Cosmos Hub wants to be.</li>
+</ul>
+</li>
+</ul>
+<a href="#aggregated-zk-bridging"><h3 id="aggregated-zk-bridging"><span class="hanchor" ariaLabel="Anchor"># </span>Aggregated ZK Bridging</h3></a>
+<p>Problem: $SR_1 - SR_2$ through $SR_N$</p>
+<ol>
+<li>An aggregate prover would receive proofs off-chain $SR_2 - SR_N$, runs a light client for each chain.</li>
+<li>Combines proofs into one aggregated proof and includes it in a smart contract on-chain.</li>
+<li>$SR_1$ verifies proof in the same amount of time it would take to verify one proof.</li>
+</ol>
+<a href="#eth-sovereign-rollups"><h3 id="eth-sovereign-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>ETH Sovereign Rollups</h3></a>
+<p>Would be in effect when Ethereum implements data blobs carrying transactions which makes ETH to be used as a DA layer.</p>
+<p>Tradeoffs:</p>
+<ul>
+<li>Better liveness: gasper can retain liveness in 33% attack</li>
+<li>Better economic security</li>
+<li>slower finality</li>
+<li>More overhead: no DAS in ethereum yet, thus can&rsquo;t run light clients and need to run full nodes.</li>
+</ul>
+<a href="#celestia-sovereign-settlement-rollup--sc-recursive-rollup"><h3 id="celestia-sovereign-settlement-rollup--sc-recursive-rollup"><span class="hanchor" ariaLabel="Anchor"># </span>Celestia Sovereign Settlement Rollup &amp; SC Recursive Rollup</h3></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/32_SSRSCR.jpeg" width="auto" alt="32_SSRSCR.jpeg"  /></p>
+<p>SRs are specially designed for recursive rollups to live on top of. These recursive rollups use SRs for shared settlement establishing a two-way trust minimised bridge between the layers. Submits proofs, state updates and transaction data to SRs, which then batches these rollup blocks and post them to Celestia.</p>
+<p>This reduces a lot of bridging overhead found in legacy SRs where $N_2$ bridges exist for each pair of rollups. Thus, this creates $N$ trust minimised bridges to communicate with a shared settlement layer. One could argue a restrictive more specific settlement layer that only allows specific operations to perform on top of or a general purpose settlement layers. A specific settlement layer would be cheap and easier to set up with less complexities but also comes at a UX degrade of not having many use-cases like DeFi pooling, dAMMs, etc.</p>
+<p>But a separate settlement layer could pose more challenges for censorship and force transaction inclusion which is supported in SCRs. Participants can leave rollup to post their transaction to L1 anytime just trading off the cheap fees, or sequencers are forced to include transactions within a certain time period which will get decentralised with more sequencers joining eventually.</p>
+<p>But how do you do this with shared SRs? If settlement layer is censoring a rollup, then there needs to be a way to submit transactions directly to DA layer and skip settlement layer altogether.</p>
+<p>Liveness risks are still associated as liveness failure of settlement layer will render the rollup useless, but not in the case of sequencers failure of rollup itself, as then you can settle to settlement layer directly.</p>
+<a href="#questions"><h2 id="questions"><span class="hanchor" ariaLabel="Anchor"># </span>Questions</h2></a>
+<ul>
+<li>What do we really mean by a settlement layer?</li>
+<li>Does DA layer need economic security or its function is just to provide data cheaply and quickly?</li>
+<li>Atomic cross-chain MEV?</li>
+<li>Danksharding and EIP-4844 specs</li>
+<li>IVG</li>
+<li>ZK Bridging</li>
+<li>Cevmos</li>
+<li>statelessness</li>
+</ul>
+<a href="#readings"><h2 id="readings"><span class="hanchor" ariaLabel="Anchor"># </span>Readings</h2></a>
+<ul>
+<li><a href="/posts/Optimistic-Rollups" rel="noopener" class="internal-link" data-src="/posts/Optimistic-Rollups">ORUs</a></li>
+<li>
+
+<a href="https://members.delphidigital.io/reports/the-complete-guide-to-rollups" rel="noopener">The Complete Guide to Rollups - Delphi Digital</a></li>
+<li>
+
+<a href="https://barnabe.substack.com/p/understanding-rollup-economics-from" rel="noopener">Understanding rollup economics from first principles</a></li>
+<li>
+
+<a href="https://l2beat.com/scaling/tvl/" rel="noopener">l2Beat</a></li>
+<li>
+
+<a href="https://twitter.com/dystopiabreaker/status/1531102983894597632%ef%bf%bc" rel="noopener">Modular war on Twitter</a></li>
+<li>
+
+<a href="https://www.reddit.com/r/ethereum/comments/vrx9xe/comment/if11ljm/?utm_source=share&amp;utm_medium=web2x&amp;context=3" rel="noopener">EF Reddit AMA Enshrined Rollups</a></li>
+<li>
+
+<a href="https://blog.celestia.org/sovereign-rollup-chains/" rel="noopener">Sovereign Rollup Chains</a></li>
+<li>
+
+<a href="https://medium.com/infinitism/optimistic-time-travel-6680567f1864" rel="noopener">Fraud Proofs Explainer</a></li>
+</ul>
+
+
+    </article>
+    <hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+      
+    
+      
+      
+      <li>
+        <a href="/thoughts/uncovering-celestia/" data-ctx="Rollups" data-src="/thoughts/uncovering-celestia" class="internal-link">Uncovering Celestia</a>
+      </li>
+      
+      
+      
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.abd4bc2af3869a96524d7d23b76152c7.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2022</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

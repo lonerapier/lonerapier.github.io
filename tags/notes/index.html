@@ -125,13 +125,13 @@
 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.884b3b81c4526a0fd8ba0b73fe2ce616.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.a16bd6cabe484a0032bc6f1523686c55.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.15877efd4a21f2f0f92a0ee988bccae8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.a3af764716e2b922e05ae78790ff7002.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -283,7 +283,7 @@ May 20, 2022
 
             </p>
             <div class="desc">
-              <h3><a href="https://lonerapier.xyz/thoughts/UniswapV3/" class="internal-link" data-src="/thoughts/UniswapV3/">Uniswap V3</a></h3>
+              <h3><a href="https://lonerapier.xyz/thoughts/uniswap-v3/" class="internal-link" data-src="/thoughts/uniswap-v3/">Uniswap V3</a></h3>
             </div>
             <div class="spacer"></div>
             <ul class="tags">

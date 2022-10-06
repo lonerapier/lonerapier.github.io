@@ -126,13 +126,13 @@
 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.a16bd6cabe484a0032bc6f1523686c55.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.a6d1de47950a12dbb2d92d22f34c388a.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.a3af764716e2b922e05ae78790ff7002.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.40867c688e1fa9f0ec04d42a5d5bf2b5.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -353,10 +353,10 @@ Mar 10, 2022
                     <li>
                         <div class="section">
                             <div class="desc">
-                                <h3><a href="https://lonerapier.xyz/thoughts/rollups/">Making Sense of Rollups</a></h3>
+                                <h3><a href="https://lonerapier.xyz/thoughts/fraud-proofs/">Fraud Proofs</a></h3>
                             </div>
                             <p class="meta">
-                                3263 words on Oct 6, 2022
+                                4 words on Oct 6, 2022
                             </p>
                             <ul class="tags">
   
@@ -371,10 +371,10 @@ Mar 10, 2022
                     <li>
                         <div class="section">
                             <div class="desc">
-                                <h3><a href="https://lonerapier.xyz/thoughts/tendermint/">Tendermint</a></h3>
+                                <h3><a href="https://lonerapier.xyz/thoughts/rollups/">Making Sense of Rollups</a></h3>
                             </div>
                             <p class="meta">
-                                15 words on Oct 6, 2022
+                                2153 words on Oct 6, 2022
                             </p>
                             <ul class="tags">
   
@@ -387,7 +387,7 @@ Mar 10, 2022
                     </li>
                     
                 </ul>
-                <a href="/thoughts">See 4 more →</a>
+                <a href="/thoughts">See 6 more →</a>
             </div>
         </div>
         <article>

@@ -8,10 +8,10 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="Asserter/Checker Problem  Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful."
+    content="SRs are other type of rollups that doesn&rsquo;t use other L1 as settlement layer but just use external DA and consensus layer."
   />
   <title>
-    Optimistic Rollups
+    Sovereign Rollups
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -272,22 +272,22 @@ if (!doNotTrack) {
 
 
     <article>
-      <h1>Optimistic Rollups</h1>
+      <h1>Sovereign Rollups</h1>
       <p class="meta">
         Last updated 
-Apr 11, 2020
+Oct 3, 2022
 
  
           
-<a href="https://github.com/lonerapier/lonerapier.github.io//posts/Optimistic%20Rollups.md" rel="noopener">Edit Source</a>
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/sovereign-rollups.md" rel="noopener">Edit Source</a>
 
 
       </p>
       <ul class="tags">
           
-          <li><a href="https://lonerapier.xyz/tags/seed/">Seed</a></li>
+          <li><a href="https://lonerapier.xyz/tags/tech/">Tech</a></li>
           
-          <li><a href="https://lonerapier.xyz/tags/technical/">Technical</a></li>
+          <li><a href="https://lonerapier.xyz/tags/seed/">Seed</a></li>
           
       </ul>
       
@@ -296,9 +296,16 @@ Apr 11, 2020
         <summary>Table of Contents</summary>
         <nav id="TableOfContents">
   <ol>
-    <li><a href="#asserterchecker-problem">Asserter/Checker Problem</a></li>
-    <li><a href="#technical-details">Technical Details</a></li>
-    <li><a href="#links">Links</a></li>
+    <li>
+      <ol>
+        <li></li>
+        <li><a href="#bridging-in-srs">Bridging in SRs</a></li>
+        <li><a href="#aggregated-zk-bridging">Aggregated ZK Bridging</a></li>
+        <li><a href="#eth-sovereign-rollups">ETH Sovereign Rollups</a></li>
+        <li><a href="#celestia-sovereign-settlement-rollup--sc-recursive-rollup">Celestia Sovereign Settlement Rollup &amp; SC Recursive Rollup</a></li>
+      </ol>
+    </li>
+    <li><a href="#readings">Readings</a></li>
   </ol>
 </nav>
     </details>
@@ -348,60 +355,6 @@ Apr 11, 2020
   
   
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
 
 
 
@@ -423,122 +376,92 @@ Apr 11, 2020
   
   
   
-    
-    
-      
-      
-    
-    
-  
-    
-    
-      
-      
-    
-    
-  
-    
-    
-      
-      
-    
-    
-  
-    
-    
-      
-      
-    
-    
-  
-    
-    
-      
-      
-    
-    
-  
   
   
 
 
-<a href="#asserterchecker-problem"><h2 id="asserterchecker-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Asserter/Checker Problem</h2></a>
-<ul>
-<li>Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful.</li>
-<li>If Asserter cheats without getting caught, Checker loses $L$ in the form of loss of items of value.</li>
-<li>Two main threats to worry about: Laziness and Bribery</li>
-<li>Bribery: Asserter bribes Checker more than the reward $R$. Prevent this by large bond by Asserter so that bribe can’t be bigger than the reward $R$.</li>
-<li>Laziness: Checker does not check intentionally.</li>
-<li>If we assume, asserter cheats with prob. X, then
-checker’s utility comes as:</li>
-</ul>
-<blockquote>
-<p>$-X*L$, if checker doesn’t</p>
-<p>$R*X-C$, if checker checks</p>
-</blockquote>
-<ul>
-<li>So, checking is only worthwhile, if utility of checking &gt; not checking.</li>
-</ul>
-<blockquote>
-<p>$X &gt; C/(R+L)$</p>
-</blockquote>
-<ul>
-<li>Thus, <em>asserter</em> can cheat with random prob &lt; required and not get caught.</li>
-<li>This doesn’t depend on how much <em>asserter</em> gains from cheating, as long as it’s non-zero which is a bad result.</li>
-<li>Even adding more <em>checkers</em> doesn’t help, as the reward gets distributed which only reduces <em>checker’s</em> incentives.</li>
-</ul>
-<p>Reason this is a problem:</p>
-<ul>
-<li><em>Asserter</em> controls the behaviour of the checker, as the utility of checker depends on asserter’s prob.</li>
-<li>Need to add an attention parameter in <em>checker’s</em> incentives where checker pre-computes <em>asserter’s</em> claim off-chain beforehand and has to verify it on-chain time to time.</li>
-<li>Two new parameters:</li>
-</ul>
-<blockquote>
-<p>$P$, fraction of time <em>checker&rsquo;s</em> will post response</p>
-<p>$A$, penalty in case <em>checker</em> gives wrong answer</p>
-</blockquote>
-<ul>
-<li>New equation becomes,</li>
-</ul>
-<p>$$R*X-C$$</p>
-<p>$$-L<em>X-P</em>A$$</p>
-<ul>
-<li>If $P*A &gt; C$, then checking is better than not checking</li>
-<li>cost of checking is low</li>
-</ul>
-<blockquote>
-<p>Assume 1 assertion / 5 mins and $C = $0.001$ If P = 0.3%, checker will deposit $3.
-cost per assertion = $0.0003 =&gt; $0.01*0.3%
-interest cost of locking = $0.0003
-total cost = $0.0006</p>
-</blockquote>
-<ul>
-<li>Multiple checkers need to submit proofs differently thus, scaling to multiple checkers efficient.</li>
-</ul>
-<a href="#technical-details"><h2 id="technical-details"><span class="hanchor" ariaLabel="Anchor"># </span>Technical Details</h2></a>
-<p>Checker: private key $k$, public key $g^k$</p>
-<p>Hash fn: $H$</p>
-<p>Computation to solve: $f(x)$</p>
-<p>Asserter challenge: $(x, g^r)$</p>
-<p>Checker post on-chain iff $H(g^{rk}, f(x)) &lt; T$</p>
-<blockquote>
-<p>Note: Only checker and asserter knows $g^k$ and $r$, and $T$ requires $f(x)$</p>
-</blockquote>
-<p>Checker can guess $f(x)$ with prob. G, then multiply deposit with $1/1-G$</p>
-<ul>
-<li>Asserter publishes f(x), can challenge checker&rsquo;s response while publishing r</li>
-<li>Check the accusation and penalise checker, half the deposit to asserter</li>
-<li>If asserter $f(x)$ incorrect, accusation reverted.</li>
-<li>Each checker will have different prob of posting on-chain due to use of private key, thus can’t copy others computation.</li>
-<li>Asserter now instead of bribing checker, will try to mislead him into giving false information on-chain.</li>
-</ul>
-<a href="#links"><h2 id="links"><span class="hanchor" ariaLabel="Anchor"># </span>Links</h2></a>
 <p>
 
-<a href="https://research.paradigm.xyz/rollups" rel="noopener">(Almost) Everything you need to know about Optimistic Rollup</a></p>
+
+<img src="https://lonerapier.xyz//thoughts/images/28_Sovereign-Rollups.jpg" width="auto" alt="28_Sovereign-Rollups.jpeg"  /></p>
+<p>SRs are other type of rollups that doesn&rsquo;t use other L1 as settlement layer but just use external DA and consensus layer. Settlement is handled within the rollup with their own clients. Full Nodes and Light Clients are used to sample DA and fraud/validity proofs for verification. Celestia is a solution in this direction which wants to be the go-to layer for cheap DA, giving sovereignty to chains. A rollup that uses another chain as settlement layer is bounded by the consensus rules of that chain, and doesn&rsquo;t have complete control over its changes. SR nodes verify the correct canonical chain for themselves, relying just for data on the external layer. The trust minimised two-way bridge converts to a one-way bridge for SRs as no verification is happening from the base layer.</p>
+<p>One major drawback of having a chain that can fork endlessly even with minority is that it hurts composability. Apps that rely on other apps for their functionality would also have to fork and follow the new rollup chain which is not feasible in a bigger ecosystem and is quite pointless if the apps prefer the older chain, then you are just left with a new fork which no one is using. Thus, SRs make more sense for specific and single purpose DApps. DeFi is the most significant use case for decentralised applications at the moment and most of it relies on other apps for composability and yields, it wouldn&rsquo;t make much sense for apps to just spin up their own rollup chain to have sovereignty away from the base layer.</p>
+<p>One advantage that SRs flex is the flexibility of having their own execution environments tailored for the specific use case rollup chain is designed for. This is not the case with ERs or SCRs that only supports base layer native execution environment for arbitrating proofs.</p>
+<a href="#fraud-proofs-in-srs"><h4 id="fraud-proofs-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Fraud Proofs in SRs</h4></a>
 <p>
 
-<a href="https://medium.com/offchainlabs/the-cheater-checking-problem-why-the-verifiers-dilemma-is-harder-than-you-think-9c7156505ca1" rel="noopener">The Cheater Checking Problem: Why the Verifier’s Dilemma is Harder Than You Think</a></p>
+
+<img src="https://lonerapier.xyz//thoughts/images/30_IVG.jpg" width="auto" alt="30_IVG.jpeg"  /></p>
+<ul>
+<li>Non-Interactive: simple flavour of proofs where the challenger submits the claim and the light clients execute the transactions completely to check if the claim is true.</li>
+<li>Interactive: Challenger submits claim and responder responds to defend themselves. These entities play a <strong>Interactive Verification Game</strong> (IVG) with a referee.</li>
+</ul>
+<p>There are two methods to distribute FPs over the network:</p>
+<ul>
+<li>P2P layer: distributed via nodes to other nodes, faster light client finality, no censoring by L1 miners/validators.</li>
+<li>On-chain inclusion</li>
+</ul>
+<p>Celestia is a dirty ledger that means it doesn&rsquo;t check for validity and there&rsquo;s no concept of finality and just focuses on putting the data out there. Now, if a challenger wants to prove a Tx is an invalid transaction, it needs to have all the related transactions that could prove the malicious transaction is invalid and thus, this again brings us to the same place of archival nodes having to store all of the transactions. To mitigate this, weak subjectivity assumption is introduced. SCRs challengers has to keep the transaction data for the challenging period while SRs challengers now need to keep the data for the weak subjectivity period.</p>
+<p>IVG also introduces synchrony assumptions where all the light clients have to be connected to the honest challengers in order to distribute proofs. Thus, SRs are likely to use single round FPs as light clients can then participate in the distribution of proofs.</p>
+<a href="#bridging-in-srs"><h3 id="bridging-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Bridging in SRs</h3></a>
+<p>SRs do add additional design considerations over bridging as the settlement is happening on the rollup side and not on the base layer.</p>
+<p>There can be two types of bridges:</p>
+<ul>
+<li>
+<p>Committee-based: A validator set of source chain attest to the validity of a block that is being used by another chain. Not trust-minimised as committee can steal funds. IBC is an example of this.</p>
+</li>
+<li>
+<p>Proof-based: Trust-minimised bridging where SRs can verify each other&rsquo;s state using proofs, much more complex than other types.</p>
+<p>Two types of bridging settlement here:</p>
+<ul>
+<li>P2P settlement: where light clients are embedded in the chain and receive proofs over P2P network. Both SRs have bridging contract allowing for lock-and-mint mechanism.</li>
+<li>On-chain settlement: both rollups run light clients as smart contracts. proofs and transaction data stored on-chain in these contracts.</li>
+</ul>
+<p>Two types of upgrade mechanisms possible:</p>
+<ul>
+<li>Static Bridging: In which the rollup $SR_A$ doesn&rsquo;t support $SR_B$&rsquo;s execution environment and has to support it node software upgrades. Now, if $SR_B$ forks, $SR_A$ has to fork itself to support $SR_A$ execution environment again. Thus, social consensus or governance is needed to add bridge.</li>
+<li>Dynamic bridging: rollup&rsquo;s support each other execution environment, thus not needed to fork and can support other&rsquo;s proofs directly.</li>
+</ul>
+<p>Two types of bridging possible in SRs:</p>
+<ul>
+<li>Pairwise Bridging: every rollup has a bridge to every other rollup which means $N^2$ bridges for N rollups.</li>
+<li>Hub-and-Spoke model: a central hub SR which aggregates all the liquidity and communication from all the rollups. Similar to what Cosmos Hub wants to be.</li>
+</ul>
+</li>
+</ul>
+<a href="#aggregated-zk-bridging"><h3 id="aggregated-zk-bridging"><span class="hanchor" ariaLabel="Anchor"># </span>Aggregated ZK Bridging</h3></a>
+<p>Problem: $SR_1 - SR_2$ through $SR_N$</p>
+<ol>
+<li>An aggregate prover would receive proofs off-chain $SR_2 - SR_N$, runs a light client for each chain.</li>
+<li>Combines proofs into one aggregated proof and includes it in a smart contract on-chain.</li>
+<li>$SR_1$ verifies proof in the same amount of time it would take to verify one proof.</li>
+</ol>
+<a href="#eth-sovereign-rollups"><h3 id="eth-sovereign-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>ETH Sovereign Rollups</h3></a>
+<p>Would be in effect when Ethereum implements data blobs carrying transactions which makes ETH to be used as a DA layer.</p>
+<p>Tradeoffs:</p>
+<ul>
+<li>Better liveness: gasper can retain liveness in 33% attack</li>
+<li>Better economic security</li>
+<li>slower finality</li>
+<li>More overhead: no DAS in ethereum yet, thus can&rsquo;t run light clients and need to run full nodes.</li>
+</ul>
+<a href="#celestia-sovereign-settlement-rollup--sc-recursive-rollup"><h3 id="celestia-sovereign-settlement-rollup--sc-recursive-rollup"><span class="hanchor" ariaLabel="Anchor"># </span>Celestia Sovereign Settlement Rollup &amp; SC Recursive Rollup</h3></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/32_SSRSCR.jpeg" width="auto" alt="32_SSRSCR.jpeg"  /></p>
+<p>SRs are specially designed for recursive rollups to live on top of. These recursive rollups use SRs for shared settlement establishing a two-way trust minimised bridge between the layers. Submits proofs, state updates and transaction data to SRs, which then batches these rollup blocks and post them to Celestia.</p>
+<p>This reduces a lot of bridging overhead found in legacy SRs where $N_2$ bridges exist for each pair of rollups. Thus, this creates $N$ trust minimised bridges to communicate with a shared settlement layer. One could argue a restrictive more specific settlement layer that only allows specific operations to perform on top of or a general purpose settlement layers. A specific settlement layer would be cheap and easier to set up with less complexities but also comes at a UX degrade of not having many use-cases like DeFi pooling, dAMMs, etc.</p>
+<p>But a separate settlement layer could pose more challenges for censorship and force transaction inclusion which is supported in SCRs. Participants can leave rollup to post their transaction to L1 anytime just trading off the cheap fees, or sequencers are forced to include transactions within a certain time period which will get decentralised with more sequencers joining eventually.</p>
+<p>But how do you do this with shared SRs? If settlement layer is censoring a rollup, then there needs to be a way to submit transactions directly to DA layer and skip settlement layer altogether.</p>
+<p>Liveness risks are still associated as liveness failure of settlement layer will render the rollup useless, but not in the case of sequencers failure of rollup itself, as then you can settle to settlement layer directly.</p>
+<a href="#readings"><h2 id="readings"><span class="hanchor" ariaLabel="Anchor"># </span>Readings</h2></a>
+<ul>
+<li>
+
+<a href="https://blog.celestia.org/sovereign-rollup-chains/" rel="noopener">Rollups as Sovereign Chains</a></li>
+<li></li>
+</ul>
 
 
     </article>
@@ -564,8 +487,12 @@ total cost = $0.0006</p>
     
       
       
+      
+    
+      
+      
       <li>
-        <a href="/thoughts/rollups/" data-ctx="ORUs" data-src="/thoughts/rollups" class="internal-link">Making Sense of Rollups</a>
+        <a href="/thoughts/rollups/" data-ctx="Rollups" data-src="/thoughts/rollups" class="internal-link">Making Sense of Rollups</a>
       </li>
       
       

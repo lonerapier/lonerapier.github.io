@@ -1,0 +1,92 @@
+---
+title: "draft thoughts"
+date: 2022-05-21T00:00:00-07:00
+tags:
+- private
+- drafts
+---
+
+- different consensus algos mentioned [here](https://notes.ethereum.org/@vbuterin/serenity_design_rationale)
+  - casper ffg
+  - tendermint
+  - nakamoto consensus
+  - solana
+  - avalanche
+  - algorand
+  - aptos
+- eth2 specs
+- p2p layer
+    - libp2p
+- guide to finality
+- learn more about oracles
+- [why blockchain](https://twitter.com/ittaia/status/1566870358837321731?s=20&t=Vogv5BhTghOyCCFKTMFrXQ) and [here](https://twitter.com/lessfoolishco/status/1563149321477820416?s=20&t=Vogv5BhTghOyCCFKTMFrXQ)
+  - [](https://twitter.com/trent_vanepps/status/1514269592947986436?s=20&t=4Tua1W9whhiy2pPHv6iG5w)
+  -
+- intro to cryptography
+- BLS
+  - [](https://twitter.com/gryptooo/status/1545610789683593216?s=20&t=4Tua1W9whhiy2pPHv6iG5w)
+- cosmwasm
+  - [](https://twitter.com/callum_and1/status/1548285221241442304?s=20&t=4Tua1W9whhiy2pPHv6iG5w)
+- progressive decentralisation
+  - [obadia](https://twitter.com/ObadiaAlex/status/1548372398381998086?s=20&t=4Tua1W9whhiy2pPHv6iG5w)
+- [zkp intro](https://twitter.com/gryptooo/status/1565919762521407488?s=20&t=Vogv5BhTghOyCCFKTMFrXQ)
+- [fat paradox](https://twitter.com/attertweet/status/1564274368393379840?s=20&t=Vogv5BhTghOyCCFKTMFrXQ)
+- [gauntlet medium blogs](https://twitter.com/gauntletnetwork/status/1564309088758013953?s=20&t=Vogv5BhTghOyCCFKTMFrXQ)
+- [flshbots writings]()
+- gdas, vrgdas, goos: paradigm blogs
+- https://twitter.com/jon_charb/status/1529947391352356881?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+-
+- rollups
+  - https://twitter.com/jon_charb/status/1555403452485861377?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+- sudoswap
+  - https://twitter.com/0x_emperor/status/1559902168442085378?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+- verfiable delay functions
+  - https://twitter.com/drakefjustin/status/1025099648778887168?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/drakefjustin/status/1074813944039178241?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/0x_emperor/status/1555499450860457984?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+- [celestia DAS](https://twitter.com/StefLikeCurry/status/1564379361913909248?s=20&t=Vogv5BhTghOyCCFKTMFrXQ)
+  - https://twitter.com/nickwh8te/status/1559977957195751424?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/sreeramkannan/status/1563615609925304320?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/ChrisYicheng/status/1523676986299748353?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/olshansky/status/1558552514819129346?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/divine_economy/status/1557814917025120257?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/_kabat_/status/1557832781190807555?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/apriori0x/status/1553130595458457600?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/0xRainandCoffee/status/1549038760733511680?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/expctchaos/status/1535970188012572672?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/0xRainandCoffee/status/1514630873970520064?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+- zkps
+  - https://twitter.com/alexalexakis/status/1543947908910878722?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/Ingo_zk/status/1549767896565329921?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/asnared/status/1531298910014169088?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/arpitingle/status/1530224816585732096?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/wireless_anon/status/1516633012829573125?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  -
+- zkevm
+  - https://twitter.com/0xConnolly/status/1556783035894624256?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/VitalikButerin/status/1555106039359770626?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/l2beat/status/1550076763442745345?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/evanashapiro/status/1549899736911515648?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/markjeffrey/status/1550230409220280320?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/AngeloCapossele/status/1550087183809146881?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/cryptodavidw/status/1550054776116846593?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/LuozhuZhang/status/1538166119785111552?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  -
+- snarks
+  - https://twitter.com/donosonaumczuk/status/1520795943729352705?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  - https://twitter.com/adr1anh/status/1534610509369970691?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+  -
+- mev and flashbots
+  - https://twitter.com/0xShitTrader/status/1563223728540229632?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/0x_emperor/status/1567219715680120832?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  -
+- eip 4337: account abstraction
+- eip 4844, 4488
+  - https://twitter.com/apolynya/status/1563729289605918720?s=20&t=Vogv5BhTghOyCCFKTMFrXQ
+  - https://twitter.com/Swagtimus/status/1531306543043559424?s=20&t=4Tua1W9whhiy2pPHv6iG5w
+
+## Project Thoughts
+
+- eth p2p in rust
+- mev-rs
+- database in rust

@@ -11,7 +11,7 @@ enableFooter: true
 enableContextualBacklinks: true
 enableRecentNotes: false
 enableGitHubEdit: true
-GitHubLink: https://github.com/dsam82/dsam82.github.io/
+GitHubLink: https://github.com/lonerapier/lonerapier.github.io/
 enableSemanticSearch: false
 operandApiKey: "REPLACE-WITH-YOUR-OPERAND-API-KEY"
 description:
@@ -25,4 +25,4 @@ links:
   - link_name: Twitter
     link: https://twitter.com/lonerapier
   - link_name: Github
-    link: https://github.com/dsam82
+    link: https://github.com/lonerapier

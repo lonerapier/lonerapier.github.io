@@ -18,7 +18,7 @@ Yield introduced *yTokens* i.e. `Yield Tokens` similar to compound's *cTokens* w
 1. Underlying Asset
 2. Collateral Asset
 3. Collateralization requirement
-4. Expiration Time
+4. Expiration Time[[]()]()
 
 ## Actors
 

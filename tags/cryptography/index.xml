@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cryptography on lonerapier.xyz</title>
+    <link>https://lonerapier.xyz/tags/cryptography/</link>
+    <description>Recent content in cryptography on lonerapier.xyz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elliptic Curve Pairings</title>
+      <link>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</link>
+      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</guid>
+      <description>[[ECC|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
+    </item>
+    
+  </channel>
+</rss>

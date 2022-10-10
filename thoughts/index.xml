@@ -6,7 +6,46 @@
     <description>Recent content in Thoughts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Meromorphic Functions</title>
+      <link>https://lonerapier.xyz/thoughts/meromorphic-functions/</link>
+      <pubDate>Mon, 10 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/meromorphic-functions/</guid>
+      <description>Holomorhpic function (also known as Analytic function) usually refer to functions that are inifinitely differentiable.
+Formal Definition:
+Let G be an open set in $\mathbb{C}$.</description>
+    </item>
+    
+    <item>
+      <title>Zeroes And Poles</title>
+      <link>https://lonerapier.xyz/thoughts/zeroes-and-poles/</link>
+      <pubDate>Mon, 10 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/zeroes-and-poles/</guid>
+      <description>In complex analysis, functions are studied that are differentiable (in the complex space) at almost all points. Zeroes and poles are very important concept.</description>
+    </item>
+    
+    <item>
+      <title>Divisors</title>
+      <link>https://lonerapier.xyz/thoughts/divisors/</link>
+      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/divisors/</guid>
+      <description>Definition of divisor of a rational function $z \in k(C)$:
+ Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$</description>
+    </item>
+    
+    <item>
+      <title>Elliptic Curve Pairings</title>
+      <link>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</link>
+      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</guid>
+      <description>[[ECC|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
+    </item>
+    
     <item>
       <title>Fraud Proofs</title>
       <link>https://lonerapier.xyz/thoughts/fraud-proofs/</link>

@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://lonerapier.xyz/tags/algebra/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/math/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/meromorphic-functions/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/zeroes-and-poles/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/cryptography/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/divisors/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</loc>
+    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+  </url><url>
     <loc>https://lonerapier.xyz/thoughts/fraud-proofs/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
@@ -14,16 +41,10 @@
     <loc>https://lonerapier.xyz/thoughts/sovereign-rollups/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
-    <loc>https://lonerapier.xyz/tags/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
-  </url><url>
     <loc>https://lonerapier.xyz/tags/tech/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/tendermint/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/thoughts/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/uncovering-celestia/</loc>

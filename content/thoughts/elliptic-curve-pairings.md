@@ -6,9 +6,11 @@ tags:
 - math
 ---
 
-[[ECC|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.
+[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.
 
 Pairing helps to compute certain complicated equations on EC points. Traditional EC math lets anyone check linear constraints on the number (eg. $P = Gp, Q = Gq, R = Gr,$ checking $5P + 7Q = 11R$), but pairing lets you check *quadratic* constraints ($e(P,Q) * e(G,G5) = 1$ *is checking* $p*q + 5 = 0$**).
+
+> This makes DDH (Decision Diffie-Hellman) problem very easy to compute using pairings. Also DLog reduction becomes computably feasible if not done on extension fields of Finite Field as we want the target group to be sufficiently bigger so that it's not possible to do DLog reduction.
 
 $e(P,Q)$ is a function defined on EC points. This is the *pairing.* Also known as bilinear map. It is called as bilinear because it satisfies following constraints:
 
@@ -42,7 +44,15 @@ First, we look into the concept of [[divisors|divisors]].
 
 MOV attack refers to the transfer of DLP over EC to finite field $\mathbb{F_{p^k}}$ where it's much easier to solve. This is related to the [embedded degree](https://math.stackexchange.com/questions/824123/what-is-an-embedding-degree-of-elliptic-curve) of the EC.
 
-> *Embedded Degree* of an EC refers to the minimum value of k for which $p^k \equiv 1 \space mod \space n$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn't be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.
+> *Embedded Degree* of an EC refers to the minimum value of k for which $p^k \equiv 1 \pmod{n}$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn't be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.
+
+## Complexities assumptions on Bilinear groups
+
+- Discrete Log problem is still difficult if target group is sufficiently large.
+- CDH (Computation Diffie-Hellman) is still hard as we can't find $g^{xy}$ if we know $g$, $g^x$, $g^y$.
+- Bilinear Diffie-Hellman Problem: Given P, aP, bP, cP \in G_1, compute e(P, P)^{abc}
+	![tripartite-key-exchange](thoughts/images/example-tripartite-key-exchange.jpeg)
+
 
 ## Prerequisites
 
@@ -59,4 +69,5 @@ MOV attack refers to the transfer of DLP over EC to finite field $\mathbb{F_{p^k
 - [https://people.csail.mit.edu/alinush/6.857-spring-2015/papers/bilinear-maps.pdf](https://people.csail.mit.edu/alinush/6.857-spring-2015/papers/bilinear-maps.pdf)
 - [Fundamental Concepts Underlying Elliptic Curves (Level 2): Divisors and Pairings](https://klwu.co/knowledge/ec-basics-3-divisors/)
 - [Why pairings are used?](https://crypto.stackexchange.com/questions/56400/why-pairings-on-elliptic-curve-are-used)
-
+- [Basics of Pairings - Dan Boneh](https://www.youtube.com/watch?v=F4x2kQTKYFY)
+- [Pairings for beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf)

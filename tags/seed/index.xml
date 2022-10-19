@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>Intro To Cryptography</title>
+      <link>https://lonerapier.xyz/thoughts/intro-to-cryptography/</link>
+      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/intro-to-cryptography/</guid>
+      <description>This, by no means, is a thorough post covering all the topics. This is just my notes that I like to make while learning any new topic.</description>
+    </item>
+    
+    <item>
       <title>Making Sense of Rollups</title>
       <link>https://lonerapier.xyz/thoughts/rollups/</link>
       <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>

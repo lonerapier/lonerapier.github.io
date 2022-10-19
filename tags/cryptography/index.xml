@@ -6,14 +6,23 @@
     <description>Recent content in cryptography on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/cryptography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KZG Commitments</title>
+      <link>https://lonerapier.xyz/thoughts/kzg-commitments/</link>
+      <pubDate>Tue, 11 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/kzg-commitments/</guid>
+      <description>This is a really informal post of my understanding of KZG commitments. I am in no way a professional in cryptography and is just learning this for fun.</description>
+    </item>
+    
     <item>
       <title>Elliptic Curve Pairings</title>
       <link>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</link>
       <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
       
       <guid>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</guid>
-      <description>[[ECC|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
+      <description>[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
     </item>
     
   </channel>

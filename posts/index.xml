@@ -6,17 +6,7 @@
     <description>Recent content in Posts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Elliptic Curve Cryptography</title>
-      <link>https://lonerapier.xyz/posts/ECC/</link>
-      <pubDate>Sun, 21 Aug 2022 14:02:48 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/posts/ECC/</guid>
-      <description>Elliptic Curve Cryptography $$ y^2 = x^3 + ax^2 + bx + c $$
-secp256k1: used by Bitcoin and Ethereum to implement public key cryptography.</description>
-    </item>
-    
+    <lastBuildDate>Sat, 14 May 2022 20:05:45 -0900</lastBuildDate><atom:link href="https://lonerapier.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ETH Consensus</title>
       <link>https://lonerapier.xyz/posts/eth-consensus/</link>

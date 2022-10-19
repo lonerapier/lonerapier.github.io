@@ -8,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="[[ECC|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$."
+    content="[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$."
   />
   <title>
     Elliptic Curve Pairings
@@ -125,13 +125,13 @@
 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.5e70e6b3cdceaf7225edf0b1124b0288.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ac08fcd15ab66d2fe6dfbf9596b48b3e.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.7d45c74dcfb5e4de67d1fb52fb62b7c5.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb8e798d264c61c40aa52e51df369d26.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -299,6 +299,7 @@ Oct 3, 2022
     <li><a href="#tate-pairings">Tate Pairings</a></li>
     <li><a href="#millers-algorithm">Miller&rsquo;s Algorithm</a></li>
     <li><a href="#mov-attack">MOV Attack</a></li>
+    <li><a href="#complexities-assumptions-on-bilinear-groups">Complexities assumptions on Bilinear groups</a></li>
     <li><a href="#prerequisites">Prerequisites</a></li>
     <li><a href="#resources">Resources</a></li>
   </ol>
@@ -395,41 +396,24 @@ Oct 3, 2022
   
   
 
-
-
-
-
-
-
+  
+  
 
   
   
+
   
   
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-        
-        
-      
-    
+
   
+  
+
+
+
+
+
+
+
 
   
   
@@ -461,6 +445,36 @@ Oct 3, 2022
     
   
 
+  
+  
+  
+  
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+        
+        
+      
+    
+  
+
 
 
 
@@ -489,12 +503,22 @@ Oct 3, 2022
     
     
   
+    
+    
+      
+      
+    
+    
+  
   
   
 
 
-<p><a class="internal-link broken">Elliptic curves</a> are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</p>
+<p><a href="/thoughts/elliptic-curves" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curves">Elliptic curves</a> are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</p>
 <p>Pairing helps to compute certain complicated equations on EC points. Traditional EC math lets anyone check linear constraints on the number (eg. $P = Gp, Q = Gq, R = Gr,$ checking $5P + 7Q = 11R$), but pairing lets you check <em>quadratic</em> constraints ($e(P,Q) * e(G,G5) = 1$ <em>is checking</em> $p*q + 5 = 0$**).</p>
+<blockquote>
+<p>This makes DDH (Decision Diffie-Hellman) problem very easy to compute using pairings. Also DLog reduction becomes computably feasible if not done on extension fields of Finite Field as we want the target group to be sufficiently bigger so that it&rsquo;s not possible to do DLog reduction.</p>
+</blockquote>
 <p>$e(P,Q)$ is a function defined on EC points. This is the <em>pairing.</em> Also known as bilinear map. It is called as bilinear because it satisfies following constraints:</p>
 <ul>
 <li>$e(P, Q+R) = e(P, Q) + e(P, R)$</li>
@@ -522,8 +546,18 @@ Oct 3, 2022
 
 <a href="https://math.stackexchange.com/questions/824123/what-is-an-embedding-degree-of-elliptic-curve" rel="noopener">embedded degree</a> of the EC.</p>
 <blockquote>
-<p><em>Embedded Degree</em> of an EC refers to the minimum value of k for which $p^k \equiv 1 \space mod \space n$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn&rsquo;t be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.</p>
+<p><em>Embedded Degree</em> of an EC refers to the minimum value of k for which $p^k \equiv 1 \pmod{n}$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn&rsquo;t be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.</p>
 </blockquote>
+<a href="#complexities-assumptions-on-bilinear-groups"><h2 id="complexities-assumptions-on-bilinear-groups"><span class="hanchor" ariaLabel="Anchor"># </span>Complexities assumptions on Bilinear groups</h2></a>
+<ul>
+<li>Discrete Log problem is still difficult if target group is sufficiently large.</li>
+<li>CDH (Computation Diffie-Hellman) is still hard as we can&rsquo;t find $g^{xy}$ if we know $g$, $g^x$, $g^y$.</li>
+<li>Bilinear Diffie-Hellman Problem: Given P, aP, bP, cP \in G_1, compute e(P, P)^{abc}
+
+
+
+<img src="https://lonerapier.xyz//thoughts/images/example-tripartite-key-exchange.jpeg" width="auto" alt="tripartite-key-exchange"  /></li>
+</ul>
 <a href="#prerequisites"><h2 id="prerequisites"><span class="hanchor" ariaLabel="Anchor"># </span>Prerequisites</h2></a>
 <ol>
 <li>Fermat&rsquo;s Little Theorem: for a prime p, and any positive integer a, $a^p \equiv a \space mod \space p$</li>
@@ -551,6 +585,12 @@ Oct 3, 2022
 <li>
 
 <a href="https://crypto.stackexchange.com/questions/56400/why-pairings-on-elliptic-curve-are-used" rel="noopener">Why pairings are used?</a></li>
+<li>
+
+<a href="https://www.youtube.com/watch?v=F4x2kQTKYFY" rel="noopener">Basics of Pairings - Dan Boneh</a></li>
+<li>
+
+<a href="https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf" rel="noopener">Pairings for beginners</a></li>
 </ul>
 
 
@@ -569,10 +609,20 @@ Oct 3, 2022
     
     
     
-    <li>
-      No backlinks found
-    </li>
     
+    
+      
+      
+      
+    
+      
+      
+      <li>
+        <a href="/thoughts/kzg-commitments/" data-ctx="pairings" data-src="/thoughts/kzg-commitments" class="internal-link">KZG Commitments</a>
+      </li>
+      
+      
+      
 </ul>
 
     </div>

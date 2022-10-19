@@ -8,13 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/technical/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Elliptic Curve Cryptography</title>
-      <link>https://lonerapier.xyz/posts/ECC/</link>
+      <title>Theory of Elliptic Curves</title>
+      <link>https://lonerapier.xyz/thoughts/elliptic-curves/</link>
       <pubDate>Sun, 21 Aug 2022 14:02:48 -0700</pubDate>
       
-      <guid>https://lonerapier.xyz/posts/ECC/</guid>
-      <description>Elliptic Curve Cryptography $$ y^2 = x^3 + ax^2 + bx + c $$
-secp256k1: used by Bitcoin and Ethereum to implement public key cryptography.</description>
+      <guid>https://lonerapier.xyz/thoughts/elliptic-curves/</guid>
+      <description>Once again, this is just another of my notes aggregated from various sources. This is a very dumbed down version for just my understanding and it&amp;rsquo;s my advice to follow the resources attached as they are more thorough and detailed explained by experts on the topic.</description>
     </item>
     
     <item>

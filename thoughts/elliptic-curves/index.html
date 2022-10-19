@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Once again, this is just another of my notes aggregated from various sources. This is a very dumbed down version for just my understanding and it&rsquo;s my advice to follow the resources attached as they are more thorough and detailed explained by experts on the topic."
+  />
+  <title>
+    Theory of Elliptic Curves
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.72f297ead12c82348b1576f11ad27707.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js" integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A" crossorigin="anonymous"></script>
+
+
+
+  <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script src="https://lonerapier.xyz/js/popover.53ad9a087e3feeaaa12b63bfd02d923b.min.js"></script>
+
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js"></script>
+  
+
+  
+  
+  <script src="https://lonerapier.xyz/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js"></script>
+  
+
+  
+  
+  <script src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lastVisit = localStorage.getItem('lastVisitTime')
+    const now = Date.now()
+    let show = 'true'
+    if (lastVisit) {
+      document.documentElement.setAttribute('visited', 'true')
+      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
+      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
+    }
+    document.documentElement.setAttribute('show-animation', show)
+    localStorage.setItem('lastVisitTime', `${now}`)
+
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ac08fcd15ab66d2fe6dfbf9596b48b3e.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb8e798d264c61c40aa52e51df369d26.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true ,
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header class="delay t-3">
+  <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+  <div class="spacer"></div>
+  <div id="search-icon">
+    <p>Search</p>
+    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+  </div>
+  <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>Theory of Elliptic Curves</h1>
+      <p class="meta">
+        Last updated 
+Aug 21, 2022
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/elliptic-curves.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/technical/">Technical</a></li>
+          
+          <li><a href="https://lonerapier.xyz/tags/ongoing/">Ongoing</a></li>
+          
+      </ul>
+      
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#discrete-logarithm-problem">Discrete Logarithm Problem</a></li>
+    <li><a href="#elliptic-curves">Elliptic Curves</a>
+      <ol>
+        <li><a href="#group-law-of-elliptic-curves">Group Law of Elliptic curves</a></li>
+        <li><a href="#elliptic-curves-in-mathbbf_p">Elliptic Curves in $\mathbb{F}_{p}$</a></li>
+      </ol>
+    </li>
+    <li><a href="#elliptic-curve-cryptography">Elliptic Curve Cryptography</a></li>
+    <li><a href="#eip55">EIP55</a>
+      <ol>
+        <li><a href="#why-discrete-logarithm">Why Discrete logarithm?</a></li>
+      </ol>
+    </li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1"><a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/">secp256k1 v/s secp256r1</a></a></li>
+    <li><a href="#pairing-friendly-curves">Pairing Friendly Curves</a>
+      <ol>
+        <li><a href="#bls12-381">BLS12-381</a></li>
+        <li><a href="#cofactor">Cofactor</a></li>
+        <li><a href="#roots-of-unityhttpsbrilliantorgwikiroots-of-unity"><a href="https://brilliant.org/wiki/roots-of-unity/">Roots of Unity</a></a></li>
+        <li><a href="#extension-towers">Extension Towers</a></li>
+      </ol>
+    </li>
+    <li><a href="#coordinate-system">Coordinate System</a>
+      <ol>
+        <li><a href="#affine-coordinates">Affine Coordinates</a></li>
+        <li><a href="#standard-projective-coordinates">Standard Projective Coordinates</a></li>
+        <li><a href="#jacobian-coordinates">Jacobian Coordinates</a></li>
+      </ol>
+    </li>
+    <li><a href="#bls-signatures">BLS Signatures</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+        
+        
+      
+    
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+  
+  
+
+
+<p>Once again, this is just another of my notes aggregated from various sources. This is a very dumbed down version for just my understanding and it&rsquo;s my advice to follow the resources attached as they are more thorough and detailed explained by experts on the topic. I&rsquo;m just a novice who is interested in learning cryptography.</p>
+<blockquote>
+<p><em>Walking side by side with death</em></p>
+<p><em>The devil mocks their every step</em></p>
+<p><em>The snow drives back the foot that&rsquo;s slow</em></p>
+<p><em>The dogs of doom are howling more</em></p>
+</blockquote>
+<p>Now, for the song. This time we&rsquo;ll listen 
+
+<a href="https://open.spotify.com/track/55ZL7fjGAWfClmpnsK6Xon?si=2a10756c4a094826" rel="noopener">No Quarter</a> by Led Zeppelin. No description for this. I guess they don&rsquo;t need one :)</p>
+<a href="#discrete-logarithm-problem"><h2 id="discrete-logarithm-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Discrete Logarithm Problem</h2></a>
+<p>
+
+<a href="https://river.com/learn/terms/d/discrete-log-problem-dlp/" rel="noopener">Discrete logarithm Problem</a> (DLP) for a group $G$ and an element $g \in G$ is,</p>
+<blockquote>
+<p>Given an element $h$ in the subgroup generated by $g$, find an integer $m$ satisfying $h = g^m$.</p>
+</blockquote>
+<p>This can be computed using $m = \log_g(h)$. DLP for some groups is said to be very easy and for some difficult which allowed cryptographers to experiment with it and invent some amazing primitives in cryptography.</p>
+<p>DLP is easy for:</p>
+<ul>
+<li>$\frac{\mathbb{Z}}{m\mathbb{Z}}$ under addition</li>
+<li>$\mathbb{R}^<em>$ or $\mathbb{C}^</em>$ under multiplication</li>
+</ul>
+<p>And for some groups, it is difficult but not computably infeasible:</p>
+<ul>
+<li>$\mathbb{F}_p^*$ under multiplication: said to be subexponential</li>
+</ul>
+<a href="#elliptic-curves"><h2 id="elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves</h2></a>
+<p>$$
+\begin{array}{rcl}
+\left{(x, y) \in \mathbb{R}^2 \right. &amp; \left. | \right. &amp; \left. y^2 = x^3 + ax + b, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \ne 0\right}\\ \cup\\ \left{0\right}
+\end{array}
+$$</p>
+<ul>
+<li>Can be defined on any fields, such as $\mathbb{F}_{p}, \mathbb{Q}, \mathbb{R}$.</li>
+<li>EC defined on $\mathbb{F}_{p}$ are finite groups.</li>
+<li>ECDLP is discrete logarithm problem for the EC defined on finite field which has exponential time complexity to solve.</li>
+<li>Best known algorithm for an EC defined over $\mathbb{F}_p$ takes $O(\sqrt{p})$.</li>
+</ul>
+<a href="#group-law-of-elliptic-curves"><h3 id="group-law-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Group Law of Elliptic curves</h3></a>
+<ul>
+<li>Elements of the group are points on elliptic curve.</li>
+<li>identity element is the point at infinity $O$</li>
+<li>inverse of point $P$ is symmetric about $x$-axis</li>
+<li>addition rule: given three aligned, non-zero points $P,Q,R$ on EC, $P+Q+R=0$</li>
+</ul>
+<a href="#elliptic-curves-in-mathbbf_p"><h3 id="elliptic-curves-in-mathbbf_p"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves in $\mathbb{F}_{p}$</h3></a>
+<p>$$\begin{array}{rcl}
+\left{(x, y) \in (\mathbb{F}_p)^2 \right. &amp; \left. | \right. &amp; \left. y^2 \equiv x^3 + ax + b \pmod{p}, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \not\equiv 0 \pmod{p}\right}\\ \cup\\ \left{0\right}
+\end{array}$$</p>
+<p>Every EC has an order $N$ which represents the number of points on the curve. This can be explained using group theory. Let&rsquo;s say we have a group, and the order of group denotes the number of points on the group. Now, if we take a point on the curve, then it tends to repeat itself in a cycle after some points.</p>
+<p>For Example: Let&rsquo;s take a curve $y^{2} \equiv x^{3}+2x+3 \pmod{p}$ and the point $P = (3,6)$. The multiples of P are just 5 distinct point on the curve $(0, P, 2P, 3P, 4P)$ and they are just repeating themselves.</p>
+<p>This makes set of the multiples of $P$ a <strong>cyclic subgroup</strong> of the group formed by the elliptic curve. The point $P$ is called the <strong>generator</strong> or <strong>base point</strong> of the cyclic subgroup. Finding order of the subgroup is done by finding smallest $n$ such that $nP=0$.</p>
+<a href="#elliptic-curve-cryptography"><h2 id="elliptic-curve-cryptography"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curve Cryptography</h2></a>
+<p>$$ y^2 = x^3 + ax^2 + bx + c $$</p>
+<p>
+
+<a href="https://river.com/learn/terms/s/secp256k1/" rel="noopener">$secp256k1$</a>: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
+<p>ECDSA: Elliptic Curve Digital Signature Algorithm</p>
+<p>Public key cryptography uses this method to calculate public keys which is a point on ECC curve.</p>
+<p>$$ K = (k * G) % p $$</p>
+<ul>
+<li>$K$ = 512-bit public key</li>
+<li>$k$ = 256-bit randomly generated private key</li>
+<li>$G$ = base point on the curve</li>
+<li>$p$ = prime number</li>
+</ul>
+<p>Take a 
+
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6" rel="noopener">base point</a> $G$, add it $n$ (private key) times to make $nG (% p)$ (public key).</p>
+<blockquote>
+<p><strong>Note</strong>: addition here means addition in elliptic curve and not addition in field of integers mod p.</p>
+</blockquote>
+<p>
+
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8" rel="noopener">Order</a> of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.</p>
+<p>Thus, choosing a good base point is necessary in any public key generation curves.</p>
+<p>secp256k1:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">x = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798
+</span></span><span class="line"><span class="cl">y = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
+</span></span><span class="line"><span class="cl">p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The order is:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">N = FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ethereum public keys are serialisation of 130 hex characters</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">04 + x-coord (64) + y-coord (64)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>04 is prefixed as it is used to define uncompressed point on the ECC.</p>
+</blockquote>
+<p>Ethereum addresses are hexadecimal numbers, identifiers derived from the last 20 bytes of the Keccak256 hash of the public key.</p>
+<a href="#eip55"><h2 id="eip55"><span class="hanchor" ariaLabel="Anchor"># </span>EIP55</h2></a>
+<p>Mixed capitalisation of letters in the address</p>
+<p>Take keccak256 hash of the address, capitalise character if hex digit of hash is greater than <code>8</code>.</p>
+<a href="#why-discrete-logarithm"><h3 id="why-discrete-logarithm"><span class="hanchor" ariaLabel="Anchor"># </span>Why Discrete logarithm?</h3></a>
+<p>ECC is significant because solving $k * G$ is trivial but obtaining $k$ from product $k * G$ is not.</p>
+<p>$k*G$ can be obtained using Fast-Exponentiation algorithm but solving for $k$ requires computing discrete logarithms.</p>
+<a href="#security"><h2 id="security"><span class="hanchor" ariaLabel="Anchor"># </span>Security</h2></a>
+<p>Big-O Notation of discrete logarithm problem is $O(\sqrt{n})$.</p>
+<p>Base point $G$, is chosen to be closer to $2^{256}$ and thus is in the order of <code>256</code>.</p>
+<p>So, $\sqrt{256} = 128$ bits level of security is provided by curves like $secp256k1$.</p>
+<h2 id="secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1">
+
+<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/" rel="noopener">secp256k1 v/s secp256r1</a></h2>
+<p>
+
+<a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/" rel="noopener">$secp256k1$</a> is a Koblitz curve defined in a characteristic 2 finite field while $secp256r1$ is a prime field curve.</p>
+<p>Not going into details as to what a characteristic 2 finite field is, we can specify $secp256r1$ as a pseudo-randomised curve and $secp256k1$ as completely random curve which can’t be solved using discrete logarithm problem <strong>yet</strong>.</p>
+<a href="#pairing-friendly-curves"><h2 id="pairing-friendly-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Pairing Friendly Curves</h2></a>
+<p>Pairing-based cryptography is a new cryptographic primitive that has been developed in recent times, enabling new applications like short digital signatures that are aggregatable, identity-based cryptography, MPC, efficient <a href="/thoughts/kzg-commitments" rel="noopener" class="internal-link" data-src="/thoughts/kzg-commitments">polynomial commitments</a>.</p>
+<p>They have a favourable embedding degree, and a large prime-order subgroup.</p>
+<a href="#bls12-381"><h3 id="bls12-381"><span class="hanchor" ariaLabel="Anchor"># </span>BLS12-381</h3></a>
+<blockquote>
+<p>Note: Most of these notes are taken from this amazing 
+
+<a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">post</a> by Ben</p>
+</blockquote>
+<p>This was first introduced by Sean Bowe from ZCash in 2017 and has been used in various things from then. Now for the naming,</p>
+<ul>
+<li>BLS stands for Barreto, Lynn, Scott.</li>
+<li>12 stands for embedding degree of the curve</li>
+<li>381 stands for the order of the prime used for the field $2^{381}$, i.e. number of bits used to represent coordinates on the curve. Why 381? because 48 bytes per field element and remaining 3 bytes for flags or arithmetic optimisations.</li>
+</ul>
+<p>Equation: $y^{2}=x^{3}+4$</p>
+<p>Key parameters of the curve are derived from a single parameter $\tt x$ = -0xd201000000010000.</p>
+<ul>
+<li>Field Modulus -&gt; $q: \frac{1}{3}({\tt x}-1)^2({\tt x}^4-{\tt x}^2+1)+{\tt x}$</li>
+<li>Subgroup Size or the number of points on the curve -&gt; $r: ({\tt x}^4-{\tt x}^2+1)$</li>
+</ul>
+<a href="#field-extensions"><h4 id="field-extensions"><span class="hanchor" ariaLabel="Anchor"># </span>Field Extensions</h4></a>
+<p>The two curves used in BLS12-381 are defined on $\mathbb{F}<em>{q}$ and $\mathbb{F}</em>{q^{12}}$. This power raised is known as an extension field of field $\mathbb{F}_q$.</p>
+<p>Let&rsquo;s construct $\mathbb{F}_{q^2}$, quadratic extension of $\mathbb{F}_q$.</p>
+<ul>
+<li>$\mathbb{F}<em>{q^2}$ element representation: $a</em>{0}+a_{1}x$ also written as $(a_{0},a_1)$.</li>
+<li>addition: $(a,b)+(c,d)=(a+c,b+d)$</li>
+<li>multiplication: $(ac-bd, ad+bc)$</li>
+</ul>
+<p>Understanding multiplication is a tricky thing and it takes time to get accustomed to field arithmetic. Basically, the original multiplication has a $x^2$ term which doesn&rsquo;t make any sense in the $\mathbb{F}_{q^2}$ field, so we need a mechanism to remove this term. This is where reduction of polynomial terms is used. Certain rules are used to reduce the polynomials having degree greater than 2. Rule in this case is $x^2+1=0$</p>
+<p>There are only 2 rules about this rule:</p>
+<ol>
+<li>the polynomial we&rsquo;re reducing must be a $k$ degree polynomial, where $k$ is the extension degree.</li>
+<li>It must be irreducible in the field it is getting extended.</li>
+</ol>
+<p>BLS12-381 consists of two curves: $\mathbb{G}<em>{1}$ and $\mathbb{G}</em>{2}$. $\mathbb{G}_{1}$ is a fairly simple curve defined over finite field $\mathbb{F}<em>q$. We can call this curve $E(\mathbb{F}</em>{q})$. Curve equation for $\mathbb{G}_1$ is $y^2=x^3+4$.</p>
+<p>The other curve is defined over an extension of $\mathbb{F}<em>{q}$ to $\mathbb{F}</em>{q^12}$. Since arithmetic on $\mathbb{F}<em>{q^12}$ is fairly complex, it is reduced to $\mathbb{F}</em>{q^2}$. So, we&rsquo;ll call this curve $E&rsquo;(\mathbb{F}_{q^2})$. Curve equation is slightly modified to be $y^2=x^3+4(1+i)$.</p>
+<a href="#subgroups"><h4 id="subgroups"><span class="hanchor" ariaLabel="Anchor"># </span>Subgroups</h4></a>
+<p>BLS12-381 is popular because it&rsquo;s a pairing friendly curve. For pairings, we need two points from <strong>distinct</strong> groups, each of order $r$. The first curve only has one subgroup of order $r$, and thus we can&rsquo;t just use that one curve. That&rsquo;s why we require a second different curve which has a distinct subgroup of same order. Fortunately, this is exhibited by the curve defined over the extension field and one of these groups only contains points having a trace of zero. This is where $k=12$, embedding degree comes in. Thus, we have group $G_1$ of order $r$ in $E(\mathbb{F}<em>q)$, and a distinct group $G_2$ of same order in $E(\mathbb{F}</em>{q^12})$. This enables pairings.</p>
+<blockquote>
+<p>Note: <code>Trace of Zero</code></p>
+</blockquote>
+<a href="#twists"><h4 id="twists"><span class="hanchor" ariaLabel="Anchor"># </span>Twists</h4></a>
+<p>As explained earlier, that arithmetic on field $\mathbb{F}<em>{q^12}$ is fairly complex and inefficient. And all the curve operations like <code>add</code>, <code>sub</code>, <code>mul</code>, etc. requires a lot of arithmetic. Thus, we need to transform the $E(\mathbb{F}</em>{q^12})$ curve into a curve defined over a lower degree field that still has an order $r$ subgroup. Why we didn&rsquo;t take this lower order field in the first place? Because we require subgroup having trace of zero points.</p>
+<blockquote>
+<p>Quoting section 3 of 
+
+<a href="https://eprint.iacr.org/2005/133.pdf" rel="noopener">this</a> :</p>
+<p>The basic idea for point compression is not only to restrict the first pairing argument to $E(\mathbb{F}<em>{p})$, but also to take the second argument $Q \in E(\mathbb{F}</em>{p^{12}})$ as the image $\psi(Q&rsquo;)$ of a point on a sextic twist $E&rsquo;(\mathbb{F}<em>{p^2})$, where $\psi : E&rsquo;(\mathbb{F}</em>{p^2}) \rightarrow E(\mathbb{F}<em>{p^{12}})$ is an injective group homomorphism. This way one would work only with $E(\mathbb{F}</em>{p})$ and $E&rsquo;(\mathbb{F}<em>{p^2})$ for non-pairing operations like key generation, and map from $E&rsquo;(\mathbb{F}</em>{p^2})$ to $E(\mathbb{F}_{p^{12}})$ only when actually computing pairing values.</p>
+</blockquote>
+<p>BLS12-381 uses a <code>sextic twist</code>. This means reducing the extension field degree by a factor of <code>6</code>.  We find a $u$ such that $u^{6}=(1+i)^{-1}$, then we define a twisting transformation as $(x,y) \rightarrow (\frac{x}{u^2},\frac{y}{u^3})$. This transforms the original curve from $E:y^2=x^3+4$ to $E&rsquo;:y^2=x^3+4/u^6$. $E$ and $E&rsquo;$ looks different but actually are same objected with coefficients in different base fields.</p>
+<p>This twist gives curve $E&rsquo;$ that has a subgroup of order $r$ that maps to our $G_2$ group. So, we can work over more efficient $E&rsquo;(\mathbb{F}<em>{q^2})$ and map $G_2$ back to $E(\mathbb{F}</em>{q^{12}})$, when required.</p>
+<p>Now, we have two groups:</p>
+<ul>
+<li>$G_{1} \subset E(F_q)$ where $E:y^2=x^3+4$</li>
+<li>$G_{2} \subset E&rsquo;(F_{q^2})$ where $E&rsquo;:y^2=x^3+4(1+i)$</li>
+</ul>
+<p>Since, point in G_2 are complex numbers, it takes twice the amount of storage and are more expensive to perform arithmetic operations.</p>
+<a href="#embedding-degree"><h4 id="embedding-degree"><span class="hanchor" ariaLabel="Anchor"># </span>Embedding degree</h4></a>
+<p>Smallest $k$ such that $q^{k} \equiv 1 \pmod{r}$. Embedding Degree is the smallest positive integer required to extend the field to satisfy conditions required for pairings.</p>
+<ol>
+<li>$F_{q^k}$ contains more than one subgroup of order $r$ for constructing $G_{2}$.</li>
+<li>$F_{q^k}$ contains all the $r^{th}$ roots of unity for constructing $G_{T}$.</li>
+</ol>
+<p>Embedding Degree should be chosen such that it doesn&rsquo;t compromise security and efficiency. Basically, a higher embedding degree makes it harder to to solve DLP in $G_T$. But a higher embedding degree also make it harder to operations in higher field like $F_{q^{12}}$. Maximum available twist is degree six, so best we can do is reduce the field extension degree by six.</p>
+<a href="#cofactor"><h3 id="cofactor"><span class="hanchor" ariaLabel="Anchor"># </span>Cofactor</h3></a>
+<p>It&rsquo;s the ratio of order of the curve group and order of the subgroup $hr = n$. Usually, cofactor should be very small in order to avoid subgroup attacks on discrete logarithms. But in pairing-based cryptography, the cofactors of $G_1$, $G_2$ and $G_{T}$ can be very large.</p>
+<p>By multiplying by the cofactor, a point on the curve is mapped to the appropriate group known as <strong>cofactor clearing</strong>.</p>
+<h3 id="roots-of-unityhttpsbrilliantorgwikiroots-of-unity">
+
+<a href="https://brilliant.org/wiki/roots-of-unity/" rel="noopener">Roots of Unity</a></h3>
+<p>Roots of Unity are complex solutions to the equation: $x^n=1$. Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^12}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.</p>
+<a href="#extension-towers"><h3 id="extension-towers"><span class="hanchor" ariaLabel="Anchor"># </span>Extension Towers</h3></a>
+<p>For BLS12-381, $F_{q^{12}}$ is constructed as a 2-3-2 extension tower, i.e. quadratic extension -&gt; cubic extension -&gt; quadratic extension.</p>
+<ol>
+<li>$F_{q^{2}}:F_{q}(u)/(u^2-\beta)$ where $\beta=-1$.
+Point in $F_{q^{2}}$ looks like $a_0+a_1u$ where $a_{j} \in F_{q}$.
+Reduction rule is $u^{2}+1=0$ which is irreducible in $F_{q}$.</li>
+<li>$F_{q^{6}}:F_{q^{2}}(v)/v^3-\xi$ where $\xi=u+1$.
+Point in $F_{q^{6}}$ looks like $b_0+b_{1}v+b_{2}v^{2}$ where $b_{j} \in F_{q^{2}}$.
+Reduction rule: $v^3-(u+1)=0$ which is irreducible in $F_{q^2}$.</li>
+<li>$F_{q^{12}}:F_{q^{6}}(w)/(w^2-\gamma)$ where $\gamma=v$.
+Point in $F_{q^{12}}$ looks like $c_0+c_{1}w$ where $c_{j} \in F_{q^{6}}$.
+Reduction rule: $w^2-v=0$ which is irreducible in $F_{q^{6}}$.</li>
+</ol>
+<a href="#coordinate-system"><h2 id="coordinate-system"><span class="hanchor" ariaLabel="Anchor"># </span>Coordinate System</h2></a>
+<a href="#affine-coordinates"><h3 id="affine-coordinates"><span class="hanchor" ariaLabel="Anchor"># </span>Affine Coordinates</h3></a>
+<p>Traditional representation of the coordinates, i.e. just an $(x,y)$ where $x$ and $y$ satisfy curve equation. Normally this representation is used for storing and transmitting points.</p>
+<a href="#standard-projective-coordinates"><h3 id="standard-projective-coordinates"><span class="hanchor" ariaLabel="Anchor"># </span>Standard Projective Coordinates</h3></a>
+<p>Point in standatd projective coordinates $(X,Y,Z)$ represents $(\frac{X}{Z},\frac{Y}{Z})$ in Affine coordinate system. Also called homogenous projective coordinates as the curve equation takes on the homogeneous form $Y^{2}Z=X^{3}+4Z^{3}$.</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/standard-projective-coordinates.png" width="auto" alt="standard-projective-coordinates"  /></p>
+<p>Points become straight line through the origin in $(X,Y,Z)$ space, with the affine point being the interesection of the line with the plane $Z=1$.</p>
+<a href="#jacobian-coordinates"><h3 id="jacobian-coordinates"><span class="hanchor" ariaLabel="Anchor"># </span>Jacobian Coordinates</h3></a>
+<p>Jacobian Point $(X,Y,Z)$ -&gt; $\frac{X}{Z^{2}},\frac{Y}{Z^{3}}$. Curve equation becomes $Y^2=X^3+4Z^6$.</p>
+<a href="#bls-signatures"><h2 id="bls-signatures"><span class="hanchor" ariaLabel="Anchor"># </span>BLS Signatures</h2></a>
+<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<ul>
+<li>
+
+<a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve" rel="noopener">ethereumbook&rsquo;s elliptic curve section</a></li>
+<li>
+
+<a href="https://www.math.brown.edu/johsilve/Presentations/WyomingEllipticCurve.pdf" rel="noopener">An Introduction to Elliptic Curves</a></li>
+<li>
+
+<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Exploring Elliptic Curve Pairings</a></li>
+<li>
+
+<a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">BLS12-381 for the rest of us</a></li>
+<li>
+
+<a href="https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/" rel="noopener">Pairings over BLS12-381</a></li>
+<li></li>
+</ul>
+
+
+    </article>
+    <hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.abd4bc2af3869a96524d7d23b76152c7.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2022</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

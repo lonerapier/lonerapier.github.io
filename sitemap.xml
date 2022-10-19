@@ -2,41 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lonerapier.xyz/tags/algebra/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+    <loc>https://lonerapier.xyz/tags/cryptography/</loc>
+    <lastmod>2022-10-19T18:44:19+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/kzg-commitments/</loc>
+    <lastmod>2022-10-19T18:44:19+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/math/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/thoughts/meromorphic-functions/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+    <lastmod>2022-10-19T18:44:19+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+    <lastmod>2022-10-19T18:44:19+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+    <lastmod>2022-10-19T18:44:19+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/algebra/</loc>
+    <lastmod>2022-10-19T18:44:11+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/meromorphic-functions/</loc>
+    <lastmod>2022-10-19T18:44:11+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/zeroes-and-poles/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/tags/cryptography/</loc>
     <lastmod>2022-10-11T00:11:24+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/divisors/</loc>
     <lastmod>2022-10-11T00:11:24+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</loc>
-    <lastmod>2022-10-11T00:11:24+05:30</lastmod>
+    <lastmod>2022-10-19T18:44:11+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/fraud-proofs/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/intro-to-cryptography/</loc>
+    <lastmod>2022-10-19T18:43:55+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/rollups/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/seed/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
+    <lastmod>2022-10-19T18:43:55+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/sovereign-rollups/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
@@ -50,17 +56,14 @@
     <loc>https://lonerapier.xyz/thoughts/uncovering-celestia/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
-    <loc>https://lonerapier.xyz/posts/ECC/</loc>
-    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
-  </url><url>
     <loc>https://lonerapier.xyz/tags/ongoing/</loc>
-    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/posts/</loc>
-    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
+    <lastmod>2022-10-19T18:43:55+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/technical/</loc>
-    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
+    <lastmod>2022-10-19T18:43:55+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/elliptic-curves/</loc>
+    <lastmod>2022-10-19T18:43:55+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/finance/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
@@ -78,6 +81,9 @@
     <lastmod>2022-09-03T11:52:20+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/posts/eth-consensus/</loc>
+    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/posts/</loc>
     <lastmod>2022-09-03T11:52:20+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/nomad-xyz/</loc>

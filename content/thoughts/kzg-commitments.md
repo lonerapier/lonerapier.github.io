@@ -28,7 +28,7 @@ A **polynomial commitment scheme** allows anyone to commit to a polynomial $p(X)
 
 - Let $\mathbb{G_1}$ and $\mathbb{G_2}$ be two elliptic curves with a pairing $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. 
 - Let $p$ be the order of $\mathbb{G}_1$ and $\mathbb{G}_2$ and $G$ is generator of $\mathbb{G}_1$ and $H$ is generator of $\mathbb{G}_2$.
-- $[x]_1 = xG \in \mathbb{G}_1$ and $[x]_2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.
+- $\[x]_1 = xG \in \mathbb{G}_1$ and $\[x]_2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.
 
 ### Trusted Setup
 
@@ -55,7 +55,7 @@ Now, you might be wondering if a malicious prover find another polynomial $q(X) 
 
 ### Proof Evaluation
 
-We need a mechanism so that prover could verify its commitment on the polynomial and this is done through *evaluations* on the polynomial $p(X)$. Evaluation is done at a point $z$ and the claimed is valued $p(z)$ is verified by the verifier.
+We need a mechanism so that prover could verify its commitment on the polynomial and this is done through *evaluations* on the polynomial $p(X)$. Evaluation is done at a point $z$ and the claimed value $p(z)$ is verified by the verifier.
 
 Now, a value $z$ is chosen such that $p(z) = y$. This means that $p(X)-y$ should have a factor $X-z$. So, a quotient polynomial $q(X) = \frac{p(X) - y}{X-z}$ is computed and the evaluation proof becomes,
 
@@ -117,7 +117,7 @@ This is a very simple polynomial commitment that is inefficient to its core but 
 - The verifier need to do linear work to compute $z$. While in KZG, verification is constant as only two multiplications and pairings are required to verify proof.
 - commitments using merkle trees makes the polynomial public and doesn't hide anything. While it's mostly hidden in Kate commitments.
 
-Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs.
+Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs. [^1]
 
 ### Multiproofs
 
@@ -131,7 +131,8 @@ $$q(x) = \frac{p(x) - I(x)}{Z(x)}$$
 
 This is possible due to $p(x)-I(x)$ being divisible by all linear factors of $Z(x)$ and being divisible by whole $Z(x)$. The multiproof for evaluation $(z_0, y_0), (z_1, y_1), \ldots, (z_k, y_k)$: $\pi = [q(s)]_1$. Now, our prover equation becomes
 
-$$e(\pi, [Z(s)]_{2)}= e(C - [I(s)]_{1}, H)$$
+$$e(\pi, [Z(s)]_2) = e(C - [I(s)]_{1}, H)$$
+
 $$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$
 
 This really blew my mind when I was first studying them. You can have a million proofs batch together in one single 48 bytes proof which anyone can verify by just computing $I(x)$ and $Z(x)$.  Cryptography really is cool.
@@ -144,3 +145,7 @@ This really blew my mind when I was first studying them. You can have a million 
 - [Using polynomial commitments to replace state roots](https://ethresear.ch/t/using-polynomial-commitments-to-replace-state-roots/7095)]
 - [Kate Commitments: A Primer](https://hackmd.io/@tompocock/Hk2A7BD6U)
 - [Understanding KZG10 Polynomial Commitments](https://taoa.io/posts/Understanding-KZG10-Polynomial-Commitments)
+- [Polynomials in bit reversal permutation](https://github.com/ethereum/consensus-specs/pull/3006)
+- [Formulas for Polynomial Commitments](https://hackmd.io/@Evaldas/SJ9KHoDJF)
+
+[^1]: This is the first footnote.

@@ -231,7 +231,13 @@ By multiplying by the cofactor, a point on the curve is mapped to the appropriat
 
 ### [Roots of Unity](https://brilliant.org/wiki/roots-of-unity/)
 
-Roots of Unity are complex solutions to the equation: $x^n=1$. Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^12}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.
+Roots of Unity are complex solutions to the equation: $x^n=1$.  
+
+Every nonzero element of a finite field is a root of unity, as $x^{q-1} = 1$ for every nonzero element of $\mathbb{F}_{q}$.
+
+*Primitive root of unity* is when a number is solution to $x^n=1$ but not for $x^m=1$ for any positive integer $m<n$. So, if $a$ is a $n$th primitive root of unity in a field $\mathbb{F}$, then $\mathbb{F}$ contains all the roots of unity, $1, a, a^{2}, \ldots, a^{n-1}$.
+
+Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^{12}}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.
 
 ### Extension Towers
 

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Before understanding what even a dag based protocol does. First, we need to understand how it&rsquo;s different than a traditional blockchain protocol like Bitcoin."
+  />
+  <title>
+    DAG-based consensus
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.ee80ec3148379f6442322eb1d363b2e1.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.5e39932758f9ecaf45fd54506ed61416.min.js"></script>
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js" integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A" crossorigin="anonymous"></script>
+
+
+
+  
+
+    
+  <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script src="https://lonerapier.xyz/js/popover.6da9b273c092cc16fc1aa904d71a2163.min.js"></script>
+
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js"></script>
+  
+
+  
+  
+  <script src="https://lonerapier.xyz/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js"></script>
+  
+
+  
+  
+  <script src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.1556520756967c63e265f60d05e396f5.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+     
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.51f0b1753e9b30839d053f8a98cc20d1.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>DAG-based consensus</h1>
+      <p class="meta">
+        Last updated 
+Nov 18, 2022
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/dag-based-consensus.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/distributed-systems/">Distributed systems</a></li>
+          
+          <li><a href="https://lonerapier.xyz/tags/consensus/">Consensus</a></li>
+          
+      </ul>
+      
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#terminology">Terminology</a></li>
+    <li><a href="#simple-payment-channel">Simple Payment Channel</a></li>
+    <li><a href="#cordial-miners">Cordial miners</a>
+      <ol>
+        <li><a href="#defining-finality">Defining finality</a></li>
+        <li><a href="#proving-safety">Proving safety</a></li>
+        <li><a href="#proving-liveness">Proving liveness</a></li>
+      </ol>
+    </li>
+    <li><a href="#dag-rider">DAG-Rider</a>
+      <ol>
+        <li><a href="#reliable-broadcast">Reliable Broadcast</a></li>
+      </ol>
+    </li>
+    <li><a href="#narwhaltusk">Narwhal&amp;Tusk</a>
+      <ol>
+        <li><a href="#narwhal">Narwhal</a></li>
+        <li><a href="#using-narwhal-for-consensus">Using Narwhal for consensus</a></li>
+        <li><a href="#tusk">Tusk</a></li>
+        <li><a href="#bullshark">Bullshark</a></li>
+      </ol>
+    </li>
+    <li><a href="#resources">Resources</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+  
+  
+
+
+
+
+
+
+<p>Before understanding what even a dag based protocol does. First, we need to understand how it&rsquo;s different than a traditional blockchain protocol like Bitcoin. A blockchain is a distributed ledger technology that can record and store data in a public, immutable, distributed chain. Participants can send transactions to the protocol that is recorded and confirmed as valid by global network nodes.</p>
+<p>In a standard blockchain, only one single sequence of blocks is considered as canonical chain. Forks occurring in the protocol is identified as security threat as basically if a fork becomes too large, then it gives the malicious party more power in the network and affects the main chain of blocks. Validators/miners keep doing their work by batching the transactions in a <strong>block</strong> using a consensus rule and creating a block with it, which is then relayed to the entire network.</p>
+<p>DAG protocols comes with a new idea, i.e. why not make every fork count. Why can&rsquo;t a block have multiple parents? It is just a <em>directed acyclic graph</em> where a transaction added to the graph can have <em>multiple parents</em> and <em>multiple children</em>.</p>
+<blockquote>
+<p>The idea of DAG-based BFT consensus (e.g., 
+<a href="https://eclass.upatras.gr/modules/document/file.php/CEID1175/Pool-of-Research-Papers%5B0%5D/31.HASH-GRAPH.pdf" rel="noopener">HashGraph</a> and 
+<a href="https://arxiv.org/abs/1908.05156" rel="noopener">Aleph</a>) is to separate the network communication layer from the consensus logic.</p>
+</blockquote>
+<a href="#terminology"><h2 id="terminology"><span class="hanchor" ariaLabel="Anchor"># </span>Terminology</h2></a>
+<ul>
+<li><strong>Parties</strong>: A party $p$ is the one producing the blocks.</li>
+<li><strong>Nodes</strong>: A block is represented as a node in the DAG.</li>
+<li><strong>Edges</strong>: An edge is when a block $u$ points <strong>directly</strong> to another block $v$. We say, $u$ <em>acknowledges</em> $v$.</li>
+<li><strong>Observe</strong>: Transitive closure of acknowledge. Block $u$ observes $v$, if there is a directed path from $u$ to $v$.</li>
+</ul>
+<a href="#simple-payment-channel"><h2 id="simple-payment-channel"><span class="hanchor" ariaLabel="Anchor"># </span>Simple Payment Channel</h2></a>
+<ul>
+<li>N permissioned (blocks can include own set of transactions) parties produce blocks and points to all existing leaves.</li>
+<li>works in asynchronous settings, i.e. Messages take finite amount of time to arrive.</li>
+<li>Block $u$ approves $v$ produced by $p$, if it observes $v$ and doesn&rsquo;t observe any $p$-block that equivocates with $v$.</li>
+<li>$p&rsquo;$ approves $v$ if some $p&rsquo;$ block approves $v$.</li>
+<li>Honest party $p&rsquo;$ can&rsquo;t approve two equivocating blocks produced by $p$.</li>
+<li>Block $v$ is approved by <em>supermajority</em> if it is approved by $n-f$ parties, if $n&gt;3f$, then <em>safety</em> is achieved as two equivocating blocks produced by $p can&rsquo;t be approved by a supermajority (due to quorum intersection).</li>
+<li>Liveness is trivial as honest parties will keep producing blocks</li>
+</ul>
+<a href="#cordial-miners"><h2 id="cordial-miners"><span class="hanchor" ariaLabel="Anchor"># </span>Cordial miners</h2></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/dag_1.png" width="auto" alt="dag-1"  /></p>
+<ul>
+<li>Give more structure to DAG.</li>
+<li>have notion of <em>rounds</em>, with each honest party producing one block in each <em>round</em>.</li>
+<li>an honest party produces block in round $r+1$, as soon as it sees $n-f$ blocks in round $r$. The block produced in $r+1$ must point to those $n-f$ blocks in round $r$ and also any leaves in previous rounds.</li>
+<li>Have leader blocks, and $k$ consecutive rounds are called as <em>wave</em> (for cordial-miners $k=5$). First round of each wave, select the leader. Block proposed by the leader at the first round will be called <em>Leader Block</em>.</li>
+<li>Now, to get total ordering we need to extend the DAG, we suppose a function $\tau$ which extends a partially ordered DAG to a totally ordered. Although only total ordering is not sufficient as we need to satisfy the SMR properties of safety and liveness.</li>
+</ul>
+<blockquote>
+<p>Notation: For a block $u$, $[u]$ denotes the initial segment of the DAG defined by $u$.</p>
+</blockquote>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/total_ordering.png" width="auto" alt="total-ordering"  /></p>
+<p>Now, the idea is to use $\tau$ to arrange the leader blocks in some way such that total ordering is achieved. We define total ordering to be:</p>
+<p>$$\tau([u_{1}]) * \tau([u_{2}-u_{1}]) * \ldots$$</p>
+<p>But we can&rsquo;t use any leader blocks, there has to some concept of finality so that only final blocks are included in the total ordering.</p>
+<a href="#defining-finality"><h3 id="defining-finality"><span class="hanchor" ariaLabel="Anchor"># </span>Defining finality</h3></a>
+<p><strong>Supermajority</strong> of blocks means set of blocks produced by a supermajority of miners. A block $v$ is <em>ratified</em> by block $u$ if $[u]$ includes a supermajority of blocks approving $v$. Can be thought of as seeing stage-1 QC for $v$, thus producing stage-2 vote in tendermint sense.</p>
+<p>Now a leader block of wave $w$ is <strong>final</strong> if it is ratified by a supermajority of blocks in the final round of wave $w$. This is like $v$ receiving stage-2 QC vote in tendermint.</p>
+<p>Now, define total ordering as: If dag $D$ has no final leader, then $ord(D) := \phi$ else, let $u$ be the last final leader, then $ord(D) := \tau&rsquo;(u)$, where $\tau$ is defined recursively:</p>
+<p>$$\tau&rsquo;(u) := \tau([u]) or \tau&rsquo;([u&rsquo;])*\tau([u]-[u&rsquo;])$$</p>
+<p>Since, we&rsquo;ve defined our total ordering. All left now is to extract safety and liveness from total ordering.</p>
+<a href="#proving-safety"><h3 id="proving-safety"><span class="hanchor" ariaLabel="Anchor"># </span>Proving safety</h3></a>
+<p>$Lemma.$ If a leader block is <em>final</em>, then it is ratified by every subsequent leader block.</p>
+<p>$Claim.$ If $D_1$, $D_2$ are DAGs held by honest parties $p_1$, $p_2$, then $ord(D_1)$ and $ord(D_2)$ are consistent.</p>
+<p>Let&rsquo;s assume the case where $D_{1} \subset D_{1} \cup D_{2}$ and $D_{2} \subset D_{1} \cup D_{2}$, then $ord(D_{1})$ and $ord(D_{2})$ must be consistent with $ord(D_{1} \cup D_{2})$. Let&rsquo;s suffice to deal with the case $D_{1} \subset D_{2}$.</p>
+<p>Now, if $D_{1}$ has no final leader block, then as per definition of $ord$, $ord(D_{1)}=\phi$. If $u$ is the final leader block then $u$ must be ratified by any subsequent leader block in $D_2$.</p>
+<a href="#proving-liveness"><h3 id="proving-liveness"><span class="hanchor" ariaLabel="Anchor"># </span>Proving liveness</h3></a>
+<p>$Lemma.$ Existence of inifinitely many <em>honest</em> final leader blocks.</p>
+<p>Instead of announcing leader at the start of the round as then the leader can be delayed by the adversary, we let the parties produce the blocks and form DAG, then in the last round leader is selected randomly. This makes a scenario where all of the blocks in the last round ratify supermajority of the blocks from the first round and thus selecting a leader randomly now gives $&gt;2/3$ chance of selecting a final leader block for the wave.</p>
+<a href="#dag-rider"><h2 id="dag-rider"><span class="hanchor" ariaLabel="Anchor"># </span>DAG-Rider</h2></a>
+<a href="#reliable-broadcast"><h3 id="reliable-broadcast"><span class="hanchor" ariaLabel="Anchor"># </span>Reliable Broadcast</h3></a>
+<p>Same as Byzantine broadcast but due to asynchronous setting, relax the termination condition.</p>
+<ul>
+<li>Designate a broadcaster which has input $v \in V$</li>
+<li>Agreement: If an honest party terminates, then all must terminate with the same output in $V$.</li>
+<li>Validity: If broadcaster is honest, then all honest parties must terminate giving the broadcaster&rsquo;s input as their output.</li>
+</ul>
+<a href="#brachas-broadcast"><h4 id="brachas-broadcast"><span class="hanchor" ariaLabel="Anchor"># </span>Bracha&rsquo;s Broadcast</h4></a>
+<p>Simple way to model reliable broadcast. Works in asynchronous setting.</p>
+<ul>
+<li>broadcaster start with input $v$, sends value to all</li>
+<li>Three circumstances in which any party $p$ will speak:
+<ul>
+<li>$p$ receives a first value $v$ from the broadcaster, they send $(echo,v)$ to all parties.</li>
+<li>$p$ receives $n-f (echo, v)$ messages from the parties and if $p$ hasn&rsquo;t voted, then $p$ votes for $v$ by sending $(vote, v)$ to all parties.</li>
+<li>$p$ receives $(vote, v)$ from $f+1$ distinct parties and $p$ hasn&rsquo;t voted, then $p$ votes by sending  $(vote, v)$ to all parties.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>Similar to cordial miners but do not let equivocating blocks get added to the DAG. This is done using Reliable broadcast.</p>
+<ul>
+<li>reduces number of round in each wave by 1.</li>
+<li>But cost is to reliably broadcast the block which increases latency.</li>
+<li>efficient version of reliable broadcast reduces amortized time complexity per transaction $O(n)$ for DAG-Rider.</li>
+</ul>
+<a href="#narwhaltusk"><h2 id="narwhaltusk"><span class="hanchor" ariaLabel="Anchor"># </span>Narwhal&amp;Tusk</h2></a>
+<p>Decouples data dissemination from metadata ordering. 
+<a href="https://arxiv.org/abs/2105.11827" rel="noopener">Narwhal&amp;Tusk</a> paper introduced a highly scalable and efficient DAG construction method using Narwhal and total ordering of DAG with BFT properties using Tusk/Bullshark.</p>
+<a href="#narwhal"><h3 id="narwhal"><span class="hanchor" ariaLabel="Anchor"># </span>Narwhal</h3></a>
+<blockquote>
+<p>Narwhal off-loads reliable transaction dissemination to the mempool protocol.</p>
+</blockquote>
+<p>Narwhal main task is to create a DAG using $N$ nodes in the network with upto $f&lt;N/3$ byzantine nodes. Since, communication happens in an asynchronous network, Narwhal alone is not sufficient to guarantee liveness property and thus, Tusk/Bullshark was introduced that totally orders the DAG and satisifies BFT properties. DAG formation happens in a round-based structure.</p>
+<p>Design Goals for Narwhal:</p>
+<ul>
+<li>Reduce need for double transmissions when leaders propose blocks</li>
+<li>enabling scaling out when more resources are available</li>
+</ul>
+<a href="#block-structure-in-narwhal"><h4 id="block-structure-in-narwhal"><span class="hanchor" ariaLabel="Anchor"># </span>Block structure in Narwhal:</h4></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/narwhal_block_structure.webp" width="auto" alt="block_structure"  /></p>
+<p>A block $b$ consists of:</p>
+<ul>
+<li>Set of transactions</li>
+<li>$n-f$ block certificates from previous rounds</li>
+<li>signature of $i$</li>
+</ul>
+<p>The certificates encode a causal <em>&lsquo;happened-before&rsquo;</em> relation between the blocks denoted as $b \rightarrow b&rsquo;$</p>
+<a href="#validators"><h4 id="validators"><span class="hanchor" ariaLabel="Anchor"># </span>Validators</h4></a>
+<ul>
+<li>Each validator consists of set of workers and a primary.</li>
+<li>workers collect transactions from the clients and broadcast batches of data to workers.</li>
+<li>Upon receiving $2f+1$ acks, workers forwards a digest of batches to primary.</li>
+<li>primaries form a round-based DAG on metadata (vertices contain digests).</li>
+<li>Thus, data dissemination is done by the workers at network speed regarding the metadata DAG construction by primaries.</li>
+</ul>
+<p>Validators use following reliable broadcast protocol:</p>
+<ul>
+<li>each validator sends metadata (digest of batches and $n-f$ references to previous rounds&rsquo; blocks) to all other validators.</li>
+<li>each receiver replies with a signature if:
+<ul>
+<li>workers sign a PoA so that the data corresponding to the digests is made available</li>
+<li>it has not replied to this validator in the round before (for non-equivocation)</li>
+</ul>
+</li>
+<li>sender sends a quorum certificate after getting $n-f$ such signatures.</li>
+<li>validator advances to next round if it has received $n-f$ certificates from previous round.</li>
+</ul>
+<p>Quorum Certificates has following advantages:</p>
+<ul>
+<li>Non-equivocation: honest validators only sign one vertex per validator per round, and $n-f$ signatures are required to create a QC. Thus, byzantine validator won&rsquo;t be able to create two different QC for different blocks due to quorum intersection.</li>
+<li>Data availability: validators sign only if they locally store the data corresponding to the digests in the vertex.</li>
+<li>history availability: a certificate of a block guarantees data availability, and certified blocks contain certificates from previous rounds. Thus, a validator store entire causal history of the block. A new validator joining can just learn about the DAG using certificates from previous rounds.</li>
+</ul>
+<p>Thus, Narwhal satisfies following properties:</p>
+<ul>
+<li>
+<p>Integrity: For any digest $d$, two different invocations of $read(d)$ to honest parties will return the same value.</p>
+<p>This happens because honest parties can only reply with a signature when they&rsquo;ve received the data corresponding to the digest.</p>
+</li>
+<li>
+<p>Block-availability: If a $read(d)$ is invoked by an honest party after $write(d,b)$ succeeds for an honest party, then $read(d)$ eventually completes and returns $b$.</p>
+<p>$write(d,b)$ succeeds when sender has received $n-f$ certificates from other validators which signifies that they&rsquo;ve received the data and will persist it. Thus, if a leader proposes a certificate, this means that the block will be available for later purposes.</p>
+</li>
+<li>
+<p>2/3-Causality: successful $read_causal(d)$ returns a set $B$ that contains at least $2/3$ of the blocks written successfully before $write(d,b)$ succeeded.</p>
+<p>To successfully write a block, a sender requires at least $n-f$ certificates from previous round signifying that the current proposed block references those causally <em>&lsquo;happened-before&rsquo;</em> blocks. Thus, at least 2/3 of the blocks are included in the set.</p>
+</li>
+<li>
+<p>1/2-Chain quality: At least half of the blocks in set $B$ returned by $read_causal(d)$ are written by honest parties.</p>
+<p>Out of the $n-f$ certificates from previous round, at least half has to be honest due to assumption that $f&lt;n/3$.</p>
+</li>
+<li>
+<p>Containment: let $B$ be the set returned by $read_causal(d)$, then for every $b&rsquo; \in B$, the set $B&rsquo;$ returned by $read_causal(d&rsquo;)$, $B&rsquo; \subseteq B$.</p>
+</li>
+</ul>
+<a href="#using-narwhal-for-consensus"><h3 id="using-narwhal-for-consensus"><span class="hanchor" ariaLabel="Anchor"># </span>Using Narwhal for consensus</h3></a>
+<p>Narwhal as a high-throughput mempool can be combined with an asynchronous or eventually-synchronous protocol to achieve total-ordering. This is advantageous in many sense:</p>
+<ul>
+<li>Same causal history of a block given a certificate. Any deterministic rule then can be used for total ordering</li>
+<li>Bulk transaction information is evenly shared among all validators and doesn&rsquo;t lead to uneven utilisation of resources</li>
+<li>continues to work even in asynchronous environments, i.e. validators keep sending blocks and certificates.</li>
+</ul>
+<a href="#tusk"><h3 id="tusk"><span class="hanchor" ariaLabel="Anchor"># </span>Tusk</h3></a>
+<p>Like all protocols, Narwhal is also prone to impossibility result in asynchrony and thus, to retain liveness during asynchronous phase, Tusk was proposed in the Narwhal&amp;Tusk paper which converts the causally ordered DAG to a totally ordered with zero extra communication.</p>
+<ul>
+<li>Has a concept of waves which comprises of 3 rounds. Propose, vote, and produce randomness to elect a leader</li>
+<li></li>
+</ul>
+<a href="#bullshark"><h3 id="bullshark"><span class="hanchor" ariaLabel="Anchor"># </span>Bullshark</h3></a>
+<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<ul>
+<li>
+<a href="https://www.youtube.com/watch?v=v7h2rXNtrV0" rel="noopener">a16z crypto research - DAG based consensus protocols</a></li>
+<li>
+<a href="https://decentralizedthoughts.github.io/2022-06-28-DAG-meets-BFT/" rel="noopener">DAG meets BFT - decentralizedthoughts</a></li>
+<li>
+<a href="https://malkhi.com/posts/2022/07/dag-fo/" rel="noopener">DAG based BFT</a></li>
+<li>
+<a href="https://blog.chain.link/bft-on-a-dag/" rel="noopener">BFT on a DAG</a></li>
+<li>
+<a href="https://arxiv.org/pdf/2012.06128.pdf" rel="noopener">SoK: Diving into DAG-based Blockchain Systems</a></li>
+<li>
+<a href="https://arxiv.org/pdf/2102.08325.pdf" rel="noopener">All You Need is DAG</a></li>
+<li>
+<a href="https://arxiv.org/pdf/2201.05677.pdf" rel="noopener">Bullshark: DAG BFT protocols made Practical</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=XP41IsXCUrw" rel="noopener">Scaling Celo blockchain with Narwhal</a></li>
+<li>
+<a href="https://hedera.com/learning/distributed-ledger-technologies/dag-vs-blockchain" rel="noopener">DAG vs Blockchain</a></li>
+<li>
+<a href="https://docs.google.com/presentation/d/12xWSvocGeIrRiJ4otSP2OWvFDNshd1x8buArux0BzG8/edit#slide=id.p" rel="noopener">MEV mitigation using modular DAG-based mempools</a></li>
+<li>
+<a href="https://twitter.com/sreeramkannan/status/1555635155796049920" rel="noopener">Sreeram Kannan&rsquo;s thread on Bullshark</a></li>
+<li>
+<a href="https://twitter.com/samlafer/status/1566285789515771904" rel="noopener">samuel&rsquo;s thread</a></li>
+<li></li>
+</ul>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.abd4bc2af3869a96524d7d23b76152c7.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2022</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

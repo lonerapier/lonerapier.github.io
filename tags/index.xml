@@ -6,11 +6,29 @@
     <description>Recent content in Tags on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Nov 2022 10:00:00 +0000</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>consensus</title>
+      <link>https://lonerapier.xyz/tags/consensus/</link>
+      <pubDate>Fri, 25 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/consensus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>distributed-systems</title>
+      <link>https://lonerapier.xyz/tags/distributed-systems/</link>
+      <pubDate>Fri, 25 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/distributed-systems/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>cryptography</title>
       <link>https://lonerapier.xyz/tags/cryptography/</link>
-      <pubDate>Tue, 11 Oct 2022 10:00:00 -0700</pubDate>
+      <pubDate>Mon, 14 Nov 2022 10:00:00 +0000</pubDate>
       
       <guid>https://lonerapier.xyz/tags/cryptography/</guid>
       <description></description>
@@ -19,7 +37,7 @@
     <item>
       <title>math</title>
       <link>https://lonerapier.xyz/tags/math/</link>
-      <pubDate>Tue, 11 Oct 2022 10:00:00 -0700</pubDate>
+      <pubDate>Mon, 14 Nov 2022 10:00:00 +0000</pubDate>
       
       <guid>https://lonerapier.xyz/tags/math/</guid>
       <description></description>
@@ -112,6 +130,15 @@
       <pubDate>Sat, 11 Apr 2020 22:15:20 -0900</pubDate>
       
       <guid>https://lonerapier.xyz/tags/papers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data-structures</title>
+      <link>https://lonerapier.xyz/tags/data-structures/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/data-structures/</guid>
       <description></description>
     </item>
     

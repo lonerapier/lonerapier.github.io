@@ -6,7 +6,34 @@
     <description>Recent content in Thoughts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Nov 2022 10:00:00 +0000</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Distributed Consensus</title>
+      <link>https://lonerapier.xyz/thoughts/distributed-consensus/</link>
+      <pubDate>Fri, 25 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/distributed-consensus/</guid>
+      <description>QBFT     PBFT Hotstuff  Partial synchronous Leader-based  Resources </description>
+    </item>
+    
+    <item>
+      <title>DAG-based consensus</title>
+      <link>https://lonerapier.xyz/thoughts/dag-based-consensus/</link>
+      <pubDate>Fri, 18 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/dag-based-consensus/</guid>
+      <description>Before understanding what even a dag based protocol does. First, we need to understand how it&amp;rsquo;s different than a traditional blockchain protocol like Bitcoin.</description>
+    </item>
+    
+    <item>
+      <title>Pedersen Commitments</title>
+      <link>https://lonerapier.xyz/thoughts/pedersen-commitments/</link>
+      <pubDate>Mon, 14 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/pedersen-commitments/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>KZG Commitments</title>
       <link>https://lonerapier.xyz/thoughts/kzg-commitments/</link>
@@ -150,6 +177,34 @@ Blessed With our time in Hell.
       
       <guid>https://lonerapier.xyz/thoughts/nomad-xyz/</guid>
       <description>Protocol for cross-chain communication. Follows optimistic design inspired from Optimistic Rollups. Nomad&amp;rsquo;s design aims to solve the interoperability trilemma famously coined by Connext but introduces a new component, latency.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://lonerapier.xyz/thoughts/fourier-transforms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/fourier-transforms/</guid>
+      <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://lonerapier.xyz/thoughts/partial-synchrony/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/partial-synchrony/</guid>
+      <description>GST stands for Global Stabilization time that is a finite time found in partial synchronous models. System behaves asynchronously till GST and synchronously after GST.</description>
+    </item>
+    
+    <item>
+      <title>Verkle Trees</title>
+      <link>https://lonerapier.xyz/thoughts/verkle/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/verkle/</guid>
+      <description>Credits: Dankrad&amp;rsquo;s post on verkle tries
+Verkle Trees is one of the big change that is going to be included in the Ethereum protocol towards its push to weak statelessness.</description>
     </item>
     
   </channel>

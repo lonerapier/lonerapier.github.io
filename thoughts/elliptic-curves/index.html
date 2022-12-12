@@ -62,7 +62,7 @@
     
   
   
-  <link href="https://lonerapier.xyz/styles.72f297ead12c82348b1576f11ad27707.min.css" rel="stylesheet" />
+  <link href="https://lonerapier.xyz/styles.ee80ec3148379f6442322eb1d363b2e1.min.css" rel="stylesheet" />
 
   
   <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -76,7 +76,7 @@
   
   
   
-  <script src="https://lonerapier.xyz/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  <script src="https://lonerapier.xyz/js/util.5e39932758f9ecaf45fd54506ed61416.min.js"></script>
   
   
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
@@ -86,10 +86,13 @@
 
 
 
+  
+
+    
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   
-  <script src="https://lonerapier.xyz/js/popover.53ad9a087e3feeaaa12b63bfd02d923b.min.js"></script>
+  <script src="https://lonerapier.xyz/js/popover.6da9b273c092cc16fc1aa904d71a2163.min.js"></script>
 
   
   
@@ -110,28 +113,18 @@
   
    
   <script>
-    
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const lastVisit = localStorage.getItem('lastVisitTime')
-    const now = Date.now()
-    let show = 'true'
-    if (lastVisit) {
-      document.documentElement.setAttribute('visited', 'true')
-      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
-      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
-    }
-    document.documentElement.setAttribute('show-animation', show)
-    localStorage.setItem('lastVisitTime', `${now}`)
-
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ac08fcd15ab66d2fe6dfbf9596b48b3e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb8e798d264c61c40aa52e51df369d26.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.1556520756967c63e265f60d05e396f5.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -156,11 +149,10 @@
 
       addCollapsibleCallouts();
       
-
+     
       
       initPopover(
         "https://lonerapier.xyz",
-         true ,
          true 
       )
       
@@ -183,6 +175,8 @@
           );
 
         }
+      
+
       
     }
 
@@ -240,20 +234,21 @@ if (!doNotTrack) {
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="https://lonerapier.xyz/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+<script defer src="https://lonerapier.xyz/js/full-text-search.51f0b1753e9b30839d053f8a98cc20d1.min.js"></script>
 
 
 
 <div class="singlePage">
     
-    <header class="delay t-3">
-  <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
-  <div class="spacer"></div>
-  <div id="search-icon">
-    <p>Search</p>
-    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
-  </div>
-  <div class='darkmode'>
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
     <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
     <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
@@ -291,6 +286,7 @@ Aug 21, 2022
           
       </ul>
       
+
 <aside class="mainTOC">
     <details >
         <summary>Table of Contents</summary>
@@ -890,64 +886,37 @@ Aug 21, 2022
   
   
 
-
-
-
-
-
-
+  
+  
 
   
   
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
+
   
   
-    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-        
-        
-        
-      
-    
+
   
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
 
 
 
@@ -958,6 +927,71 @@ Aug 21, 2022
   
   
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+    
+    
+
+  
+
+
+
+
+
+
+
+  
+  
+  
   
   
   
@@ -1014,6 +1048,10 @@ Aug 21, 2022
   
   
   
+
+
+
+
 
 
 <p>Once again, this is just another of my notes aggregated from various sources. This is a very dumbed down version for just my understanding and it&rsquo;s my advice to follow the resources attached as they are more thorough and detailed explained by experts on the topic. I&rsquo;m just a novice who is interested in learning cryptography.</p>
@@ -1024,11 +1062,9 @@ Aug 21, 2022
 <p><em>The dogs of doom are howling more</em></p>
 </blockquote>
 <p>Now, for the song. This time we&rsquo;ll listen 
-
 <a href="https://open.spotify.com/track/55ZL7fjGAWfClmpnsK6Xon?si=2a10756c4a094826" rel="noopener">No Quarter</a> by Led Zeppelin. No description for this. I guess they don&rsquo;t need one :)</p>
 <a href="#discrete-logarithm-problem"><h2 id="discrete-logarithm-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Discrete Logarithm Problem</h2></a>
 <p>
-
 <a href="https://river.com/learn/terms/d/discrete-log-problem-dlp/" rel="noopener">Discrete logarithm Problem</a> (DLP) for a group $G$ and an element $g \in G$ is,</p>
 <blockquote>
 <p>Given an element $h$ in the subgroup generated by $g$, find an integer $m$ satisfying $h = g^m$.</p>
@@ -1072,7 +1108,6 @@ $$</p>
 <a href="#elliptic-curve-cryptography"><h2 id="elliptic-curve-cryptography"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curve Cryptography</h2></a>
 <p>$$ y^2 = x^3 + ax^2 + bx + c $$</p>
 <p>
-
 <a href="https://river.com/learn/terms/s/secp256k1/" rel="noopener">$secp256k1$</a>: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
 <p>ECDSA: Elliptic Curve Digital Signature Algorithm</p>
 <p>Public key cryptography uses this method to calculate public keys which is a point on ECC curve.</p>
@@ -1084,13 +1119,11 @@ $$</p>
 <li>$p$ = prime number</li>
 </ul>
 <p>Take a 
-
 <a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6" rel="noopener">base point</a> $G$, add it $n$ (private key) times to make $nG (% p)$ (public key).</p>
 <blockquote>
 <p><strong>Note</strong>: addition here means addition in elliptic curve and not addition in field of integers mod p.</p>
 </blockquote>
 <p>
-
 <a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8" rel="noopener">Order</a> of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.</p>
 <p>Thus, choosing a good base point is necessary in any public key generation curves.</p>
 <p>secp256k1:</p>
@@ -1139,10 +1172,8 @@ $$</p>
 <p>Base point $G$, is chosen to be closer to $2^{256}$ and thus is in the order of <code>256</code>.</p>
 <p>So, $\sqrt{256} = 128$ bits level of security is provided by curves like $secp256k1$.</p>
 <h2 id="secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1">
-
 <a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/" rel="noopener">secp256k1 v/s secp256r1</a></h2>
 <p>
-
 <a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/" rel="noopener">$secp256k1$</a> is a Koblitz curve defined in a characteristic 2 finite field while $secp256r1$ is a prime field curve.</p>
 <p>Not going into details as to what a characteristic 2 finite field is, we can specify $secp256r1$ as a pseudo-randomised curve and $secp256k1$ as completely random curve which can’t be solved using discrete logarithm problem <strong>yet</strong>.</p>
 <a href="#pairing-friendly-curves"><h2 id="pairing-friendly-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Pairing Friendly Curves</h2></a>
@@ -1151,7 +1182,6 @@ $$</p>
 <a href="#bls12-381"><h3 id="bls12-381"><span class="hanchor" ariaLabel="Anchor"># </span>BLS12-381</h3></a>
 <blockquote>
 <p>Note: Most of these notes are taken from this amazing 
-
 <a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">post</a> by Ben</p>
 </blockquote>
 <p>This was first introduced by Sean Bowe from ZCash in 2017 and has been used in various things from then. Now for the naming,</p>
@@ -1191,7 +1221,6 @@ $$</p>
 <p>As explained earlier, that arithmetic on field $\mathbb{F}<em>{q^12}$ is fairly complex and inefficient. And all the curve operations like <code>add</code>, <code>sub</code>, <code>mul</code>, etc. requires a lot of arithmetic. Thus, we need to transform the $E(\mathbb{F}</em>{q^12})$ curve into a curve defined over a lower degree field that still has an order $r$ subgroup. Why we didn&rsquo;t take this lower order field in the first place? Because we require subgroup having trace of zero points.</p>
 <blockquote>
 <p>Quoting section 3 of 
-
 <a href="https://eprint.iacr.org/2005/133.pdf" rel="noopener">this</a> :</p>
 <p>The basic idea for point compression is not only to restrict the first pairing argument to $E(\mathbb{F}<em>{p})$, but also to take the second argument $Q \in E(\mathbb{F}</em>{p^{12}})$ as the image $\psi(Q&rsquo;)$ of a point on a sextic twist $E&rsquo;(\mathbb{F}<em>{p^2})$, where $\psi : E&rsquo;(\mathbb{F}</em>{p^2}) \rightarrow E(\mathbb{F}<em>{p^{12}})$ is an injective group homomorphism. This way one would work only with $E(\mathbb{F}</em>{p})$ and $E&rsquo;(\mathbb{F}<em>{p^2})$ for non-pairing operations like key generation, and map from $E&rsquo;(\mathbb{F}</em>{p^2})$ to $E(\mathbb{F}_{p^{12}})$ only when actually computing pairing values.</p>
 </blockquote>
@@ -1214,9 +1243,11 @@ $$</p>
 <p>It&rsquo;s the ratio of order of the curve group and order of the subgroup $hr = n$. Usually, cofactor should be very small in order to avoid subgroup attacks on discrete logarithms. But in pairing-based cryptography, the cofactors of $G_1$, $G_2$ and $G_{T}$ can be very large.</p>
 <p>By multiplying by the cofactor, a point on the curve is mapped to the appropriate group known as <strong>cofactor clearing</strong>.</p>
 <h3 id="roots-of-unityhttpsbrilliantorgwikiroots-of-unity">
-
 <a href="https://brilliant.org/wiki/roots-of-unity/" rel="noopener">Roots of Unity</a></h3>
-<p>Roots of Unity are complex solutions to the equation: $x^n=1$. Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^12}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.</p>
+<p>Roots of Unity are complex solutions to the equation: $x^n=1$.</p>
+<p>Every nonzero element of a finite field is a root of unity, as $x^{q-1} = 1$ for every nonzero element of $\mathbb{F}_{q}$.</p>
+<p><em>Primitive root of unity</em> is when a number is solution to $x^n=1$ but not for $x^m=1$ for any positive integer $m&lt;n$. So, if $a$ is a $n$th primitive root of unity in a field $\mathbb{F}$, then $\mathbb{F}$ contains all the roots of unity, $1, a, a^{2}, \ldots, a^{n-1}$.</p>
+<p>Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^{12}}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.</p>
 <a href="#extension-towers"><h3 id="extension-towers"><span class="hanchor" ariaLabel="Anchor"># </span>Extension Towers</h3></a>
 <p>For BLS12-381, $F_{q^{12}}$ is constructed as a 2-3-2 extension tower, i.e. quadratic extension -&gt; cubic extension -&gt; quadratic extension.</p>
 <ol>
@@ -1246,26 +1277,23 @@ Reduction rule: $w^2-v=0$ which is irreducible in $F_{q^{6}}$.</li>
 <a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
 <ul>
 <li>
-
 <a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve" rel="noopener">ethereumbook&rsquo;s elliptic curve section</a></li>
 <li>
-
 <a href="https://www.math.brown.edu/johsilve/Presentations/WyomingEllipticCurve.pdf" rel="noopener">An Introduction to Elliptic Curves</a></li>
 <li>
-
 <a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Exploring Elliptic Curve Pairings</a></li>
 <li>
-
 <a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">BLS12-381 for the rest of us</a></li>
 <li>
-
 <a href="https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/" rel="noopener">Pairings over BLS12-381</a></li>
 <li></li>
 </ul>
 
 
     </article>
-    <hr/>
+    
+
+<hr/>
 
 
 <div class="page-end" id="footer">

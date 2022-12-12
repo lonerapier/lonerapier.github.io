@@ -62,7 +62,7 @@
     
   
   
-  <link href="https://lonerapier.xyz/styles.72f297ead12c82348b1576f11ad27707.min.css" rel="stylesheet" />
+  <link href="https://lonerapier.xyz/styles.ee80ec3148379f6442322eb1d363b2e1.min.css" rel="stylesheet" />
 
   
   <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -76,7 +76,7 @@
   
   
   
-  <script src="https://lonerapier.xyz/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  <script src="https://lonerapier.xyz/js/util.5e39932758f9ecaf45fd54506ed61416.min.js"></script>
   
   
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
@@ -86,10 +86,13 @@
 
 
 
+  
+
+    
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   
-  <script src="https://lonerapier.xyz/js/popover.53ad9a087e3feeaaa12b63bfd02d923b.min.js"></script>
+  <script src="https://lonerapier.xyz/js/popover.6da9b273c092cc16fc1aa904d71a2163.min.js"></script>
 
   
   
@@ -110,28 +113,18 @@
   
    
   <script>
-    
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const lastVisit = localStorage.getItem('lastVisitTime')
-    const now = Date.now()
-    let show = 'true'
-    if (lastVisit) {
-      document.documentElement.setAttribute('visited', 'true')
-      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
-      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
-    }
-    document.documentElement.setAttribute('show-animation', show)
-    localStorage.setItem('lastVisitTime', `${now}`)
-
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ac08fcd15ab66d2fe6dfbf9596b48b3e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb8e798d264c61c40aa52e51df369d26.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.1556520756967c63e265f60d05e396f5.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -156,11 +149,10 @@
 
       addCollapsibleCallouts();
       
-
+     
       
       initPopover(
         "https://lonerapier.xyz",
-         true ,
          true 
       )
       
@@ -183,6 +175,8 @@
           );
 
         }
+      
+
       
     }
 
@@ -240,20 +234,21 @@ if (!doNotTrack) {
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="https://lonerapier.xyz/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+<script defer src="https://lonerapier.xyz/js/full-text-search.51f0b1753e9b30839d053f8a98cc20d1.min.js"></script>
 
 
 
 <div class="singlePage">
     
-    <header class="delay t-3">
-  <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
-  <div class="spacer"></div>
-  <div id="search-icon">
-    <p>Search</p>
-    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
-  </div>
-  <div class='darkmode'>
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
     <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
     <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
@@ -291,6 +286,7 @@ Oct 11, 2022
           
       </ul>
       
+
 <aside class="mainTOC">
     <details >
         <summary>Table of Contents</summary>
@@ -597,64 +593,79 @@ Oct 11, 2022
 
 
 
+
   
   
   
+
   
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+    
     
       
       
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-        
-        
-        
-      
     
+    
+
   
 
   
   
   
+
   
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+    
     
       
       
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-        
-        
-        
-      
     
+    
+
   
 
 
@@ -687,12 +698,14 @@ Oct 11, 2022
   
   
   
+
+
+
+
 
 
 <p>This is a really informal post of my understanding of KZG commitments. I am in no way a professional in cryptography and is just learning this for fun. Most of the excerpts in these notes are borrowed from the amazing article by 
-
 <a href="https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html" rel="noopener">Dankrad</a> and 
-
 <a href="https://alinush.github.io/2020/05/06/kzg-polynomial-commitments.html" rel="noopener">Alinush</a>.</p>
 <blockquote>
 <p><em>My pain</em></p>
@@ -701,7 +714,6 @@ Oct 11, 2022
 <p><em>So The Prophet says</em></p>
 </blockquote>
 <p>Now, another song for you to listen along for this ride that you&rsquo;re embarking on with me. 
-
 <a href="https://open.spotify.com/track/5EUsI3LIV042IV5ydksV9y?si=7e97529079ca4e70" rel="noopener">River of Deceit</a> by Mad Season. This was a total random song found while listening to my Daily Mix playlist. Anyways, I like it.</p>
 <a href="#kzg-commitments"><h2 id="kzg-commitments"><span class="hanchor" ariaLabel="Anchor"># </span>KZG Commitments</h2></a>
 <p>A <strong>polynomial commitment scheme</strong> allows anyone to commit to a polynomial $p(X)$ with the properties that this commitment $C$ (an <a href="/thoughts/elliptic-curves" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curves">elliptic curve</a> point) can later be verified by anyone at any position $z$ on that polynomial. The prover proves at a position the value of the polynomial known as <em>proof</em> $\pi$ versus the claimed value known as <em>evaluation</em> $p(z)$ and this is only possible when prover actually has provided proof for that one polynomial that it committed to.</p>
@@ -713,11 +725,10 @@ Oct 11, 2022
 <ul>
 <li>Let $\mathbb{G_1}$ and $\mathbb{G_2}$ be two elliptic curves with a pairing $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.</li>
 <li>Let $p$ be the order of $\mathbb{G}_1$ and $\mathbb{G}_2$ and $G$ is generator of $\mathbb{G}_1$ and $H$ is generator of $\mathbb{G}_2$.</li>
-<li>$<input checked="" disabled="" type="checkbox"> _1 = xG \in \mathbb{G}_1$ and $<input checked="" disabled="" type="checkbox"> _2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.</li>
+<li>$[x]_1 = xG \in \mathbb{G}_1$ and $[x]_2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.</li>
 </ul>
 <a href="#trusted-setup"><h3 id="trusted-setup"><span class="hanchor" ariaLabel="Anchor"># </span>Trusted Setup</h3></a>
 <p>You might&rsquo;ve read multiple times in twitter threads that there is a trusted ceremony that is associated with DAS, SNARKs or words like KZG Ceremony. They are usually talking about this trusted setup. Also known as 
-
 <a href="https://vitalik.ca/general/2022/03/14/trustedsetup.html#what-does-a-powers-of-tau-setup-look-like" rel="noopener">Powers of tau</a>.</p>
 <p>In this ceremony, a random secret $\tau \in \mathbb{F}_p$ is created, using which its powers $[\tau^i]_1$ and $[\tau^i]_2$ for $i = 0, \ldots, n-1$  are created. In additive notation, it is represented as:</p>
 <p>$$[\tau^i]_1 = (G, \tau G, \tau^2 G, \ldots, \tau^{n-1} G) \in \mathbb{G}_1$$
@@ -730,7 +741,7 @@ $$[\tau^i]_2 = (H, \tau H, \tau^2 H, \ldots, \tau^{n-1} H) \in \mathbb{G}_2$$</p
 <p>This is a really interesting output, as prover is able to evaluate polynomial at point $\tau$, even when he doesn&rsquo;t know the secret and this becomes the commitment of prover of the polynomial.</p>
 <p>Now, you might be wondering if a malicious prover find another polynomial $q(X) \neq p(X)$ such that $[q(\tau)]_1 = [p(\tau)]_1$. But the prover doesn&rsquo;t know $\tau$, so the best bet for prover to achieve $p(\tau) = q(\tau)$ is to make the polynomial pass through as many points $n$ as possible. But it&rsquo;s computably inefficient to find the exact polynomial that passes through $n$ points where curve order $p \approx 2^{256}$ as $n &laquo;&lt; p$.</p>
 <a href="#proof-evaluation"><h3 id="proof-evaluation"><span class="hanchor" ariaLabel="Anchor"># </span>Proof Evaluation</h3></a>
-<p>We need a mechanism so that prover could verify its commitment on the polynomial and this is done through <em>evaluations</em> on the polynomial $p(X)$. Evaluation is done at a point $z$ and the claimed is valued $p(z)$ is verified by the verifier.</p>
+<p>We need a mechanism so that prover could verify its commitment on the polynomial and this is done through <em>evaluations</em> on the polynomial $p(X)$. Evaluation is done at a point $z$ and the claimed value $p(z)$ is verified by the verifier.</p>
 <p>Now, a value $z$ is chosen such that $p(z) = y$. This means that $p(X)-y$ should have a factor $X-z$. So, a quotient polynomial $q(X) = \frac{p(X) - y}{X-z}$ is computed and the evaluation proof becomes,</p>
 <p>$$\pi = [q(\tau)]<em>1 = \sum</em>{i=0}^{n}[\tau^i] \cdot q_i$$</p>
 <p>Prover sends this proof to verifier which verifiers this proof.</p>
@@ -773,41 +784,49 @@ $$[q(\tau) \cdot (\tau-z)]_T = [p(\tau)-y]_T$$</p>
 <li>The verifier need to do linear work to compute $z$. While in KZG, verification is constant as only two multiplications and pairings are required to verify proof.</li>
 <li>commitments using merkle trees makes the polynomial public and doesn&rsquo;t hide anything. While it&rsquo;s mostly hidden in Kate commitments.</li>
 </ul>
-<p>Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs.</p>
+<p>Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <a href="#multiproofs"><h3 id="multiproofs"><span class="hanchor" ariaLabel="Anchor"># </span>Multiproofs</h3></a>
 <p>Let&rsquo;s say we have a list of $k$ points that we want to prove, $(z_0, y_0), (z_1, y_1), \ldots, (z_k, y_k)$. We find a polynomial $I(X)$ that goes through these points using Lagrange Interpolation:</p>
 <p>$$I(X) = \sum_{i=0}^{k-1} y_i \prod_{j=0 \atop j \neq i}^{k-1} \frac{X-z_j}{z_i-z_j}$$</p>
 <p>For the evaluation proof, while in the single proof we compute $q(x) = \frac{p(x)-y}{x-z}$, we will replace $y$ as single point with $I(x)$, and $x-z$ will be replaced with $Z(x) = \prod_{i=0}^{k}x-z_i$. Now, we replace our values and $q(x)$ becomes</p>
 <p>$$q(x) = \frac{p(x) - I(x)}{Z(x)}$$</p>
 <p>This is possible due to $p(x)-I(x)$ being divisible by all linear factors of $Z(x)$ and being divisible by whole $Z(x)$. The multiproof for evaluation $(z_0, y_0), (z_1, y_1), \ldots, (z_k, y_k)$: $\pi = [q(s)]_1$. Now, our prover equation becomes</p>
-<p>$$e(\pi, [Z(s)]<em>{2)}= e(C - [I(s)]</em>{1}, H)$$
-$$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$</p>
+<p>$$e(\pi, [Z(s)]<em>2) = e(C - [I(s)]</em>{1}, H)$$</p>
+<p>$$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$</p>
 <p>This really blew my mind when I was first studying them. You can have a million proofs batch together in one single 48 bytes proof which anyone can verify by just computing $I(x)$ and $Z(x)$.  Cryptography really is cool.</p>
 <a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
 <ul>
 <li>
-
 <a href="https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html" rel="noopener">KZG Commitments By Dankrad</a></li>
 <li>
-
 <a href="https://hackmd.io/yqfI6OPlRZizv9yPaD-8IQ?view" rel="noopener">Kate Commitments in ETH</a></li>
 <li>
-
 <a href="https://ethresear.ch/t/open-problem-ideal-vector-commitment/7421/27" rel="noopener">ethresear.ch post about commitments</a></li>
 <li>
-
 <a href="https://ethresear.ch/t/using-polynomial-commitments-to-replace-state-roots/7095" rel="noopener">Using polynomial commitments to replace state roots</a>]</li>
 <li>
-
 <a href="https://hackmd.io/@tompocock/Hk2A7BD6U" rel="noopener">Kate Commitments: A Primer</a></li>
 <li>
-
 <a href="https://taoa.io/posts/Understanding-KZG10-Polynomial-Commitments" rel="noopener">Understanding KZG10 Polynomial Commitments</a></li>
+<li>
+<a href="https://github.com/ethereum/consensus-specs/pull/3006" rel="noopener">Polynomials in bit reversal permutation</a></li>
+<li>
+<a href="https://hackmd.io/@Evaldas/SJ9KHoDJF" rel="noopener">Formulas for Polynomial Commitments</a></li>
 </ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>This is the first footnote.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
     </article>
-    <hr/>
+    
+
+<hr/>
 
 
 <div class="page-end" id="footer">
@@ -821,10 +840,20 @@ $$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$</p>
     
     
     
-    <li>
-      No backlinks found
-    </li>
     
+    
+      
+      
+      
+    
+      
+      
+      <li>
+        <a href="/thoughts/verkle/" data-ctx="KZG Polynomial commitments" data-src="/thoughts/verkle" class="internal-link">Verkle Trees</a>
+      </li>
+      
+      
+      
 </ul>
 
     </div>

@@ -62,7 +62,7 @@
     
   
   
-  <link href="https://lonerapier.xyz/styles.72f297ead12c82348b1576f11ad27707.min.css" rel="stylesheet" />
+  <link href="https://lonerapier.xyz/styles.ee80ec3148379f6442322eb1d363b2e1.min.css" rel="stylesheet" />
 
   
   <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -76,7 +76,7 @@
   
   
   
-  <script src="https://lonerapier.xyz/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  <script src="https://lonerapier.xyz/js/util.5e39932758f9ecaf45fd54506ed61416.min.js"></script>
   
   
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
@@ -86,10 +86,13 @@
 
 
 
+  
+
+    
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   
-  <script src="https://lonerapier.xyz/js/popover.53ad9a087e3feeaaa12b63bfd02d923b.min.js"></script>
+  <script src="https://lonerapier.xyz/js/popover.6da9b273c092cc16fc1aa904d71a2163.min.js"></script>
 
   
   
@@ -110,28 +113,18 @@
   
    
   <script>
-    
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const lastVisit = localStorage.getItem('lastVisitTime')
-    const now = Date.now()
-    let show = 'true'
-    if (lastVisit) {
-      document.documentElement.setAttribute('visited', 'true')
-      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
-      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
-    }
-    document.documentElement.setAttribute('show-animation', show)
-    localStorage.setItem('lastVisitTime', `${now}`)
-
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ac08fcd15ab66d2fe6dfbf9596b48b3e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb8e798d264c61c40aa52e51df369d26.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.1556520756967c63e265f60d05e396f5.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -156,11 +149,10 @@
 
       addCollapsibleCallouts();
       
-
+     
       
       initPopover(
         "https://lonerapier.xyz",
-         true ,
          true 
       )
       
@@ -183,6 +175,8 @@
           );
 
         }
+      
+
       
     }
 
@@ -240,20 +234,21 @@ if (!doNotTrack) {
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="https://lonerapier.xyz/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+<script defer src="https://lonerapier.xyz/js/full-text-search.51f0b1753e9b30839d053f8a98cc20d1.min.js"></script>
 
 
 
 <div class="singlePage">
     
-    <header class="delay t-3">
-  <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
-  <div class="spacer"></div>
-  <div id="search-icon">
-    <p>Search</p>
-    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
-  </div>
-  <div class='darkmode'>
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
     <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
     <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
@@ -289,6 +284,7 @@ Jul 15, 2022
           
       </ul>
       
+
 <aside class="mainTOC">
     <details >
         <summary>Table of Contents</summary>
@@ -405,6 +401,7 @@ Jul 15, 2022
 
 
 
+
   
   
   
@@ -422,12 +419,14 @@ Jul 15, 2022
   
   
   
+
+
+
+
 
 
 <p>DeFi&rsquo;s next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.e. 
-
 <a href="https://yield.is" rel="noopener">Yield</a>, 
-
 <a href="https://notional.finance" rel="noopener">Notional</a>.</p>
 <a href="#yield-protocol"><h2 id="yield-protocol"><span class="hanchor" ariaLabel="Anchor"># </span>Yield Protocol</h2></a>
 <p>Yield introduced <em>yTokens</em> i.e. <code>Yield Tokens</code> similar to compound&rsquo;s <em>cTokens</em> which essentially behaves as zero-coupon bonds expiring at a future date and can be redeemed 1-on-1 for the underlying asset.</p>
@@ -523,13 +522,10 @@ $$\frac{y}{x} - 1 = \frac{(x_{start}^{1-t} + y_{start}^{1-t} - x^{1-t})^\frac{1}
 <a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
 <ul>
 <li>
-
 <a href="https://research.paradigm.xyz/Yield.pdf" rel="noopener">Yield Paper</a></li>
 <li>
-
 <a href="https://yield.is/YieldSpace.pdf" rel="noopener">Yieldspace paper</a></li>
 <li>
-
 <a href="https://paper.element.fi//" rel="noopener">Element finance paper</a></li>
 <li>
 
@@ -542,28 +538,20 @@ $$\frac{y}{x} - 1 = \frac{(x_{start}^{1-t} + y_{start}^{1-t} - x^{1-t})^\frac{1}
   rel="noopener" class="internal-link broken"
   data-src="sense-finance">Sense</a></li>
 <li>
-
 <a href="https://messari.io/article/fixed-income-protocols-the-next-wave-of-defi-innovation" rel="noopener">Messari&rsquo;s Fixed Income Protocol</a></li>
 <li>
-
 <a href="https://medium.com/sensefinance/designing-yield-tokens-d20c34d96f56" rel="noopener">Designing Yield Tokens</a></li>
 <li>
-
 <a href="https://swivel.substack.com/p/cash-flow-instruments-pt-1-history?s=r" rel="noopener">Swivel&rsquo;s cash flow instruments Pt.1</a></li>
 <li>
-
 <a href="https://medium.com/coinmonks/the-defization-of-fixed-income-products-7e72ed4f57b1" rel="noopener">Defization of fixed income products</a></li>
 <li>
-
 <a href="https://medium.com/@exactly_finance/defixed-income-101-948976c0e2c6" rel="noopener">Defixed income</a></li>
 <li>
-
 <a href="https://medium.com/coinmonks/notional-the-alpha-of-fixed-income-defi-products-a5637d2092b5" rel="noopener">Notional</a></li>
 <li>
-
 <a href="https://medium.com/finoa-banking/turning-proof-of-stake-yield-into-fixed-income-products-7de8a73097ac" rel="noopener"></a></li>
 <li>
-
 <a href="https://medium.com/gamma-point-capital/fixed-income-protocols-the-next-wave-of-defi-innovation-69215be82b4e" rel="noopener">Fixed Income Protocols</a></li>
 </ul>
 <a href="#questions"><h2 id="questions"><span class="hanchor" ariaLabel="Anchor"># </span>Questions</h2></a>
@@ -632,7 +620,9 @@ $$\frac{y}{x} - 1 = \frac{(x_{start}^{1-t} + y_{start}^{1-t} - x^{1-t})^\frac{1}
 
 
     </article>
-    <hr/>
+    
+
+<hr/>
 
 
 <div class="page-end" id="footer">

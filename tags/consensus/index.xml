@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>consensus on lonerapier.xyz</title>
+    <link>https://lonerapier.xyz/tags/consensus/</link>
+    <description>Recent content in consensus on lonerapier.xyz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 25 Nov 2022 10:00:00 +0000</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/consensus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Distributed Consensus</title>
+      <link>https://lonerapier.xyz/thoughts/distributed-consensus/</link>
+      <pubDate>Fri, 25 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/distributed-consensus/</guid>
+      <description>QBFT     PBFT Hotstuff  Partial synchronous Leader-based  Resources </description>
+    </item>
+    
+    <item>
+      <title>DAG-based consensus</title>
+      <link>https://lonerapier.xyz/thoughts/dag-based-consensus/</link>
+      <pubDate>Fri, 18 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/dag-based-consensus/</guid>
+      <description>Before understanding what even a dag based protocol does. First, we need to understand how it&amp;rsquo;s different than a traditional blockchain protocol like Bitcoin.</description>
+    </item>
+    
+  </channel>
+</rss>

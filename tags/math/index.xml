@@ -6,7 +6,16 @@
     <description>Recent content in math on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Nov 2022 10:00:00 +0000</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pedersen Commitments</title>
+      <link>https://lonerapier.xyz/thoughts/pedersen-commitments/</link>
+      <pubDate>Mon, 14 Nov 2022 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/pedersen-commitments/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>KZG Commitments</title>
       <link>https://lonerapier.xyz/thoughts/kzg-commitments/</link>

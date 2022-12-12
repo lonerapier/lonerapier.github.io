@@ -62,7 +62,7 @@
     
   
   
-  <link href="https://lonerapier.xyz/styles.72f297ead12c82348b1576f11ad27707.min.css" rel="stylesheet" />
+  <link href="https://lonerapier.xyz/styles.ee80ec3148379f6442322eb1d363b2e1.min.css" rel="stylesheet" />
 
   
   <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -76,7 +76,7 @@
   
   
   
-  <script src="https://lonerapier.xyz/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js"></script>
+  <script src="https://lonerapier.xyz/js/util.5e39932758f9ecaf45fd54506ed61416.min.js"></script>
   
   
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
@@ -86,10 +86,13 @@
 
 
 
+  
+
+    
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   
-  <script src="https://lonerapier.xyz/js/popover.53ad9a087e3feeaaa12b63bfd02d923b.min.js"></script>
+  <script src="https://lonerapier.xyz/js/popover.6da9b273c092cc16fc1aa904d71a2163.min.js"></script>
 
   
   
@@ -110,28 +113,18 @@
   
    
   <script>
-    
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const lastVisit = localStorage.getItem('lastVisitTime')
-    const now = Date.now()
-    let show = 'true'
-    if (lastVisit) {
-      document.documentElement.setAttribute('visited', 'true')
-      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
-      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
-    }
-    document.documentElement.setAttribute('show-animation', show)
-    localStorage.setItem('lastVisitTime', `${now}`)
-
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ac08fcd15ab66d2fe6dfbf9596b48b3e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb8e798d264c61c40aa52e51df369d26.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.1556520756967c63e265f60d05e396f5.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -156,11 +149,10 @@
 
       addCollapsibleCallouts();
       
-
+     
       
       initPopover(
         "https://lonerapier.xyz",
-         true ,
          true 
       )
       
@@ -183,6 +175,8 @@
           );
 
         }
+      
+
       
     }
 
@@ -240,20 +234,21 @@ if (!doNotTrack) {
 <script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
   integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
 
-<script defer src="https://lonerapier.xyz/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js"></script>
+<script defer src="https://lonerapier.xyz/js/full-text-search.51f0b1753e9b30839d053f8a98cc20d1.min.js"></script>
 
 
 
 <div class="singlePage">
     
-    <header class="delay t-3">
-  <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
-  <div class="spacer"></div>
-  <div id="search-icon">
-    <p>Search</p>
-    <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
-  </div>
-  <div class='darkmode'>
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
     <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
     <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
@@ -291,6 +286,7 @@ Oct 3, 2022
           
       </ul>
       
+
 <aside class="mainTOC">
     <details >
         <summary>Table of Contents</summary>
@@ -610,6 +606,7 @@ Oct 3, 2022
 
 
 
+
   
   
   
@@ -634,6 +631,10 @@ Oct 3, 2022
   
   
   
+
+
+
+
 
 
 <p>This, by no means, is a thorough post covering all the topics. This is just my notes that I like to make while learning any new topic. I have tried attaching any good resource I found along the way.</p>
@@ -658,10 +659,8 @@ Oct 3, 2022
 <a href="#finite-fields-galois-fields"><h2 id="finite-fields-galois-fields"><span class="hanchor" ariaLabel="Anchor"># </span>Finite Fields (Galois Fields)</h2></a>
 <ul>
 <li>
-
 <a href="https://medium.loopring.io/learning-cryptography-finite-fields-ced3574a53fe" rel="noopener">Learning Cryptography, Part 1: Finite Fields</a></li>
 <li>
-
 <a href="https://www.cantorsparadise.com/the-theory-and-applications-of-finite-fields-e78844896eaa" rel="noopener">Finite Fields: Theory and Application</a></li>
 </ul>
 <p>Fields defined on a number and the result is in the set.</p>
@@ -718,10 +717,8 @@ Oct 3, 2022
 </div><a href="#ecc"><h2 id="ecc"><span class="hanchor" ariaLabel="Anchor"># </span>ECC</h2></a>
 <ul>
 <li>
-
 <a href="https://cryptobook.nakov.com/digital-signatures/ecdsa-sign-verify-messages" rel="noopener">ECDSA: Elliptic Curve Signatures - Practical Cryptography for Developers</a></li>
 <li>
-
 <a href="https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/" rel="noopener">Elliptic Curve Cryptography: a gentle introduction</a></li>
 </ul>
 <p>nonce: $r$</p>
@@ -754,10 +751,8 @@ Oct 3, 2022
 <a href="#shamir-secret-sharing"><h2 id="shamir-secret-sharing"><span class="hanchor" ariaLabel="Anchor"># </span>Shamir Secret Sharing</h2></a>
 <ul>
 <li>
-
 <a href="https://www.geeksforgeeks.org/shamirs-secret-sharing-algorithm-cryptography/" rel="noopener">Shamir&rsquo;s Secret Sharing Algorithm | Cryptography - GeeksforGeeks</a></li>
 <li>
-
 <a href="https://www.zkdocs.com/docs/zkdocs/protocol-primitives/shamir/" rel="noopener">Shamir&rsquo;s Secret Sharing Scheme</a></li>
 </ul>
 <p>Secret $S$ is divided into $n$ <em>pieces</em> or <em>shares</em> $s_{1} + s_{2} + \cdots + s_{n}$ such than any  combination of any $k$ pieces is enough to recover the secret, but any $k-1$ pieces cannot recover $S$.</p>
@@ -783,16 +778,12 @@ Oct 3, 2022
 </ul>
 <a href="#schnorr-identification-protocol"><h2 id="schnorr-identification-protocol"><span class="hanchor" ariaLabel="Anchor"># </span>Schnorr Identification Protocol</h2></a>
 <p>
-
 <a href="https://ebrary.net/134583/computer_science/schnorr_identification_protocol" rel="noopener">Schnorr identification protocol</a></p>
 <p>
-
 <a href="https://www.geeksforgeeks.org/schnorr-identification-scheme/" rel="noopener">Schnorr Identification Scheme - GeeksforGeeks</a></p>
 <p>
-
 <a href="https://medium.com/@jkendzicky16/ring-signatures-part-1-schnorr-identity-protocol-320bd0fe7bf0" rel="noopener">Ring Signatures (Part 1): Schnorr Identity Protocol</a></p>
 <p>
-
 <a href="https://www.zkdocs.com/docs/zkdocs/zero-knowledge-protocols/schnorr/" rel="noopener">Schnorr&rsquo;s identification protocol</a></p>
 <p>Identification protocol is different than signature scheme as identification protocol is used to identify that prover holds the private while signature scheme is used to verify that the holder indeed used the private key to sign the message and generate the signature.</p>
 <p>Steps followed in schnorr identification protocol:</p>
@@ -810,13 +801,10 @@ Oct 3, 2022
 <a href="#schnorr-digital-signature"><h2 id="schnorr-digital-signature"><span class="hanchor" ariaLabel="Anchor"># </span>Schnorr Digital Signature</h2></a>
 <ul>
 <li>
-
 <a href="https://tlu.tarilabs.com/cryptography/introduction-schnorr-signatures" rel="noopener">Introduction to Schnorr Signatures</a></li>
 <li>
-
 <a href="https://www.geeksforgeeks.org/schnorr-digital-signature/" rel="noopener">Schnorr Digital Signature - GeeksforGeeks</a></li>
 <li>
-
 <a href="https://medium.com/@snigirev.stepan/how-schnorr-signatures-may-improve-bitcoin-91655bcb4744" rel="noopener">How Schnorr signatures may improve Bitcoin</a></li>
 </ul>
 <p>Used to implement “<em>Proof of Knowledge</em>”. Used in cryptography to prove to verifier that prover knows something $x$. Verifier gets convinced that they are communicating with the prover without verifier’s knowledge of private key and prover is in fact, right about his private key.</p>
@@ -832,16 +820,12 @@ Oct 3, 2022
 <a href="#fiat-shamir-heuristic"><h2 id="fiat-shamir-heuristic"><span class="hanchor" ariaLabel="Anchor"># </span>Fiat-Shamir Heuristic</h2></a>
 <ul>
 <li>
-
 <a href="https://medium.com/asecuritysite-when-bob-met-alice/feige-fiat-shamir-and-zero-knowledge-proof-cdd2a972237c" rel="noopener">Feige-Fiat-Shamir and Zero Knowledge Proof</a></li>
 <li>
-
 <a href="https://www.geeksforgeeks.org/non-interactive-zero-knowledge-proof/" rel="noopener">Non-Interactive Zero Knowledge Proof - GeeksforGeeks</a></li>
 <li>
-
 <a href="https://medium.com/@jkendzicky16/ring-signatures-part-1-schnorr-identity-protocol-320bd0fe7bf0" rel="noopener">Ring Signatures (Part 1): Schnorr Identity Protocol</a></li>
 <li>
-
 <a href="https://www.zkdocs.com/docs/zkdocs/protocol-primitives/fiat-shamir/" rel="noopener">Fiat-Shamir transformation</a></li>
 </ul>
 <p>
@@ -852,13 +836,10 @@ Oct 3, 2022
 <a href="#bls-signatures"><h2 id="bls-signatures"><span class="hanchor" ariaLabel="Anchor"># </span>BLS Signatures</h2></a>
 <ul>
 <li>
-
 <a href="https://xn--2-umb.com/22/bls-signatures/" rel="noopener">Math &amp; Engineering</a></li>
 <li>
-
 <a href="https://medium.com/@snigirev.stepan/bls-signatures-better-than-schnorr-5a7fe30ea716" rel="noopener">BLS signatures: better than Schnorr</a></li>
 <li>
-
 <a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">BLS12-381</a></li>
 </ul>
 <p>Comes under elliptic curve pairing based schemes which makes aggregation easier than other signature schemes like ECDSA, schnorr.</p>
@@ -888,31 +869,26 @@ Oct 3, 2022
 <a href="#references"><h2 id="references"><span class="hanchor" ariaLabel="Anchor"># </span>References</h2></a>
 <ul>
 <li>
-
 <a href="https://crypto.stanford.edu/cs355/19sp/lec5.pdf" rel="noopener">CS-355: Topics in Cryptography; Lecture 5: Proofs of Knowledge, Schnorr’s Protocol, NIZK</a></li>
 <li>
-
 <a href="https://github.com/jlogelin/fiat-shamir" rel="noopener">GitHub - jlogelin/fiat-shamir: Zero Knowledge Proofs with Fiat-Shamir Heuristic in Solidity</a></li>
 <li>Lecture 1: Honest Verifier ZK and Fiat-Shamir: 
-
 <a href="https://www.cs.jhu.edu/~susan/600.641/scribes/lecture11.pdf" rel="noopener">https://www.cs.jhu.edu/~susan/600.641/scribes/lecture11.pdf</a></li>
 <li>
-
 <a href="https://0xparc.notion.site/ZK-Learning-Group-Topics-f53933eecc2f41438c6c2bdd5b42ee2d" rel="noopener">0xPARC ZK Learning Group</a></li>
 <li>
-
 <a href="https://ethresear.ch/t/zero-knowledge-proofs-starter-pack/4519" rel="noopener">eth-research ZK learning starter pack</a></li>
 <li>
-
 <a href="https://eprint.iacr.org/2019/953.pdf" rel="noopener">PLONK whitepaper</a></li>
 <li>
-
 <a href="https://plum-lightning-36c.notion.site/Road-to-ZK-2e85993b316b4c7c831bcdc866005e1b" rel="noopener">Road to ZK</a></li>
 </ul>
 
 
     </article>
-    <hr/>
+    
+
+<hr/>
 
 
 <div class="page-end" id="footer">

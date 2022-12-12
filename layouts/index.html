@@ -1,64 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ .Lang }}">
 {{ partial "head.html" . }}
 
 <body>
 {{partial "search.html" .}}
-<div id="index" class="singlePage">
+<div class="singlePage">
+    <!-- Begin actual content -->
     {{partial "header.html" .}}
-    <!-- <img id="banner" src="/banner.svg" /> -->
-    <div class="bio">
-        <div class="writing-sidebar">
-            <div class="delay t-3">
-                <h2>Recent Writing</h2>
-                {{$writing := where .Site.RegularPages "Section" "posts" }}
-                <ul class="delay stagger">
-                    {{range first 3 $writing }}
-                    <li>
-                        <div class="section">
-                            <div class="desc">
-                                <h3><a href="{{ .Permalink }}">{{- .Title -}}</a></h3>
-                            </div>
-                            <p class="meta">
-                            {{.WordCount}} words on {{partial "date-fmt.html" .}}
-                            </p>
-                            {{partial "tags.html" .}}
-                        </div>
-                    </li>
-                    {{end}}
-                </ul>
-                <a href="/posts">See {{sub (len $writing) 3}} more →</a>
-            </div>
-            <div class="delay t-4">
-                <h2>Recent Notes</h2>
-                {{$notes := where .Site.RegularPages "Section" "thoughts"}}
-                <ul class="delay stagger">
-                    {{range first 2 $notes }}
-                    <li>
-                        <div class="section">
-                            <div class="desc">
-                                <h3><a href="{{ .Permalink }}">{{- .Title -}}</a></h3>
-                            </div>
-                            <p class="meta">
-                                {{.WordCount}} words on {{ .Lastmod.Format "Jan 2, 2006" }}
-                            </p>
-                            {{partial "tags.html" .}}
-                        </div>
-                    </li>
-                    {{end}}
-                </ul>
-                <a href="/thoughts">See {{sub (len $notes) 2}} more →</a>
-            </div>
-        </div>
-        <article>
-            <p>Hello, fellow traveller 🗿 on the web. <span class="return-only"> Welcome to my library of thoughts! </span> Just an ongoing journey of my rubbish and unorganised ramblings.</p>
-            <p class="delay t-2">Feel free to sit down here and go through my shelves or hit me on Twitter and let's talk about our interests. <span class="return-only">I know you're tired. So, take a breath and let's take it easy. Honestly, I'm tired too 🌱.</span></p>
-            <div class="delay stagger">{{partial "textprocessing.html" . }}</div>
-        </article>
-    </div>
-    <div class="delay t-4">
-        {{partial "footer.html" .}}
-    </div>
+    <article>
+        {{partial "toc.html" .}}
+        {{partial "textprocessing.html" . }}
+        {{if $.Site.Data.config.enableRecentNotes}}
+          {{partial "recent.html" . }}
+        {{end}}
+    </article>
+    {{partial "footerIndex.html" .}}
 </div>
 </body>
 </html>

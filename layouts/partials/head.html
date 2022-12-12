@@ -63,6 +63,8 @@
   {{end}}
   {{partial "katex.html" .}}
 
+  {{partial "mermaid.html" .}}
+    
   <script src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
   <script src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
   {{ $popover := resources.Get "js/popover.js" | resources.Fingerprint "md5" |
@@ -91,19 +93,9 @@
   "indices/contentIndex.json" | resources.Fingerprint "md5" | resources.Minify
   }}
   <script>
-    // last visit animation calculations
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const lastVisit = localStorage.getItem('lastVisitTime')
-    const now = Date.now()
-    let show = 'true'
-    if (lastVisit) {
-      document.documentElement.setAttribute('visited', 'true')
-      const minElapsed = Math.ceil((now - parseInt(lastVisit)) / (1000 * 60))
-      show = (!isReducedMotion && minElapsed > 5) ? 'true' : 'false'
-    }
-    document.documentElement.setAttribute('show-animation', show)
-    localStorage.setItem('lastVisitTime', `${now}`)
-
+    const SEARCH_ENABLED = {{.Site.Data.config.search.enableSemanticSearch}}
+    const LATEX_ENABLED = {{.Site.Data.config.enableLatex}}
+    const PRODUCTION = {{ hugo.IsProduction }}
     const BASE_URL = {{.Site.BaseURL}}
     const fetchData = Promise.all([
           fetch("{{ $linkIndex.Permalink }}")
@@ -140,12 +132,11 @@
       {{if $data.enableCallouts | default $.Site.Data.config.enableCallouts -}}
       addCollapsibleCallouts();
       {{ end }}
-
+     
       {{if $data.enableLinkPreview | default $.Site.Data.config.enableLinkPreview}}
       initPopover(
         {{strings.TrimRight "/" .Site.BaseURL }},
-        {{$data.enableContextualBacklinks | default $.Site.Data.config.enableContextualBacklinks}},
-        {{$data.enableLatex | default $.Site.Data.config.enableLatex}}
+        {{$data.enableContextualBacklinks | default $.Site.Data.config.enableContextualBacklinks}}
       )
       {{end}}
 
@@ -166,6 +157,19 @@
             drawGlobal ? {{$.Site.Data.graphConfig.globalGraph}} : {{$.Site.Data.graphConfig.localGraph}}
           );
 
+        }
+      {{end}}
+
+      {{if $data.enableMermaid | default $.Site.Data.config.enableMermaid}}
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              // init forces mermaid to render mermaid markdown without waiting
+              // for DOMContentLoaded event
+              obj.default.init();
+            }
+          )
         }
       {{end}}
     }

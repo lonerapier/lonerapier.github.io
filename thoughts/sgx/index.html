@@ -8,10 +8,10 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content=""
+    content="SGX(Software Guard Extensions) is a technology which makes it easier to run programs in an encrypted hardware memory region such that it is difficult for host system to determine the access patterns."
   />
   <title>
-    protocols
+    SGX
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -94,6 +94,8 @@
 
 
   
+  
+
 
 
   <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
@@ -131,7 +133,7 @@
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.736c14407c4cdbb17130d01dd62c137e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.8387c9ea880eef63685ce9d66c75f459.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -178,12 +180,23 @@
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
           );
 
         }
       
 
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
       
     }
 
@@ -274,33 +287,140 @@ if (!doNotTrack) {
 
 
     <article>
-        <h1>Tag: protocols</h1>
-        
-        <ul class="section-ul"><li class="section-li">
-        <div class="section">
-            <p class="meta">
-                
-Apr 5, 2022
+      <h1>SGX</h1>
+      <p class="meta">
+        Last updated 
+Jan 15, 2023
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/sgx.md" rel="noopener">Edit Source</a>
 
 
-            </p>
-            <div class="desc">
-              <h3><a href="https://lonerapier.xyz/thoughts/nomad-xyz/" class="internal-link" data-src="/thoughts/nomad-xyz/">Nomad</a></h3>
-            </div>
-            <div class="spacer"></div>
-            <ul class="tags">
-                
-                <li><a href="https://lonerapier.xyz/tags/notes/">Notes</a></li>
-                
-                <li><a href="https://lonerapier.xyz/tags/protocols/">Protocols</a></li>
-                
-            </ul>
-        </div>
-    </li></ul>
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/tech/">
+          
+            Tech
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/seed/">
+          
+            Seed
+          
+            </a>
+           </li>
+          
+      </ul>
+      
 
-        
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+<p>SGX(Software Guard Extensions) is a technology which makes it easier to run programs in an encrypted hardware memory region such that it is difficult for host system to determine the access patterns.</p>
+<p>Program is run inside a encrypted region called Enclave. The program needs to be modified in order to make it compatible to run inside SGX environment. LibOSes help here as they allow to run unmodified programs inside the SGX environments.</p>
+<a href="#resources"><h1 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h1></a>
+<ul>
+<li>
+<a href="https://01.org/sites/default/files/documentation/intel_sgx_developer_guide_pdf.pdf" rel="noopener">https://01.org/sites/default/files/documentation/intel_sgx_developer_guide_pdf.pdf</a></li>
+<li>
+<a href="https://sgx101.gitbook.io/sgx101/sgx-bootstrap/sealing" rel="noopener">https://sgx101.gitbook.io/sgx101/sgx-bootstrap/sealing</a></li>
+<li>
+<a href="https://blog.quarkslab.com/overview-of-intel-sgx-part-2-sgx-externals.html" rel="noopener">https://blog.quarkslab.com/overview-of-intel-sgx-part-2-sgx-externals.html</a></li>
+<li>
+<a href="https://sgx.fail" rel="noopener">sgx.fail</a></li>
+</ul>
+
+
     </article>
     
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  async
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js"></script>
+
+    </div>
+</div>
+
+
+
 
 
 
@@ -315,6 +435,7 @@ Apr 5, 2022
             <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
     </footer>
 </div>
+
 
 </div>
 </body>

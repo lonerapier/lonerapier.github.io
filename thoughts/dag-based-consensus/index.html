@@ -94,6 +94,8 @@
 
 
   
+  
+
 
 
   <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
@@ -131,7 +133,7 @@
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.736c14407c4cdbb17130d01dd62c137e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.8387c9ea880eef63685ce9d66c75f459.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -178,12 +180,23 @@
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
           );
 
         }
       
 
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
       
     }
 
@@ -303,39 +316,6 @@ Nov 18, 2022
           
       </ul>
       
-
-<aside class="mainTOC">
-    <details >
-        <summary>Table of Contents</summary>
-        <nav id="TableOfContents">
-  <ol>
-    <li><a href="#terminology">Terminology</a></li>
-    <li><a href="#simple-payment-channel">Simple Payment Channel</a></li>
-    <li><a href="#cordial-miners">Cordial miners</a>
-      <ol>
-        <li><a href="#defining-finality">Defining finality</a></li>
-        <li><a href="#proving-safety">Proving safety</a></li>
-        <li><a href="#proving-liveness">Proving liveness</a></li>
-      </ol>
-    </li>
-    <li><a href="#dag-rider">DAG-Rider</a>
-      <ol>
-        <li><a href="#reliable-broadcast">Reliable Broadcast</a></li>
-      </ol>
-    </li>
-    <li><a href="#narwhaltusk">Narwhal&amp;Tusk</a>
-      <ol>
-        <li><a href="#narwhal">Narwhal</a></li>
-        <li><a href="#using-narwhal-for-consensus">Using Narwhal for consensus</a></li>
-        <li><a href="#tusk">Tusk</a></li>
-        <li><a href="#bullshark">Bullshark</a></li>
-      </ol>
-    </li>
-    <li><a href="#resources">Resources</a></li>
-  </ol>
-</nav>
-    </details>
-</aside>
 
 
       
@@ -795,14 +775,14 @@ Nov 18, 2022
 <a href="https://eclass.upatras.gr/modules/document/file.php/CEID1175/Pool-of-Research-Papers%5B0%5D/31.HASH-GRAPH.pdf" rel="noopener">HashGraph</a> and 
 <a href="https://arxiv.org/abs/1908.05156" rel="noopener">Aleph</a>) is to separate the network communication layer from the consensus logic.</p>
 </blockquote>
-<a href="#terminology"><h2 id="terminology"><span class="hanchor" ariaLabel="Anchor"># </span>Terminology</h2></a>
+<a href="#terminology"><h1 id="terminology"><span class="hanchor" ariaLabel="Anchor"># </span>Terminology</h1></a>
 <ul>
 <li><strong>Parties</strong>: A party $p$ is the one producing the blocks.</li>
 <li><strong>Nodes</strong>: A block is represented as a node in the DAG.</li>
 <li><strong>Edges</strong>: An edge is when a block $u$ points <strong>directly</strong> to another block $v$. We say, $u$ <em>acknowledges</em> $v$.</li>
 <li><strong>Observe</strong>: Transitive closure of acknowledge. Block $u$ observes $v$, if there is a directed path from $u$ to $v$.</li>
 </ul>
-<a href="#simple-payment-channel"><h2 id="simple-payment-channel"><span class="hanchor" ariaLabel="Anchor"># </span>Simple Payment Channel</h2></a>
+<a href="#simple-payment-channel"><h1 id="simple-payment-channel"><span class="hanchor" ariaLabel="Anchor"># </span>Simple Payment Channel</h1></a>
 <ul>
 <li>N permissioned (blocks can include own set of transactions) parties produce blocks and points to all existing leaves.</li>
 <li>works in asynchronous settings, i.e. Messages take finite amount of time to arrive.</li>
@@ -812,7 +792,7 @@ Nov 18, 2022
 <li>Block $v$ is approved by <em>supermajority</em> if it is approved by $n-f$ parties, if $n&gt;3f$, then <em>safety</em> is achieved as two equivocating blocks produced by $p can&rsquo;t be approved by a supermajority (due to quorum intersection).</li>
 <li>Liveness is trivial as honest parties will keep producing blocks</li>
 </ul>
-<a href="#cordial-miners"><h2 id="cordial-miners"><span class="hanchor" ariaLabel="Anchor"># </span>Cordial miners</h2></a>
+<a href="#cordial-miners"><h1 id="cordial-miners"><span class="hanchor" ariaLabel="Anchor"># </span>Cordial Miners</h1></a>
 <p>
 
 
@@ -834,18 +814,18 @@ Nov 18, 2022
 <p>Now, the idea is to use $\tau$ to arrange the leader blocks in some way such that total ordering is achieved. We define total ordering to be:</p>
 <p>$$\tau([u_{1}]) * \tau([u_{2}-u_{1}]) * \ldots$$</p>
 <p>But we can&rsquo;t use any leader blocks, there has to some concept of finality so that only final blocks are included in the total ordering.</p>
-<a href="#defining-finality"><h3 id="defining-finality"><span class="hanchor" ariaLabel="Anchor"># </span>Defining finality</h3></a>
+<a href="#defining-finality"><h2 id="defining-finality"><span class="hanchor" ariaLabel="Anchor"># </span>Defining Finality</h2></a>
 <p><strong>Supermajority</strong> of blocks means set of blocks produced by a supermajority of miners. A block $v$ is <em>ratified</em> by block $u$ if $[u]$ includes a supermajority of blocks approving $v$. Can be thought of as seeing stage-1 QC for $v$, thus producing stage-2 vote in tendermint sense.</p>
 <p>Now a leader block of wave $w$ is <strong>final</strong> if it is ratified by a supermajority of blocks in the final round of wave $w$. This is like $v$ receiving stage-2 QC vote in tendermint.</p>
 <p>Now, define total ordering as: If dag $D$ has no final leader, then $ord(D) := \phi$ else, let $u$ be the last final leader, then $ord(D) := \tau&rsquo;(u)$, where $\tau$ is defined recursively:</p>
 <p>$$\tau&rsquo;(u) := \tau([u]) or \tau&rsquo;([u&rsquo;])*\tau([u]-[u&rsquo;])$$</p>
 <p>Since, we&rsquo;ve defined our total ordering. All left now is to extract safety and liveness from total ordering.</p>
-<a href="#proving-safety"><h3 id="proving-safety"><span class="hanchor" ariaLabel="Anchor"># </span>Proving safety</h3></a>
+<a href="#proving-safety"><h2 id="proving-safety"><span class="hanchor" ariaLabel="Anchor"># </span>Proving Safety</h2></a>
 <p>$Lemma.$ If a leader block is <em>final</em>, then it is ratified by every subsequent leader block.</p>
 <p>$Claim.$ If $D_1$, $D_2$ are DAGs held by honest parties $p_1$, $p_2$, then $ord(D_1)$ and $ord(D_2)$ are consistent.</p>
 <p>Let&rsquo;s assume the case where $D_{1} \subset D_{1} \cup D_{2}$ and $D_{2} \subset D_{1} \cup D_{2}$, then $ord(D_{1})$ and $ord(D_{2})$ must be consistent with $ord(D_{1} \cup D_{2})$. Let&rsquo;s suffice to deal with the case $D_{1} \subset D_{2}$.</p>
 <p>Now, if $D_{1}$ has no final leader block, then as per definition of $ord$, $ord(D_{1)}=\phi$. If $u$ is the final leader block then $u$ must be ratified by any subsequent leader block in $D_2$.</p>
-<a href="#proving-liveness"><h3 id="proving-liveness"><span class="hanchor" ariaLabel="Anchor"># </span>Proving liveness</h3></a>
+<a href="#proving-liveness"><h2 id="proving-liveness"><span class="hanchor" ariaLabel="Anchor"># </span>Proving Liveness</h2></a>
 <p>$Lemma.$ Existence of inifinitely many <em>honest</em> final leader blocks.</p>
 <p>Instead of announcing leader at the start of the round as then the leader can be delayed by the adversary, we let the parties produce the blocks and form DAG, then in the last round leader is selected randomly. This makes a scenario where all of the blocks in the last round ratify supermajority of the blocks from the first round and thus selecting a leader randomly now gives $&gt;2/3$ chance of selecting a final leader block for the wave.</p>
 <a href="#dag-rider"><h2 id="dag-rider"><span class="hanchor" ariaLabel="Anchor"># </span>DAG-Rider</h2></a>
@@ -888,7 +868,7 @@ Nov 18, 2022
 <li>Reduce need for double transmissions when leaders propose blocks</li>
 <li>enabling scaling out when more resources are available</li>
 </ul>
-<a href="#block-structure-in-narwhal"><h4 id="block-structure-in-narwhal"><span class="hanchor" ariaLabel="Anchor"># </span>Block structure in Narwhal:</h4></a>
+<a href="#block-structure-in-narwhal"><h4 id="block-structure-in-narwhal"><span class="hanchor" ariaLabel="Anchor"># </span>Block Structure in Narwhal:</h4></a>
 <p>
 
 
@@ -948,7 +928,7 @@ Nov 18, 2022
 <p>Containment: let $B$ be the set returned by $read_causal(d)$, then for every $b&rsquo; \in B$, the set $B&rsquo;$ returned by $read_causal(d&rsquo;)$, $B&rsquo; \subseteq B$.</p>
 </li>
 </ul>
-<a href="#using-narwhal-for-consensus"><h3 id="using-narwhal-for-consensus"><span class="hanchor" ariaLabel="Anchor"># </span>Using Narwhal for consensus</h3></a>
+<a href="#using-narwhal-for-consensus"><h3 id="using-narwhal-for-consensus"><span class="hanchor" ariaLabel="Anchor"># </span>Using Narwhal for Consensus</h3></a>
 <p>Narwhal as a high-throughput mempool can be combined with an asynchronous or eventually-synchronous protocol to achieve total-ordering. This is advantageous in many sense:</p>
 <ul>
 <li>Same causal history of a block given a certificate. Any deterministic rule then can be used for total ordering</li>
@@ -959,7 +939,6 @@ Nov 18, 2022
 <p>Like all protocols, Narwhal is also prone to impossibility result in asynchrony and thus, to retain liveness during asynchronous phase, Tusk was proposed in the Narwhal&amp;Tusk paper which converts the causally ordered DAG to a totally ordered with zero extra communication.</p>
 <ul>
 <li>Has a concept of waves which comprises of 3 rounds. Propose, vote, and produce randomness to elect a leader</li>
-<li></li>
 </ul>
 <a href="#bullshark"><h3 id="bullshark"><span class="hanchor" ariaLabel="Anchor"># </span>Bullshark</h3></a>
 <a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
@@ -988,7 +967,6 @@ Nov 18, 2022
 <a href="https://twitter.com/sreeramkannan/status/1555635155796049920" rel="noopener">Sreeram Kannan&rsquo;s thread on Bullshark</a></li>
 <li>
 <a href="https://twitter.com/samlafer/status/1566285789515771904" rel="noopener">samuel&rsquo;s thread</a></li>
-<li></li>
 </ul>
 
 

@@ -94,6 +94,8 @@
 
 
   
+  
+
 
 
   <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
@@ -131,7 +133,7 @@
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.736c14407c4cdbb17130d01dd62c137e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.8387c9ea880eef63685ce9d66c75f459.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -178,12 +180,23 @@
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
           );
 
         }
       
 
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
       
     }
 
@@ -304,27 +317,6 @@ Oct 11, 2022
       </ul>
       
 
-<aside class="mainTOC">
-    <details >
-        <summary>Table of Contents</summary>
-        <nav id="TableOfContents">
-  <ol>
-    <li><a href="#kzg-commitments">KZG Commitments</a>
-      <ol>
-        <li><a href="#notation">Notation</a></li>
-        <li><a href="#trusted-setup">Trusted Setup</a></li>
-        <li><a href="#proof-evaluation">Proof Evaluation</a></li>
-        <li><a href="#verifying-evaluation">Verifying Evaluation</a></li>
-        <li><a href="#comparison-to-merkle-trees">Comparison to merkle trees</a></li>
-        <li><a href="#multiproofs">Multiproofs</a></li>
-      </ol>
-    </li>
-    <li><a href="#resources">Resources</a></li>
-  </ol>
-</nav>
-    </details>
-</aside>
-
 
       
 
@@ -332,6 +324,12 @@ Oct 11, 2022
 
 
 
+
+  
+  
+
+  
+  
 
   
   
@@ -745,19 +743,19 @@ Oct 11, 2022
 </blockquote>
 <p>Now, another song for you to listen along for this ride that you&rsquo;re embarking on with me. 
 <a href="https://open.spotify.com/track/5EUsI3LIV042IV5ydksV9y?si=7e97529079ca4e70" rel="noopener">River of Deceit</a> by Mad Season. This was a total random song found while listening to my Daily Mix playlist. Anyways, I like it.</p>
-<a href="#kzg-commitments"><h2 id="kzg-commitments"><span class="hanchor" ariaLabel="Anchor"># </span>KZG Commitments</h2></a>
+<a href="#kzg-commitments"><h1 id="kzg-commitments"><span class="hanchor" ariaLabel="Anchor"># </span>KZG Commitments</h1></a>
 <p>A <strong>polynomial commitment scheme</strong> allows anyone to commit to a polynomial $p(X)$ with the properties that this commitment $C$ (an <a href="/thoughts/elliptic-curves" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curves">elliptic curve</a> point) can later be verified by anyone at any position $z$ on that polynomial. The prover proves at a position the value of the polynomial known as <em>proof</em> $\pi$ versus the claimed value known as <em>evaluation</em> $p(z)$ and this is only possible when prover actually has provided proof for that one polynomial that it committed to.</p>
 <p>
 
 
 <img src="https://lonerapier.xyz//thoughts/images/kzg-steps.png" width="auto" alt="kzg-steps"  /></p>
-<a href="#notation"><h3 id="notation"><span class="hanchor" ariaLabel="Anchor"># </span>Notation</h3></a>
+<a href="#notation"><h2 id="notation"><span class="hanchor" ariaLabel="Anchor"># </span>Notation</h2></a>
 <ul>
 <li>Let $\mathbb{G_1}$ and $\mathbb{G_2}$ be two elliptic curves with a pairing $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.</li>
 <li>Let $p$ be the order of $\mathbb{G}_1$ and $\mathbb{G}_2$ and $G$ is generator of $\mathbb{G}_1$ and $H$ is generator of $\mathbb{G}_2$.</li>
 <li>$[x]_1 = xG \in \mathbb{G}_1$ and $[x]_2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.</li>
 </ul>
-<a href="#trusted-setup"><h3 id="trusted-setup"><span class="hanchor" ariaLabel="Anchor"># </span>Trusted Setup</h3></a>
+<a href="#trusted-setup"><h2 id="trusted-setup"><span class="hanchor" ariaLabel="Anchor"># </span>Trusted Setup</h2></a>
 <p>You might&rsquo;ve read multiple times in twitter threads that there is a trusted ceremony that is associated with DAS, SNARKs or words like KZG Ceremony. They are usually talking about this trusted setup. Also known as 
 <a href="https://vitalik.ca/general/2022/03/14/trustedsetup.html#what-does-a-powers-of-tau-setup-look-like" rel="noopener">Powers of tau</a>.</p>
 <p>In this ceremony, a random secret $\tau \in \mathbb{F}_p$ is created, using which its powers $[\tau^i]_1$ and $[\tau^i]_2$ for $i = 0, \ldots, n-1$  are created. In additive notation, it is represented as:</p>
@@ -767,21 +765,25 @@ $$[\tau^i]_2 = (H, \tau H, \tau^2 H, \ldots, \tau^{n-1} H) \in \mathbb{G}_2$$</p
 <p>Now, you must be thinking what are they used for? We know that a polynomial is represented as:</p>
 <p>$$Polynomial: p(X) = \sum_{i=0}^{n}p_iX^i$$</p>
 <p>Now, the prover can compute the commitment to the polynomial as:</p>
-<p>$$Commitment: C = [p(\tau)]<em>1 = [\sum</em>{i=0}^{n} p_i \tau^i] = \sum_{i=0}^{n}p_i[\tau^i]$$</p>
+<p>$$Commitment: C = [p(\tau)]_{1}$$</p>
+<p>$$= \left[\sum_{i=0}^{n} p_{i} {\tau}^{i}\right] = \sum_{i=0}^{n}p_i[\tau^i]$$</p>
 <p>This is a really interesting output, as prover is able to evaluate polynomial at point $\tau$, even when he doesn&rsquo;t know the secret and this becomes the commitment of prover of the polynomial.</p>
 <p>Now, you might be wondering if a malicious prover find another polynomial $q(X) \neq p(X)$ such that $[q(\tau)]_1 = [p(\tau)]_1$. But the prover doesn&rsquo;t know $\tau$, so the best bet for prover to achieve $p(\tau) = q(\tau)$ is to make the polynomial pass through as many points $n$ as possible. But it&rsquo;s computably inefficient to find the exact polynomial that passes through $n$ points where curve order $p \approx 2^{256}$ as $n &laquo;&lt; p$.</p>
-<a href="#proof-evaluation"><h3 id="proof-evaluation"><span class="hanchor" ariaLabel="Anchor"># </span>Proof Evaluation</h3></a>
+<a href="#proof-evaluation"><h2 id="proof-evaluation"><span class="hanchor" ariaLabel="Anchor"># </span>Proof Evaluation</h2></a>
 <p>We need a mechanism so that prover could verify its commitment on the polynomial and this is done through <em>evaluations</em> on the polynomial $p(X)$. Evaluation is done at a point $z$ and the claimed value $p(z)$ is verified by the verifier.</p>
 <p>Now, a value $z$ is chosen such that $p(z) = y$. This means that $p(X)-y$ should have a factor $X-z$. So, a quotient polynomial $q(X) = \frac{p(X) - y}{X-z}$ is computed and the evaluation proof becomes,</p>
-<p>$$\pi = [q(\tau)]<em>1 = \sum</em>{i=0}^{n}[\tau^i] \cdot q_i$$</p>
+<p>$$\pi = [q(\tau)]_1$$</p>
+<p>$$ = \sum_{i=0}^{n}[\tau^i] \cdot q_i$$</p>
 <p>Prover sends this proof to verifier which verifiers this proof.</p>
-<a href="#verifying-evaluation"><h3 id="verifying-evaluation"><span class="hanchor" ariaLabel="Anchor"># </span>Verifying Evaluation</h3></a>
+<a href="#verifying-evaluation"><h2 id="verifying-evaluation"><span class="hanchor" ariaLabel="Anchor"># </span>Verifying Evaluation</h2></a>
 <p>Now, verifier has following things:</p>
-<p>$$Polynomial: p(X) = \sum_{i=0}^{n}p_iX^i$$</p>
-<p>$$Commitment: C = [p(\tau)]<em>1 = [\sum</em>{i=0}^{n} p_i \tau^i] = \sum_{i=0}^{n}p_i[\tau^i]$$</p>
-<p>$$Evaluation \space point: z$$</p>
-<p>$$Claimed \space value: y$$</p>
-<p>$$Proof: \pi = [q(\tau)]<em>1 = \sum</em>{i=0}^{n}[\tau^i] \cdot q_i$$</p>
+<ul>
+<li>Polynomial: $p(X) = \sum_{i=0}^{n}p_iX^i$</li>
+<li>Commitment: $C = \sum_{i=0}^{n}p_i[\tau^i]$</li>
+<li>Evaluation point: $z$</li>
+<li>Claimed value: $y$</li>
+<li>Proof: $\pi = [q(\tau)]_1$</li>
+</ul>
 <p>Now verifier wants to verify that claimed value is indeed correct using the proof. That&rsquo;s where <a href="/thoughts/elliptic-curve-pairings" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curve-pairings">pairings</a> come into play. Pairings allow us to multiply two polynomials in different curves and get the output in a target curve. This unfortunately is not possible in a single curve which is a property called Fully Homomorphic Encryption for elliptic curves. ECs are only homomorphic additively.</p>
 <p>Verifier checks the following equation:</p>
 <p>$$e(\pi, [\tau]_2-[z]_2) = e(C-[y]_1, H)$$</p>
@@ -801,7 +803,7 @@ $$[q(\tau) \cdot (\tau-z)]_T = [p(\tau)-y]_T$$</p>
 <p>For soundness, prover would have to compute incorrect proof,</p>
 <p>$$\pi&rsquo; = (C - [y&rsquo;]_1)^{\frac{1}{\tau-z}}$$</p>
 <p>But it&rsquo;s not possible to do this as $\tau$ is not known to prover and if they can forge this proof, then they can convince verifier for anything.</p>
-<a href="#comparison-to-merkle-trees"><h3 id="comparison-to-merkle-trees"><span class="hanchor" ariaLabel="Anchor"># </span>Comparison to merkle trees</h3></a>
+<a href="#comparison-to-merkle-trees"><h2 id="comparison-to-merkle-trees"><span class="hanchor" ariaLabel="Anchor"># </span>Comparison to Merkle Trees</h2></a>
 <p>Merkle trees are a form of <em>vector commitments</em>, i.e. Using a merkle tree of depth $d$ will have $2^{d}-1$ elements, anyone can compute a commitment to a vector $(a_0, a_1, a_2, \ldots, a_{2^d-1})$. Thus, using Merkle trees anyone can prove that element a_i is a member of a vector at position i using d hashes.</p>
 <p>
 
@@ -815,13 +817,13 @@ $$[q(\tau) \cdot (\tau-z)]_T = [p(\tau)-y]_T$$</p>
 <li>commitments using merkle trees makes the polynomial public and doesn&rsquo;t hide anything. While it&rsquo;s mostly hidden in Kate commitments.</li>
 </ul>
 <p>Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<a href="#multiproofs"><h3 id="multiproofs"><span class="hanchor" ariaLabel="Anchor"># </span>Multiproofs</h3></a>
+<a href="#multiproofs"><h2 id="multiproofs"><span class="hanchor" ariaLabel="Anchor"># </span>Multiproofs</h2></a>
 <p>Let&rsquo;s say we have a list of $k$ points that we want to prove, $(z_0, y_0), (z_1, y_1), \ldots, (z_k, y_k)$. We find a polynomial $I(X)$ that goes through these points using Lagrange Interpolation:</p>
 <p>$$I(X) = \sum_{i=0}^{k-1} y_i \prod_{j=0 \atop j \neq i}^{k-1} \frac{X-z_j}{z_i-z_j}$$</p>
 <p>For the evaluation proof, while in the single proof we compute $q(x) = \frac{p(x)-y}{x-z}$, we will replace $y$ as single point with $I(x)$, and $x-z$ will be replaced with $Z(x) = \prod_{i=0}^{k}x-z_i$. Now, we replace our values and $q(x)$ becomes</p>
 <p>$$q(x) = \frac{p(x) - I(x)}{Z(x)}$$</p>
 <p>This is possible due to $p(x)-I(x)$ being divisible by all linear factors of $Z(x)$ and being divisible by whole $Z(x)$. The multiproof for evaluation $(z_0, y_0), (z_1, y_1), \ldots, (z_k, y_k)$: $\pi = [q(s)]_1$. Now, our prover equation becomes</p>
-<p>$$e(\pi, [Z(s)]<em>2) = e(C - [I(s)]</em>{1}, H)$$</p>
+<p>$$e(\pi,[Z(s)]<em>{2})=e(C-[I(s)]</em>{1},H)$$</p>
 <p>$$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$</p>
 <p>This really blew my mind when I was first studying them. You can have a million proofs batch together in one single 48 bytes proof which anyone can verify by just computing $I(x)$ and $Z(x)$.  Cryptography really is cool.</p>
 <a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
@@ -842,6 +844,8 @@ $$[q(\tau) \cdot (\tau-z)]_T = [p(\tau)-y]_T$$</p>
 <a href="https://github.com/ethereum/consensus-specs/pull/3006" rel="noopener">Polynomials in bit reversal permutation</a></li>
 <li>
 <a href="https://hackmd.io/@Evaldas/SJ9KHoDJF" rel="noopener">Formulas for Polynomial Commitments</a></li>
+<li>
+<a href="https://scroll.io/blog/kzg" rel="noopener">Uncovering KZG</a></li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>

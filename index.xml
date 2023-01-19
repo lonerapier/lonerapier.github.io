@@ -7,6 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://lonerapier.xyz/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>SGX</title>
+      <link>https://lonerapier.xyz/thoughts/sgx/</link>
+      <pubDate>Sun, 15 Jan 2023 12:40:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/sgx/</guid>
+      <description>SGX(Software Guard Extensions) is a technology which makes it easier to run programs in an encrypted hardware memory region such that it is difficult for host system to determine the access patterns.</description>
+    </item>
+    
+    <item>
       <title>Distributed Consensus</title>
       <link>https://lonerapier.xyz/thoughts/distributed-consensus/</link>
       <pubDate>Fri, 25 Nov 2022 10:00:00 +0000</pubDate>
@@ -160,16 +169,6 @@ Blessed With our time in Hell.
     </item>
     
     <item>
-      <title>Uniswap V3</title>
-      <link>https://lonerapier.xyz/thoughts/uniswap-v3/</link>
-      <pubDate>Fri, 20 May 2022 00:02:48 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/uniswap-v3/</guid>
-      <description>Features:
- Concentrated Liquidity Improved Price Oracle Flexible Fees  Uniswap V2 IL Market with Liquidity $L$ and Asset $X$ and $Y$ with amounts $x$ and $y$ respectively.</description>
-    </item>
-    
-    <item>
       <title>ETH Consensus</title>
       <link>https://lonerapier.xyz/posts/eth-consensus/</link>
       <pubDate>Sat, 14 May 2022 20:05:45 -0900</pubDate>
@@ -177,15 +176,6 @@ Blessed With our time in Hell.
       <guid>https://lonerapier.xyz/posts/eth-consensus/</guid>
       <description>ELI5 understanding of ETH 2.0 specs
 Safety: guarantees that something bad never happen. Examples: Tendermint from Cosmos that uses BFT style consensus.</description>
-    </item>
-    
-    <item>
-      <title>Nomad</title>
-      <link>https://lonerapier.xyz/thoughts/nomad-xyz/</link>
-      <pubDate>Tue, 05 Apr 2022 01:00:15 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/nomad-xyz/</guid>
-      <description>Protocol for cross-chain communication. Follows optimistic design inspired from Optimistic Rollups. Nomad&amp;rsquo;s design aims to solve the interoperability trilemma famously coined by Connext but introduces a new component, latency.</description>
     </item>
     
     <item>

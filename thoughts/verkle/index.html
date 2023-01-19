@@ -95,6 +95,8 @@ Verkle Trees is one of the big change that is going to be included in the Ethere
 
 
   
+  
+
 
 
   <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
@@ -132,7 +134,7 @@ Verkle Trees is one of the big change that is going to be included in the Ethere
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.736c14407c4cdbb17130d01dd62c137e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.8387c9ea880eef63685ce9d66c75f459.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -179,12 +181,23 @@ Verkle Trees is one of the big change that is going to be included in the Ethere
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
           );
 
         }
       
 
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
       
     }
 
@@ -304,25 +317,6 @@ Dec 12, 2022
           
       </ul>
       
-
-<aside class="mainTOC">
-    <details >
-        <summary>Table of Contents</summary>
-        <nav id="TableOfContents">
-  <ol>
-    <li><a href="#proof">Proof</a>
-      <ol>
-        <li><a href="#design-goals">Design Goals</a></li>
-        <li><a href="#reasoning-for-pedersen-commitments">Reasoning for Pedersen Commitments</a></li>
-        <li><a href="#changes-in-tree-structure">Changes in Tree Structure</a></li>
-      </ol>
-    </li>
-    <li><a href="#eth-verkle-explainer">ETH Verkle Explainer</a></li>
-    <li><a href="#resources">Resources</a></li>
-  </ol>
-</nav>
-    </details>
-</aside>
 
 
       

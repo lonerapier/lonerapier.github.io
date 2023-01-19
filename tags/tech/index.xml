@@ -6,7 +6,16 @@
     <description>Recent content in tech on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Jan 2023 12:40:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SGX</title>
+      <link>https://lonerapier.xyz/thoughts/sgx/</link>
+      <pubDate>Sun, 15 Jan 2023 12:40:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/sgx/</guid>
+      <description>SGX(Software Guard Extensions) is a technology which makes it easier to run programs in an encrypted hardware memory region such that it is difficult for host system to determine the access patterns.</description>
+    </item>
+    
     <item>
       <title>Fraud Proofs</title>
       <link>https://lonerapier.xyz/thoughts/fraud-proofs/</link>

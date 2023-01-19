@@ -2,35 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://lonerapier.xyz/tags/seed/</loc>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/sgx/</loc>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/</loc>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/tech/</loc>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/thoughts/</loc>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
+  </url><url>
     <loc>https://lonerapier.xyz/tags/consensus/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/distributed-consensus/</loc>
     <lastmod>2022-12-12T18:20:23+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/distributed-systems/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/tags/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/thoughts/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/dag-based-consensus/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/cryptography/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/math/</loc>
-    <lastmod>2022-12-12T18:20:23+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/pedersen-commitments/</loc>
     <lastmod>2022-12-12T18:20:23+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/kzg-commitments/</loc>
-    <lastmod>2022-12-12T18:19:55+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/algebra/</loc>
     <lastmod>2022-10-19T18:44:11+05:30</lastmod>
@@ -54,15 +63,9 @@
     <lastmod>2022-10-19T18:43:55+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/rollups/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/tags/seed/</loc>
-    <lastmod>2022-10-19T18:43:55+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/sovereign-rollups/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/tags/tech/</loc>
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/tendermint/</loc>
@@ -72,25 +75,19 @@
     <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/ongoing/</loc>
-    <lastmod>2022-12-12T18:19:55+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/technical/</loc>
-    <lastmod>2022-12-12T18:19:55+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/elliptic-curves/</loc>
-    <lastmod>2022-12-12T18:19:55+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:51+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/finance/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
+    <lastmod>2022-10-06T13:51:40+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/fixed-rate-protocols/</loc>
     <lastmod>2022-10-06T13:51:40+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/tags/notes/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/thoughts/uniswap-v3/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/ELI5/</loc>
     <lastmod>2022-09-03T11:52:20+05:30</lastmod>
@@ -101,13 +98,10 @@
     <loc>https://lonerapier.xyz/posts/</loc>
     <lastmod>2022-09-03T11:52:20+05:30</lastmod>
   </url><url>
-    <loc>https://lonerapier.xyz/thoughts/nomad-xyz/</loc>
-    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
-  </url><url>
-    <loc>https://lonerapier.xyz/tags/protocols/</loc>
-    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
-  </url><url>
     <loc>https://lonerapier.xyz/posts/eth-basics/</loc>
+    <lastmod>2022-09-03T11:52:20+05:30</lastmod>
+  </url><url>
+    <loc>https://lonerapier.xyz/tags/notes/</loc>
     <lastmod>2022-09-03T11:52:20+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/posts/SoK/</loc>
@@ -131,12 +125,12 @@
     <lastmod>2022-12-12T18:20:10+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/tags/exploring/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:11+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/thoughts/verkle/</loc>
     <lastmod>2022-12-12T18:20:10+05:30</lastmod>
   </url><url>
     <loc>https://lonerapier.xyz/</loc>
-    <lastmod>2022-10-06T17:21:39+05:30</lastmod>
+    <lastmod>2023-01-19T17:43:11+05:30</lastmod>
   </url>
 </urlset>

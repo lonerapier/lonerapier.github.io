@@ -97,6 +97,8 @@ Pampered poppies on the ground"
 
 
   
+  
+
 
 
   <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
@@ -134,7 +136,7 @@ Pampered poppies on the ground"
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.736c14407c4cdbb17130d01dd62c137e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.8387c9ea880eef63685ce9d66c75f459.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -181,12 +183,23 @@ Pampered poppies on the ground"
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
           );
 
         }
       
 
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
       
     }
 
@@ -306,36 +319,6 @@ Oct 3, 2022
           
       </ul>
       
-
-<aside class="mainTOC">
-    <details >
-        <summary>Table of Contents</summary>
-        <nav id="TableOfContents">
-  <ol>
-    <li><a href="#lets-dive-in">Let&rsquo;s Dive in!</a></li>
-    <li><a href="#different-rollups">Different Rollups</a></li>
-    <li><a href="#why-rollups">Why Rollups?</a></li>
-    <li><a href="#rollup-fees">Rollup fees</a></li>
-    <li><a href="#mev-in-a-modular-stack">MEV in a modular stack</a></li>
-    <li><a href="#attacks-on-da-layer">Attacks on DA Layer</a>
-      <ol>
-        <li><a href="#33-attack">33% Attack</a></li>
-        <li><a href="#67-attack">67% Attack</a></li>
-      </ol>
-    </li>
-    <li><a href="#rollup-stack">Rollup Stack</a>
-      <ol>
-        <li><a href="#sc-settlement-rollup--sc-recursive-rollup">SC Settlement Rollup &amp; SC Recursive rollup</a></li>
-        <li><a href="#enshrined-rollups">Enshrined Rollups</a></li>
-        <li><a href="#sovereign-rollups">Sovereign Rollups</a></li>
-      </ol>
-    </li>
-    <li><a href="#questions">Questions</a></li>
-    <li><a href="#readings">Readings</a></li>
-  </ol>
-</nav>
-    </details>
-</aside>
 
 
       
@@ -666,7 +649,7 @@ Oct 3, 2022
 <p>Thus, both DA and settlement layer is susceptible to frauds. Eventually, only that stack wins which accrues the most value i.e. most economically secure. Every layer has to be designed such that participants can capture a value of the transaction for self-sustaining environment otherwise, it leads to more centralisation. And, as it is put now, DA layer doesn&rsquo;t accrue much of the transactional value and it will be the case for a long time in the future.</p>
 <a href="#rollup-stack"><h2 id="rollup-stack"><span class="hanchor" ariaLabel="Anchor"># </span>Rollup Stack</h2></a>
 <a href="#sc-settlement-rollup--sc-recursive-rollup"><h3 id="sc-settlement-rollup--sc-recursive-rollup"><span class="hanchor" ariaLabel="Anchor"># </span>SC Settlement Rollup &amp; SC Recursive rollup</h3></a>
-<p>One question that comes to mind is why does Rollup has to use Ethereum as its Settlement layer? Because it&rsquo;s an economic secure network which behaves as an apt settlement layer due to its isolated execution environment that can arbitrate proofs submitted by the rollups. The smart contracts on Ethereum also serves as trust-minimised two way bridges between the rollup and the L1. It&rsquo;s trust minimised as <em>rollups operators</em> (proposers, sequencers, provers, challengers) due to the means of smart contracts doesn&rsquo;t need any third party to submit batches to the L1 and it&rsquo;s two way because L1 smart contracts receive block headers along with proofs and thus behaves as a light client.</p>
+<p>One question that comes to mind is why does Rollup has to use Ethereum as its Settlement layer? Because it&rsquo;s an economic secure network which behaves as an apt settlement layer due to its isolated execution environment that can arbitrate proofs submitted by the rollup. The smart contracts on Ethereum also serves as trust-minimised two way bridges between the rollup and the L1. It&rsquo;s trust minimised as <em>rollups operators</em> (proposers, sequencers, provers, challengers) due to the means of smart contracts doesn&rsquo;t need any third party to submit batches to the L1 and it&rsquo;s two way because L1 smart contracts receive block headers along with proofs and thus behaves as a light client.</p>
 <p>Starkware wants to create recursive smart contract rollups on top of Starkware L2, where L2 behaves as a settlement layer for L3s and more use-specific applications can be deployed as L3s on top of L2s. L2s verifier contract receives many validity proofs from L3s and recursively combines it into one proof and submit to L1.</p>
 <a href="#enshrined-rollups"><h3 id="enshrined-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>Enshrined Rollups</h3></a>
 <p>ERs are what rollups would have looked like if an L1 supports them from the start, i.e. in-protocol support for verifying state changes. Currently, to verify if a state is valid, full nodes have to run all the transactions. Perfect game would be when the blocks or rollup batches have proofs attached and state validity could be proven. A single zkEVM which could verify the SNARK submitted with each block for state validity.</p>

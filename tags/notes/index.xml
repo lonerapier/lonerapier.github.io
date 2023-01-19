@@ -6,26 +6,7 @@
     <description>Recent content in notes on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 May 2022 00:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/notes/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Uniswap V3</title>
-      <link>https://lonerapier.xyz/thoughts/uniswap-v3/</link>
-      <pubDate>Fri, 20 May 2022 00:02:48 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/uniswap-v3/</guid>
-      <description>Features:
- Concentrated Liquidity Improved Price Oracle Flexible Fees  Uniswap V2 IL Market with Liquidity $L$ and Asset $X$ and $Y$ with amounts $x$ and $y$ respectively.</description>
-    </item>
-    
-    <item>
-      <title>Nomad</title>
-      <link>https://lonerapier.xyz/thoughts/nomad-xyz/</link>
-      <pubDate>Tue, 05 Apr 2022 01:00:15 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/nomad-xyz/</guid>
-      <description>Protocol for cross-chain communication. Follows optimistic design inspired from Optimistic Rollups. Nomad&amp;rsquo;s design aims to solve the interoperability trilemma famously coined by Connext but introduces a new component, latency.</description>
-    </item>
-    
+    <lastBuildDate>Thu, 10 Mar 2022 00:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/notes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ethereum Yellow Paper</title>
       <link>https://lonerapier.xyz/posts/eth-basics/</link>

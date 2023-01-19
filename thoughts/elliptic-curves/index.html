@@ -94,6 +94,8 @@
 
 
   
+  
+
 
 
   <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
@@ -131,7 +133,7 @@
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.736c14407c4cdbb17130d01dd62c137e.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.8387c9ea880eef63685ce9d66c75f459.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -178,12 +180,23 @@
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
           );
 
         }
       
 
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
       
     }
 
@@ -303,48 +316,6 @@ Aug 21, 2022
           
       </ul>
       
-
-<aside class="mainTOC">
-    <details >
-        <summary>Table of Contents</summary>
-        <nav id="TableOfContents">
-  <ol>
-    <li><a href="#discrete-logarithm-problem">Discrete Logarithm Problem</a></li>
-    <li><a href="#elliptic-curves">Elliptic Curves</a>
-      <ol>
-        <li><a href="#group-law-of-elliptic-curves">Group Law of Elliptic curves</a></li>
-        <li><a href="#elliptic-curves-in-mathbbf_p">Elliptic Curves in $\mathbb{F}_{p}$</a></li>
-      </ol>
-    </li>
-    <li><a href="#elliptic-curve-cryptography">Elliptic Curve Cryptography</a></li>
-    <li><a href="#eip55">EIP55</a>
-      <ol>
-        <li><a href="#why-discrete-logarithm">Why Discrete logarithm?</a></li>
-      </ol>
-    </li>
-    <li><a href="#security">Security</a></li>
-    <li><a href="#secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1"><a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/">secp256k1 v/s secp256r1</a></a></li>
-    <li><a href="#pairing-friendly-curves">Pairing Friendly Curves</a>
-      <ol>
-        <li><a href="#bls12-381">BLS12-381</a></li>
-        <li><a href="#cofactor">Cofactor</a></li>
-        <li><a href="#roots-of-unityhttpsbrilliantorgwikiroots-of-unity"><a href="https://brilliant.org/wiki/roots-of-unity/">Roots of Unity</a></a></li>
-        <li><a href="#extension-towers">Extension Towers</a></li>
-      </ol>
-    </li>
-    <li><a href="#coordinate-system">Coordinate System</a>
-      <ol>
-        <li><a href="#affine-coordinates">Affine Coordinates</a></li>
-        <li><a href="#standard-projective-coordinates">Standard Projective Coordinates</a></li>
-        <li><a href="#jacobian-coordinates">Jacobian Coordinates</a></li>
-      </ol>
-    </li>
-    <li><a href="#bls-signatures">BLS Signatures</a></li>
-    <li><a href="#resources">Resources</a></li>
-  </ol>
-</nav>
-    </details>
-</aside>
 
 
       
@@ -1087,7 +1058,7 @@ Aug 21, 2022
 </blockquote>
 <p>Now, for the song. This time we&rsquo;ll listen 
 <a href="https://open.spotify.com/track/55ZL7fjGAWfClmpnsK6Xon?si=2a10756c4a094826" rel="noopener">No Quarter</a> by Led Zeppelin. No description for this. I guess they don&rsquo;t need one :)</p>
-<a href="#discrete-logarithm-problem"><h2 id="discrete-logarithm-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Discrete Logarithm Problem</h2></a>
+<a href="#discrete-logarithm-problem"><h1 id="discrete-logarithm-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Discrete Logarithm Problem</h1></a>
 <p>
 <a href="https://river.com/learn/terms/d/discrete-log-problem-dlp/" rel="noopener">Discrete logarithm Problem</a> (DLP) for a group $G$ and an element $g \in G$ is,</p>
 <blockquote>
@@ -1097,13 +1068,13 @@ Aug 21, 2022
 <p>DLP is easy for:</p>
 <ul>
 <li>$\frac{\mathbb{Z}}{m\mathbb{Z}}$ under addition</li>
-<li>$\mathbb{R}^<em>$ or $\mathbb{C}^</em>$ under multiplication</li>
+<li>$\mathbb{R}^{<em>}$ or $\mathbb{C}^{</em>}$ under multiplication</li>
 </ul>
 <p>And for some groups, it is difficult but not computably infeasible:</p>
 <ul>
 <li>$\mathbb{F}_p^*$ under multiplication: said to be subexponential</li>
 </ul>
-<a href="#elliptic-curves"><h2 id="elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves</h2></a>
+<a href="#elliptic-curves"><h1 id="elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves</h1></a>
 <p>$$
 \begin{array}{rcl}
 \left{(x, y) \in \mathbb{R}^2 \right. &amp; \left. | \right. &amp; \left. y^2 = x^3 + ax + b, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \ne 0\right}\\ \cup\\ \left{0\right}
@@ -1115,14 +1086,14 @@ $$</p>
 <li>ECDLP is discrete logarithm problem for the EC defined on finite field which has exponential time complexity to solve.</li>
 <li>Best known algorithm for an EC defined over $\mathbb{F}_p$ takes $O(\sqrt{p})$.</li>
 </ul>
-<a href="#group-law-of-elliptic-curves"><h3 id="group-law-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Group Law of Elliptic curves</h3></a>
+<a href="#group-law-of-elliptic-curves"><h2 id="group-law-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Group Law of Elliptic Curves</h2></a>
 <ul>
 <li>Elements of the group are points on elliptic curve.</li>
 <li>identity element is the point at infinity $O$</li>
 <li>inverse of point $P$ is symmetric about $x$-axis</li>
 <li>addition rule: given three aligned, non-zero points $P,Q,R$ on EC, $P+Q+R=0$</li>
 </ul>
-<a href="#elliptic-curves-in-mathbbf_p"><h3 id="elliptic-curves-in-mathbbf_p"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves in $\mathbb{F}_{p}$</h3></a>
+<a href="#elliptic-curves-in-mathbbf_p"><h2 id="elliptic-curves-in-mathbbf_p"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves in $\mathbb{F}_{p}$</h2></a>
 <p>$$\begin{array}{rcl}
 \left{(x, y) \in (\mathbb{F}_p)^2 \right. &amp; \left. | \right. &amp; \left. y^2 \equiv x^3 + ax + b \pmod{p}, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \not\equiv 0 \pmod{p}\right}\\ \cup\\ \left{0\right}
 \end{array}$$</p>
@@ -1131,8 +1102,8 @@ $$</p>
 <p>This makes set of the multiples of $P$ a <strong>cyclic subgroup</strong> of the group formed by the elliptic curve. The point $P$ is called the <strong>generator</strong> or <strong>base point</strong> of the cyclic subgroup. Finding order of the subgroup is done by finding smallest $n$ such that $nP=0$.</p>
 <a href="#elliptic-curve-cryptography"><h2 id="elliptic-curve-cryptography"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curve Cryptography</h2></a>
 <p>$$ y^2 = x^3 + ax^2 + bx + c $$</p>
-<p>
-<a href="https://river.com/learn/terms/s/secp256k1/" rel="noopener">$secp256k1$</a>: used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
+<p>[$secp256k1$](
+<a href="https://river.com/learn/terms/s/secp256k1/%29:" rel="noopener">https://river.com/learn/terms/s/secp256k1/):</a> used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.</p>
 <p>ECDSA: Elliptic Curve Digital Signature Algorithm</p>
 <p>Public key cryptography uses this method to calculate public keys which is a point on ECC curve.</p>
 <p>$$ K = (k * G) % p $$</p>
@@ -1142,13 +1113,13 @@ $$</p>
 <li>$G$ = base point on the curve</li>
 <li>$p$ = prime number</li>
 </ul>
-<p>Take a 
-<a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6" rel="noopener">base point</a> $G$, add it $n$ (private key) times to make $nG (% p)$ (public key).</p>
+<p>Take a [base point](
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6%29" rel="noopener">https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6)</a> $G$, add it $n$ (private key) times to make $nG (% p)$ (public key).</p>
 <blockquote>
 <p><strong>Note</strong>: addition here means addition in elliptic curve and not addition in field of integers mod p.</p>
 </blockquote>
-<p>
-<a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8" rel="noopener">Order</a> of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.</p>
+<p>[Order](
+<a href="https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8%29" rel="noopener">https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8)</a> of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.</p>
 <p>Thus, choosing a good base point is necessary in any public key generation curves.</p>
 <p>secp256k1:</p>
 <div class="highlight"><div class="chroma">
@@ -1188,25 +1159,25 @@ $$</p>
 <a href="#eip55"><h2 id="eip55"><span class="hanchor" ariaLabel="Anchor"># </span>EIP55</h2></a>
 <p>Mixed capitalisation of letters in the address</p>
 <p>Take keccak256 hash of the address, capitalise character if hex digit of hash is greater than <code>8</code>.</p>
-<a href="#why-discrete-logarithm"><h3 id="why-discrete-logarithm"><span class="hanchor" ariaLabel="Anchor"># </span>Why Discrete logarithm?</h3></a>
+<a href="#why-discrete-logarithm"><h3 id="why-discrete-logarithm"><span class="hanchor" ariaLabel="Anchor"># </span>Why Discrete Logarithm?</h3></a>
 <p>ECC is significant because solving $k * G$ is trivial but obtaining $k$ from product $k * G$ is not.</p>
 <p>$k*G$ can be obtained using Fast-Exponentiation algorithm but solving for $k$ requires computing discrete logarithms.</p>
 <a href="#security"><h2 id="security"><span class="hanchor" ariaLabel="Anchor"># </span>Security</h2></a>
 <p>Big-O Notation of discrete logarithm problem is $O(\sqrt{n})$.</p>
 <p>Base point $G$, is chosen to be closer to $2^{256}$ and thus is in the order of <code>256</code>.</p>
 <p>So, $\sqrt{256} = 128$ bits level of security is provided by curves like $secp256k1$.</p>
-<h2 id="secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1">
-<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/" rel="noopener">secp256k1 v/s secp256r1</a></h2>
-<p>
-<a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/" rel="noopener">$secp256k1$</a> is a Koblitz curve defined in a characteristic 2 finite field while $secp256r1$ is a prime field curve.</p>
+<h2 id="secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1">[secp256k1 v/s secp256r1](
+<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/%29" rel="noopener">https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)</a></h2>
+<p>[$secp256k1$](
+<a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/%29" rel="noopener">https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/)</a> is a Koblitz curve defined in a characteristic 2 finite field while $secp256r1$ is a prime field curve.</p>
 <p>Not going into details as to what a characteristic 2 finite field is, we can specify $secp256r1$ as a pseudo-randomised curve and $secp256k1$ as completely random curve which can’t be solved using discrete logarithm problem <strong>yet</strong>.</p>
 <a href="#pairing-friendly-curves"><h2 id="pairing-friendly-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Pairing Friendly Curves</h2></a>
 <p>Pairing-based cryptography is a new cryptographic primitive that has been developed in recent times, enabling new applications like short digital signatures that are aggregatable, identity-based cryptography, MPC, efficient <a href="/thoughts/kzg-commitments" rel="noopener" class="internal-link" data-src="/thoughts/kzg-commitments">polynomial commitments</a>.</p>
 <p>They have a favourable embedding degree, and a large prime-order subgroup.</p>
 <a href="#bls12-381"><h3 id="bls12-381"><span class="hanchor" ariaLabel="Anchor"># </span>BLS12-381</h3></a>
 <blockquote>
-<p>Note: Most of these notes are taken from this amazing 
-<a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">post</a> by Ben</p>
+<p>Note: Most of these notes are taken from this amazing [post](
+<a href="https://hackmd.io/@benjaminion/bls12-381%29" rel="noopener">https://hackmd.io/@benjaminion/bls12-381)</a> by Ben</p>
 </blockquote>
 <p>This was first introduced by Sean Bowe from ZCash in 2017 and has been used in various things from then. Now for the naming,</p>
 <ul>
@@ -1222,9 +1193,9 @@ $$</p>
 </ul>
 <a href="#field-extensions"><h4 id="field-extensions"><span class="hanchor" ariaLabel="Anchor"># </span>Field Extensions</h4></a>
 <p>The two curves used in BLS12-381 are defined on $\mathbb{F}<em>{q}$ and $\mathbb{F}</em>{q^{12}}$. This power raised is known as an extension field of field $\mathbb{F}_q$.</p>
-<p>Let&rsquo;s construct $\mathbb{F}_{q^2}$, quadratic extension of $\mathbb{F}_q$.</p>
+<p>Let&rsquo;s construct $\mathbb{F}_{q^{2}}$, quadratic extension of $\mathbb{F}_q$.</p>
+<p>element representation $\mathbb{F}<em>{q^{2}}$: $a</em>{0}+a_{1}x$ also written as $(a_{0},a_1)$.</p>
 <ul>
-<li>$\mathbb{F}<em>{q^2}$ element representation: $a</em>{0}+a_{1}x$ also written as $(a_{0},a_1)$.</li>
 <li>addition: $(a,b)+(c,d)=(a+c,b+d)$</li>
 <li>multiplication: $(ac-bd, ad+bc)$</li>
 </ul>
@@ -1235,7 +1206,7 @@ $$</p>
 <li>It must be irreducible in the field it is getting extended.</li>
 </ol>
 <p>BLS12-381 consists of two curves: $\mathbb{G}<em>{1}$ and $\mathbb{G}</em>{2}$. $\mathbb{G}_{1}$ is a fairly simple curve defined over finite field $\mathbb{F}<em>q$. We can call this curve $E(\mathbb{F}</em>{q})$. Curve equation for $\mathbb{G}_1$ is $y^2=x^3+4$.</p>
-<p>The other curve is defined over an extension of $\mathbb{F}<em>{q}$ to $\mathbb{F}</em>{q^12}$. Since arithmetic on $\mathbb{F}<em>{q^12}$ is fairly complex, it is reduced to $\mathbb{F}</em>{q^2}$. So, we&rsquo;ll call this curve $E&rsquo;(\mathbb{F}_{q^2})$. Curve equation is slightly modified to be $y^2=x^3+4(1+i)$.</p>
+<p>The other curve is defined over an extension of $\mathbb{F}<em>{q}$ to $\mathbb{F}</em>{q^{12}}$. Since arithmetic on $\mathbb{F}<em>{q^12}$ is fairly complex, it is reduced to $\mathbb{F}</em>{q^2}$. So, we&rsquo;ll call this curve $E&rsquo;(\mathbb{F}_{q^2})$. Curve equation is slightly modified to be $y^2=x^3+4(1+i)$.</p>
 <a href="#subgroups"><h4 id="subgroups"><span class="hanchor" ariaLabel="Anchor"># </span>Subgroups</h4></a>
 <p>BLS12-381 is popular because it&rsquo;s a pairing friendly curve. For pairings, we need two points from <strong>distinct</strong> groups, each of order $r$. The first curve only has one subgroup of order $r$, and thus we can&rsquo;t just use that one curve. That&rsquo;s why we require a second different curve which has a distinct subgroup of same order. Fortunately, this is exhibited by the curve defined over the extension field and one of these groups only contains points having a trace of zero. This is where $k=12$, embedding degree comes in. Thus, we have group $G_1$ of order $r$ in $E(\mathbb{F}<em>q)$, and a distinct group $G_2$ of same order in $E(\mathbb{F}</em>{q^12})$. This enables pairings.</p>
 <blockquote>
@@ -1244,8 +1215,8 @@ $$</p>
 <a href="#twists"><h4 id="twists"><span class="hanchor" ariaLabel="Anchor"># </span>Twists</h4></a>
 <p>As explained earlier, that arithmetic on field $\mathbb{F}<em>{q^12}$ is fairly complex and inefficient. And all the curve operations like <code>add</code>, <code>sub</code>, <code>mul</code>, etc. requires a lot of arithmetic. Thus, we need to transform the $E(\mathbb{F}</em>{q^12})$ curve into a curve defined over a lower degree field that still has an order $r$ subgroup. Why we didn&rsquo;t take this lower order field in the first place? Because we require subgroup having trace of zero points.</p>
 <blockquote>
-<p>Quoting section 3 of 
-<a href="https://eprint.iacr.org/2005/133.pdf" rel="noopener">this</a> :</p>
+<p>Quoting section 3 of [this](
+<a href="https://eprint.iacr.org/2005/133.pdf%29" rel="noopener">https://eprint.iacr.org/2005/133.pdf)</a> :</p>
 <p>The basic idea for point compression is not only to restrict the first pairing argument to $E(\mathbb{F}<em>{p})$, but also to take the second argument $Q \in E(\mathbb{F}</em>{p^{12}})$ as the image $\psi(Q&rsquo;)$ of a point on a sextic twist $E&rsquo;(\mathbb{F}<em>{p^2})$, where $\psi : E&rsquo;(\mathbb{F}</em>{p^2}) \rightarrow E(\mathbb{F}<em>{p^{12}})$ is an injective group homomorphism. This way one would work only with $E(\mathbb{F}</em>{p})$ and $E&rsquo;(\mathbb{F}<em>{p^2})$ for non-pairing operations like key generation, and map from $E&rsquo;(\mathbb{F}</em>{p^2})$ to $E(\mathbb{F}_{p^{12}})$ only when actually computing pairing values.</p>
 </blockquote>
 <p>BLS12-381 uses a <code>sextic twist</code>. This means reducing the extension field degree by a factor of <code>6</code>.  We find a $u$ such that $u^{6}=(1+i)^{-1}$, then we define a twisting transformation as $(x,y) \rightarrow (\frac{x}{u^2},\frac{y}{u^3})$. This transforms the original curve from $E:y^2=x^3+4$ to $E&rsquo;:y^2=x^3+4/u^6$. $E$ and $E&rsquo;$ looks different but actually are same objected with coefficients in different base fields.</p>
@@ -1256,7 +1227,7 @@ $$</p>
 <li>$G_{2} \subset E&rsquo;(F_{q^2})$ where $E&rsquo;:y^2=x^3+4(1+i)$</li>
 </ul>
 <p>Since, point in G_2 are complex numbers, it takes twice the amount of storage and are more expensive to perform arithmetic operations.</p>
-<a href="#embedding-degree"><h4 id="embedding-degree"><span class="hanchor" ariaLabel="Anchor"># </span>Embedding degree</h4></a>
+<a href="#embedding-degree"><h4 id="embedding-degree"><span class="hanchor" ariaLabel="Anchor"># </span>Embedding Degree</h4></a>
 <p>Smallest $k$ such that $q^{k} \equiv 1 \pmod{r}$. Embedding Degree is the smallest positive integer required to extend the field to satisfy conditions required for pairings.</p>
 <ol>
 <li>$F_{q^k}$ contains more than one subgroup of order $r$ for constructing $G_{2}$.</li>
@@ -1266,8 +1237,8 @@ $$</p>
 <a href="#cofactor"><h3 id="cofactor"><span class="hanchor" ariaLabel="Anchor"># </span>Cofactor</h3></a>
 <p>It&rsquo;s the ratio of order of the curve group and order of the subgroup $hr = n$. Usually, cofactor should be very small in order to avoid subgroup attacks on discrete logarithms. But in pairing-based cryptography, the cofactors of $G_1$, $G_2$ and $G_{T}$ can be very large.</p>
 <p>By multiplying by the cofactor, a point on the curve is mapped to the appropriate group known as <strong>cofactor clearing</strong>.</p>
-<h3 id="roots-of-unityhttpsbrilliantorgwikiroots-of-unity">
-<a href="https://brilliant.org/wiki/roots-of-unity/" rel="noopener">Roots of Unity</a></h3>
+<h3 id="roots-of-unityhttpsbrilliantorgwikiroots-of-unity">[Roots Of Unity](
+<a href="https://brilliant.org/wiki/roots-of-unity/%29" rel="noopener">https://brilliant.org/wiki/roots-of-unity/)</a></h3>
 <p>Roots of Unity are complex solutions to the equation: $x^n=1$.</p>
 <p>Every nonzero element of a finite field is a root of unity, as $x^{q-1} = 1$ for every nonzero element of $\mathbb{F}_{q}$.</p>
 <p><em>Primitive root of unity</em> is when a number is solution to $x^n=1$ but not for $x^m=1$ for any positive integer $m&lt;n$. So, if $a$ is a $n$th primitive root of unity in a field $\mathbb{F}$, then $\mathbb{F}$ contains all the roots of unity, $1, a, a^{2}, \ldots, a^{n-1}$.</p>
@@ -1300,17 +1271,16 @@ Reduction rule: $w^2-v=0$ which is irreducible in $F_{q^{6}}$.</li>
 <a href="#bls-signatures"><h2 id="bls-signatures"><span class="hanchor" ariaLabel="Anchor"># </span>BLS Signatures</h2></a>
 <a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
 <ul>
-<li>
-<a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve" rel="noopener">ethereumbook&rsquo;s elliptic curve section</a></li>
-<li>
-<a href="https://www.math.brown.edu/johsilve/Presentations/WyomingEllipticCurve.pdf" rel="noopener">An Introduction to Elliptic Curves</a></li>
-<li>
-<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Exploring Elliptic Curve Pairings</a></li>
-<li>
-<a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">BLS12-381 for the rest of us</a></li>
-<li>
-<a href="https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/" rel="noopener">Pairings over BLS12-381</a></li>
-<li></li>
+<li>[ethereumbook&rsquo;s elliptic curve section](
+<a href="https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve%29" rel="noopener">https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#elliptic_curve)</a></li>
+<li>[An Introduction to Elliptic Curves](
+<a href="https://www.math.brown.edu/johsilve/Presentations/WyomingEllipticCurve.pdf%29" rel="noopener">https://www.math.brown.edu/johsilve/Presentations/WyomingEllipticCurve.pdf)</a></li>
+<li>[Exploring Elliptic Curve Pairings](
+<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627%29" rel="noopener">https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627)</a></li>
+<li>[BLS12-381 for the rest of us](
+<a href="https://hackmd.io/@benjaminion/bls12-381%29" rel="noopener">https://hackmd.io/@benjaminion/bls12-381)</a></li>
+<li>[Pairings over BLS12-381](
+<a href="https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/%29" rel="noopener">https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/)</a></li>
 </ul>
 
 

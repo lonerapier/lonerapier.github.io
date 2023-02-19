@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Why? Data is a really precious commodity in an environment where most of the decisions are taken based on information. Trusted Execution Environments give us the capability of executing application code with secrets in an environment where not even the host system can access the secrets and determine the access patterns."
+  />
+  <title>
+    TEE
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.f8b2708081ba5ae718bbefd12c5f1476.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.6f22941e242efae60fd84e7c32e874fa.min.js"></script>
+  
+  
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+
+  
+  
+
+
+
+  <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script async src="https://lonerapier.xyz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+  
+  
+  
+  <script defer src="https://lonerapier.xyz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
+          );
+
+        }
+      
+
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>TEE</h1>
+      <p class="meta">
+        Last updated 
+Jan 15, 2023
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/tee.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/tech/">
+          
+            Tech
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/seed/">
+          
+            Seed
+          
+            </a>
+           </li>
+          
+      </ul>
+      
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+  
+  
+  
+
+
+
+
+
+
+<a href="#why"><h2 id="why"><span class="hanchor" ariaLabel="Anchor"># </span>Why?</h2></a>
+<p>Data is a really precious commodity in an environment where most of the decisions are taken based on information. Trusted Execution Environments give us the capability of executing application code with secrets in an environment where not even the host system can access the secrets and determine the access patterns.</p>
+<a href="#use-cases"><h2 id="use-cases"><span class="hanchor" ariaLabel="Anchor"># </span>Use cases</h2></a>
+<ol>
+<li>Any personal data like Medical Records, Biometrics</li>
+<li>Password Manager</li>
+<li>Encryption keys</li>
+</ol>
+<p>These data items in vocabulary of trusted execution environment are called <em><strong>secrets</strong></em>. Even though there are ways of encrypting the data when it&rsquo;s getting transported, or static data in the server, but any processing on the data needs to happen on raw and unencrypted one. There are countless incidents where local systems or remote servers have been compromised, exposing the data to an attacker.</p>
+<a href="#sgx"><h2 id="sgx"><span class="hanchor" ariaLabel="Anchor"># </span>SGX</h2></a>
+<p>SGX(Software Guard Extensions) is a technology which models the Trusted Execution Environment capabilities on hardware. Hence, making it easier to run programs in an encrypted hardware memory region on RAM. This includes protection from adversarial entity even with control of OS, BIOS.</p>
+<ul>
+<li>Production level enclaves doesn&rsquo;t allow debuggers.</li>
+<li>The memory region created for enclave is encrypted and unadressable from outside of trusted part of the application. No cpu instructions like calls, jump, register manipulation or stack manipulation cannot be used to enter the memory inside the enclave region.</li>
+<li>Even if any malicious party is successful in tapping into the DRAM modules would only gain encrypted garbage.</li>
+<li>Memory encryption is randomly changed periodically, i.e. every power cycle.</li>
+<li>Any external attempt at accessing the memory inside the enclave is denied.</li>
+</ul>
+<p>This gives protection from a variety of threats:</p>
+<ol>
+<li>Compromised Operating Systems</li>
+<li>Kernel Exploits</li>
+<li>Untrustworthy cloud services</li>
+</ol>
+<a href="#enclave"><h3 id="enclave"><span class="hanchor" ariaLabel="Anchor"># </span>Enclave</h3></a>
+<p>Program is run inside an encrypted region called <strong>Enclave</strong>. This is made possible by extending x86 architecture with new instruction sets. Enclaves provide confidentiality and integrity of the data inside the enclave through the use of <strong>Enclave Page Cache</strong> (EPC), which the system reserves at boot time. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>Enclaves are secure compartments but have boundaries to determine trusted and untrusted part of the application. Trusted Part contains the sensitive piece or secrets of the enclave&rsquo;s code and untrusted part containing other parts of the program. The enclave memory is a volatile memory that gets removed whenever system goes to sleep, machine is destroyed, or application exits.</p>
+<p>SGX has two calls used to communicate between the two parts:</p>
+<ol>
+<li>OCalls: Trusted -&gt; Untrusted</li>
+<li>ECalls: Untrusted -&gt; Trusted</li>
+</ol>
+<blockquote class="hint-callout">
+<p>
+what if we need secrets of our applications between successive builds of our enclave, generating the secrets every time would be a waste of the resources. That&rsquo;s why we need a way to securely transfer secrets between enclaves. This is done using <strong>Data sealing</strong>.</p>
+</blockquote>
+<a href="#data-sealing"><h3 id="data-sealing"><span class="hanchor" ariaLabel="Anchor"># </span>Data sealing</h3></a>
+<p>The main aim of SGX is to not let raw secrets spill out of the enclave, and many misunderstand enclaves to be blackboxes where nothing is accessible. Rather, it&rsquo;s possible to encrypt data in the enclave using the encryption keys with one of the two policies defined in SGX:</p>
+<ol>
+<li><em><strong>MRENCLAVE</strong></em>: sealing happens on the enclave using the key derived specific to that particular enclave, and can only be decrypted on the same enclave, on the same machine.</li>
+<li><em><strong>MRSIGNER</strong></em>: sealing happens using key specific to the developer signing key on the system, and thus unsealing of data occurs when accessed by other enclave started by the same developer signing key.</li>
+</ol>
+<blockquote class="hint-callout">
+<p>
+how I as a user can be sure that there is no adversary manipulating the untrusted system and data integrity is intact. Attestation helps any entity to verify the integrity of the enclave and untrusted party to gain trusted party&rsquo;s trust.</p>
+</blockquote>
+<a href="#remote-attestation"><h3 id="remote-attestation"><span class="hanchor" ariaLabel="Anchor"># </span>Remote attestation</h3></a>
+<p>Remote attestation is an independent and untrustworthy party, namely prover(enclave) verifying to a trusted entity, namely verifier, the current state of the enclave to gain the relying party&rsquo;s trust. Can be done in two ways, Hardware-based and Software-based. A simple software-based example could include, prover sending memory hash after the execution of an application and the verifier verifying that the execution has indeed happened correctly and that no tampering has been done with the data.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<ol>
+<li>Software-based RA is when the prover provides proof of its correct state</li>
+<li>Hardware-based RA is the use of specialised memory regions inside the hardware that makes it difficult to tamper the secrets.</li>
+</ol>
+<p>After the prover has attested to the remote party that it is indeed running the correct application on a SGX enabled processor in an enclave, both parties can then continue with exchanging information and secrets with each other. This is how secrets are supplied inside the enclave using secure channels.</p>
+<p>Intel provides a pseudo-filesystem<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> inside enclave as <code>/dev/attestation</code> which exposes all the necessary files related to attestation for local or remote verifiers.</p>
+<p>Let&rsquo;s understand attestation flow used in SGX:</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/epid-based-attestation.png" width="auto" alt="epid-based-attesation"  /><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></p>
+<ol>
+<li>Application requests report data from <code>/dev/attestation/user_report_data</code> which internally calls <code>EREPORT</code> hardware-instruction call to write enclave report.</li>
+<li>Calls <code>/dev/attestation/quote</code>, reads <code>/dev/attestation/user_report_data</code>, sends to Quoting Enclave.[^]</li>
+<li>Quoting enclave reads the EPID key provided by Provisioning Enclave at the time of deployment.</li>
+<li>Provisioning Enclave fetches EPID key from Intel Provisioning Service, which is a remote trusted server by Intel.</li>
+<li>Quoting enclave generates quote along with report from the <code>/dev/attestation/report</code>, and sends to enclave.</li>
+<li>Enclave sends the quote to the remote verifier on request.</li>
+<li>Verifier sends the quote to Intel Attestation service that checks whether the quote was generated by the enclave or not and sends the result back to verifier.</li>
+<li>Verifier then verifies the quote metadata and SGX enclave measurements against local measurements like the policies MRENCLAVE and MRSIGNER are the ones that the user knows, are the architectural enclaves up to date, the quoting enclave&rsquo;s identity is correct.</li>
+</ol>
+<p>Data Center Attestation Primitives are attestation services that doesn&rsquo;t utilise Intel&rsquo;s attestation service instead have their own ECDSA attestation certificates in a remote data center. Also the Quoting Enclave doesn&rsquo;t talk with Provisioning Enclave but with Provisioning Certificate Enclave which in turn calls Intel Provisioning Certificate service to get the attestation collateral.[^]</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/dcap-based-attestation.png" width="auto" alt="dcap-based-attestation"  /></p>
+<p>These certificates are cached at remote verifier and the remote user doesn&rsquo;t need to check with Provisioning service each time a quote arrives, and then periodically fetched to update.</p>
+<a href="#example"><h3 id="example"><span class="hanchor" ariaLabel="Anchor"># </span>Example</h3></a>
+<p>Password Manager</p>
+<p>Secrets:</p>
+<ol>
+<li>
+<p>Vault file</p>
+</li>
+<li>
+<p>account passwords</p>
+</li>
+<li>
+<p>account info</p>
+</li>
+<li>
+<p>primary key</p>
+</li>
+<li>
+<p>encryption key</p>
+</li>
+<li>
+<p>Encrypted vault file using an encryption key derived</p>
+</li>
+<li>
+<p>User&rsquo;s master key is derived from passphrase which is generated using KDF that uses SHA256.</p>
+</li>
+<li>
+<p>Primary key used to encrypt passwords is generated randomly using RDSEED instruction</p>
+</li>
+<li></li>
+</ol>
+<a href="#tradeoffs"><h3 id="tradeoffs"><span class="hanchor" ariaLabel="Anchor"># </span>Tradeoffs</h3></a>
+<ol>
+<li>Enclave Transitions: ECalls and OCalls b/w the different parts of the program inflict severe overhead on the performance due to security checks done at the boundary. Not all system calls are allowed inside enclave, thus OCalls are executed.</li>
+<li>EPC limit: Each enclave has a fixed size, and is divided in pages. Any enclave that exceeds the EPC&rsquo;s size limit has to be swapped out to DRAM and is encrypted in doing so. This induces an overhead of approx 3x.</li>
+<li>Due to the confidentiality of the data involved, the program has to be designed very carefully. Unoptimised designs lead to poor performance and prone to many attacks.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></li>
+</ol>
+<a href="#libos"><h2 id="libos"><span class="hanchor" ariaLabel="Anchor"># </span>LibOS</h2></a>
+<p>The program needs to be modified in order to make it compatible to run inside SGX environment. LibOSes help here as they allow to run unmodified programs inside the SGX environments.</p>
+<blockquote class="note-callout">
+<p> Common things to keep in mind:</p>
+<ol>
+<li>It&rsquo;s all about secrets and efficient communication b/w enclaves</li>
+<li></li>
+</ol>
+</blockquote>
+<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<ul>
+<li>
+<a href="https://01.org/sites/default/files/documentation/intel_sgx_developer_guide_pdf.pdf" rel="noopener">https://01.org/sites/default/files/documentation/intel_sgx_developer_guide_pdf.pdf</a></li>
+<li>
+<a href="https://sgx101.gitbook.io/sgx101/sgx-bootstrap/sealing" rel="noopener">https://sgx101.gitbook.io/sgx101/sgx-bootstrap/sealing</a></li>
+<li>
+<a href="https://blog.quarkslab.com/overview-of-intel-sgx-part-2-sgx-externals.html" rel="noopener">https://blog.quarkslab.com/overview-of-intel-sgx-part-2-sgx-externals.html</a></li>
+<li>
+<a href="https://encyclopedia.pub/entry/7912" rel="noopener">Remote Attestation</a></li>
+<li>
+<a href="https://sgx.fail" rel="noopener">sgx.fail</a></li>
+<li>
+<a href="https://www.ibr.cs.tu-bs.de/users/mahhouk/papers/eurosec2021.pdf" rel="noopener">SGXoMeter</a></li>
+<li>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/technical/quote-verification-attestation-with-intel-sgx-dcap.html" rel="noopener">Quote verification with Intel SGX DCAP</a></li>
+<li>
+<a href="https://medium.com/magicofc/establish-an-intel-sgx-enclave-c6208f820ff9" rel="noopener">establish an SGX enclave</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>How does the Enclave provide integrity of data? What does it mean to provide integrity?&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>What are the attacks that are possible due to poor design?&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>pseudofs is a virtual file system where files are generated virtually on the fly when it&rsquo;s used by system calls like open, read, write, close, etc.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>How can ZK Proofs help here? Or does it not even require zk proofs?&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>Source: 
+<a href="https://gramine.readthedocs.io/en/stable/attestation.html" rel="noopener">Gramine docs</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  async
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2023</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

@@ -8,12 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 15 Jan 2023 12:40:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/seed/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>SGX</title>
-      <link>https://lonerapier.xyz/thoughts/sgx/</link>
+      <title>TEE</title>
+      <link>https://lonerapier.xyz/thoughts/tee/</link>
       <pubDate>Sun, 15 Jan 2023 12:40:00 -0700</pubDate>
       
-      <guid>https://lonerapier.xyz/thoughts/sgx/</guid>
-      <description>SGX(Software Guard Extensions) is a technology which makes it easier to run programs in an encrypted hardware memory region such that it is difficult for host system to determine the access patterns.</description>
+      <guid>https://lonerapier.xyz/thoughts/tee/</guid>
+      <description>Why? Data is a really precious commodity in an environment where most of the decisions are taken based on information. Trusted Execution Environments give us the capability of executing application code with secrets in an environment where not even the host system can access the secrets and determine the access patterns.</description>
     </item>
     
     <item>

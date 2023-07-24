@@ -130,13 +130,13 @@ Blessed With our time in Hell.
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -320,6 +320,21 @@ Oct 3, 2022
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#efficient-resource-pricing">Efficient Resource pricing</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
 
       
 
@@ -475,7 +490,7 @@ Oct 3, 2022
 <p>Another song today would be 
 <a href="https://open.spotify.com/track/2pd1Lm8Jsslf2VdWQv0Je8?si=5b90339ee6804f32" rel="noopener">Hourglass</a> from Lamb of God. I discovered this band when I just started listening to Metal and was stealthily going around the woods but listening to this song just instils a strange sense of rage in you.</p>
 <p>Anywas, these are my thoughts towards an amazing piece of tech, redesigning the <a href="/thoughts/rollups" rel="noopener" class="internal-link" data-src="/thoughts/rollups">Rollups</a> architecture from ground up, with several challenges in front of them.</p>
-<a href="#lets-dive-in"><h2 id="lets-dive-in"><span class="hanchor" ariaLabel="Anchor"># </span>Let&rsquo;s Dive In</h2></a>
+<a href="#lets-dive-in"><h1 id="lets-dive-in"><span class="hanchor" ariaLabel="Anchor"># </span>Let&rsquo;s Dive In</h1></a>
 <p>Current problems are Monolithic chains. Celestia answers what minimum a blockchain can do to provide shared security to other blockchains (rollups)?</p>
 <blockquote>
 <p>Celestia combines the best of both worlds: Ethereum’s Rollups with its shared security and Cosmos’s sovereign interoperable app-chains.</p>
@@ -487,18 +502,18 @@ Oct 3, 2022
 
 <img src="https://storage.googleapis.com/members-portal-bucket/uploads/2022/02/9448d3db-ignore.png" width="auto" alt="9448d3db-ignore.png"  /></p>
 <p>Qn: If execution doesn’t happen on celestia core, then does every app running on top of celestia has to execute each transaction and how does that help solve scalability problems found in other monolithic chains?</p>
-<a href="#scalability-bottleneck"><h2 id="scalability-bottleneck"><span class="hanchor" ariaLabel="Anchor"># </span>Scalability Bottleneck</h2></a>
+<a href="#scalability-bottleneck"><h1 id="scalability-bottleneck"><span class="hanchor" ariaLabel="Anchor"># </span>Scalability Bottleneck</h1></a>
 <p>Most common issue suffered by major blockchains is <strong>state bloat,</strong> i.e. growth of nodes storage requirements with each added transactions to the history. Solution to this problem is existence of light clients, which doesn&rsquo;t download complete block data but only the block header and represents 99% of the users.</p>
 <p>Light clients, however are not able to tell if a tx is invalid or not as it doesn’t have the data and works under the assumption that consensus nodes are honest. As the state continues to increase, full nodes start decreasing and light nodes start increasing leading to more centralization around full nodes.</p>
 <p>Fraud/Validity proofs negate the occurrence of this phenomenon as any light client can run these succinct proof to verify whether the contents of the blocks are valid or not.</p>
-<a href="#how-fraudvalidity-proofs-work"><h2 id="how-fraudvalidity-proofs-work"><span class="hanchor" ariaLabel="Anchor"># </span>How Fraud/Validity proofs work</h2></a>
+<a href="#how-fraudvalidity-proofs-work"><h1 id="how-fraudvalidity-proofs-work"><span class="hanchor" ariaLabel="Anchor"># </span>How Fraud/Validity Proofs Work</h1></a>
 <p>
 
 <img src="https://storage.googleapis.com/members-portal-bucket/uploads/2022/02/02571c37-simplified-fraud-proof.png" width="auto" alt="02571c37-simplified-fraud-proof.png"  /></p>
 <p>Full nodes can provide light nodes with just enough data for them to verify that a particular transaction in included in block or not. This happens using merkle trees, which can efficiently prove that a particular tx is included w/o requiring them to download the whole block. So, these full nodes can provide just a subset of data and these light clients can verify against that.</p>
 <p>But for full nodes to generate <em>fraud/validity proofs</em>, they need access to complete block data to run these transactions. If a malicious miner withholds block data, then light client won’t notice and continue to follow the chain as full nodes won’t be able to provide any proofs for the invalidity of that block. Thus, <strong>Data Availability</strong> is a necessary condition for fraud/validity proofs to exist.</p>
 <p>Celestia solved this problem by making data availability a necessary rule such that this can be enforced even by light nodes through <code>Data Availability Sampling (DAS)</code> .</p>
-<a href="#data-availability-sampling"><h2 id="data-availability-sampling"><span class="hanchor" ariaLabel="Anchor"># </span>Data Availability Sampling</h2></a>
+<a href="#data-availability-sampling"><h1 id="data-availability-sampling"><span class="hanchor" ariaLabel="Anchor"># </span>Data Availability Sampling</h1></a>
 <p>DAS is implemented in celestia using a technique called <code>Erasure Coding</code> , which is a data protection technique used at various places. Erasure coding to a data extends the data such that complete data can be recovered using just a fraction of the extended data.</p>
 <p>Light nodes randomly sample small fixed-sized chunks of block data from the block and have probabilistic assurances that other chunks have been made available to the network.</p>
 <p>
@@ -510,7 +525,7 @@ Oct 3, 2022
 <li>Data is not available, in which case full nodes are not able to recover the block data and light clients stop following the chain as the sampling process was not completed.</li>
 </ol>
 <p>This results in liveness failure of the blockchain and the nodes stop following the chain. DAS guarantees that data availability is the necessary condition for blockchain to resume block production with both full and light nodes under same security assumptions.</p>
-<a href="#how-much-can-celestia-scale"><h2 id="how-much-can-celestia-scale"><span class="hanchor" ariaLabel="Anchor"># </span>How much can Celestia scale</h2></a>
+<a href="#how-much-can-celestia-scale"><h1 id="how-much-can-celestia-scale"><span class="hanchor" ariaLabel="Anchor"># </span>How Much Can Celestia Scale</h1></a>
 <p>Some tradeoffs exist in DAS light nodes, i.e. the block header grow in proportion to the square root of block’s size. For any blockchain to scale, it means processing higher throughput → processing more transactions → either more blocks or larger blocks. Size of a block depends upon</p>
 <ul>
 <li>Amount of data that can be collectively sampled</li>
@@ -518,45 +533,45 @@ Oct 3, 2022
 </ul>
 <p>Now, the aha moment of light clients comes in play here. Running a light client is as easy as running an app on a mobile phone and thus, as the demand of the blockspace rises, more and more nodes join the network and network bandwidth to sample the data rises and thus block size rises with it. This means, unlike monolithic blockchains which starts to congest as demand rises, modular blockchain flourish and can easily support the rise in demand along with stable low fees.</p>
 <p>The second part where the size of the block header rises with rise in block size can be compensated with the rise in bandwidth which makes it easier for celestia throughput to grow.</p>
-<a href="#benefits"><h2 id="benefits"><span class="hanchor" ariaLabel="Anchor"># </span>Benefits</h2></a>
+<a href="#benefits"><h1 id="benefits"><span class="hanchor" ariaLabel="Anchor"># </span>Benefits</h1></a>
 <ol>
 <li><strong>Self-sovereign blockchains</strong></li>
 </ol>
 <p>Self-sovereignity represents entity which has complete control of his/her data.</p>
 <p>Current Ethereum rollups post tx data along with proofs to L1 in the form of smart contracts, thus there has to be a way of on-chain governance mechanisms. This is not fully secure and decentralised to operate a system trying to support loads of high amount of throughput and handling significant amount of value. Celestia differs here in the sense that it doesn’t make any sense of the data and simply stores valid transactions, its the rollups that has to make sense of the required data and thus, has to make its own canonical chain.</p>
 <p>This makes it significantly easier for any rollup to perform hard/soft forks which are regarded as a threat to any current monolithic blockchains. These forks dilute the security of the network and reduces it’s users faith on the underlying. But Celestia rollups can freely change the algorithm it uses in its nodes to make sense of the data without any threat of security failure because the DA and consensus layer remains the same with all the valid transactions.</p>
-<ol start="2">
+<ol>
 <li><strong>Flexibility</strong></li>
 </ol>
 <p>Since celestia can freely take the roles of DA and consensus layer for rollups, it is much easier for any rollup to have its own execution environment with native VMs specially made for their use case. Thus, the VM market becomes open for any players to spin up flexible execution environments.</p>
-<ol start="3">
+<ol>
 <li><strong>Effortless deployment</strong></li>
 </ol>
 <p>Deploying a blockchain has become easier and easier with the passage of time and significant improvements in chain architectures. Cosmos’ SDK is the prime example of how much easier it is to spin up their own app chain without writing millions of lines of node codes.</p>
 <p>Celestia takes it a step further with rollups not having to worry about the validators it needs to bootstrap a blockchain. New rollups can be deployed with the click of a button having same security assumptions as the oldest rollups on the network.</p>
-<ol start="4">
+<ol>
 <li>
 <a href="#efficient-resource-pricing"><h3 id="efficient-resource-pricing"><span class="hanchor" ariaLabel="Anchor"># </span>Efficient Resource pricing</h3></a>
 </li>
 </ol>
 <p>In ethereum scenario, rollups post data on to L1 which charges gas for each byte that is stored on-chain. This is then susceptible to L1 gas variations and cause fee spikes in L2s as well. Celestia, however only charges for historical state data that is stored as blockspace in bytes per sec and active state execution is handled by each rollup environment. Thus, spikes in one environment doesn’t affect another.</p>
-<ol start="5">
+<ol>
 <li><strong>Trust minimised bridges</strong></li>
 </ol>
 <p>L1 can’t communicate with each other as there are no ways for one chain to verify state of another chain as they can’t execute the fraud/validity proofs of each other. Whereas rollups can form trust minimised bridges with each other as they all share same security. Ethereum has access to all rollup data and can execute their proofs. This allows them to create trust minimised bridges or trusted bridges depending on the requirements of rollups.</p>
-<ol start="6">
+<ol>
 <li><strong>Faster and minimal governance</strong></li>
 </ol>
 <p>Separation of stacks also separates the amount of required to execute any improvements proposals as each layer can focus on themselves and iterate faster and much more effectively without worrying about the DA or consensus layer.</p>
-<ol start="7">
+<ol>
 <li><strong>Decentralised block verification, not production</strong></li>
 </ol>
 <p>It doesn’t matter if in the long run various external factors tend to make block production centralised if you have sufficient amount of verifiers that can easily verify validity of a chain and continue to uphold the consensus rules to make them an efficient trustless machines.</p>
-<ol start="8">
+<ol>
 <li><strong>Simplicity</strong></li>
 </ol>
 <p>Celestia made simpler architectural decisions that let them reduce any unnecessary tech burden and let them iterate and develop faster.</p>
-<a href="#challenges"><h2 id="challenges"><span class="hanchor" ariaLabel="Anchor"># </span>Challenges</h2></a>
+<a href="#challenges"><h1 id="challenges"><span class="hanchor" ariaLabel="Anchor"># </span>Challenges</h1></a>
 <ol>
 <li>Bootstrapping execution environments: celestia as DA layer has no use if there are no execution environments on top of celestia to take advantage of all the DA throughput.</li>
 <li>Determining appropriate block sizes, although celestia has the property of scaling data sampling as more number of nodes join the network, but there are no mechanisms to determine number of light clients in the network. Also, light clients cannot be rewarded for data sampling processes, thus, has no incentives.</li>
@@ -564,16 +579,16 @@ Oct 3, 2022
 <p>
 
 <img src="https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/EF825D6C-48E0-46D5-85B6-F4FE7DBDD949_2/CfHFGvj6vjieQD4EScjkPaAlunvQm3o1bbkJDOGB3JQz/cevmos-celestiums.png" width="auto" alt="cevmos-celestiums.png"  /></p>
-<ol start="3">
+<ol>
 <li>Third, is the limitation of Celestia native token utility because DA layer is not where value accrual in a blockchain takes place. Value accrual in a blockchain occurs mostly at settlement layer as no that’t where state execution takes place. Celestia’s native token will have to be moved to settlement layer using trusted bridges.</li>
 </ol>
-<a href="#questions"><h2 id="questions"><span class="hanchor" ariaLabel="Anchor"># </span>Questions</h2></a>
+<a href="#questions"><h1 id="questions"><span class="hanchor" ariaLabel="Anchor"># </span>Questions</h1></a>
 <ol>
 <li>Details about erasure coding.</li>
 <li>sparse merkle trees</li>
 <li>light clients</li>
 </ol>
-<a href="#readings"><h2 id="readings"><span class="hanchor" ariaLabel="Anchor"># </span>Readings</h2></a>
+<a href="#readings"><h1 id="readings"><span class="hanchor" ariaLabel="Anchor"># </span>Readings</h1></a>
 <ul>
 <li>
 <a href="https://members.delphidigital.io/reports/pay-attention-to-celestia" rel="noopener">Pay Attention To Celestia - Delphi Digital</a></li>

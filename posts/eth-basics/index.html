@@ -130,13 +130,13 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -320,6 +320,13 @@ Mar 10, 2022
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents"></nav>
+    </details>
+</aside>
+
 
       
 
@@ -362,21 +369,21 @@ Mar 10, 2022
 <p>Transaction based state-machine</p>
 <p>state of the blockchain changes after executing transactions.</p>
 <p>stores states in <em><strong>state root</strong></em></p>
-<a href="#accounts"><h2 id="accounts"><span class="hanchor" ariaLabel="Anchor"># </span>Accounts</h2></a>
+<a href="#accounts"><h1 id="accounts"><span class="hanchor" ariaLabel="Anchor"># </span>Accounts</h1></a>
 <p>20-byte hex addresses whose state is stored on the blockchain</p>
 <p>Two types of accounts:</p>
 <ol>
 <li>EOA: externally owned account</li>
 <li>Contract Accounts</li>
 </ol>
-<a href="#each-accounts-has-four-parts"><h2 id="each-accounts-has-four-parts"><span class="hanchor" ariaLabel="Anchor"># </span>Each accounts has four parts:</h2></a>
+<a href="#each-accounts-has-four-parts"><h1 id="each-accounts-has-four-parts"><span class="hanchor" ariaLabel="Anchor"># </span>Each Accounts Has Four Parts:</h1></a>
 <ol>
 <li>Nonce: for EOA, number of transactions sent from the address. For Contracts, number of contracts creations.</li>
 <li>Balance: amount of ether owned by the account.</li>
 <li>storageRoot: Merkle-Patricia tree that stores data related to the account. Stored in the top-level state root tree.</li>
 <li>codeHash: For EOA, hash of empty string. For contracts, hash of the init code.</li>
 </ol>
-<a href="#transactions"><h2 id="transactions"><span class="hanchor" ariaLabel="Anchor"># </span>Transactions</h2></a>
+<a href="#transactions"><h1 id="transactions"><span class="hanchor" ariaLabel="Anchor"># </span>Transactions</h1></a>
 <p>Piece of data signed by an external actor.</p>
 <p>Two types of txs:</p>
 <ol>
@@ -395,7 +402,7 @@ Message Calls: Done by contract account, when executing <code>CALL</code> opcode
 <li>init: in case of contract creating tx, returns code of the contract without constructor</li>
 <li>data: in case of message call tx, data being passed in call</li>
 </ol>
-<a href="#blocks"><h2 id="blocks"><span class="hanchor" ariaLabel="Anchor"># </span>Blocks</h2></a>
+<a href="#blocks"><h1 id="blocks"><span class="hanchor" ariaLabel="Anchor"># </span>Blocks</h1></a>
 <p>aggregate transactions and include in the blockchain</p>
 <p>Contains:</p>
 <ol>
@@ -414,16 +421,16 @@ Message Calls: Done by contract account, when executing <code>CALL</code> opcode
 <li>mixHash</li>
 <li>nonce</li>
 </ol>
-<a href="#ghost"><h2 id="ghost"><span class="hanchor" ariaLabel="Anchor"># </span>GHOST</h2></a>
+<a href="#ghost"><h1 id="ghost"><span class="hanchor" ariaLabel="Anchor"># </span>GHOST</h1></a>
 <p><code>GHOST</code> protocol is used by ethereum to prevent mining centralization and enhance protocol security.</p>
 <p>Longest chain isn’t just the chain with more blocks as ancestor, but it also includes other stale(uncle) blocks in the calculation.</p>
 <p>Uncle blocks are child of the ancestor of the block and not directly related to the block.</p>
-<a href="#rlp"><h2 id="rlp"><span class="hanchor" ariaLabel="Anchor"># </span>RLP</h2></a>
+<a href="#rlp"><h1 id="rlp"><span class="hanchor" ariaLabel="Anchor"># </span>RLP</h1></a>
 <p>It is the data encoding used by the protocol to store data in tries.
 There are several rules for encoding mentioned below.</p>
 <p>
 <a href="https://medium.com/coinmonks/data-structure-in-ethereum-episode-1-recursive-length-prefix-rlp-encoding-decoding-d1016832f919" rel="noopener">Data structure in Ethereum | Episode 1: Recursive Length Prefix (RLP) Encoding/Decoding.</a></p>
-<a href="#hp-encoding"><h2 id="hp-encoding"><span class="hanchor" ariaLabel="Anchor"># </span>HP Encoding</h2></a>
+<a href="#hp-encoding"><h1 id="hp-encoding"><span class="hanchor" ariaLabel="Anchor"># </span>HP Encoding</h1></a>
 <p>This encoding is used for trie paths.</p>
 <p>
 <a href="https://medium.com/coinmonks/data-structure-in-ethereum-episode-1-compact-hex-prefix-encoding-12558ae02791" rel="noopener">Data structure in Ethereum | Episode 1+: Compact (Hex-prefix) encoding.</a></p>

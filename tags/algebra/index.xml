@@ -6,7 +6,17 @@
     <description>Recent content in algebra on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Oct 2022 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/algebra/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/algebra/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finite Fields</title>
+      <link>https://lonerapier.xyz/thoughts/finite-fields/</link>
+      <pubDate>Thu, 04 May 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/finite-fields/</guid>
+      <description>Fields Algebraic structure on which basic math can be performed.
+Properties  Abelian group under addition Non-zero numbers form abelian group under multiplication multiplicative distribution over addition  Finite Fields (Galois Fields) Fields defined on a number and the result is in the set.</description>
+    </item>
+    
     <item>
       <title>Meromorphic Functions</title>
       <link>https://lonerapier.xyz/thoughts/meromorphic-functions/</link>

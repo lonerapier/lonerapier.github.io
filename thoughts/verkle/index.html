@@ -128,13 +128,13 @@ Verkle Trees is one of the big change that is going to be included in the Ethere
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -291,7 +291,7 @@ if (!doNotTrack) {
       <h1>Verkle Trees</h1>
       <p class="meta">
         Last updated 
-Dec 12, 2022
+Jul 24, 2023
 
  
           
@@ -317,6 +317,19 @@ Dec 12, 2022
           
       </ul>
       
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#design-goals">Design Goals</a></li>
+    <li><a href="#reasoning-for-pedersen-commitments">Reasoning for Pedersen Commitments</a></li>
+    <li><a href="#changes-in-tree-structure">Changes in Tree Structure</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
 
 
       
@@ -585,7 +598,7 @@ Dec 12, 2022
 <li>domain in terms of $\omega$, i.e. $d$th root of unity.</li>
 </ul>
 <p>But fortunately in case of polynomial commitments, instead of giving commitment and proof for each level, we can combine the proof and give a multiproof that convinces the verifier that value of a leaf node is indeed what we want to prove. Following is the steps of a scheme that generate multiproof using random evaluation.</p>
-<a href="#proof"><h2 id="proof"><span class="hanchor" ariaLabel="Anchor"># </span>Proof</h2></a>
+<a href="#proof"><h1 id="proof"><span class="hanchor" ariaLabel="Anchor"># </span>Proof</h1></a>
 <p>Given $m$ commitments $C_i=[f_{i}(s)]<em>1$, prove evaluations $f</em>{i}(z_{i})=y_{i}$ where $z_{i} \in \lbrace{\omega^i\rbrace}$ and $\omega$ is a $d$-th root of unity.</p>
 <ol>
 <li>
@@ -624,17 +637,17 @@ $$g(t) = \underbrace{\sum_{i=0}^{m-1} r^i \frac{f_i(t)}{t-z_i}}<em>{g_1(t)} -  \
 <li>Only leaves keys and values, and corresponding commitment to each level are required</li>
 <li>For $n = 2^{30}$ and $d=2^{10}$, the average depth comes out to be $3$.</li>
 </ul>
-<a href="#design-goals"><h3 id="design-goals"><span class="hanchor" ariaLabel="Anchor"># </span>Design Goals</h3></a>
+<a href="#design-goals"><h2 id="design-goals"><span class="hanchor" ariaLabel="Anchor"># </span>Design Goals</h2></a>
 <ul>
 <li>Cheaper access to neighbouring code chunks and storage slots to prevent thrashing</li>
 <li>distribute data as evenly as possible in the tree</li>
 <li>Fast in SNARKs</li>
 <li>Forward compatible, i.e. interface should be pure (key, value) pair of <em>32 bytes</em>.</li>
 </ul>
-<a href="#reasoning-for-pedersen-commitments"><h3 id="reasoning-for-pedersen-commitments"><span class="hanchor" ariaLabel="Anchor"># </span>Reasoning for Pedersen Commitments</h3></a>
+<a href="#reasoning-for-pedersen-commitments"><h2 id="reasoning-for-pedersen-commitments"><span class="hanchor" ariaLabel="Anchor"># </span>Reasoning for Pedersen Commitments</h2></a>
 <p>Now, there are two commitment schemes that can be used for vector commitments.</p>
 <ol>
-<li><a href="/thoughts/kzg-commitments" rel="noopener" class="internal-link" data-src="/thoughts/kzg-commitments">KZG Polynomial commitments</a></li>
+<li><a href="/thoughts/polynomial-commitments" rel="noopener" class="internal-link" data-src="/thoughts/polynomial-commitments">KZG Polynomial commitments</a></li>
 <li><a href="/thoughts/pedersen-commitments" rel="noopener" class="internal-link" data-src="/thoughts/pedersen-commitments">Pedersen Vector commitments</a> + IPA (Inner Product Arguments)</li>
 </ol>
 <p>Ethereum has decided to go with Pedersen commitments citing following advantages:</p>
@@ -645,7 +658,7 @@ $$g(t) = \underbrace{\sum_{i=0}^{m-1} r^i \frac{f_i(t)}{t-z_i}}<em>{g_1(t)} -  \
 <li>Future proof for witness compression and zk-rollups</li>
 </ol>
 <p><strong>Disadvantage</strong>: Not as efficient for proving a single witness. But this is not very important to us.</p>
-<a href="#changes-in-tree-structure"><h3 id="changes-in-tree-structure"><span class="hanchor" ariaLabel="Anchor"># </span>Changes in Tree Structure</h3></a>
+<a href="#changes-in-tree-structure"><h2 id="changes-in-tree-structure"><span class="hanchor" ariaLabel="Anchor"># </span>Changes in Tree Structure</h2></a>
 <p>
 
 
@@ -658,12 +671,12 @@ $$g(t) = \underbrace{\sum_{i=0}^{m-1} r^i \frac{f_i(t)}{t-z_i}}<em>{g_1(t)} -  \
 <li>merge of account and storage tries</li>
 <li>gas changes</li>
 </ol>
-<a href="#eth-verkle-explainer"><h2 id="eth-verkle-explainer"><span class="hanchor" ariaLabel="Anchor"># </span>ETH Verkle Explainer</h2></a>
+<a href="#eth-verkle-explainer"><h1 id="eth-verkle-explainer"><span class="hanchor" ariaLabel="Anchor"># </span>ETH Verkle Explainer</h1></a>
 <p>
 
 
 <img src="https://lonerapier.xyz//thoughts/images/VerkleTree.jpg" width="auto" alt="verkle_tree"  /></p>
-<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<a href="#resources"><h1 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h1></a>
 <ul>
 <li>
 <a href="https://vitalik.ca/general/2021/06/18/verkle.html" rel="noopener">Vitalik&rsquo;s explainer on Verkle Trees</a></li>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs."
+  />
+  <title>
+    lonerapier.xyz
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.f8b2708081ba5ae718bbefd12c5f1476.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.6f22941e242efae60fd84e7c32e874fa.min.js"></script>
+  
+  
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+
+  
+  
+
+
+
+  <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script async src="https://lonerapier.xyz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+  
+  
+  
+  <script defer src="https://lonerapier.xyz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
+          );
+
+        }
+      
+
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      
+      <p class="meta">
+        Last updated 
+Jul 24, 2023
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/fourier-transform.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+      </ul>
+      
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#working-with-polynomials">Working with Polynomials</a></li>
+    <li><a href="#interpolation">Interpolation</a>
+      <ol>
+        <li><a href="#vandermode">Vandermode</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#lagrange">Lagrange</a></li>
+      </ol>
+    </li>
+    <li><a href="#dft-and-fft">DFT and FFT</a></li>
+    <li><a href="#barrentenberg">Barrentenberg</a>
+      <ol>
+        <li><a href="#polynomial">polynomial</a></li>
+        <li><a href="#common">common</a></li>
+      </ol>
+    </li>
+    <li><a href="#resources">Resources</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+  
+  
+  
+  
+
+
+
+
+
+
+<p>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs. And one of the key building blocks of Erasure Coding is <strong>Fast Fourier Transforms</strong>. Life is a full circle, right? I ran away from the course teaching Fourier Transforms as far as possible and here I am, trying to learn it again. But this time it&rsquo;s different as <em>curiosity</em> has appeared wildly.</p>
+<blockquote>
+<p><em>But you&rsquo;re a dirty little liar with a message of obsession to come</em></p>
+<p><em>You got your head in the clouds</em></p>
+<p><em>And your world&rsquo;s upside down</em></p>
+<p><em>Get away from the life you&rsquo;re living</em></p>
+</blockquote>
+<p>Song time baby!! This time it&rsquo;s 
+<a href="https://open.spotify.com/track/1PlTjGYNKGsU7Rqi5dZZCk?si=3f7cb22c42c64ee0" rel="noopener">Dirty Little Thing</a> by Velvet Revolver. Oooooh, it&rsquo;s a wild song. I couldn&rsquo;t get the tune out of my head when I first listened to it.</p>
+<p>DFT: Coefficient representation -&gt; point-value
+Inverse DFT: Point-value -&gt; coefficient</p>
+<a href="#working-with-polynomials"><h2 id="working-with-polynomials"><span class="hanchor" ariaLabel="Anchor"># </span>Working with Polynomials</h2></a>
+<p>An $n$-degree polynomial is represented in coefficient form:</p>
+<p>$$
+P(x) = \sum_{j=0}^{n-1}a_{j}x^{j}
+$$</p>
+<p>Algorithms and Time Complexity:</p>
+<ol>
+<li>Addition/Subtraction: $O(n)$ in coefficient and point-value</li>
+<li>Multiplication: $O(n^2)$ in coefficient and $O(n)$ in point-value and converting between the two can be done in $O(n\log n)$</li>
+</ol>
+<a href="#interpolation"><h2 id="interpolation"><span class="hanchor" ariaLabel="Anchor"># </span>Interpolation</h2></a>
+<a href="#vandermode"><h3 id="vandermode"><span class="hanchor" ariaLabel="Anchor"># </span>Vandermode</h3></a>
+<p>Vandermode matrix: $O(n^3)$</p>
+<h1 id="endpmatrix">$$
+\begin{pmatrix}
+1 &amp;x_0 &amp;x_0^2 &amp;\ldots &amp;x_{0}^{n-1} \\ 1 &amp;x_1 &amp;x_1^2 &amp;\ldots &amp;x_1^{n-1} \\ \vdots &amp;\vdots &amp;\vdots &amp;\ldots &amp;\vdots \\ 1 &amp;x_{n-1} &amp;x_{n-1}^2 &amp;\ldots &amp;x_{n-1}^{n-1} \\ \end{pmatrix}
+\begin{pmatrix}
+a_0 \\ a_1 \\ \vdots \\ a_{n-1}
+\end{pmatrix}</h1>
+<p>\begin{pmatrix}
+y_0 \\ y_1 \\ \vdots \\ y_{n-1}
+\end{pmatrix}
+$$</p>
+<a href="#lagrange"><h3 id="lagrange"><span class="hanchor" ariaLabel="Anchor"># </span>Lagrange</h3></a>
+<p>$$
+P(x) = \sum_{k=0}^{n-1}y_k\frac{\prod_{j\neq k}(x-x_{j})}{\prod_{j \neq k}x_{k}-x_{j}}
+$$</p>
+<a href="#dft-and-fft"><h2 id="dft-and-fft"><span class="hanchor" ariaLabel="Anchor"># </span>DFT and FFT</h2></a>
+<p>Domain should be power of 2, and complex roots of unity, $\omega_n^i$.</p>
+<p>Lemma&rsquo;s that help in understanding FFT:</p>
+<ol>
+<li>Cancellation Lemma: $\omega_{dn}^{dk}=\omega_n^k$</li>
+<li>Halving Lemma: squares of nth complex root of unity are n/2 complex n/2th root of unity. $(\omega_n^{k+n/2})^{2}=(\omega_n^{k})^2$</li>
+<li>Summation Lemma: $\sum_{j=0}^{n-1}(\omega_{n}^{k})^j=0$</li>
+</ol>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/fft.png" width="auto" alt="fft"  /></p>
+<a href="#barrentenberg"><h2 id="barrentenberg"><span class="hanchor" ariaLabel="Anchor"># </span>Barrentenberg</h2></a>
+<a href="#polynomial"><h3 id="polynomial"><span class="hanchor" ariaLabel="Anchor"># </span>polynomial</h3></a>
+<a href="#polynomial_arithmetic"><h4 id="polynomial_arithmetic"><span class="hanchor" ariaLabel="Anchor"># </span><code>polynomial_arithmetic</code></h4></a>
+<ul>
+<li><code>fft_inner_serial</code>:</li>
+<li><code>compute_multiplicative_subgroup</code>: compute <code>(g.X)^n</code></li>
+<li><code>compute_linear_polynomial_product</code></li>
+<li><code>compute_kate_coefficients</code></li>
+<li><code>fft_inner_parallel</code>:</li>
+<li><code>compute_interpolation</code></li>
+<li><code>compute_efficient_interpolation</code></li>
+<li></li>
+<li><code>compute_lagrange_polynomial_fft</code>:</li>
+</ul>
+<a href="#evaluation_domain"><h4 id="evaluation_domain"><span class="hanchor" ariaLabel="Anchor"># </span><code>evaluation_domain</code></h4></a>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    size_t size;        // n, always a power of 2
+</span></span><span class="line"><span class="cl">    size_t num_threads; // num_threads * thread_size = size
+</span></span><span class="line"><span class="cl">    size_t thread_size;
+</span></span><span class="line"><span class="cl">    size_t log2_size;
+</span></span><span class="line"><span class="cl">    size_t log2_thread_size;
+</span></span><span class="line"><span class="cl">    size_t log2_num_threads;
+</span></span><span class="line"><span class="cl">    size_t generator_size;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Fr root;           // omega; the nth root of unity
+</span></span><span class="line"><span class="cl">    Fr root_inverse;   // omega^{-1}
+</span></span><span class="line"><span class="cl">    Fr domain;         // n; same as size
+</span></span><span class="line"><span class="cl">    Fr domain_inverse; // n^{-1}
+</span></span><span class="line"><span class="cl">    Fr generator;
+</span></span><span class="line"><span class="cl">    Fr generator_inverse;
+</span></span><span class="line"><span class="cl">    Fr four_inverse;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  private:
+</span></span><span class="line"><span class="cl">    std::vector&lt;Fr*&gt; round_roots; // An entry for each of the log(n) rounds: each entry is a pointer to
+</span></span><span class="line"><span class="cl">                                  // the subset of the roots of unity required for that fft round.
+</span></span><span class="line"><span class="cl">                                  // E.g. round_roots[0] = [1, ω^(n/2 - 1)],
+</span></span><span class="line"><span class="cl">                                  //      round_roots[1] = [1, ω^(n/4 - 1), ω^(n/2 - 1), ω^(3n/4 - 1)]
+</span></span><span class="line"><span class="cl">                                  //      ...
+</span></span><span class="line"><span class="cl">    std::vector&lt;Fr*&gt; inverse_round_roots;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    std::shared_ptr&lt;Fr[]&gt; roots;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>invert_with_external_scratch</code>: acc: 1/a1..a5, scratch_i = prod(a_i-1)</li>
+</ul>
+<p>implementing runtime states, can&rsquo;t figure out right now, how to share vector between the threads.
+It&rsquo;s done using pointer arithmetic in cpp, but how to do this in rust? <code>Rc</code> maybe?
+But read that <code>Rc&lt;Vec&gt;</code> doesn&rsquo;t make any sense? Why? it doesn&rsquo;t sit right to reference count a vector.</p>
+<a href="#common"><h3 id="common"><span class="hanchor" ariaLabel="Anchor"># </span>common</h3></a>
+<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<ul>
+<li>CLRS, Introduction to Algorithms, Chapter 30</li>
+<li>
+<a href="https://vanhunteradams.com/FFT/FFT.html" rel="noopener">FFT</a></li>
+</ul>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  async
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2023</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

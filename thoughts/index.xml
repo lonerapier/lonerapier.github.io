@@ -6,7 +6,27 @@
     <description>Recent content in Thoughts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Jan 2023 12:40:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finite Fields</title>
+      <link>https://lonerapier.xyz/thoughts/finite-fields/</link>
+      <pubDate>Thu, 04 May 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/finite-fields/</guid>
+      <description>Fields Algebraic structure on which basic math can be performed.
+Properties  Abelian group under addition Non-zero numbers form abelian group under multiplication multiplicative distribution over addition  Finite Fields (Galois Fields) Fields defined on a number and the result is in the set.</description>
+    </item>
+    
+    <item>
+      <title>SNARKs</title>
+      <link>https://lonerapier.xyz/thoughts/snark/</link>
+      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/snark/</guid>
+      <description>Properties that any zero knowledge based proving system needs to entertain:
+ Completeness: Any honest prover can convince verifier of the statement and witness.</description>
+    </item>
+    
     <item>
       <title>TEE</title>
       <link>https://lonerapier.xyz/thoughts/tee/</link>
@@ -44,12 +64,12 @@
     </item>
     
     <item>
-      <title>KZG Commitments</title>
-      <link>https://lonerapier.xyz/thoughts/kzg-commitments/</link>
+      <title>Polynomial Commitments</title>
+      <link>https://lonerapier.xyz/thoughts/polynomial-commitments/</link>
       <pubDate>Tue, 11 Oct 2022 10:00:00 -0700</pubDate>
       
-      <guid>https://lonerapier.xyz/thoughts/kzg-commitments/</guid>
-      <description>This is a really informal post of my understanding of KZG commitments. I am in no way a professional in cryptography and is just learning this for fun.</description>
+      <guid>https://lonerapier.xyz/thoughts/polynomial-commitments/</guid>
+      <description>This is a really informal post of my understanding of polynomial commitments. I am in no way a professional in cryptography and is just learning this for fun.</description>
     </item>
     
     <item>
@@ -80,15 +100,6 @@ Let G be an open set in $\mathbb{C}$.</description>
       <guid>https://lonerapier.xyz/thoughts/divisors/</guid>
       <description>Definition of divisor of a rational function $z \in k(C)$:
  Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$</description>
-    </item>
-    
-    <item>
-      <title>Elliptic Curve Pairings</title>
-      <link>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</link>
-      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/elliptic-curve-pairings/</guid>
-      <description>[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
     </item>
     
     <item>
@@ -171,10 +182,10 @@ Blessed With our time in Hell.
     
     <item>
       <title></title>
-      <link>https://lonerapier.xyz/thoughts/fourier-transforms/</link>
+      <link>https://lonerapier.xyz/thoughts/fourier-transform/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://lonerapier.xyz/thoughts/fourier-transforms/</guid>
+      <guid>https://lonerapier.xyz/thoughts/fourier-transform/</guid>
       <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
     </item>
     

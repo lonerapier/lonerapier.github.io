@@ -6,11 +6,38 @@
     <description>Recent content in Tags on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Jan 2023 12:40:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>algebra</title>
+      <link>https://lonerapier.xyz/tags/algebra/</link>
+      <pubDate>Thu, 04 May 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/algebra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>math</title>
+      <link>https://lonerapier.xyz/tags/math/</link>
+      <pubDate>Thu, 04 May 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cryptography</title>
+      <link>https://lonerapier.xyz/tags/cryptography/</link>
+      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/cryptography/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>seed</title>
       <link>https://lonerapier.xyz/tags/seed/</link>
-      <pubDate>Sun, 15 Jan 2023 12:40:00 -0700</pubDate>
+      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://lonerapier.xyz/tags/seed/</guid>
       <description></description>
@@ -40,33 +67,6 @@
       <pubDate>Fri, 25 Nov 2022 10:00:00 +0000</pubDate>
       
       <guid>https://lonerapier.xyz/tags/distributed-systems/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cryptography</title>
-      <link>https://lonerapier.xyz/tags/cryptography/</link>
-      <pubDate>Mon, 14 Nov 2022 10:00:00 +0000</pubDate>
-      
-      <guid>https://lonerapier.xyz/tags/cryptography/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>math</title>
-      <link>https://lonerapier.xyz/tags/math/</link>
-      <pubDate>Mon, 14 Nov 2022 10:00:00 +0000</pubDate>
-      
-      <guid>https://lonerapier.xyz/tags/math/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>algebra</title>
-      <link>https://lonerapier.xyz/tags/algebra/</link>
-      <pubDate>Mon, 10 Oct 2022 10:00:00 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/tags/algebra/</guid>
       <description></description>
     </item>
     
@@ -107,20 +107,20 @@
     </item>
     
     <item>
+      <title>papers</title>
+      <link>https://lonerapier.xyz/tags/papers/</link>
+      <pubDate>Mon, 11 Apr 2022 22:15:20 -0900</pubDate>
+      
+      <guid>https://lonerapier.xyz/tags/papers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>notes</title>
       <link>https://lonerapier.xyz/tags/notes/</link>
       <pubDate>Thu, 10 Mar 2022 00:02:48 -0700</pubDate>
       
       <guid>https://lonerapier.xyz/tags/notes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>papers</title>
-      <link>https://lonerapier.xyz/tags/papers/</link>
-      <pubDate>Sat, 11 Apr 2020 22:15:20 -0900</pubDate>
-      
-      <guid>https://lonerapier.xyz/tags/papers/</guid>
       <description></description>
     </item>
     

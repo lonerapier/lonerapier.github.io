@@ -8,10 +8,10 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$."
+    content=""
   />
   <title>
-    Elliptic Curve Pairings
+    Thoughts
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -287,406 +287,56 @@ if (!doNotTrack) {
 
 
     <article>
-      <h1>Elliptic Curve Pairings</h1>
-      <p class="meta">
-        Last updated 
-Oct 3, 2022
-
- 
-          
-<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/elliptic-curve-pairings.md" rel="noopener">Edit Source</a>
-
-
-      </p>
-      <ul class="tags">
-          
-          <li><a href="https://lonerapier.xyz/tags/cryptography/">
-          
-            Cryptography
-          
-            </a>
-           </li>
-          
-          <li><a href="https://lonerapier.xyz/tags/math/">
-          
-            Math
-          
-            </a>
-           </li>
-          
-      </ul>
-      
-
-
-      
-
-
-
-
-
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-
-
-
-
-
-
-
-
-  
-  
-  
-
-  
-
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-      
-      
-      
-      
-      
-    
-    
-
-  
-
-  
-  
-  
-
-  
-
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-      
-      
-      
-      
-      
-    
-    
-
-  
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-      
-      
-    
-    
-  
-    
-    
-      
-      
-    
-    
-  
-    
-    
-      
-      
-    
-    
-  
-  
-  
-  
-
-
-
-
-
-
-<p><a href="/thoughts/elliptic-curves" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curves">Elliptic curves</a> are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</p>
-<p>Pairing helps to compute certain complicated equations on EC points. Traditional EC math lets anyone check linear constraints on the number (eg. $P = Gp, Q = Gq, R = Gr,$ checking $5P + 7Q = 11R$), but pairing lets you check <em>quadratic</em> constraints ($e(P,Q) * e(G,G5) = 1$ <em>is checking</em> $p*q + 5 = 0$**).</p>
-<blockquote>
-<p>This makes DDH (Decision Diffie-Hellman) problem very easy to compute using pairings. Also DLog reduction becomes computably feasible if not done on extension fields of Finite Field as we want the target group to be sufficiently bigger so that it&rsquo;s not possible to do DLog reduction.</p>
-</blockquote>
-<p>$e(P,Q)$ is a function defined on EC points. This is the <em>pairing.</em> Also known as bilinear map. It is called as bilinear because it satisfies following constraints:</p>
-<ul>
-<li>$e(P, Q+R) = e(P, Q) + e(P, R)$</li>
-<li>$e(P+S, Q) = e(P, Q) + e(S, Q)$</li>
-</ul>
-<p>The pairing is linear in both constraints. So, EC Pairing is a function that takes a pair of points on an elliptic curve and returns an element of some other group, called the <em>target group</em>.</p>
-<p>Example: $e(x,y) = 2^{xy}$, where $x = 3, y = 9$ -&gt; $P = 3, Q = 4, R = 5$</p>
-<p>Pairing needs to have another property, i.e. <strong>Non-Degeneracy</strong>. For generators $g1$, $g2$: $e(G_1, G_2) \neq 1$</p>
-<blockquote>
-<p>Note: $+$ and $\cdot$ can be any arbitrary operators. It doesn&rsquo;t matter what symbols are used in abstract mathematics as long as they obey the properties of associativity, commutativity and reflexivity.</p>
-<ul>
-<li>$a + b = b + a$</li>
-<li>$(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
-<li>$(a \cdot c) + (b \cdot c) = (a + b) \cdot c$</li>
-</ul>
-</blockquote>
-<p>However, such simple pairings are not suitable for cryptography as its trivial to divide, compute logarithms and other computations. Simple integers can’t be used in a field having terms like public-private keys or one-way functions because anyone can go back to $y$ knowing $x$ and $e(x,y)$. Thus, we require numbers that can essentially function as “black boxes” or it&rsquo;s only possible to do simple arithmetic like addition, subtraction, multiplication and division on them and nothing else. That&rsquo;s where ECs and EC-points come in.</p>
-<p>Pairing - $e: \mathbb{G_1} \times \mathbb{G_2} \rightarrow \mathbb{G_T}$</p>
-<p>The reason why Bilinear map works?</p>
-<p>First, we look into the concept of <a href="/thoughts/divisors" rel="noopener" class="internal-link" data-src="/thoughts/divisors">divisors</a>.</p>
-<a href="#tate-pairings"><h2 id="tate-pairings"><span class="hanchor" ariaLabel="Anchor"># </span>Tate Pairings</h2></a>
-<a href="#millers-algorithm"><h2 id="millers-algorithm"><span class="hanchor" ariaLabel="Anchor"># </span>Miller&rsquo;s Algorithm</h2></a>
-<a href="#mov-attack"><h2 id="mov-attack"><span class="hanchor" ariaLabel="Anchor"># </span>MOV Attack</h2></a>
-<p>MOV attack refers to the transfer of DLP over EC to finite field $\mathbb{F_{p^k}}$ where it&rsquo;s much easier to solve. This is related to the 
-<a href="https://math.stackexchange.com/questions/824123/what-is-an-embedding-degree-of-elliptic-curve" rel="noopener">embedded degree</a> of the EC.</p>
-<blockquote>
-<p><em>Embedded Degree</em> of an EC refers to the minimum value of k for which $p^k \equiv 1 \pmod{n}$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn&rsquo;t be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.</p>
-</blockquote>
-<a href="#complexities-assumptions-on-bilinear-groups"><h2 id="complexities-assumptions-on-bilinear-groups"><span class="hanchor" ariaLabel="Anchor"># </span>Complexities assumptions on Bilinear groups</h2></a>
-<ul>
-<li>Discrete Log problem is still difficult if target group is sufficiently large.</li>
-<li>CDH (Computation Diffie-Hellman) is still hard as we can&rsquo;t find $g^{xy}$ if we know $g$, $g^x$, $g^y$.</li>
-<li>Bilinear Diffie-Hellman Problem: Given P, aP, bP, cP \in G_1, compute e(P, P)^{abc}
-
-
-
-<img src="https://lonerapier.xyz//thoughts/images/example-tripartite-key-exchange.jpeg" width="auto" alt="tripartite-key-exchange"  /></li>
-</ul>
-<a href="#prerequisites"><h2 id="prerequisites"><span class="hanchor" ariaLabel="Anchor"># </span>Prerequisites</h2></a>
-<ol>
-<li>Fermat&rsquo;s Little Theorem: for a prime p, and any positive integer a, $a^p \equiv a \space mod \space p$</li>
-<li>Additive Group:set of numbers with operation defined on addition</li>
-<li>Multiplicative group: set of numbers with operation defined on multiplication</li>
-<li>Order of Multiplicative group</li>
-</ol>
-<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
-<ul>
-<li>
-<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Vitalik: Exploring Elliptic Curve Pairings</a></li>
-<li>
-<a href="https://blog.statebox.org/elliptic-curve-pairings-213131769fac" rel="noopener">Statebox’s Elliptic Curve Pairings</a></li>
-<li>
-<a href="https://crypto.stanford.edu/pbc/thesis.pdf" rel="noopener">https://crypto.stanford.edu/pbc/thesis.pdf</a></li>
-<li>
-<a href="https://people.csail.mit.edu/alinush/6.857-spring-2015/papers/bilinear-maps.pdf" rel="noopener">https://people.csail.mit.edu/alinush/6.857-spring-2015/papers/bilinear-maps.pdf</a></li>
-<li>
-<a href="https://klwu.co/knowledge/ec-basics-3-divisors/" rel="noopener">Fundamental Concepts Underlying Elliptic Curves (Level 2): Divisors and Pairings</a></li>
-<li>
-<a href="https://crypto.stackexchange.com/questions/56400/why-pairings-on-elliptic-curve-are-used" rel="noopener">Why pairings are used?</a></li>
-<li>
-<a href="https://www.youtube.com/watch?v=F4x2kQTKYFY" rel="noopener">Basics of Pairings - Dan Boneh</a></li>
-<li>
-<a href="https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf" rel="noopener">Pairings for beginners</a></li>
-</ul>
-
-
+        <h1>All Thoughts</h1>
+        
+        <ul class="section-ul"><li class="section-li">
+        <div class="section">
+            <p class="meta">
+                
+Jul 24, 2023
+
+
+            </p>
+            <div class="desc">
+              <h3><a href="https://lonerapier.xyz/thoughts/verkle/" class="internal-link" data-src="/thoughts/verkle/">Verkle Trees</a></h3>
+            </div>
+            <div class="spacer"></div>
+            <ul class="tags">
+                
+                <li><a href="https://lonerapier.xyz/tags/data-structures/">Data-Structures</a></li>
+                
+                <li><a href="https://lonerapier.xyz/tags/cryptography/">Cryptography</a></li>
+                
+            </ul>
+        </div>
+    </li></ul>
+
+        
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/thoughts/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/thoughts/page/2/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/thoughts/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/thoughts/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="Next" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item disabled">
+        <a aria-disabled="true" aria-label="Last" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </article>
     
-
-<hr/>
-
-
-<div class="page-end" id="footer">
-    <div class="backlinks-container">
-        <h3>Backlinks</h3>
-<ul class="backlinks">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
-      
-      
-    
-      
-      
-      <li>
-        <a href="/thoughts/kzg-commitments/" data-ctx="pairings" data-src="/thoughts/kzg-commitments" class="internal-link">KZG Commitments</a>
-      </li>
-      
-      
-      
-</ul>
-
-    </div>
-    <div>
-        <script
-  async
-  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
-  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
-  crossorigin="anonymous"
-></script>
-<h3>Interactive Graph</h3>
-<div id="graph-container"></div>
-<style>
-  :root {
-    --g-node: var(--secondary);
-    --g-node-active: var(--primary);
-    --g-node-inactive: var(--visited);
-    --g-link: var(--outlinegray);
-    --g-link-active: #5a7282;
-  }
-</style>
-
-<script src="https://lonerapier.xyz/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js"></script>
-
-    </div>
-</div>
-
-
-
 
 
 
@@ -701,7 +351,6 @@ Oct 3, 2022
             <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
     </footer>
 </div>
-
 
 </div>
 </body>

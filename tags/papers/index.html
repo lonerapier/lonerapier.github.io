@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -293,7 +293,7 @@ if (!doNotTrack) {
         <div class="section">
             <p class="meta">
                 
-Apr 11, 2020
+Apr 11, 2022
 
 
             </p>

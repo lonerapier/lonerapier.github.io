@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Properties that any zero knowledge based proving system needs to entertain:
+ Completeness: Any honest prover can convince verifier of the statement and witness."
+  />
+  <title>
+    SNARKs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:url" content="https://lonerapier.xyz" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@lonerapier">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
+
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.f8b2708081ba5ae718bbefd12c5f1476.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.6f22941e242efae60fd84e7c32e874fa.min.js"></script>
+  
+  
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+
+  
+  
+
+
+
+  <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
+  <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  
+  <script async src="https://lonerapier.xyz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+
+  
+  
+  
+  <script defer src="https://lonerapier.xyz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
+          );
+
+        }
+      
+
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
+      
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>SNARKs</h1>
+      <p class="meta">
+        Last updated 
+May 2, 2023
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/snark.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/cryptography/">
+          
+            Cryptography
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/math/">
+          
+            Math
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/seed/">
+          
+            Seed
+          
+            </a>
+           </li>
+          
+      </ul>
+      
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#soundness">Soundness</a></li>
+    <li><a href="#zero-knowledge">Zero Knowledge</a></li>
+    <li><a href="#proofs">Proofs</a></li>
+    <li><a href="#iop">IOP</a>
+      <ol>
+        <li><a href="#plonk-poly-iop-for-general-circuit">PLONK: poly-IOP for General Circuit</a></li>
+        <li><a href="#proof-gadgets-for-iop">Proof Gadgets for IOP</a></li>
+      </ol>
+    </li>
+    <li><a href="#recap">Recap</a></li>
+    <li><a href="#improvements">Improvements</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+    
+    
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+  
+  
+  
+
+
+
+
+
+  
+  
+
+
+<p>Properties that any zero knowledge based proving system needs to entertain:</p>
+<ol>
+<li>Completeness: Any honest prover can convince verifier of the statement and witness.</li>
+<li>Soundness: Any malicious prover can never convince a verifier of the statement that it&rsquo;s trying to prove. In other words, if a prover doesn&rsquo;t know witness, it can never convince the verifier.</li>
+</ol>
+<p>Any proving system defines an n-variate polynomial with an evaluation recipe. Two parties involved in the process are <strong>Prover</strong> and <strong>Verifier</strong>.</p>
+<blockquote class="note-callout">
+<p> 
+<a href="https://crypto.stackexchange.com/questions/34757/what-is-the-difference-between-proofs-and-arguments-of-knowledge" rel="noopener">What is the difference between proof and argument of knowledge</a>? SNARKS are succinct argument of knowledge: Mostly used interchangeably but in proofs the soundness holds against a computationally unbounded adversary while in argument of knowledge soundness only holds against polynomially unbounded adversary. Arguments are thus called <em>computationally sound proofs</em>.</p>
+</blockquote>
+<a href="#snark"><h1 id="snark"><span class="hanchor" ariaLabel="Anchor"># </span>SNARK</h1></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/easy-snark.png" width="auto" alt="snark"  /></p>
+<p>Argument system that generate <strong>succinct</strong> and <strong>fast</strong> proofs for public statement $x$ in $\mathbb{F}^n$ and secret witness $w$ in $\mathbb{F}^m$. The statement and witness need to be encoded in an arithmetic circuit $C$.</p>
+<p>Arithmetic circuits: $C(x,w) \rightarrow \mathbb{F}$</p>
+<p>Requirements:</p>
+<ol>
+<li>Completeness: $\forall x,w:C(x,w)=0 \rightarrow Pr[V(S_{v},x,P(S_{p},x,w))]=1$</li>
+<li>Knowledge Sound: P doesn&rsquo;t know $w \rightarrow Pr[V(S_v,x,\pi)]=$ negligible</li>
+</ol>
+<p>More formal definition:</p>
+<a href="#soundness"><h2 id="soundness"><span class="hanchor" ariaLabel="Anchor"># </span>Soundness</h2></a>
+<blockquote class="tldr-callout">
+<p> For dummies like me: for every polynomial time adversary, there exists an extractor that uses adversary to find out about $w$, even though adversary doesn&rsquo;t know about $w$, because if it would, then adversary can generate arbitrary proofs.</p>
+</blockquote>
+<p>(S,P,V) is <strong>knowledge sound</strong> for a circuit if for every <em><strong>poly. time adversary A</strong></em> = (A_0, A_1) such that:</p>
+<p>$$S(C)\rightarrow(S_{p},S_{v})$$
+$$(x,state)\leftarrow A_{0}(S_{p})$$
+$$w\leftarrow A_{1}(x,S_{p},state)$$</p>
+<p>there is an efficient <em><strong>extractor</strong></em> $E$, that uses $A_{1}$ s.t.</p>
+<p>$$S(C)\rightarrow (S_{p},S_{v})$$
+$$(x,state)\leftarrow A_{0}(S_{p})$$
+$$w\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)$$</p>
+<a href="#zero-knowledge"><h2 id="zero-knowledge"><span class="hanchor" ariaLabel="Anchor"># </span>Zero Knowledge</h2></a>
+<blockquote class="tldr-callout">
+<p> For any normal proof, there exists a simulator which can generate proofs without knowledge of $w$.</p>
+</blockquote>
+<p>(S,P,V) is zero knowledge for circuit C if there is an efficient <strong>Sim</strong> s.t. $\forall x\in\mathbb{F}^{n} \rightarrow \exists w:C(x,w)=0$, the distribution:</p>
+<p>$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$</p>
+<p>is indistinguishable from the distribution:</p>
+<p>$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$</p>
+<a href="#proofs"><h2 id="proofs"><span class="hanchor" ariaLabel="Anchor"># </span>Proofs</h2></a>
+<p>Two ways to prove statement:</p>
+<ul>
+<li>Interactive: prover and verifier goes back and forth to agree on some random values and parameters which verifier can then verify.</li>
+<li>Non-interactive: Pre-processing done to generate a proof $\pi$ that allows verifier to verify circuit.</li>
+</ul>
+<p>Preprocess argument system: prover preprocesses $C$ to generate public parameters $S_{p},S_{v}$.</p>
+<p>Consists of $(S,P,V)$:</p>
+<ul>
+<li>$S(C)$: generate $S_{p},S_{v}$</li>
+<li>$P(S_p,x,w)$: generate proof $\pi$</li>
+<li>$V(S_v,x,\pi)$: verify proof</li>
+</ul>
+<blockquote class="question-callout">
+<p> How does $S_{p},S_{v}$ gets generated? Is it done for every circuit or some other method? Wouldn&rsquo;t it be very bad UX if we have to run $S$ every time?: Each circuit needs some summary that can be used to verify the proof as no verifier will run the whole computation again, otherwise there&rsquo;s no benefits of these systems.</p>
+</blockquote>
+<p>There has to be some randomisation involved that prover can&rsquo;t forge by itself to generate these parameters.</p>
+<ul>
+<li>First method is to generate random $r$ for every circuit outside prover.</li>
+<li>Second is to generate a random value once $S_{init}(\lambda,r) \rightarrow pp$, create some public parameters based on that, use those parameters to generate $S_{index}(pp,C) \rightarrow S_{p},S_{v}$</li>
+<li>Totally transparent: no random secretness needed to generate circuit parameters.</li>
+</ul>
+<hr>
+<p>Pipeline followed by any ZKP system:</p>
+<p>DSL -&gt; circuit -&gt; prover -&gt; proving system -&gt; proof -&gt; verifer -&gt; yes/no</p>
+<p>Any circuit need to be proven to verifier, so we need to encode and evaluate our polynomial. Thus, most SNARK system consist of two components:</p>
+<ol>
+<li><a href="/thoughts/polynomial-commitments" rel="noopener" class="internal-link" data-src="/thoughts/polynomial-commitments">Functional commitment scheme</a> (FCS)</li>
+<li>Interactive oracle proofs (IOP)</li>
+</ol>
+<a href="#iop"><h2 id="iop"><span class="hanchor" ariaLabel="Anchor"># </span>IOP</h2></a>
+<p>Reference: 
+<a href="https://nmohnblatt.github.io/zk-jargon-decoder/definitions/polynomial_interactive_oracle_proof.html" rel="noopener">https://nmohnblatt.github.io/zk-jargon-decoder/definitions/polynomial_interactive_oracle_proof.html</a></p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/polynomial-iop.png" width="auto" alt="polynomial-iop"  /></p>
+<p>Method to convince verifer that the proof generated by prover is correct.</p>
+<p>$S(C): S_{p},S_{v}$ :- setup procedure of circuit</p>
+<p>$S_{v}=[f_{0}],[f_{-1}],[f_{-2}]\cdots[f_{-s}]$ :- S_v consists of commitments to s+1 polys.</p>
+<blockquote>
+<ul>
+<li>Why does S_v contains commitments to different polynomial?::maybe due to having different sets of polynomial for each part of circuit.</li>
+<li>What if prover commits to a zero polynomial? i.e. what if $f(x) = 0 \forall x\in\mathbb{F}<em>{p}$ :: then we can do zero test on polynomial. i.e. take a random point $r$ in $\mathbb{F}</em>{p}$ and test whether it&rsquo;s zero or not. and prob. of being zero is negligible with value $d/p$ where d is the degree of polynomial. example: $p=2^{256}, d=2^{40}$</li>
+<li>what if prover commits to same polynomial? :: do equality test, take $r \in \mathbb{F}_{p}$ if f(r)=g(r), then f=g with very high prob. <strong>Not straightaway understandable to me tho.</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li>Prover sends t commitments to verifier</li>
+<li>verifier sends t random values to prover</li>
+<li>verifier runs a verify algorithm taking all the commitments and the random values, and previously generated setup summary S_v, i.e. s+1 commitments to polynomials.
+<ul>
+<li>It can ask prover to open any of the commitment at any point.</li>
+<li>Verifier accepts/reject the proof.</li>
+</ul>
+</li>
+</ul>
+<p>(t,q) Poly-IOP:</p>
+<ul>
+<li>t: no. of commitments to polynomials</li>
+<li>q: no. of eval queries in verify</li>
+</ul>
+<ol>
+<li>Prover sends t commitments</li>
+<li>Verifier verifies at q evaluations by running PCS eval.</li>
+</ol>
+<blockquote class="info-callout">
+<p>
+Length of SNARK: $t$ commitments + $q$ eval proofs</p>
+<p>Verifier time: q$*$O(eval)+O(IOP-verify)</p>
+<p>Prover time: t$<em>$O(commit)+q$</em>$O(prove)+O(IOP-prove)</p>
+</blockquote>
+<a href="#plonk-poly-iop-for-general-circuit"><h3 id="plonk-poly-iop-for-general-circuit"><span class="hanchor" ariaLabel="Anchor"># </span>PLONK: poly-IOP for General Circuit</h3></a>
+<p>Plonk IOP can be used with different PCS to generate different proving systems. For example:</p>
+<ol>
+<li>Aztec&rsquo;s proving system: KZG+Plonk</li>
+<li>Halo2: Bulletproofs + Plonk, used by zcash</li>
+<li>Plonky2: FRI + Plonk, used by polygon zkevm</li>
+</ol>
+<a href="#step-1-compile-circuit-for-a-computation-trace"><h4 id="step-1-compile-circuit-for-a-computation-trace"><span class="hanchor" ariaLabel="Anchor"># </span>Step 1: Compile Circuit for a Computation Trace</h4></a>
+<p>Suppose you have a circuit with inputs $I: I_{x},I_{w}$, and gates C where $x$ is the statement inputs and $w$ is the witness input. Our goal is to prove to verifier that $C(w)=0$.</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//./images/example-circuit.png" width="auto" alt="circuit"  /></p>
+<p>We put inputs $x_1=5, x_2=6, w_1=1$, and compute the computation trace through the circuit. The <strong>computation trace</strong> comes out to be:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">inputs:</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Gate 0:</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:center">Gate 1:</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center">Gate 2:</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center"><mark>77</mark> &lt;- Output</td>
+</tr>
+</tbody>
+</table>
+<a href="#step-2-encode-trace-in-polynomial-p"><h4 id="step-2-encode-trace-in-polynomial-p"><span class="hanchor" ariaLabel="Anchor"># </span>Step 2: Encode Trace in Polynomial $P$</h4></a>
+<ul>
+<li>Calculate $d$ of $P$ = $3|C|+|I|$ where |C|: no. of gates and |I|: no. of inputs</li>
+<li>Aim: encode in a polynomial of form: $F_{p}^{(&lt;=d)}(X)$</li>
+<li>Encode inputs: $P(w^{-i}) = I_{i} \forall i \in I$</li>
+<li>Encode gate $l\in C$ wirings:
+<ul>
+<li>$P(w^{3l})=$ left input to gate l</li>
+<li>$P(w^{3l+1})=$ right input to gate l</li>
+<li>$P(w^{3l+2})=$ output of gate l</li>
+</ul>
+</li>
+<li>Prover has $d$ evaluations of $P$, can use FFT to interpolate coefficients in $O(log_{2}d)$</li>
+</ul>
+<a href="#step-3-prove-validity-of-p"><h4 id="step-3-prove-validity-of-p"><span class="hanchor" ariaLabel="Anchor"># </span>Step 3: Prove Validity of P</h4></a>
+<p>What does prover needs to prove to verifier in order to convince it?</p>
+<ul>
+<li>correct output: to prove that output of computation was according to the statements and witness committed.</li>
+<li>correct inputs: proves</li>
+<li>correct intermediate gate evaluations:</li>
+<li>wiring between gates is according to the statement specified by prover</li>
+</ul>
+<a href="#proof-gadgets-for-iop"><h3 id="proof-gadgets-for-iop"><span class="hanchor" ariaLabel="Anchor"># </span>Proof Gadgets for IOP</h3></a>
+<ul>
+<li><strong>equality test</strong> -&gt; to test if polynomial $f$ and $g$ are equal and note that verifer only has the commitment, verifier queries the polynomial at point $r$ or opens the commitment and test if values providied by prover are equal. But this generates soundness error.</li>
+<li>soundness error -&gt; two polynomials in $\mathbb{F}_{p}$ can be zero at atmost d roots, if f(r)-g(r)=0 =&gt; f-g=0 =&gt; f=g v.h.p
+<ul>
+<li>this assumption has error d/p such that if suppose g is not same as f, then g can have at most d different roots. thus, error -&gt; d/p</li>
+<li>this is derived from 
+<a href="https://courses.cs.washington.edu/courses/cse521/17wi/521-lecture-7.pdf" rel="noopener">Schwartz-Zippel Lemma</a>
+
+
+
+<img src="https://lonerapier.xyz//thoughts/images/kzg-proof-system.png" width="auto" alt="kzg-proof-system"  /></li>
+</ul>
+</li>
+</ul>
+<p>let $\Upomega$ be some subset of $\mathbb{F}<em>{p}$ of size $k$. Let $f \in \mathbb{F}</em>{p}^{&lt;=d}[X]$ be the polynomial that prover wants to prove. Verifer has commitment to this polynomial $Com(f)$.</p>
+<p>We can construct efficient poly-IOPs for the following tasks:</p>
+<ol>
+<li>Zero Test: Prove that $f$ is identically zero on $\Upomega$</li>
+<li>Sumcheck: Prove that $\sum_{a \in \Upomega}f(a)=0$</li>
+<li>Product check: Prove that $\prod_{a \in \Upomega}f(a)=1$</li>
+<li>Permutation check: Prove that $f(a)=g(W(a))$ where $W$ is a permutation polynomial.</li>
+</ol>
+<blockquote class="question-callout">
+<p></p>
+<ul>
+<li>Why do we do these checks only? What is the significance of these checks? What other checks can be done? Can we remove some checks or combine some checks?</li>
+<li>How does the permutation polynomial is calculated?</li>
+<li>Find the reasons behind these checks? Could you have come up with these yourselves?</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Vanishing Polynomial of $\Upomega$ is $Z_{\Upomega}(X) := \prod_{a\in\Upomega}(X-a)$. $Deg(Z_{\Upomega})=k$
+If $\Upomega$ becomes the multiplicative subgroup formed using primitive kth root of unity, then VP becomes $X^{k}-1$. Thus, VP can be calculated in logarithmic time.</p>
+</blockquote>
+<a href="#zero-check"><h4 id="zero-check"><span class="hanchor" ariaLabel="Anchor"># </span>Zero Check</h4></a>
+<p>Let $\Upomega = 1, \omega, \cdots, \omega^{k-1}$. Calculate $q(X) = f(X)/X^k-1$.</p>
+<p>Send $Com_{q}$ to verifier, and verifier opens commitment at point $r$, and check $f(r)=q(r)(r^k-1)$. This proves that f(x) is divisible by X^k-1, hence, f has roots in $\Upomega$.</p>
+<a href="#sum-check"><h4 id="sum-check"><span class="hanchor" ariaLabel="Anchor"># </span>Sum Check</h4></a>
+<a href="#product-check-on-upomega"><h4 id="product-check-on-upomega"><span class="hanchor" ariaLabel="Anchor"># </span>Product Check on $\Upomega$</h4></a>
+<p>We want to prove $\prod_{a\in\Upomega}f(a)=1$. Naively, we can send all evaluations of $f$ in $\Upomega$ but that will be quadratic in degree d. Instead, we can create a polynomial $t\in\mathbb{F}_{p}^{&lt;=k}(X)$ that evaluates to 1 at $\omega^k-1$.</p>
+<p>Let&rsquo;s try a toy example in sage taken from 
+<a href="https://crypto.stackexchange.com/questions/105983/prod-check-gadget-in-plonk-any-polynomial-which-satisfies-the-prod-check-seems" rel="noopener">here</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sage" data-lang="sage"><span class="line"><span class="cl"><span class="o">//</span> <span class="n">verifying</span> <span class="n">that</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">=</span><span class="n">c</span> <span class="ow">in</span> <span class="n">GF</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">F17</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">R17</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F17</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">w</span> <span class="o">=</span> <span class="n">F17</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c0</span> <span class="o">=</span> <span class="n">F17</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span> <span class="o">=</span> <span class="n">F17</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span> <span class="o">=</span> <span class="n">F17</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c3</span> <span class="o">=</span> <span class="n">F17</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="n">c0</span><span class="o">*</span><span class="n">c1</span><span class="o">*</span><span class="n">c2</span><span class="o">*</span><span class="n">c3</span>
+</span></span><span class="line"><span class="cl"><span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="n">w</span><span class="o">^</span><span class="mi">0</span><span class="p">,</span> <span class="n">c0</span><span class="p">),</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">c1</span><span class="p">),</span> <span class="p">(</span><span class="n">w</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="n">c2</span><span class="p">),</span> <span class="p">(</span><span class="n">w</span><span class="o">^</span><span class="mi">3</span><span class="p">,</span> <span class="n">c3</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">R17</span><span class="o">.</span><span class="n">lagrange_polynomial</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, we can define polynomial $t$ s.t. $t(1)=1, \enspace t(\omega^{s})=\prod_{i=0}^{s}f(\omega^{i})$ for s=1,…,k-1. Now in order to prove product check, we&rsquo;ll prove:</p>
+<ol>
+<li>$t(\omega^{k-1})=1$</li>
+<li>$t(\omega.x)=t(x).f(\omega.x)$ for all $x\in\Upomega$. This will be used to a zero test on t(X) so that verifier can get convinced that prover actually computed $t(x)$. This is proven using: $t(\omega r)-t(\omega)f(\omega r)=q(r)(r^k-1)$.</li>
+</ol>
+<blockquote class="note-callout">
+<p>
+The same product check holds for rational function as well, i.e. $f/g$. Prove this using: $t(\omega x)g(\omega x)=t(x)f(\omega x)$</p>
+</blockquote>
+<a href="#permutation-check"><h4 id="permutation-check"><span class="hanchor" ariaLabel="Anchor"># </span>Permutation Check</h4></a>
+<p>It is used to check that two polynomials $f, g$ are permutation of each other. Mainly, prover wants to prove that: $(f(1),f(\omega),\cdots,f(\omega^{k-1}))\in\mathbb{F}<em>{p}^{k}$ is a permutation of $(g(1),g(\omega),\cdots,g(\omega^{k-1}))\in\mathbb{F}</em>{p}^{k}$.</p>
+<p>Can be done by creating two polynomials $\hat{F}=\prod_{a\in\Upomega}(X-f(a))$ and $\hat{G}=\prod_{a\in\Upomega}(X-g(a))$ and doing product check on these two polynomials. How will the product check work? It&rsquo;s simply testing that $\frac{\hat{f}(r)}{\hat{g}(r)} = \prod_{a\in\Upomega}\left(\frac{r-f(a)}{r-g(a)}\right)=1$.</p>
+<blockquote class="question-callout">
+<p>
+Why can&rsquo;t we do zero test to check that these polynomials are equal? ::</p>
+</blockquote>
+<a href="#prescribed-permutation-check"><h4 id="prescribed-permutation-check"><span class="hanchor" ariaLabel="Anchor"># </span>Prescribed Permutation Check</h4></a>
+<p>Instead of just proving the permutataion, prover wants to prove that $f(x)=g(W(x))$, where $W:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.</p>
+<blockquote class="question-callout">
+<p>
+Why can&rsquo;t you use zero check here to check the two polynomials are equal? :: because g(W(y)) where y in $\Upomega$ will become O(d^2) in prover time. We don&rsquo;t want quadratic time prover.</p>
+</blockquote>
+<p>Observation: If $(W(a),f(a))_{a\in\Upomega}$ is a permutation of $(a, g(a))$ then $f(y)=g(W(y))$. We prove this by defining bivariate polynomial:</p>
+<blockquote class="question-callout">
+<p>
+didn&rsquo;t understand why this $(W(a),f(a))$ and $a, g(a)$, if the thing that we&rsquo;re trying to prove is f=g(W).</p>
+</blockquote>
+<p>$$
+\begin{aligned}
+\hat{f}(X,Y)=\prod_{a\in\Upomega}(X-Y.W(a)-f(a)) \\ \hat{g}(X,Y)=\prod_{a\in\Upomega}(X-Y.a-g(a))
+\end{aligned}
+$$</p>
+<p>We do product check on these two polynomials such that $\prod_{a\in\Upomega}\left(\frac{r-s.W(a)-f(a)}{r-s.a-g(a)}\right)=1$, where $r,s$ is the input queried by verifier.</p>
+<a href="#proving-validity-of-tx"><h4 id="proving-validity-of-tx"><span class="hanchor" ariaLabel="Anchor"># </span>Proving Validity of T(x).</h4></a>
+<p>T(x) is the polynomial that encodes the computation trace of the circuit.</p>
+<a href="#prove-inputs-were-correct"><h4 id="prove-inputs-were-correct"><span class="hanchor" ariaLabel="Anchor"># </span>Prove Inputs Were Correct.</h4></a>
+<p>Create polynomial v(y) on $\Upomega_{inp}:={\omega^{-1},\omega^{-2},\cdots,\omega^{-|Ix|}}\subseteq\Upomega$ and do zero test on:</p>
+<p>$$
+T(y)-v(y)=0 \qquad \forall y \in \Upomega_{inp}
+$$</p>
+<a href="#prove-gate-evaluations-are-correct"><h4 id="prove-gate-evaluations-are-correct"><span class="hanchor" ariaLabel="Anchor"># </span>Prove Gate Evaluations Are Correct</h4></a>
+<p>Define a selector polynomial S(X) which is:</p>
+<ol>
+<li>$S(\omega^{3l})=1$ if gate #l is an addition gate.</li>
+<li>$S(\omega^{3l})=0$ if gate #l is a multiplication gate.</li>
+</ol>
+<p>Then, you define the polynomial:</p>
+<p>$$S(y)[T(y)+T(wy)]+(1-S(y))[T(y).T(wy)]=T(w^2y)$$</p>
+<p>then it&rsquo;s just the zero check.</p>
+<a href="#combining-gate-constraints-into-one-equation"><h4 id="combining-gate-constraints-into-one-equation"><span class="hanchor" ariaLabel="Anchor"># </span>Combining gate constraints into one equation</h4></a>
+<p>You can very easily combine gate constraints into one equation:</p>
+<p>$$
+\begin{equation}
+Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)=0
+\end{equation}
+$$</p>
+<p>where,</p>
+<ol>
+<li>$Q_{L},Q_{R}$: selector polynomial created for evaluation for left, right of a gate respectively.</li>
+<li>$Q_{O}$: selector polynomial for addition gate.</li>
+<li>$Q_{M}$: selector polynomial for multiplication gate.</li>
+<li>$Q_{C}$: polynomial for constant in a gate, ex: public inputs of the circuit.</li>
+<li>$a(x),b(x),c(x)$: polynomial for left, input and output values of the gates.</li>
+</ol>
+<a href="#prove-gate-wirings-are-correct"><h4 id="prove-gate-wirings-are-correct"><span class="hanchor" ariaLabel="Anchor"># </span>Prove Gate Wirings Are Correct.</h4></a>
+<p>encode the wires as permutation polynomial and prove through permutation check that permutation is correct.</p>
+<p>$$T(y)=T(W(y)) \qquad \forall y \in \Upomega$$</p>
+<p>But we have three different n-degree poly, namely $a(X),b(X),c(X)$, this</p>
+<a href="#recap"><h2 id="recap"><span class="hanchor" ariaLabel="Anchor"># </span>Recap</h2></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/plonk-iop.png" width="auto" alt="plonk-iop"  /></p>
+<a href="#improvements"><h2 id="improvements"><span class="hanchor" ariaLabel="Anchor"># </span>Improvements</h2></a>
+<ul>
+<li>Turboplonk: Custom gates</li>
+<li>ultraplonk: turboplonk+ Plookup</li>
+<li>hyperplonk</li>
+<li>goblinplonk</li>
+</ul>
+<a href="#references"><h2 id="references"><span class="hanchor" ariaLabel="Anchor"># </span>References</h2></a>
+<ul>
+<li>
+<a href="https://youtu.be/h-94UhJLeck" rel="noopener">ZK Whiteboard sessions</a></li>
+<li>
+<a href="https://medium.com/@imolfar/why-and-how-zk-snark-works-2-proving-knowledge-of-a-polynomial-f817760e2805" rel="noopener">Why and How ZK-SNARKS work?</a></li>
+<li>
+<a href="https://eprint.iacr.org/2019/953.pdf" rel="noopener">PLONK whitepaper</a></li>
+<li>
+<a href="https://github.com/fluidex/awesome-plonk" rel="noopener">Awesome PLONK</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=vxyoPM2m7Yg" rel="noopener">ZKP MOOC L5</a></li>
+<li>
+<a href="https://vitalik.ca/general/2019/09/22/plonk.html" rel="noopener">Vitalik&rsquo;s Understanding PLONK</a></li>
+<li>
+<a href="https://www.cryptologie.net/article/527/understanding-plonk/" rel="noopener">David Wong&rsquo;s Understand PLONK</a></li>
+<li>
+<a href="https://research.metastate.dev/plonk-by-hand-part-1/" rel="noopener">Plonk by hand</a></li>
+<li>
+<a href="https://hackmd.io/@aztec-network/ByiUK_Plt" rel="noopener">Notes on Plonk Prover’s and Verifier’s Algorithm</a></li>
+<li>
+<a href="https://github.com/fabrizio-m/TyPLONK" rel="noopener">Plonk toy implementation</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=NqrVcDuQ8hM&amp;t=1669s" rel="noopener">Plonk with Zac</a>: Might have the questions that I&rsquo;m looking for, i.e. the reasons behind decision in the protocol.</li>
+<li>
+<a href="https://hackmd.io/@aztec-network/ByiUK_Plt" rel="noopener">FAQs about PLONK prover and verifier algorithm</a></li>
+<li>
+<a href="https://hackmd.io/@jpw/BJAf6spB9" rel="noopener">ZK Proving systems by Jonathan Wang</a></li>
+</ul>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  async
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2023</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

@@ -128,13 +128,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -318,6 +318,21 @@ Oct 3, 2022
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#example">Example</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
 
       
 
@@ -454,21 +469,21 @@ Oct 3, 2022
 
 <img src="https://lonerapier.xyz//thoughts/images/divisors.png" width="auto" alt="divisor definition"  /></p>
 <p>Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$</p>
-<a href="#divisor-of-a-meromorphic-function"><h2 id="divisor-of-a-meromorphic-function"><span class="hanchor" ariaLabel="Anchor"># </span>Divisor of a Meromorphic function</h2></a>
+<a href="#divisor-of-a-meromorphic-function"><h1 id="divisor-of-a-meromorphic-function"><span class="hanchor" ariaLabel="Anchor"># </span>Divisor of a Meromorphic Function</h1></a>
 <p>For a <a href="/thoughts/meromorphic-functions" rel="noopener" class="internal-link" data-src="/thoughts/meromorphic-functions">meromorphic function</a> $f(z)$, we can define the <strong>divisor</strong> of $f$ as,</p>
 <p>$$div \space f = \sum_{P \in \mathbb{C^*}} (ord_{P} f)(P)$$</p>
 <p>It is also known that for any non-zero meromorphic function $f \in K(\mathbb{C^*})$, then $deg \space div \space f = 0$.</p>
-<a href="#example"><h3 id="example"><span class="hanchor" ariaLabel="Anchor"># </span>Example</h3></a>
+<a href="#example"><h2 id="example"><span class="hanchor" ariaLabel="Anchor"># </span>Example</h2></a>
 <p>Let the polynomial be $f(z) = z^2 + 1$. We have a zero at $i$ and $-i$. But since the domain is $\mathbb{C^*}$, we need to consider point at infinity. In this case, we have a pole at infinity with degree 2 as $f(1/z) = 0$ at $z = 0$.</p>
 <p>So, the divisor of f is,</p>
 <p>$$div \space f = (i) + (-i) - 2(\infty)$$</p>
-<a href="#divisors-of-elliptic-curves"><h2 id="divisors-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Divisors of Elliptic Curves</h2></a>
+<a href="#divisors-of-elliptic-curves"><h1 id="divisors-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Divisors of Elliptic Curves</h1></a>
 <p>In the case of Riemann sphere, meromorphic functions are considered. In the case of Elliptic curves, rational functions are considered.</p>
-<a href="#prerequisites"><h3 id="prerequisites"><span class="hanchor" ariaLabel="Anchor"># </span>Prerequisites</h3></a>
+<a href="#prerequisites"><h2 id="prerequisites"><span class="hanchor" ariaLabel="Anchor"># </span>Prerequisites</h2></a>
 <ol>
 <li>Riemann Sphere: Denoted as $\mathbb{C^*}$ and contains $C \bigcup \lbrace \infty \rbrace$</li>
 </ol>
-<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<a href="#resources"><h1 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h1></a>
 <ul>
 <li>
 <a href="https://math.stackexchange.com/questions/1290619/example-of-a-divisor-of-a-function" rel="noopener">Examples of divisor of a function</a></li>

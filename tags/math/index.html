@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -293,6 +293,48 @@ if (!doNotTrack) {
         <div class="section">
             <p class="meta">
                 
+May 4, 2023
+
+
+            </p>
+            <div class="desc">
+              <h3><a href="https://lonerapier.xyz/thoughts/finite-fields/" class="internal-link" data-src="/thoughts/finite-fields/">Finite Fields</a></h3>
+            </div>
+            <div class="spacer"></div>
+            <ul class="tags">
+                
+                <li><a href="https://lonerapier.xyz/tags/math/">Math</a></li>
+                
+                <li><a href="https://lonerapier.xyz/tags/algebra/">Algebra</a></li>
+                
+            </ul>
+        </div>
+    </li><li class="section-li">
+        <div class="section">
+            <p class="meta">
+                
+May 2, 2023
+
+
+            </p>
+            <div class="desc">
+              <h3><a href="https://lonerapier.xyz/thoughts/snark/" class="internal-link" data-src="/thoughts/snark/">SNARKs</a></h3>
+            </div>
+            <div class="spacer"></div>
+            <ul class="tags">
+                
+                <li><a href="https://lonerapier.xyz/tags/cryptography/">Cryptography</a></li>
+                
+                <li><a href="https://lonerapier.xyz/tags/math/">Math</a></li>
+                
+                <li><a href="https://lonerapier.xyz/tags/seed/">Seed</a></li>
+                
+            </ul>
+        </div>
+    </li><li class="section-li">
+        <div class="section">
+            <p class="meta">
+                
 Nov 14, 2022
 
 
@@ -318,7 +360,7 @@ Oct 11, 2022
 
             </p>
             <div class="desc">
-              <h3><a href="https://lonerapier.xyz/thoughts/kzg-commitments/" class="internal-link" data-src="/thoughts/kzg-commitments/">KZG Commitments</a></h3>
+              <h3><a href="https://lonerapier.xyz/thoughts/polynomial-commitments/" class="internal-link" data-src="/thoughts/polynomial-commitments/">Polynomial Commitments</a></h3>
             </div>
             <div class="spacer"></div>
             <ul class="tags">
@@ -384,26 +426,6 @@ Oct 3, 2022
                 <li><a href="https://lonerapier.xyz/tags/math/">Math</a></li>
                 
                 <li><a href="https://lonerapier.xyz/tags/algebra/">Algebra</a></li>
-                
-            </ul>
-        </div>
-    </li><li class="section-li">
-        <div class="section">
-            <p class="meta">
-                
-Oct 3, 2022
-
-
-            </p>
-            <div class="desc">
-              <h3><a href="https://lonerapier.xyz/thoughts/elliptic-curve-pairings/" class="internal-link" data-src="/thoughts/elliptic-curve-pairings/">Elliptic Curve Pairings</a></h3>
-            </div>
-            <div class="spacer"></div>
-            <ul class="tags">
-                
-                <li><a href="https://lonerapier.xyz/tags/cryptography/">Cryptography</a></li>
-                
-                <li><a href="https://lonerapier.xyz/tags/math/">Math</a></li>
                 
             </ul>
         </div>

@@ -8,10 +8,11 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs."
+    content="Fields Algebraic structure on which basic math can be performed.
+Properties  Abelian group under addition Non-zero numbers form abelian group under multiplication multiplicative distribution over addition  Finite Fields (Galois Fields) Fields defined on a number and the result is in the set."
   />
   <title>
-    lonerapier.xyz
+    Finite Fields
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -127,13 +128,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -287,22 +288,52 @@ if (!doNotTrack) {
 
 
     <article>
-      
+      <h1>Finite Fields</h1>
       <p class="meta">
         Last updated 
-Dec 12, 2022
+May 4, 2023
 
  
           
-<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/fourier-transforms.md" rel="noopener">Edit Source</a>
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/finite-fields.md" rel="noopener">Edit Source</a>
 
 
       </p>
       <ul class="tags">
           
+          <li><a href="https://lonerapier.xyz/tags/math/">
+          
+            Math
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/algebra/">
+          
+            Algebra
+          
+            </a>
+           </li>
+          
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#properties">Properties</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#properties-1">Properties</a></li>
+    <li><a href="#roots-of-unity-in-finite-fields">Roots of Unity in Finite Fields</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
 
       
 
@@ -311,6 +342,54 @@ Dec 12, 2022
 
 
 
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
 
 
 
@@ -349,15 +428,101 @@ Dec 12, 2022
 
 
 
-<p>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs. And one of the key building blocks of Erasure Coding is <strong>Fast Fourier Transforms</strong>. Life is a full circle, right? I ran away from the course teaching Fourier Transforms as far as possible and here I am, trying to learn it again. But this time it&rsquo;s different as <em>curiosity</em> has appeared wildly.</p>
+<a href="#fields"><h1 id="fields"><span class="hanchor" ariaLabel="Anchor"># </span>Fields</h1></a>
+<p>Algebraic structure on which basic math can be performed.</p>
+<a href="#properties"><h2 id="properties"><span class="hanchor" ariaLabel="Anchor"># </span>Properties</h2></a>
+<ul>
+<li>Abelian group under addition</li>
+<li>Non-zero numbers form abelian group under multiplication</li>
+<li>multiplicative distribution over addition</li>
+</ul>
+<a href="#finite-fields-galois-fields"><h1 id="finite-fields-galois-fields"><span class="hanchor" ariaLabel="Anchor"># </span>Finite Fields (Galois Fields)</h1></a>
+<p>Fields defined on a number and the result is in the set.</p>
+<ol>
+<li>Closed</li>
+<li>Associative: $a*(b<em>c) = (a</em>b)*c$</li>
+<li>Identity: $a*1 = 1$</li>
+<li>Inverse: $a*a^{-1} = 1$</li>
+<li>Commutative</li>
+</ol>
+<p>It has $p^m$ elements in it, where p = prime, and m is an integer.</p>
+<p>$GF(p^m)$ are defined as the finite fields with notation:</p>
+<ol>
+<li>m = 1: prime fields</li>
+<li>m &gt; 1: extension fields</li>
+</ol>
+<p>
+
+<img src="https://miro.medium.com/max/1400/0*lp3NrLwr0fMyrBZc" width="auto" alt="Image.jpeg"  /></p>
 <blockquote>
-<p><em>But you&rsquo;re a dirty little liar with a message of obsession to come</em></p>
-<p><em>You got your head in the clouds</em></p>
-<p><em>And your world&rsquo;s upside down</em></p>
-<p><em>Get away from the life you&rsquo;re living</em></p>
+<p>Note: $\mathbb{F}^*$ are defined as finite fields without 0 as it doesn&rsquo;t have an inverse.</p>
 </blockquote>
-<p>Song time baby!! This time it&rsquo;s 
-<a href="https://open.spotify.com/track/1PlTjGYNKGsU7Rqi5dZZCk?si=3f7cb22c42c64ee0" rel="noopener">Dirty Little Thing</a> by Velvet Revolver. Oooooh, it&rsquo;s a wild song. I couldn&rsquo;t get the tune out of my head when I first listened to it.</p>
+<p><strong>Prime fields</strong> can be defined on any integer and include number from 0 till that number. All of the operations are done modulo that number.</p>
+<p>Example: $\mathbb{F}_{5} = \left{0, 1, 2, 3, 4\right}$ is a field defined on prime number 5 and include these numbers.</p>
+<p><strong>Extension fields</strong> are polynomials and take the form: $\mathbb{F(m &gt; 1)} = a_{m-1}X^{m-1} + \cdots + a_1X^1 + a_0$</p>
+<p>
+
+<img src="https://miro.medium.com/max/1054/1*AScsGBdzW-L2JQq4hXgxMA.png" width="auto" alt="1*AScsGBdzW-L2JQq4hXgxMA.png"  /></p>
+<p>Example: $GF(2^3)$&rsquo;s elements are</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(a2, a1, a0)
+</span></span><span class="line"><span class="cl">(0, 0, 0) = 0
+</span></span><span class="line"><span class="cl">(0, 0, 1) = 1
+</span></span><span class="line"><span class="cl">(0, 1, 0) = x
+</span></span><span class="line"><span class="cl">(1, 0, 0) = x²
+</span></span><span class="line"><span class="cl">(0, 1, 1) = x+1
+</span></span><span class="line"><span class="cl">(1, 1, 0) = x²+x
+</span></span><span class="line"><span class="cl">(1, 0, 1) = x²+1
+</span></span><span class="line"><span class="cl">(1, 1, 1) = x²+x+1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><a href="#properties-1"><h2 id="properties-1"><span class="hanchor" ariaLabel="Anchor"># </span>Properties</h2></a>
+<ul>
+<li>Every element of a GF(q) are roots of the polynomial $x^q-x=0$. Generally, every element in GF(p^n) satisfies the polynomial equation $x^{p^{n}}-x=0$.</li>
+<li>every field has a <strong>characteristic</strong> $p$ which is p for which np=0 and is used to find identity of the field.</li>
+<li>Non-zero elements of a finite field form a <strong>multiplicative cyclic subgroup</strong>. This means, all non-zero elements can be expressed as powers of a single element. This element is called <strong>primitive element</strong>.</li>
+<li>All fields generated in GF(q) are isomorphic.</li>
+</ul>
+<a href="#roots-of-unity-in-finite-fields"><h2 id="roots-of-unity-in-finite-fields"><span class="hanchor" ariaLabel="Anchor"># </span>Roots of Unity in Finite Fields</h2></a>
+<ol>
+<li>Every non-zero element of $\mathbb{F}_{q}$ is a root of unity.</li>
+<li>Def: Primitive RoU: $x^{n}=1$, but $x^{m}\neq{1} \forall m&lt;n$.</li>
+<li>$\mathbb{F}_{q}$ has a nth primitive RoU iff n divides q-1.</li>
+</ol>
+<a href="#references"><h1 id="references"><span class="hanchor" ariaLabel="Anchor"># </span>References</h1></a>
+<ul>
+<li>
+<a href="https://medium.loopring.io/learning-cryptography-finite-fields-ced3574a53fe" rel="noopener">Learning Cryptography, Part 1: Finite Fields</a></li>
+<li>
+<a href="https://www.cantorsparadise.com/the-theory-and-applications-of-finite-fields-e78844896eaa" rel="noopener">Finite Fields: Theory and Application</a></li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Finite_field" rel="noopener">Finite Fields - Wikipedia</a></li>
+<li>
+<a href="https://www.csd.uwo.ca/~mmorenom/CS874/Lectures/Newton2Hensel.html/node9.html" rel="noopener">Primitive nth root of unity</a></li>
+<li>
+<a href="https://web.stanford.edu/~marykw/classes/CS250_W19/readings/Forney_Introduction_to_Finite_Fields.pdf" rel="noopener">Introduction to Finite Fields</a></li>
+<li>
+<a href="https://cryptojedi.org/peter/data/eccss-20130911a.pdf" rel="noopener">Finite field arithmetic</a></li>
+<li>
+<a href="https://cryptojedi.org/peter/data/eccss-20130911b.pdf" rel="noopener">Scalar multiplication algorithms</a></li>
+<li>
+<a href="https://research.swtch.com/field" rel="noopener">field</a></li>
+<li>
+<a href="https://mathweb.ucsd.edu/~jmckerna/Teaching/16-17/Winter/200B/" rel="noopener">Galois field course</a></li>
+<li></li>
+</ul>
 
 
     </article>

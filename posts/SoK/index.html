@@ -128,13 +128,13 @@ Aims to develop a guide for designing protocols bridging different types of bloc
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -291,7 +291,7 @@ if (!doNotTrack) {
       <h1>Communication Across Distributed Ledgers</h1>
       <p class="meta">
         Last updated 
-Apr 11, 2020
+Apr 11, 2022
 
  
           
@@ -317,6 +317,46 @@ Apr 11, 2020
           
       </ul>
       
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#distributed-ledger-model">Distributed Ledger Model</a>
+      <ol>
+        <li><a href="#ccc-system-model">CCC System Model</a></li>
+      </ol>
+    </li>
+    <li><a href="#formalisation-of-correct-ccc">Formalisation of correct CCC</a></li>
+    <li><a href="#generic-ccc-protocol">Generic CCC Protocol</a></li>
+    <li><a href="#impossibility-of-ccc-without-ttp-trusted-third-party">Impossibility of CCC without TTP (Trusted Third Party)</a></li>
+    <li><a href="#ccc-design-framework">CCC Design Framework</a>
+      <ol>
+        <li><a href="#pre-commit-phase">Pre-Commit Phase</a></li>
+        <li><a href="#verification-phase">Verification Phase</a></li>
+        <li><a href="#abort-phase">Abort Phase</a></li>
+      </ol>
+    </li>
+    <li><a href="#classification-of-existing-protocols">Classification of Existing Protocols</a>
+      <ol>
+        <li><a href="#exchange-protocols">Exchange Protocols</a></li>
+        <li><a href="#migration-protocols">Migration Protocols</a></li>
+      </ol>
+    </li>
+    <li><a href="#ccc-challenges">CCC Challenges</a>
+      <ol>
+        <li><a href="#heterogeneous-models-and-parameters-across-chains">Heterogeneous Models and Parameters Across Chains</a></li>
+        <li><a href="#cryptographic-primitives">Cryptographic Primitives</a></li>
+        <li><a href="#collateralization-and-exchange-rates">Collateralization and Exchange Rates</a></li>
+        <li><a href="#upcoming-research">Upcoming Research</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+    </details>
+</aside>
 
 
       

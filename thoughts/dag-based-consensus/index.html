@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -316,6 +316,33 @@ Nov 18, 2022
           
       </ul>
       
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#defining-finality">Defining Finality</a></li>
+    <li><a href="#proving-safety">Proving Safety</a></li>
+    <li><a href="#proving-liveness">Proving Liveness</a></li>
+    <li><a href="#dag-rider">DAG-Rider</a>
+      <ol>
+        <li><a href="#reliable-broadcast">Reliable Broadcast</a></li>
+      </ol>
+    </li>
+    <li><a href="#narwhaltusk">Narwhal&amp;Tusk</a>
+      <ol>
+        <li><a href="#narwhal">Narwhal</a></li>
+        <li><a href="#using-narwhal-for-consensus">Using Narwhal for Consensus</a></li>
+        <li><a href="#tusk">Tusk</a></li>
+        <li><a href="#bullshark">Bullshark</a></li>
+      </ol>
+    </li>
+    <li><a href="#resources">Resources</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
 
 
       
@@ -961,6 +988,8 @@ Nov 18, 2022
 <a href="https://www.youtube.com/watch?v=XP41IsXCUrw" rel="noopener">Scaling Celo blockchain with Narwhal</a></li>
 <li>
 <a href="https://hedera.com/learning/distributed-ledger-technologies/dag-vs-blockchain" rel="noopener">DAG vs Blockchain</a></li>
+<li>
+<a href="https://arxiv.org/pdf/2208.00940.pdf" rel="noopener">MEV Protection on a DAG</a></li>
 <li>
 <a href="https://docs.google.com/presentation/d/12xWSvocGeIrRiJ4otSP2OWvFDNshd1x8buArux0BzG8/edit#slide=id.p" rel="noopener">MEV mitigation using modular DAG-based mempools</a></li>
 <li>

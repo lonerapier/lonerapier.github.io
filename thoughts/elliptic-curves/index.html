@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -316,6 +316,43 @@ Aug 21, 2022
           
       </ul>
       
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#group-law-of-elliptic-curves">Group Law of Elliptic Curves</a></li>
+    <li><a href="#elliptic-curves-in-mathbbf_p">Elliptic Curves in $\mathbb{F}_{p}$</a></li>
+    <li><a href="#elliptic-curve-cryptography">Elliptic Curve Cryptography</a></li>
+    <li><a href="#eip55">EIP55</a>
+      <ol>
+        <li><a href="#why-discrete-logarithm">Why Discrete Logarithm?</a></li>
+      </ol>
+    </li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#secp256k1-vs-secp256r1httpsdappworkscomwhy-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1">[secp256k1 v/s secp256r1](<a href="https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)">https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)</a></a></li>
+    <li><a href="#pairing-friendly-curves">Pairing Friendly Curves</a>
+      <ol>
+        <li><a href="#bls12-381">BLS12-381</a></li>
+        <li><a href="#cofactor">Cofactor</a></li>
+        <li><a href="#roots-of-unity">Roots Of Unity</a></li>
+        <li><a href="#extension-towers">Extension Towers</a></li>
+      </ol>
+    </li>
+    <li><a href="#coordinate-system">Coordinate System</a>
+      <ol>
+        <li><a href="#affine-coordinates">Affine Coordinates</a></li>
+        <li><a href="#standard-projective-coordinates">Standard Projective Coordinates</a></li>
+        <li><a href="#jacobian-coordinates">Jacobian Coordinates</a></li>
+      </ol>
+    </li>
+    <li><a href="#bls-signatures">BLS Signatures</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
 
 
       
@@ -1172,7 +1209,7 @@ $$</p>
 <a href="https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/%29" rel="noopener">https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/)</a> is a Koblitz curve defined in a characteristic 2 finite field while $secp256r1$ is a prime field curve.</p>
 <p>Not going into details as to what a characteristic 2 finite field is, we can specify $secp256r1$ as a pseudo-randomised curve and $secp256k1$ as completely random curve which can’t be solved using discrete logarithm problem <strong>yet</strong>.</p>
 <a href="#pairing-friendly-curves"><h2 id="pairing-friendly-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Pairing Friendly Curves</h2></a>
-<p>Pairing-based cryptography is a new cryptographic primitive that has been developed in recent times, enabling new applications like short digital signatures that are aggregatable, identity-based cryptography, MPC, efficient <a href="/thoughts/kzg-commitments" rel="noopener" class="internal-link" data-src="/thoughts/kzg-commitments">polynomial commitments</a>.</p>
+<p>Pairing-based cryptography is a new cryptographic primitive that has been developed in recent times, enabling new applications like short digital signatures that are aggregatable, identity-based cryptography, MPC, efficient <a href="/thoughts/polynomial-commitments" rel="noopener" class="internal-link" data-src="/thoughts/polynomial-commitments">polynomial commitments</a>.</p>
 <p>They have a favourable embedding degree, and a large prime-order subgroup.</p>
 <a href="#bls12-381"><h3 id="bls12-381"><span class="hanchor" ariaLabel="Anchor"># </span>BLS12-381</h3></a>
 <blockquote>
@@ -1237,10 +1274,9 @@ $$</p>
 <a href="#cofactor"><h3 id="cofactor"><span class="hanchor" ariaLabel="Anchor"># </span>Cofactor</h3></a>
 <p>It&rsquo;s the ratio of order of the curve group and order of the subgroup $hr = n$. Usually, cofactor should be very small in order to avoid subgroup attacks on discrete logarithms. But in pairing-based cryptography, the cofactors of $G_1$, $G_2$ and $G_{T}$ can be very large.</p>
 <p>By multiplying by the cofactor, a point on the curve is mapped to the appropriate group known as <strong>cofactor clearing</strong>.</p>
-<h3 id="roots-of-unityhttpsbrilliantorgwikiroots-of-unity">[Roots Of Unity](
-<a href="https://brilliant.org/wiki/roots-of-unity/%29" rel="noopener">https://brilliant.org/wiki/roots-of-unity/)</a></h3>
-<p>Roots of Unity are complex solutions to the equation: $x^n=1$.</p>
-<p>Every nonzero element of a finite field is a root of unity, as $x^{q-1} = 1$ for every nonzero element of $\mathbb{F}_{q}$.</p>
+<a href="#roots-of-unity"><h3 id="roots-of-unity"><span class="hanchor" ariaLabel="Anchor"># </span>Roots Of Unity</h3></a>
+<p>
+<a href="https://brilliant.org/wiki/roots-of-unity/" rel="noopener">Roots of Unity</a> are complex solutions to the equation: $x^n=1$. Every nonzero element of a finite field is a root of unity, as $x^{q-1} = 1$ for every nonzero element of $\mathbb{F}_{q}$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <p><em>Primitive root of unity</em> is when a number is solution to $x^n=1$ but not for $x^m=1$ for any positive integer $m&lt;n$. So, if $a$ is a $n$th primitive root of unity in a field $\mathbb{F}$, then $\mathbb{F}$ contains all the roots of unity, $1, a, a^{2}, \ldots, a^{n-1}$.</p>
 <p>Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^{12}}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.</p>
 <a href="#extension-towers"><h3 id="extension-towers"><span class="hanchor" ariaLabel="Anchor"># </span>Extension Towers</h3></a>
@@ -1282,6 +1318,15 @@ Reduction rule: $w^2-v=0$ which is irreducible in $F_{q^{6}}$.</li>
 <li>[Pairings over BLS12-381](
 <a href="https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/%29" rel="noopener">https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/)</a></li>
 </ul>
+<hr>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Check Fermat&rsquo;s Little theorem.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
     </article>

@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -317,6 +317,29 @@ Jan 15, 2023
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#why">Why?</a></li>
+    <li><a href="#use-cases">Use cases</a></li>
+    <li><a href="#sgx">SGX</a>
+      <ol>
+        <li><a href="#enclave">Enclave</a></li>
+        <li><a href="#data-sealing">Data sealing</a></li>
+        <li><a href="#remote-attestation">Remote attestation</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#tradeoffs">Tradeoffs</a></li>
+      </ol>
+    </li>
+    <li><a href="#libos">LibOS</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
 
       
 
@@ -346,6 +369,18 @@ Jan 15, 2023
   
   
   
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
   
     
     
@@ -393,7 +428,7 @@ Jan 15, 2023
 
 
 <a href="#why"><h2 id="why"><span class="hanchor" ariaLabel="Anchor"># </span>Why?</h2></a>
-<p>Data is a really precious commodity in an environment where most of the decisions are taken based on information. Trusted Execution Environments give us the capability of executing application code with secrets in an environment where not even the host system can access the secrets and determine the access patterns.</p>
+<p>Data is a really precious commodity in an environment where most of the decisions are taken based on information. Trusted Execution Environments give us the capability of executing application code with secrets in an environment where not even the host system can access the secrets and determine the access patterns. Most of the data processing has been moved from local systems to cloud providers in a remote physical location. Any security breach at these remote systems compromises users&rsquo; secrets and can thus, confidential computing is required which reduces TCB and attack surfaces to a minimum.</p>
 <a href="#use-cases"><h2 id="use-cases"><span class="hanchor" ariaLabel="Anchor"># </span>Use cases</h2></a>
 <ol>
 <li>Any personal data like Medical Records, Biometrics</li>
@@ -401,6 +436,11 @@ Jan 15, 2023
 <li>Encryption keys</li>
 </ol>
 <p>These data items in vocabulary of trusted execution environment are called <em><strong>secrets</strong></em>. Even though there are ways of encrypting the data when it&rsquo;s getting transported, or static data in the server, but any processing on the data needs to happen on raw and unencrypted one. There are countless incidents where local systems or remote servers have been compromised, exposing the data to an attacker.</p>
+<blockquote class="info-callout">
+<p>
+A term that we&rsquo;ll come back to often is <strong>Trusted Computing Base (TCB)</strong>. It refers to the hardware and software components of a system that are required to run a particular program/software securely. It comprises of the OS, BIOS, firmware, drivers, software dependencies, etc. Any breach of security in TCB can compromise the executing program and reveal the secrets.</p>
+<p>Larger TCB means larger surface of area for attacks and more trust in the underlying components.</p>
+</blockquote>
 <a href="#sgx"><h2 id="sgx"><span class="hanchor" ariaLabel="Anchor"># </span>SGX</h2></a>
 <p>SGX(Software Guard Extensions) is a technology which models the Trusted Execution Environment capabilities on hardware. Hence, making it easier to run programs in an encrypted hardware memory region on RAM. This includes protection from adversarial entity even with control of OS, BIOS.</p>
 <ul>
@@ -418,6 +458,10 @@ Jan 15, 2023
 </ol>
 <a href="#enclave"><h3 id="enclave"><span class="hanchor" ariaLabel="Anchor"># </span>Enclave</h3></a>
 <p>Program is run inside an encrypted region called <strong>Enclave</strong>. This is made possible by extending x86 architecture with new instruction sets. Enclaves provide confidentiality and integrity of the data inside the enclave through the use of <strong>Enclave Page Cache</strong> (EPC), which the system reserves at boot time. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/memory-structure-enclave.png" width="auto" alt="memory-structure-enclave"  /></p>
 <p>Enclaves are secure compartments but have boundaries to determine trusted and untrusted part of the application. Trusted Part contains the sensitive piece or secrets of the enclave&rsquo;s code and untrusted part containing other parts of the program. The enclave memory is a volatile memory that gets removed whenever system goes to sleep, machine is destroyed, or application exits.</p>
 <p>SGX has two calls used to communicate between the two parts:</p>
 <ol>
@@ -530,6 +574,10 @@ how I as a user can be sure that there is no adversary manipulating the untruste
 <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/quote-verification-attestation-with-intel-sgx-dcap.html" rel="noopener">Quote verification with Intel SGX DCAP</a></li>
 <li>
 <a href="https://medium.com/magicofc/establish-an-intel-sgx-enclave-c6208f820ff9" rel="noopener">establish an SGX enclave</a></li>
+<li>
+<a href="https://stackoverflow.com/questions/63335341/what-is-the-difference-between-trusted-computing-and-confidential-computing" rel="noopener">difference b/w trusted computing and confidential computing</a></li>
+<li>
+<a href="https://medium.com/obscuro-labs/intel-sgx-demystified-757a242682a3" rel="noopener">Intel SGX Demystified</a></li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>

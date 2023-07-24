@@ -18,21 +18,9 @@ Safety: guarantees that something bad never happen. Examples: Tendermint from Co
     </item>
     
     <item>
-      <title>Ethereum Yellow Paper</title>
-      <link>https://lonerapier.xyz/posts/eth-basics/</link>
-      <pubDate>Thu, 10 Mar 2022 00:02:48 -0700</pubDate>
-      
-      <guid>https://lonerapier.xyz/posts/eth-basics/</guid>
-      <description>Transaction based state-machine
-state of the blockchain changes after executing transactions.
-stores states in state root
-Accounts 20-byte hex addresses whose state is stored on the blockchain</description>
-    </item>
-    
-    <item>
       <title>Communication Across Distributed Ledgers</title>
       <link>https://lonerapier.xyz/posts/SoK/</link>
-      <pubDate>Sat, 11 Apr 2020 22:15:20 -0900</pubDate>
+      <pubDate>Mon, 11 Apr 2022 22:15:20 -0900</pubDate>
       
       <guid>https://lonerapier.xyz/posts/SoK/</guid>
       <description>Communication Across Distributed Ledgers
@@ -42,10 +30,22 @@ Aims to develop a guide for designing protocols bridging different types of bloc
     <item>
       <title>Optimistic Rollups</title>
       <link>https://lonerapier.xyz/posts/Optimistic-Rollups/</link>
-      <pubDate>Sat, 11 Apr 2020 16:00:48 -0900</pubDate>
+      <pubDate>Mon, 11 Apr 2022 16:00:48 -0900</pubDate>
       
       <guid>https://lonerapier.xyz/posts/Optimistic-Rollups/</guid>
       <description>Asserter/Checker Problem  Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful.</description>
+    </item>
+    
+    <item>
+      <title>Ethereum Yellow Paper</title>
+      <link>https://lonerapier.xyz/posts/eth-basics/</link>
+      <pubDate>Thu, 10 Mar 2022 00:02:48 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/posts/eth-basics/</guid>
+      <description>Transaction based state-machine
+state of the blockchain changes after executing transactions.
+stores states in state root
+Accounts 20-byte hex addresses whose state is stored on the blockchain</description>
     </item>
     
   </channel>

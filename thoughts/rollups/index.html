@@ -130,13 +130,13 @@ Pampered poppies on the ground"
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -319,6 +319,36 @@ Oct 3, 2022
           
       </ul>
       
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lets-dive-in">Let&rsquo;s Dive in!</a></li>
+    <li><a href="#different-rollups">Different Rollups</a></li>
+    <li><a href="#why-rollups">Why Rollups?</a></li>
+    <li><a href="#rollup-fees">Rollup fees</a></li>
+    <li><a href="#mev-in-a-modular-stack">MEV in a modular stack</a></li>
+    <li><a href="#attacks-on-da-layer">Attacks on DA Layer</a>
+      <ol>
+        <li><a href="#33-attack">33% Attack</a></li>
+        <li><a href="#67-attack">67% Attack</a></li>
+      </ol>
+    </li>
+    <li><a href="#rollup-stack">Rollup Stack</a>
+      <ol>
+        <li><a href="#sc-settlement-rollup--sc-recursive-rollup">SC Settlement Rollup &amp; SC Recursive rollup</a></li>
+        <li><a href="#enshrined-rollups">Enshrined Rollups</a></li>
+        <li><a href="#sovereign-rollups">Sovereign Rollups</a></li>
+      </ol>
+    </li>
+    <li><a href="#questions">Questions</a></li>
+    <li><a href="#readings">Readings</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
 
 
       

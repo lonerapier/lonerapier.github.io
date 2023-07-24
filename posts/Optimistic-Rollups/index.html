@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -290,7 +290,7 @@ if (!doNotTrack) {
       <h1>Optimistic Rollups</h1>
       <p class="meta">
         Last updated 
-Apr 11, 2020
+Apr 11, 2022
 
  
           
@@ -317,6 +317,13 @@ Apr 11, 2020
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents"></nav>
+    </details>
+</aside>
+
 
       
 
@@ -481,7 +488,7 @@ Apr 11, 2020
 
 
 
-<a href="#asserterchecker-problem"><h2 id="asserterchecker-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Asserter/Checker Problem</h2></a>
+<a href="#asserterchecker-problem"><h1 id="asserterchecker-problem"><span class="hanchor" ariaLabel="Anchor"># </span>Asserter/Checker Problem</h1></a>
 <ul>
 <li>Asserter makes a claim $A$, checker checks the claim for cost $C$ and gets R as reward, if successful.</li>
 <li>If Asserter cheats without getting caught, Checker loses $L$ in the form of loss of items of value.</li>
@@ -534,7 +541,7 @@ total cost = $0.0006</p>
 <ul>
 <li>Multiple checkers need to submit proofs differently thus, scaling to multiple checkers efficient.</li>
 </ul>
-<a href="#technical-details"><h2 id="technical-details"><span class="hanchor" ariaLabel="Anchor"># </span>Technical Details</h2></a>
+<a href="#technical-details"><h1 id="technical-details"><span class="hanchor" ariaLabel="Anchor"># </span>Technical Details</h1></a>
 <p>Checker: private key $k$, public key $g^k$</p>
 <p>Hash fn: $H$</p>
 <p>Computation to solve: $f(x)$</p>
@@ -551,7 +558,7 @@ total cost = $0.0006</p>
 <li>Each checker will have different prob of posting on-chain due to use of private key, thus can’t copy others computation.</li>
 <li>Asserter now instead of bribing checker, will try to mislead him into giving false information on-chain.</li>
 </ul>
-<a href="#links"><h2 id="links"><span class="hanchor" ariaLabel="Anchor"># </span>Links</h2></a>
+<a href="#links"><h1 id="links"><span class="hanchor" ariaLabel="Anchor"># </span>Links</h1></a>
 <p>
 <a href="https://research.paradigm.xyz/rollups" rel="noopener">(Almost) Everything you need to know about Optimistic Rollup</a></p>
 <p>

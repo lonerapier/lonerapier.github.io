@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -333,27 +333,7 @@ May 14, 2022
         <div class="section">
             <p class="meta">
                 
-Mar 10, 2022
-
-
-            </p>
-            <div class="desc">
-              <h3><a href="https://lonerapier.xyz/posts/eth-basics/" class="internal-link" data-src="/posts/eth-basics/">Ethereum Yellow Paper</a></h3>
-            </div>
-            <div class="spacer"></div>
-            <ul class="tags">
-                
-                <li><a href="https://lonerapier.xyz/tags/technical/">Technical</a></li>
-                
-                <li><a href="https://lonerapier.xyz/tags/notes/">Notes</a></li>
-                
-            </ul>
-        </div>
-    </li><li class="section-li">
-        <div class="section">
-            <p class="meta">
-                
-Apr 11, 2020
+Apr 11, 2022
 
 
             </p>
@@ -373,7 +353,7 @@ Apr 11, 2020
         <div class="section">
             <p class="meta">
                 
-Apr 11, 2020
+Apr 11, 2022
 
 
             </p>
@@ -386,6 +366,26 @@ Apr 11, 2020
                 <li><a href="https://lonerapier.xyz/tags/seed/">Seed</a></li>
                 
                 <li><a href="https://lonerapier.xyz/tags/technical/">Technical</a></li>
+                
+            </ul>
+        </div>
+    </li><li class="section-li">
+        <div class="section">
+            <p class="meta">
+                
+Mar 10, 2022
+
+
+            </p>
+            <div class="desc">
+              <h3><a href="https://lonerapier.xyz/posts/eth-basics/" class="internal-link" data-src="/posts/eth-basics/">Ethereum Yellow Paper</a></h3>
+            </div>
+            <div class="spacer"></div>
+            <ul class="tags">
+                
+                <li><a href="https://lonerapier.xyz/tags/technical/">Technical</a></li>
+                
+                <li><a href="https://lonerapier.xyz/tags/notes/">Notes</a></li>
                 
             </ul>
         </div>

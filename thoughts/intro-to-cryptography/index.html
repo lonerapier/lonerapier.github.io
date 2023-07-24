@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -317,6 +317,27 @@ Oct 3, 2022
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#splitting-s">Splitting $S$</a></li>
+    <li><a href="#recovering-s">Recovering $S$</a></li>
+    <li><a href="#pitfalls">Pitfalls</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#hash-to-curve">Hash to Curve</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#proving-schnorr-signatures-are-zero-knowledge">Proving Schnorr Signatures Are Zero-knowledge</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
 
       
 
@@ -523,60 +544,6 @@ Oct 3, 2022
   
   
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
 
 
 
@@ -598,13 +565,6 @@ Oct 3, 2022
   
   
   
-  
-    
-    
-      
-      
-    
-    
   
     
     
@@ -623,83 +583,7 @@ Oct 3, 2022
 
 
 <p>This, by no means, is a thorough post covering all the topics. This is just my notes that I like to make while learning any new topic. I have tried attaching any good resource I found along the way.</p>
-<a href="#groups"><h2 id="groups"><span class="hanchor" ariaLabel="Anchor"># </span>Groups</h2></a>
-<p>Groups $G$ are algebraic structures which are set and has a binary operation $+$ that combines two elements $a, b$ of the set to produce a third element $a+b$ in the set. The operation is said to have following properties:</p>
-<ol>
-<li>Closure</li>
-<li>Assosciative: $(a+b)+c = a+(b+c)$</li>
-<li>Existence of Identity element: $a+0 = 0+a = a$</li>
-<li>Existence of inverse element for every element of the set: $a+b=0$</li>
-</ol>
-<p>Groups which satisfy an additional property: <em>commutativity</em> on the set of elements are known as <strong>Abelian groups</strong>. Other properties regarding groups are very significant in cryptography like unique identity element and unique inverse element.</p>
-<p>Example: $\mathbb{Z}$ is an abelian group while $\mathbb{N}$ is not a group as it doesn&rsquo;t satisfy inverse element property.</p>
-<a href="#fields"><h2 id="fields"><span class="hanchor" ariaLabel="Anchor"># </span>Fields</h2></a>
-<p>Algebraic structure on which basic math can be performed.</p>
-<a href="#properties"><h3 id="properties"><span class="hanchor" ariaLabel="Anchor"># </span>Properties</h3></a>
-<ul>
-<li>Abelian group under addition</li>
-<li>Non-zero numbers form abelian group under multiplication</li>
-<li>multiplicative distribution over addition</li>
-</ul>
-<a href="#finite-fields-galois-fields"><h2 id="finite-fields-galois-fields"><span class="hanchor" ariaLabel="Anchor"># </span>Finite Fields (Galois Fields)</h2></a>
-<ul>
-<li>
-<a href="https://medium.loopring.io/learning-cryptography-finite-fields-ced3574a53fe" rel="noopener">Learning Cryptography, Part 1: Finite Fields</a></li>
-<li>
-<a href="https://www.cantorsparadise.com/the-theory-and-applications-of-finite-fields-e78844896eaa" rel="noopener">Finite Fields: Theory and Application</a></li>
-</ul>
-<p>Fields defined on a number and the result is in the set.</p>
-<ol>
-<li>Closed</li>
-<li>Associative: $a*(b<em>c) = (a</em>b)*c$</li>
-<li>Identity: $a*1 = 1$</li>
-<li>Inverse: $a*a^{-1} = 1$</li>
-<li>Commutative</li>
-</ol>
-<p>It has $p^m$ elements in it, where p = prime, and m is an integer.</p>
-<p>$GF(p^m)$ are defined as the finite fields with notation:</p>
-<ol>
-<li>m = 1: prime fields</li>
-<li>m &gt; 1: extension fields</li>
-</ol>
-<p>
-
-<img src="https://miro.medium.com/max/1400/0*lp3NrLwr0fMyrBZc" width="auto" alt="Image.jpeg"  /></p>
-<blockquote>
-<p>Note: $\mathbb{F}^*$ are defined as finite fields without 0 as it doesn&rsquo;t have an inverse.</p>
-</blockquote>
-<p><strong>Prime fields</strong> can be defined on any integer and include number from 0 till that number. All of the operations are done modulo that number.</p>
-<p>Example: $\mathbb{F}_{5} = \left{0, 1, 2, 3, 4\right}$ is a field defined on prime number 5 and include these numbers.</p>
-<p><strong>Extension fields</strong> are polynomials and take the form: $\mathbb{F(m &gt; 1)} = a_{m-1}X^{m-1} + \cdots + a_1X^1 + a_0$</p>
-<p>
-
-<img src="https://miro.medium.com/max/1054/1*AScsGBdzW-L2JQq4hXgxMA.png" width="auto" alt="1*AScsGBdzW-L2JQq4hXgxMA.png"  /></p>
-<p>Example: $GF(2^3)$&rsquo;s elements are</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(a2, a1, a0)
-</span></span><span class="line"><span class="cl">(0, 0, 0) = 0
-</span></span><span class="line"><span class="cl">(0, 0, 1) = 1
-</span></span><span class="line"><span class="cl">(0, 1, 0) = x
-</span></span><span class="line"><span class="cl">(1, 0, 0) = x²
-</span></span><span class="line"><span class="cl">(0, 1, 1) = x+1
-</span></span><span class="line"><span class="cl">(1, 1, 0) = x²+x
-</span></span><span class="line"><span class="cl">(1, 0, 1) = x²+1
-</span></span><span class="line"><span class="cl">(1, 1, 1) = x²+x+1
-</span></span></code></pre></td></tr></table>
-</div>
-</div><a href="#ecc"><h2 id="ecc"><span class="hanchor" ariaLabel="Anchor"># </span>ECC</h2></a>
+<a href="#ecc"><h1 id="ecc"><span class="hanchor" ariaLabel="Anchor"># </span>ECC</h1></a>
 <ul>
 <li>
 <a href="https://cryptobook.nakov.com/digital-signatures/ecdsa-sign-verify-messages" rel="noopener">ECDSA: Elliptic Curve Signatures - Practical Cryptography for Developers</a></li>
@@ -709,7 +593,7 @@ Oct 3, 2022
 <p>nonce: $r$</p>
 <p>temp key: $R = r*G$</p>
 <p>Signature in ECDSA: $s = k^{-1} * (h + r*x) (mod n)$</p>
-<a href="#eddsa-algorithm"><h2 id="eddsa-algorithm"><span class="hanchor" ariaLabel="Anchor"># </span>EdDSA Algorithm</h2></a>
+<a href="#eddsa-algorithm"><h1 id="eddsa-algorithm"><span class="hanchor" ariaLabel="Anchor"># </span>EdDSA Algorithm</h1></a>
 <p>Used to sign arbitrary messages with private keys</p>
 <ul>
 <li>Public key, $PK: xG$</li>
@@ -718,11 +602,11 @@ Oct 3, 2022
 <li>$s = r + ex$</li>
 </ul>
 <p>Public key is known, then send $m, R, s$ to other party</p>
-<a href="#eddsa-verification"><h2 id="eddsa-verification"><span class="hanchor" ariaLabel="Anchor"># </span>EdDSA Verification</h2></a>
+<a href="#eddsa-verification"><h1 id="eddsa-verification"><span class="hanchor" ariaLabel="Anchor"># </span>EdDSA Verification</h1></a>
 <p>Known: PK, m, r, s</p>
 <p>$$s.G = r.G + ex.G = R + e.PK$$</p>
 <p>Other party calculates $e, s.G$ If $LHS = RHS$, then signature is correct</p>
-<a href="#ecdh-elliptic-curve-diffie-hellman"><h2 id="ecdh-elliptic-curve-diffie-hellman"><span class="hanchor" ariaLabel="Anchor"># </span>ECDH (Elliptic Curve Diffie-Hellman)</h2></a>
+<a href="#ecdh-elliptic-curve-diffie-hellman"><h1 id="ecdh-elliptic-curve-diffie-hellman"><span class="hanchor" ariaLabel="Anchor"># </span>ECDH (Elliptic Curve Diffie-Hellman)</h1></a>
 <p>Ways for two parties to exchange information without revealing their private keys</p>
 <p>Let there be two parties Alex and Alice,</p>
 <ul>
@@ -731,9 +615,9 @@ Oct 3, 2022
 <li>Send each other public keys</li>
 <li>Calculate new public key $P_{s} = P_{alex} * y$ OR $P_{alice} * x$</li>
 </ul>
-<a href="#threshold-signature-schemes"><h2 id="threshold-signature-schemes"><span class="hanchor" ariaLabel="Anchor"># </span>Threshold Signature Schemes</h2></a>
+<a href="#threshold-signature-schemes"><h1 id="threshold-signature-schemes"><span class="hanchor" ariaLabel="Anchor"># </span>Threshold Signature Schemes</h1></a>
 <p>Contrary to multi-sigs, these signature employ MPCs to create signatures using interactive multiple parties, thus not giving ownership of the asset to only one party while not blowing up computation needs.</p>
-<a href="#shamir-secret-sharing"><h2 id="shamir-secret-sharing"><span class="hanchor" ariaLabel="Anchor"># </span>Shamir Secret Sharing</h2></a>
+<a href="#shamir-secret-sharing"><h1 id="shamir-secret-sharing"><span class="hanchor" ariaLabel="Anchor"># </span>Shamir Secret Sharing</h1></a>
 <ul>
 <li>
 <a href="https://www.geeksforgeeks.org/shamirs-secret-sharing-algorithm-cryptography/" rel="noopener">Shamir&rsquo;s Secret Sharing Algorithm | Cryptography - GeeksforGeeks</a></li>
@@ -742,7 +626,7 @@ Oct 3, 2022
 </ul>
 <p>Secret $S$ is divided into $n$ <em>pieces</em> or <em>shares</em> $s_{1} + s_{2} + \cdots + s_{n}$ such than any  combination of any $k$ pieces is enough to recover the secret, but any $k-1$ pieces cannot recover $S$.</p>
 <p>This is based upon polynomials such that any $k-degree$ polynomial can be uniquely identified using $k+1$ distinct points.</p>
-<a href="#splitting-s"><h3 id="splitting-s"><span class="hanchor" ariaLabel="Anchor"># </span>Splitting $S$</h3></a>
+<a href="#splitting-s"><h2 id="splitting-s"><span class="hanchor" ariaLabel="Anchor"># </span>Splitting $S$</h2></a>
 <ul>
 <li>Generating polynomial $f(x)$ of degree $k-1$ over a finite field $\mathbb{F}_{p}$</li>
 <li>generating distinct shares:  $s_{i} = x_{i}, f(x_i)$</li>
@@ -750,18 +634,18 @@ Oct 3, 2022
 <p>Polynomial is of the form:</p>
 <p>$$f(x) = S + r_{1}x+\cdots+r_{k-1}x^{k-1}$$</p>
 <p>These $r_i$ coefficients are randomly sampled and the points are generated which are the shares.</p>
-<a href="#recovering-s"><h3 id="recovering-s"><span class="hanchor" ariaLabel="Anchor"># </span>Recovering $S$</h3></a>
+<a href="#recovering-s"><h2 id="recovering-s"><span class="hanchor" ariaLabel="Anchor"># </span>Recovering $S$</h2></a>
 <p>$S$ is recovered using Lagrange polynomial.</p>
 <p>
 
 <img src="https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/doc/70038E5D-C6DE-4FC6-9A42-D6D734E55270/6EE820CD-DA8D-43F9-A472-7C5B9B18A23A_2/YRLa7DIbI5gyAIkWykkHWsTRbs6fkOFNdqt2yOvXfi4z/math4.png" width="auto" alt="math4.png"  /></p>
 <p>Putting $x = 0$, gives us $f(0) = S$</p>
-<a href="#pitfalls"><h3 id="pitfalls"><span class="hanchor" ariaLabel="Anchor"># </span>Pitfalls</h3></a>
+<a href="#pitfalls"><h2 id="pitfalls"><span class="hanchor" ariaLabel="Anchor"># </span>Pitfalls</h2></a>
 <ul>
 <li><strong>Zero-share</strong>: Common pitfalls occur during share generation as any shareholder who gets $x_{i} = 0$ has its share as $0, S$, thus revealing the secret.</li>
 <li><strong>Non-unique shares:</strong> when generating secret back, the protocol needs to evaluate $\frac{x_m}{x_m-x_j}$ , and if $x_m = x_{j} \space (mod \space q)$, then $x_{m}-x_{j}$ doesn&rsquo;t exist and protocol fails.</li>
 </ul>
-<a href="#schnorr-identification-protocol"><h2 id="schnorr-identification-protocol"><span class="hanchor" ariaLabel="Anchor"># </span>Schnorr Identification Protocol</h2></a>
+<a href="#schnorr-identification-protocol"><h1 id="schnorr-identification-protocol"><span class="hanchor" ariaLabel="Anchor"># </span>Schnorr Identification Protocol</h1></a>
 <p>
 <a href="https://ebrary.net/134583/computer_science/schnorr_identification_protocol" rel="noopener">Schnorr identification protocol</a></p>
 <p>
@@ -783,7 +667,7 @@ Oct 3, 2022
 </ol>
 <p>Not feasible, requires interaction from <em>verifier</em>. Also not publicly verifiable as both parties have to be involved.</p>
 <p>Non-Interactive protocols like Fiat-Shamir which transforms any interactive to non-interactive.</p>
-<a href="#schnorr-digital-signature"><h2 id="schnorr-digital-signature"><span class="hanchor" ariaLabel="Anchor"># </span>Schnorr Digital Signature</h2></a>
+<a href="#schnorr-digital-signature"><h1 id="schnorr-digital-signature"><span class="hanchor" ariaLabel="Anchor"># </span>Schnorr Digital Signature</h1></a>
 <ul>
 <li>
 <a href="https://tlu.tarilabs.com/cryptography/introduction-schnorr-signatures" rel="noopener">Introduction to Schnorr Signatures</a></li>
@@ -802,7 +686,7 @@ Oct 3, 2022
 <blockquote>
 <p>Non-interactive Schnorr identification protocol also exists using Fiat-Shamir transformation where challenge $c$ is not generated by verifier but $c = Hash(g, q, h, u)$ where g: generator, q: prime number, h: public key, u: public key of random nonce</p>
 </blockquote>
-<a href="#fiat-shamir-heuristic"><h2 id="fiat-shamir-heuristic"><span class="hanchor" ariaLabel="Anchor"># </span>Fiat-Shamir Heuristic</h2></a>
+<a href="#fiat-shamir-heuristic"><h1 id="fiat-shamir-heuristic"><span class="hanchor" ariaLabel="Anchor"># </span>Fiat-Shamir Heuristic</h1></a>
 <ul>
 <li>
 <a href="https://medium.com/asecuritysite-when-bob-met-alice/feige-fiat-shamir-and-zero-knowledge-proof-cdd2a972237c" rel="noopener">Feige-Fiat-Shamir and Zero Knowledge Proof</a></li>
@@ -818,7 +702,7 @@ Oct 3, 2022
 <img src="https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/7C67DBCA-3360-4109-833A-03B26CCD00D7_2/dQqjhDktmjoMAfrbxT4zZkhqEjbfxapng3dGPIobNL0z/Feige-Fiat-Shamir.png" width="auto" alt="Feige-Fiat-Shamir.png"  /></p>
 <p>Method to convert interactive ZKP system into non-interactive system such that public verifiability is feasible and both prover and verifier doesn’t need to be online at all times.</p>
 <p>Let <em>prover</em> prove to <em>verifier</em> that it possess $s1 \cdots sk $secrets co-prime to $N$, without revealing any of the number to verifier. Takes advantage of difficulty of calculating modular square roots as verifier can’t derive $s1$ from $v1$</p>
-<a href="#bls-signatures"><h2 id="bls-signatures"><span class="hanchor" ariaLabel="Anchor"># </span>BLS Signatures</h2></a>
+<a href="#bls-signatures"><h1 id="bls-signatures"><span class="hanchor" ariaLabel="Anchor"># </span>BLS Signatures</h1></a>
 <ul>
 <li>
 <a href="https://xn--2-umb.com/22/bls-signatures/" rel="noopener">Math &amp; Engineering</a></li>
@@ -829,29 +713,28 @@ Oct 3, 2022
 </ul>
 <p>Comes under elliptic curve pairing based schemes which makes aggregation easier than other signature schemes like ECDSA, schnorr.</p>
 <p>Two main things used in BLS signatures are:</p>
-<a href="#hash-to-curve"><h3 id="hash-to-curve"><span class="hanchor" ariaLabel="Anchor"># </span>Hash to curve</h3></a>
+<a href="#hash-to-curve"><h2 id="hash-to-curve"><span class="hanchor" ariaLabel="Anchor"># </span>Hash to Curve</h2></a>
 <p>For BLS signature to work, message hashing has to be on the curve i.e. $H(m)$ has to be a point on the curve.</p>
 <p>To do this, the method is to concatenate message incrementally with counter to try to find a point.</p>
 <p>
 
 <img src="https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/85F2FC7E-BC19-4024-9381-CBE498DB7A0F_2/xD1oFGhTuMLUHyu3gpZ5IoTdUo4x1qcfVtjbiXxZrwIz/BLS_hashing_to_curve.png" width="auto" alt="BLS_hashing_to_curve.png"  /></p>
-<a href="#pairings"><h2 id="pairings"><span class="hanchor" ariaLabel="Anchor"># </span>Pairings</h2></a>
+<a href="#pairings"><h1 id="pairings"><span class="hanchor" ariaLabel="Anchor"># </span>Pairings</h1></a>
 <p>Signature/Proof of possession: $S_X = x.H_{G_1}(X)$</p>
 <p>$$e(S_X, G_2) = e(H’_{G_1}(X), X)$$</p>
-<a href="#commitment-schemes"><h2 id="commitment-schemes"><span class="hanchor" ariaLabel="Anchor"># </span>Commitment Schemes</h2></a>
+<a href="#commitment-schemes"><h1 id="commitment-schemes"><span class="hanchor" ariaLabel="Anchor"># </span>Commitment Schemes</h1></a>
 <p>Prover commits to a message and later opens it to reveal the content of the message without revealing it beforehand.</p>
-<a href="#zero-knowledge-proof-system"><h2 id="zero-knowledge-proof-system"><span class="hanchor" ariaLabel="Anchor"># </span>Zero Knowledge Proof System</h2></a>
+<a href="#zero-knowledge-proof-system"><h1 id="zero-knowledge-proof-system"><span class="hanchor" ariaLabel="Anchor"># </span>Zero Knowledge Proof System</h1></a>
 <ul>
 <li>Completeness/Liveness: If <em>prover</em> is correct, it will eventually convince <em>verifier</em></li>
 <li>Soundness/Safety: <em>prover</em> can only convince <em>verifier</em> if it’s correct</li>
 <li>Zero Knowledge</li>
 </ul>
-<a href="#proving-schnorr-signatures-are-zero-knowledge"><h3 id="proving-schnorr-signatures-are-zero-knowledge"><span class="hanchor" ariaLabel="Anchor"># </span>Proving schnorr signatures are zero-knowledge</h3></a>
+<a href="#proving-schnorr-signatures-are-zero-knowledge"><h2 id="proving-schnorr-signatures-are-zero-knowledge"><span class="hanchor" ariaLabel="Anchor"># </span>Proving Schnorr Signatures Are Zero-knowledge</h2></a>
 <p>Proving <strong>completeness</strong> is the easiest part in protocol, i.e. if the prover performs protocol honestly, verifier is able to verify it by just substituting g in schnorr signatures.</p>
 <p><strong>Soundness</strong> is done through another algorithm called <em><strong>extractor</strong></em> which is able to extract secret of the prover by tricking it. Note: it doesn’t actually reveal the secret but only proving that extractor can extract the secret by duping prover. Done through <em>replay attack</em> on schnorr protocol.</p>
 <p><strong>Zero-Knowledgness</strong> is proven through a <em>simulator</em> which has no knowledge of the the secret and yet it is able to convince every verifier into believing that the statement is true. This has an <strong>assumption</strong> that <em>verifier</em> is <strong>honest.</strong> Done through rewinding a verifier so that prover knows challenge $$c$$ and forging false signature on the basis of it.</p>
-<a href="#zksnarks"><h2 id="zksnarks"><span class="hanchor" ariaLabel="Anchor"># </span>zkSNARKs</h2></a>
-<a href="#references"><h2 id="references"><span class="hanchor" ariaLabel="Anchor"># </span>References</h2></a>
+<a href="#references"><h1 id="references"><span class="hanchor" ariaLabel="Anchor"># </span>References</h1></a>
 <ul>
 <li>
 <a href="https://crypto.stanford.edu/cs355/19sp/lec5.pdf" rel="noopener">CS-355: Topics in Cryptography; Lecture 5: Proofs of Knowledge, Schnorr’s Protocol, NIZK</a></li>
@@ -863,8 +746,6 @@ Oct 3, 2022
 <a href="https://0xparc.notion.site/ZK-Learning-Group-Topics-f53933eecc2f41438c6c2bdd5b42ee2d" rel="noopener">0xPARC ZK Learning Group</a></li>
 <li>
 <a href="https://ethresear.ch/t/zero-knowledge-proofs-starter-pack/4519" rel="noopener">eth-research ZK learning starter pack</a></li>
-<li>
-<a href="https://eprint.iacr.org/2019/953.pdf" rel="noopener">PLONK whitepaper</a></li>
 <li>
 <a href="https://plum-lightning-36c.notion.site/Road-to-ZK-2e85993b316b4c7c831bcdc866005e1b" rel="noopener">Road to ZK</a></li>
 </ul>

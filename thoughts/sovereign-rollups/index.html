@@ -127,13 +127,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.4179c95ad4e91423fac99701800d48a8.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.b58911572e9cee38e1fbe566812e992f.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -317,6 +317,13 @@ Oct 3, 2022
       </ul>
       
 
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents"></nav>
+    </details>
+</aside>
+
 
       
 
@@ -399,7 +406,7 @@ Oct 3, 2022
 <p>SRs are other type of rollups that doesn&rsquo;t use other L1 as settlement layer but just use external DA and consensus layer. Settlement is handled within the rollup with their own clients. Full Nodes and Light Clients are used to sample DA and fraud/validity proofs for verification. Celestia is a solution in this direction which wants to be the go-to layer for cheap DA, giving sovereignty to chains. A rollup that uses another chain as settlement layer is bounded by the consensus rules of that chain, and doesn&rsquo;t have complete control over its changes. SR nodes verify the correct canonical chain for themselves, relying just for data on the external layer. The trust minimised two-way bridge converts to a one-way bridge for SRs as no verification is happening from the base layer.</p>
 <p>One major drawback of having a chain that can fork endlessly even with minority is that it hurts composability. Apps that rely on other apps for their functionality would also have to fork and follow the new rollup chain which is not feasible in a bigger ecosystem and is quite pointless if the apps prefer the older chain, then you are just left with a new fork which no one is using. Thus, SRs make more sense for specific and single purpose DApps. DeFi is the most significant use case for decentralised applications at the moment and most of it relies on other apps for composability and yields, it wouldn&rsquo;t make much sense for apps to just spin up their own rollup chain to have sovereignty away from the base layer.</p>
 <p>One advantage that SRs flex is the flexibility of having their own execution environments tailored for the specific use case rollup chain is designed for. This is not the case with ERs or SCRs that only supports base layer native execution environment for arbitrating proofs.</p>
-<a href="#fraud-proofs-in-srs"><h4 id="fraud-proofs-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Fraud Proofs in SRs</h4></a>
+<a href="#fraud-proofs-in-srs"><h1 id="fraud-proofs-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Fraud Proofs in SRs</h1></a>
 <p>
 
 
@@ -415,7 +422,7 @@ Oct 3, 2022
 </ul>
 <p>Celestia is a dirty ledger that means it doesn&rsquo;t check for validity and there&rsquo;s no concept of finality and just focuses on putting the data out there. Now, if a challenger wants to prove a Tx is an invalid transaction, it needs to have all the related transactions that could prove the malicious transaction is invalid and thus, this again brings us to the same place of archival nodes having to store all of the transactions. To mitigate this, weak subjectivity assumption is introduced. SCRs challengers has to keep the transaction data for the challenging period while SRs challengers now need to keep the data for the weak subjectivity period.</p>
 <p>IVG also introduces synchrony assumptions where all the light clients have to be connected to the honest challengers in order to distribute proofs. Thus, SRs are likely to use single round FPs as light clients can then participate in the distribution of proofs.</p>
-<a href="#bridging-in-srs"><h3 id="bridging-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Bridging in SRs</h3></a>
+<a href="#bridging-in-srs"><h1 id="bridging-in-srs"><span class="hanchor" ariaLabel="Anchor"># </span>Bridging in SRs</h1></a>
 <p>SRs do add additional design considerations over bridging as the settlement is happening on the rollup side and not on the base layer.</p>
 <p>There can be two types of bridges:</p>
 <ul>
@@ -441,14 +448,14 @@ Oct 3, 2022
 </ul>
 </li>
 </ul>
-<a href="#aggregated-zk-bridging"><h3 id="aggregated-zk-bridging"><span class="hanchor" ariaLabel="Anchor"># </span>Aggregated ZK Bridging</h3></a>
+<a href="#aggregated-zk-bridging"><h1 id="aggregated-zk-bridging"><span class="hanchor" ariaLabel="Anchor"># </span>Aggregated ZK Bridging</h1></a>
 <p>Problem: $SR_1 - SR_2$ through $SR_N$</p>
 <ol>
 <li>An aggregate prover would receive proofs off-chain $SR_2 - SR_N$, runs a light client for each chain.</li>
 <li>Combines proofs into one aggregated proof and includes it in a smart contract on-chain.</li>
 <li>$SR_1$ verifies proof in the same amount of time it would take to verify one proof.</li>
 </ol>
-<a href="#eth-sovereign-rollups"><h3 id="eth-sovereign-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>ETH Sovereign Rollups</h3></a>
+<a href="#eth-sovereign-rollups"><h1 id="eth-sovereign-rollups"><span class="hanchor" ariaLabel="Anchor"># </span>ETH Sovereign Rollups</h1></a>
 <p>Would be in effect when Ethereum implements data blobs carrying transactions which makes ETH to be used as a DA layer.</p>
 <p>Tradeoffs:</p>
 <ul>
@@ -457,7 +464,7 @@ Oct 3, 2022
 <li>slower finality</li>
 <li>More overhead: no DAS in ethereum yet, thus can&rsquo;t run light clients and need to run full nodes.</li>
 </ul>
-<a href="#celestia-sovereign-settlement-rollup--sc-recursive-rollup"><h3 id="celestia-sovereign-settlement-rollup--sc-recursive-rollup"><span class="hanchor" ariaLabel="Anchor"># </span>Celestia Sovereign Settlement Rollup &amp; SC Recursive Rollup</h3></a>
+<a href="#celestia-sovereign-settlement-rollup--sc-recursive-rollup"><h1 id="celestia-sovereign-settlement-rollup--sc-recursive-rollup"><span class="hanchor" ariaLabel="Anchor"># </span>Celestia Sovereign Settlement Rollup &amp; SC Recursive Rollup</h1></a>
 <p>
 
 
@@ -467,11 +474,10 @@ Oct 3, 2022
 <p>But a separate settlement layer could pose more challenges for censorship and force transaction inclusion which is supported in SCRs. Participants can leave rollup to post their transaction to L1 anytime just trading off the cheap fees, or sequencers are forced to include transactions within a certain time period which will get decentralised with more sequencers joining eventually.</p>
 <p>But how do you do this with shared SRs? If settlement layer is censoring a rollup, then there needs to be a way to submit transactions directly to DA layer and skip settlement layer altogether.</p>
 <p>Liveness risks are still associated as liveness failure of settlement layer will render the rollup useless, but not in the case of sequencers failure of rollup itself, as then you can settle to settlement layer directly.</p>
-<a href="#readings"><h2 id="readings"><span class="hanchor" ariaLabel="Anchor"># </span>Readings</h2></a>
+<a href="#readings"><h1 id="readings"><span class="hanchor" ariaLabel="Anchor"># </span>Readings</h1></a>
 <ul>
 <li>
 <a href="https://blog.celestia.org/sovereign-rollup-chains/" rel="noopener">Rollups as Sovereign Chains</a></li>
-<li></li>
 </ul>
 
 

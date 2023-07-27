@@ -8,21 +8,18 @@
   <meta charset="UTF-8" />
   <meta
     name="description"
-    content="Definition of divisor of a rational function $z \in k(C)$:
- Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$"
+    content="[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$."
   />
-  <meta property="og:title" content="Divisors">
-  <meta property="og:description" content="Definition of divisor of a rational function $z \in k(C)$:
- Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$">
+  <meta property="og:title" content="Bilinear Pairings">
+  <meta property="og:description" content="[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://lonerapier.xyz/icon.png">
-  <meta property="og:url" content="https://lonerapier.xyz/thoughts/divisors/">
+  <meta property="og:url" content="https://lonerapier.xyz/thoughts/bilinear-pairings/">
   <meta property="og:width" content="200">
   <meta property="og:height" content="200">
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Divisors" />
-  <meta name="twitter:description" content="Definition of divisor of a rational function $z \in k(C)$:
- Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$" />
+  <meta name="twitter:title" content="Bilinear Pairings" />
+  <meta name="twitter:description" content="[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$." />
   <meta name="twitter:image" content="https://lonerapier.xyz/icon.png">
   
     
@@ -34,7 +31,7 @@
   
 
   <title>
-    Divisors
+    Bilinear Pairings
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -312,29 +309,29 @@
 
 
     <article>
-      <h1>Divisors</h1>
+      <h1>Bilinear Pairings</h1>
       <p class="meta">
         Last updated 
 Oct 3, 2022
 
  
           
-<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/divisors.md" rel="noopener">Edit Source</a>
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/bilinear-pairings.md" rel="noopener">Edit Source</a>
 
 
       </p>
       <ul class="tags">
           
-          <li><a href="https://lonerapier.xyz/tags/math/">
+          <li><a href="https://lonerapier.xyz/tags/cryptography/">
           
-            Math
+            Cryptography
           
             </a>
            </li>
           
-          <li><a href="https://lonerapier.xyz/tags/algebra/">
+          <li><a href="https://lonerapier.xyz/tags/math/">
           
-            Algebra
+            Math
           
             </a>
            </li>
@@ -345,15 +342,7 @@ Oct 3, 2022
 <aside class="mainTOC">
     <details >
         <summary>Table of Contents</summary>
-        <nav id="TableOfContents">
-  <ol>
-    <li><a href="#example">Example</a></li>
-  </ol>
-
-  <ol>
-    <li><a href="#prerequisites">Prerequisites</a></li>
-  </ol>
-</nav>
+        <nav id="TableOfContents"></nav>
     </details>
 </aside>
 
@@ -413,6 +402,56 @@ Oct 3, 2022
   
   
 
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
 
 
 
@@ -420,6 +459,50 @@ Oct 3, 2022
 
 
 
+
+
+  
+  
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+    
+    
+
+  
 
   
   
@@ -478,45 +561,106 @@ Oct 3, 2022
   
   
   
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+    
+    
   
   
   
+  
 
 
 
 
 
 
-<p>Definition of divisor of a rational function $z \in k(C)$:</p>
-<p>
+<p><a href="/thoughts/elliptic-curves" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curves">Elliptic curves</a> are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</p>
+<p>Pairing helps to compute certain complicated equations on EC points. Traditional EC math lets anyone check linear constraints on the number (eg. $P = Gp, Q = Gq, R = Gr,$ checking $5P + 7Q = 11R$), but pairing lets you check <em>quadratic</em> constraints ($e(P,Q) * e(G,G5) = 1$ <em>is checking</em> $p*q + 5 = 0$**).</p>
+<blockquote>
+<p>This makes DDH (Decision Diffie-Hellman) problem very easy to compute using pairings. Also DLog reduction becomes computably feasible if not done on extension fields of Finite Field as we want the target group to be sufficiently bigger so that it&rsquo;s not possible to do DLog reduction.</p>
+</blockquote>
+<p>$e(P,Q)$ is a function defined on EC points. This is the <em>pairing.</em> Also known as bilinear map. It is called as bilinear because it satisfies following constraints:</p>
+<ul>
+<li>$e(P, Q+R) = e(P, Q) + e(P, R)$</li>
+<li>$e(P+S, Q) = e(P, Q) + e(S, Q)$</li>
+</ul>
+<p>The pairing is linear in both constraints. So, EC Pairing is a function that takes a pair of points on an elliptic curve and returns an element of some other group, called the <em>target group</em>.</p>
+<p>Example: $e(x,y) = 2^{xy}$, where $x = 3, y = 9$ -&gt; $P = 3, Q = 4, R = 5$</p>
+<p>Pairing needs to have another property, i.e. <strong>Non-Degeneracy</strong>. For generators $g1$, $g2$: $e(G_1, G_2) \neq 1$</p>
+<blockquote>
+<p>Note: $+$ and $\cdot$ can be any arbitrary operators. It doesn&rsquo;t matter what symbols are used in abstract mathematics as long as they obey the properties of associativity, commutativity and reflexivity.</p>
+<ul>
+<li>$a + b = b + a$</li>
+<li>$(a \cdot b) \cdot c = a \cdot (b \cdot c)$</li>
+<li>$(a \cdot c) + (b \cdot c) = (a + b) \cdot c$</li>
+</ul>
+</blockquote>
+<p>However, such simple pairings are not suitable for cryptography as its trivial to divide, compute logarithms and other computations. Simple integers can’t be used in a field having terms like public-private keys or one-way functions because anyone can go back to $y$ knowing $x$ and $e(x,y)$. Thus, we require numbers that can essentially function as “black boxes” or it&rsquo;s only possible to do simple arithmetic like addition, subtraction, multiplication and division on them and nothing else. That&rsquo;s where ECs and EC-points come in.</p>
+<p>Pairing - $e: \mathbb{G_1} \times \mathbb{G_2} \rightarrow \mathbb{G_T}$</p>
+<p>The reason why Bilinear map works?</p>
+<p>First, we look into the concept of <a href="/thoughts/divisors" rel="noopener" class="internal-link" data-src="/thoughts/divisors">divisors</a>.</p>
+<a href="#tate-pairings"><h1 id="tate-pairings"><span class="hanchor" ariaLabel="Anchor"># </span>Tate Pairings</h1></a>
+<a href="#millers-algorithm"><h1 id="millers-algorithm"><span class="hanchor" ariaLabel="Anchor"># </span>Miller&rsquo;s Algorithm</h1></a>
+<a href="#mov-attack"><h1 id="mov-attack"><span class="hanchor" ariaLabel="Anchor"># </span>MOV Attack</h1></a>
+<p>MOV attack refers to the transfer of DLP over EC to finite field $\mathbb{F_{p^k}}$ where it&rsquo;s much easier to solve. This is related to the 
+<a href="https://math.stackexchange.com/questions/824123/what-is-an-embedding-degree-of-elliptic-curve" rel="noopener">embedded degree</a> of the EC.</p>
+<blockquote>
+<p><em>Embedded Degree</em> of an EC refers to the minimum value of k for which $p^k \equiv 1 \pmod{n}$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn&rsquo;t be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.</p>
+</blockquote>
+<a href="#complexities-assumptions-on-bilinear-groups"><h1 id="complexities-assumptions-on-bilinear-groups"><span class="hanchor" ariaLabel="Anchor"># </span>Complexities Assumptions on Bilinear Groups</h1></a>
+<ul>
+<li>Discrete Log problem is still difficult if target group is sufficiently large.</li>
+<li>CDH (Computation Diffie-Hellman) is still hard as we can&rsquo;t find $g^{xy}$ if we know $g$, $g^x$, $g^y$.</li>
+<li>Bilinear Diffie-Hellman Problem: Given $P, aP, bP, cP \in G_1$, compute $e(P, P)^{abc}$
 
 
-<img src="https://lonerapier.xyz//thoughts/images/divisors.png" width="auto" alt="divisor definition"  /></p>
-<p>Degree of a divisor as $deg \space D = \sum_{P \in \mathbb{C^*}} n_p$</p>
-<a href="#divisor-of-a-meromorphic-function"><h1 id="divisor-of-a-meromorphic-function"><span class="hanchor" ariaLabel="Anchor"># </span>Divisor of a Meromorphic Function</h1></a>
-<p>For a <a href="/thoughts/meromorphic-functions" rel="noopener" class="internal-link" data-src="/thoughts/meromorphic-functions">meromorphic function</a> $f(z)$, we can define the <strong>divisor</strong> of $f$ as,</p>
-<p>$$div \space f = \sum_{P \in \mathbb{C^*}} (ord_{P} f)(P)$$</p>
-<p>It is also known that for any non-zero meromorphic function $f \in K(\mathbb{C^*})$, then $deg \space div \space f = 0$.</p>
-<a href="#example"><h2 id="example"><span class="hanchor" ariaLabel="Anchor"># </span>Example</h2></a>
-<p>Let the polynomial be $f(z) = z^2 + 1$. We have a zero at $i$ and $-i$. But since the domain is $\mathbb{C^*}$, we need to consider point at infinity. In this case, we have a pole at infinity with degree 2 as $f(1/z) = 0$ at $z = 0$.</p>
-<p>So, the divisor of f is,</p>
-<p>$$div \space f = (i) + (-i) - 2(\infty)$$</p>
-<a href="#divisors-of-elliptic-curves"><h1 id="divisors-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Divisors of Elliptic Curves</h1></a>
-<p>In the case of Riemann sphere, meromorphic functions are considered. In the case of Elliptic curves, rational functions are considered.</p>
-<a href="#prerequisites"><h2 id="prerequisites"><span class="hanchor" ariaLabel="Anchor"># </span>Prerequisites</h2></a>
+
+<img src="https://lonerapier.xyz//thoughts/images/example-tripartite-key-exchange.jpeg" width="auto" alt="tripartite-key-exchange"  /></li>
+</ul>
+<a href="#prerequisites"><h1 id="prerequisites"><span class="hanchor" ariaLabel="Anchor"># </span>Prerequisites</h1></a>
 <ol>
-<li>Riemann Sphere: Denoted as $\mathbb{C^*}$ and contains $C \bigcup \lbrace \infty \rbrace$</li>
+<li>Fermat&rsquo;s Little Theorem: for a prime p, and any positive integer a, $a^p \equiv a \space mod \space p$</li>
+<li>Additive Group: set of numbers with operation defined on addition</li>
+<li>Multiplicative group: set of numbers with operation defined on multiplication</li>
+<li>Order of Multiplicative group</li>
 </ol>
 <a href="#resources"><h1 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h1></a>
 <ul>
 <li>
-<a href="https://math.stackexchange.com/questions/1290619/example-of-a-divisor-of-a-function" rel="noopener">Examples of divisor of a function</a></li>
+<a href="https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627" rel="noopener">Vitalik: Exploring Elliptic Curve Pairings</a></li>
 <li>
-<a href="https://math.stackexchange.com/questions/2434900/let-f-be-the-divisor-of-a-function-on-an-elliptic-curve-why-does-degf" rel="noopener">Divisor of a line function on EC</a></li>
+<a href="https://blog.statebox.org/elliptic-curve-pairings-213131769fac" rel="noopener">Statebox’s Elliptic Curve Pairings</a></li>
 <li>
-<a href="https://klwu.co/knowledge/ec-basics-3-divisors/" rel="noopener">Divisors and Pairings</a></li>
+<a href="https://crypto.stanford.edu/pbc/thesis.pdf" rel="noopener">https://crypto.stanford.edu/pbc/thesis.pdf</a></li>
 <li>
-<a href="https://mathimages.swarthmore.edu/index.php/Riemann_Sphere" rel="noopener">Riemann Sphere</a></li>
+<a href="https://people.csail.mit.edu/alinush/6.857-spring-2015/papers/bilinear-maps.pdf" rel="noopener">https://people.csail.mit.edu/alinush/6.857-spring-2015/papers/bilinear-maps.pdf</a></li>
+<li>
+<a href="https://klwu.co/knowledge/ec-basics-3-divisors/" rel="noopener">Fundamental Concepts Underlying Elliptic Curves (Level 2): Divisors and Pairings</a></li>
+<li>
+<a href="https://crypto.stackexchange.com/questions/56400/why-pairings-on-elliptic-curve-are-used" rel="noopener">Why pairings are used?</a></li>
+<li>
+<a href="https://www.youtube.com/watch?v=F4x2kQTKYFY" rel="noopener">Basics of Pairings - Dan Boneh</a></li>
+<li>
+<a href="https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf" rel="noopener">Pairings for beginners</a></li>
+<li>
+<a href="https://www.math.uwaterloo.ca/~ajmeneze/publications/pairings.pdf" rel="noopener">Intro to Pairings</a></li>
 </ul>
 
 

@@ -36,6 +36,15 @@
     </item>
     
     <item>
+      <title>Bilinear Pairings</title>
+      <link>https://lonerapier.xyz/thoughts/bilinear-pairings/</link>
+      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/bilinear-pairings/</guid>
+      <description>[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
+    </item>
+    
+    <item>
       <title>Verkle Trees</title>
       <link>https://lonerapier.xyz/thoughts/verkle/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

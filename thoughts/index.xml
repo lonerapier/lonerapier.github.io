@@ -6,7 +6,16 @@
     <description>Recent content in Thoughts on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 May 2023 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 May 2023 10:00:00 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/thoughts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Group Theory</title>
+      <link>https://lonerapier.xyz/thoughts/group-theory/</link>
+      <pubDate>Sat, 06 May 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/group-theory/</guid>
+      <description>Groups Groups $G$ are algebraic structures which are set and has a binary operation $\bigoplus$ that combines two elements $a, b$ of the set to produce a third element $a\bigoplus b$ in the set.</description>
+    </item>
+    
     <item>
       <title>Finite Fields</title>
       <link>https://lonerapier.xyz/thoughts/finite-fields/</link>
@@ -25,6 +34,24 @@ Properties  Abelian group under addition Non-zero numbers form abelian group und
       <guid>https://lonerapier.xyz/thoughts/snark/</guid>
       <description>Properties that any zero knowledge based proving system needs to entertain:
  Completeness: Any honest prover can convince verifier of the statement and witness.</description>
+    </item>
+    
+    <item>
+      <title>MMU</title>
+      <link>https://lonerapier.xyz/thoughts/mmu/</link>
+      <pubDate>Wed, 26 Apr 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/mmu/</guid>
+      <description>Memory Management Unit MMU Paging is dividing process into equal blocks, but complete process is not treated equal by the cpu.</description>
+    </item>
+    
+    <item>
+      <title>EigenLayer</title>
+      <link>https://lonerapier.xyz/thoughts/eigenlayer/</link>
+      <pubDate>Wed, 25 Jan 2023 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/eigenlayer/</guid>
+      <description>Why EigenLayer? Permissionless composability only on the dapp layer and not on other stack in decentralised trust networks like Bitcoin and Ethereum.</description>
     </item>
     
     <item>
@@ -90,6 +117,15 @@ Let G be an open set in $\mathbb{C}$.</description>
       
       <guid>https://lonerapier.xyz/thoughts/zeroes-and-poles/</guid>
       <description>In complex analysis, functions are studied that are differentiable (in the complex space) at almost all points. Zeroes and poles are very important concept.</description>
+    </item>
+    
+    <item>
+      <title>Bilinear Pairings</title>
+      <link>https://lonerapier.xyz/thoughts/bilinear-pairings/</link>
+      <pubDate>Mon, 03 Oct 2022 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/bilinear-pairings/</guid>
+      <description>[[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.</description>
     </item>
     
     <item>

@@ -18,6 +18,24 @@
     </item>
     
     <item>
+      <title>MMU</title>
+      <link>https://lonerapier.xyz/thoughts/mmu/</link>
+      <pubDate>Wed, 26 Apr 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/mmu/</guid>
+      <description>Memory Management Unit MMU Paging is dividing process into equal blocks, but complete process is not treated equal by the cpu.</description>
+    </item>
+    
+    <item>
+      <title>EigenLayer</title>
+      <link>https://lonerapier.xyz/thoughts/eigenlayer/</link>
+      <pubDate>Wed, 25 Jan 2023 10:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/eigenlayer/</guid>
+      <description>Why EigenLayer? Permissionless composability only on the dapp layer and not on other stack in decentralised trust networks like Bitcoin and Ethereum.</description>
+    </item>
+    
+    <item>
       <title>TEE</title>
       <link>https://lonerapier.xyz/thoughts/tee/</link>
       <pubDate>Sun, 15 Jan 2023 12:40:00 -0700</pubDate>

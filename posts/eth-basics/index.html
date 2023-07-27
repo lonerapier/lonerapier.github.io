@@ -13,22 +13,36 @@ state of the blockchain changes after executing transactions.
 stores states in state root
 Accounts 20-byte hex addresses whose state is stored on the blockchain"
   />
+  <meta property="og:title" content="Ethereum Yellow Paper">
+  <meta property="og:description" content="Transaction based state-machine
+state of the blockchain changes after executing transactions.
+stores states in state root
+Accounts 20-byte hex addresses whose state is stored on the blockchain">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://lonerapier.xyz/icon.png">
+  <meta property="og:url" content="https://lonerapier.xyz/posts/eth-basics/">
+  <meta property="og:width" content="200">
+  <meta property="og:height" content="200">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ethereum Yellow Paper" />
+  <meta name="twitter:description" content="Transaction based state-machine
+state of the blockchain changes after executing transactions.
+stores states in state root
+Accounts 20-byte hex addresses whose state is stored on the blockchain" />
+  <meta name="twitter:image" content="https://lonerapier.xyz/icon.png">
+  
+    
+      
+      <meta name="twitter:site" content="lonerapier" />
+    
+  
+    
+  
+
   <title>
     Ethereum Yellow Paper
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  
-  <meta property="og:url" content="https://lonerapier.xyz" />
-  <meta property="og:title" content="" />
-  <meta property="og:description" content="" />
-  <meta property="og:image" content="https://jzhao.xyz/res/og-card.png" />
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:creator" content="@lonerapier">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:image" content="https://jzhao.xyz/res/og-card.png" />
-
 
   
   
@@ -65,7 +79,7 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
     
   
   
-  <link href="https://lonerapier.xyz/styles.f8b2708081ba5ae718bbefd12c5f1476.min.css" rel="stylesheet" />
+  <link href="https://lonerapier.xyz/styles.1ba07200d07447d1a27365d5e947dfab.min.css" rel="stylesheet" />
 
   
   <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
@@ -79,7 +93,7 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
   
   
   
-  <script src="https://lonerapier.xyz/js/util.6f22941e242efae60fd84e7c32e874fa.min.js"></script>
+  <script src="https://lonerapier.xyz/js/util.00639692264b21bc3ee219733d38a8be.min.js"></script>
   
   
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
@@ -101,10 +115,10 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
 
 
 
-  <script async src="https://unpkg.com/@floating-ui/core@0.7.3"></script>
-  <script async src="https://unpkg.com/@floating-ui/dom@0.5.4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.2.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.2.1"></script>
   
-  <script async src="https://lonerapier.xyz/js/popover.f03552ccb84d99ca615d1cfb9abde59e.min.js"></script>
+  <script defer src="https://lonerapier.xyz/js/popover.aa9bc99c7c38d3ae9538f218f1416adb.min.js"></script>
 
   
   
@@ -130,13 +144,13 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.ec25213fafe91f4c26f4ba615aec0c07.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.9472711a5b0303332442fb0bf9755dfb.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.0c12e8436ccefa8ae2fc2add70c4f7fc.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.e3f1b1b334c5fed8daf4eb0aaa65393b.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -183,7 +197,7 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
             "https://lonerapier.xyz",
             drawGlobal,
             [{"/moc":"#4388cc"}],
-            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":0.8,"opacityScale":3,"repelForce":2,"scale":1}
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
           );
 
         }
@@ -201,6 +215,29 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
           )
         }
       
+      
+      
+      function clickHandler(evt) {
+        const target = evt.target 
+        const classNames = target.className.split(" ")
+        const broken = classNames.includes("broken")
+        const internal = classNames.includes("internal-link")
+        plausible("Link Click", {
+          props: {
+            href: target.href,
+            broken,
+            internal,
+            graph: false,
+          }
+        })
+      }
+
+      const links = document.querySelectorAll("a")
+      for (link of links) {
+        if (link.className.includes("root-title")) {
+          link.addEventListener('click', clickHandler, {once: true})
+        }
+      }
     }
 
     const init = (doc = document) => {
@@ -225,23 +262,14 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain"
   
   
   <script type="module">
-    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.d6fe6bd821db9ea97f9aeefae814d8e7.min.js"
     attachSPARouting(init, render)
   </script>
   
+  
+  <script defer data-domain="lonerapier.xyz" src="https://plausible.io/js/script.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 </head>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-XYFD95KB4J', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <body>
@@ -265,7 +293,7 @@ if (!doNotTrack) {
     
     <header>
     
-    <h1 id="page-title"><a href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <h1 id="page-title"><a class="root-title" href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
     <div class="spacer"></div>
     <div id="search-icon">
       <p>Search</p>
@@ -469,7 +497,6 @@ There are several rules for encoding mentioned below.</p>
     </div>
     <div>
         <script
-  async
   src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
   integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
   crossorigin="anonymous"
@@ -486,7 +513,7 @@ There are several rules for encoding mentioned below.</p>
   }
 </style>
 
-<script src="https://lonerapier.xyz/js/graph.2d9e48dbe7ea47c0ef1c58296ce14448.js"></script>
+<script src="https://lonerapier.xyz/js/graph.6579af7b10c818dbd2ca038702db0224.js"></script>
 
     </div>
 </div>

@@ -7,6 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://lonerapier.xyz/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>MSM - Multi scalar multiplication</title>
+      <link>https://lonerapier.xyz/thoughts/msm/</link>
+      <pubDate>Sat, 08 Jul 2023 10:00:00 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/msm/</guid>
+      <description>Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an [[elliptic-curves|EC]].
+Scalar size: $b$ bits
+Naive Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions</description>
+    </item>
+    
+    <item>
       <title>Group Theory</title>
       <link>https://lonerapier.xyz/thoughts/group-theory/</link>
       <pubDate>Sat, 06 May 2023 10:00:00 -0700</pubDate>
@@ -275,6 +286,15 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain</descript
     </item>
     
     <item>
+      <title>Meaning</title>
+      <link>https://lonerapier.xyz/posts/Meaning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/posts/Meaning/</guid>
+      <description>These are the list of quotes that I have discovered the meaning while doing some bullshit. Or loved it in first reading and trying to find the meaning of it through my experience.</description>
+    </item>
+    
+    <item>
       <title>Verkle Trees</title>
       <link>https://lonerapier.xyz/thoughts/verkle/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -282,6 +302,15 @@ Accounts 20-byte hex addresses whose state is stored on the blockchain</descript
       <guid>https://lonerapier.xyz/thoughts/verkle/</guid>
       <description>Credits: Dankrad&amp;rsquo;s post on verkle tries
 Verkle Trees is one of the big change that is going to be included in the Ethereum protocol towards its push to weak statelessness.</description>
+    </item>
+    
+    <item>
+      <title>{{title}}</title>
+      <link>https://lonerapier.xyz/template/post/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/template/post/</guid>
+      <description></description>
     </item>
     
   </channel>

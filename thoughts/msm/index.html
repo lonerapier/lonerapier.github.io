@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta
+    name="description"
+    content="Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an [[elliptic-curves|EC]].
+Scalar size: $b$ bits
+Naive Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions"
+  />
+  <meta property="og:title" content="MSM - Multi scalar multiplication">
+  <meta property="og:description" content="Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an [[elliptic-curves|EC]].
+Scalar size: $b$ bits
+Naive Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://lonerapier.xyz/icon.png">
+  <meta property="og:url" content="https://lonerapier.xyz/thoughts/msm/">
+  <meta property="og:width" content="200">
+  <meta property="og:height" content="200">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="MSM - Multi scalar multiplication" />
+  <meta name="twitter:description" content="Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an [[elliptic-curves|EC]].
+Scalar size: $b$ bits
+Naive Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions" />
+  <meta name="twitter:image" content="https://lonerapier.xyz/icon.png">
+  
+    
+      
+      <meta name="twitter:site" content="lonerapier" />
+    
+  
+    
+  
+
+  <title>
+    MSM - Multi scalar multiplication
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  
+  
+  
+  
+  <link rel="shortcut icon" type="image/png"  href="https://lonerapier.xyz//icon.png" />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link href="https://lonerapier.xyz/styles.1ba07200d07447d1a27365d5e947dfab.min.css" rel="stylesheet" />
+
+  
+  <link href="https://lonerapier.xyz/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css" rel="stylesheet" id="theme-link">
+
+   
+  
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/darkmode.0c1a5ee5e865a5980ee5f388f8a98f80.min.js"></script>
+  
+  
+  
+  <script src="https://lonerapier.xyz/js/util.00639692264b21bc3ee219733d38a8be.min.js"></script>
+  
+  
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+        integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+        crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js"
+        integrity="sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A"
+        crossorigin="anonymous"></script>
+
+
+  
+  
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.2.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.2.1"></script>
+  
+  <script defer src="https://lonerapier.xyz/js/popover.aa9bc99c7c38d3ae9538f218f1416adb.min.js"></script>
+
+  
+  
+  
+  <script defer src="https://lonerapier.xyz/js/code-title.ce4a43f09239a9efb48fee342e8ef2df.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/clipboard.2913da76d3cb21c5deaa4bae7da38c9f.min.js"></script>
+  
+
+  
+  
+  <script defer src="https://lonerapier.xyz/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js"></script>
+  
+
+  
+   
+  <script>
+    const SEARCH_ENABLED =  null 
+    const LATEX_ENABLED =  true 
+    const PRODUCTION =  true 
+    const BASE_URL = "https://lonerapier.xyz/"
+    const fetchData = Promise.all([
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.f4befb713537f8bdb076cdcb734b8399.min.json")
+            .then(data => data.json())
+            .then(data => ({
+              index: data.index,
+              links: data.links,
+            })),
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.844b38a5d0bc33bb656f0f106fc47804.min.json")
+            .then(data => data.json()),
+        ])
+        .then(([{index, links}, content]) => ({
+          index,
+          links,
+          content,
+        }))
+
+      const render = () => {
+      
+
+      const siteBaseURL = new URL(BASE_URL);
+      const pathBase = siteBaseURL.pathname;
+      const pathWindow = window.location.pathname;
+      const isHome = pathBase == pathWindow;
+
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      
+
+      addCollapsibleCallouts();
+      
+
+      
+      initPopover(
+        "https://lonerapier.xyz",
+         true 
+      )
+      
+
+      
+      const footer = document.getElementById("footer")
+      if (footer) {
+        const container = document.getElementById("graph-container")
+        
+        if (!container) return requestAnimationFrame(render)
+        
+        container.textContent = ""
+
+        const drawGlobal = isHome &&  false ;
+        drawGraph(
+            "https://lonerapier.xyz",
+            drawGlobal,
+            [{"/moc":"#4388cc"}],
+            drawGlobal ? {"centerForce":1,"depth":-1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.5,"linkDistance":1,"opacityScale":3,"repelForce":1,"scale":1.4} : {"centerForce":1,"depth":1,"enableDrag":true,"enableLegend":false,"enableZoom":true,"fontSize":0.6,"linkDistance":1,"opacityScale":3,"repelForce":2,"scale":1.2}
+          );
+
+        }
+      
+
+      
+        var els = document.getElementsByClassName("mermaid");
+        if (els.length > 0) {
+          import('https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs').then(
+            (obj) => {
+              
+              
+              obj.default.init();
+            }
+          )
+        }
+      
+      
+      
+      function clickHandler(evt) {
+        const target = evt.target 
+        const classNames = target.className.split(" ")
+        const broken = classNames.includes("broken")
+        const internal = classNames.includes("internal-link")
+        plausible("Link Click", {
+          props: {
+            href: target.href,
+            broken,
+            internal,
+            graph: false,
+          }
+        })
+      }
+
+      const links = document.querySelectorAll("a")
+      for (link of links) {
+        if (link.className.includes("root-title")) {
+          link.addEventListener('click', clickHandler, {once: true})
+        }
+      }
+    }
+
+    const init = (doc = document) => {
+      
+      addCopyButtons();
+      
+
+      addTitleToCodeBlocks();
+      renderMathInElement(doc.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ],
+        macros: {
+          '’': "'"
+        },
+        throwOnError : false
+      });
+      
+    };
+  </script>
+  
+  
+  <script type="module">
+    import { attachSPARouting } from "https:\/\/lonerapier.xyz\/js\/router.d6fe6bd821db9ea97f9aeefae814d8e7.min.js"
+    attachSPARouting(init, render)
+  </script>
+  
+  
+  <script defer data-domain="lonerapier.xyz" src="https://plausible.io/js/script.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+</head>
+
+
+<body>
+<div id="search-container">
+  <div id="search-space">
+    <input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search"
+      placeholder="Search for something..." dir="">
+    <div id="results-container">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js"
+  integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin="anonymous" defer></script>
+
+<script defer src="https://lonerapier.xyz/js/full-text-search.e6e2e0c213187ca0c703d6e2c7a77fcd.min.js"></script>
+
+
+
+<div class="singlePage">
+    
+    <header>
+    
+    <h1 id="page-title"><a class="root-title" href="https://lonerapier.xyz/">lonerapier.xyz</a></h1>
+    <div class="spacer"></div>
+    <div id="search-icon">
+      <p>Search</p>
+      <svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg>
+    </div>
+    <div class='darkmode'>
+    <input class='toggle' id='darkmode-toggle' type='checkbox' tabindex="-1">
+    <label id="toggle-label-light" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
+            <title>Light Mode</title>
+            <path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
+        </svg>
+    </label>
+    <label id="toggle-label-dark" for='darkmode-toggle' tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'" xml:space="preserve">
+            <title>Dark Mode</title>
+            <path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
+        </svg>
+    </label>
+</div>
+</header>
+
+
+    <article>
+      <h1>MSM - Multi scalar multiplication</h1>
+      <p class="meta">
+        Last updated 
+Jul 8, 2023
+
+ 
+          
+<a href="https://github.com/lonerapier/lonerapier.github.io//thoughts/msm.md" rel="noopener">Edit Source</a>
+
+
+      </p>
+      <ul class="tags">
+          
+          <li><a href="https://lonerapier.xyz/tags/tech/">
+          
+            Tech
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/math/">
+          
+            Math
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/cryptography/">
+          
+            Cryptography
+          
+            </a>
+           </li>
+          
+      </ul>
+      
+
+<aside class="mainTOC">
+    <details >
+        <summary>Table of Contents</summary>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#batch-affine">Batch Affine</a></li>
+    <li><a href="#glv-with-endomorphism">GLV with Endomorphism</a>
+      <ol>
+        <li><a href="#naive-approach">Naive Approach</a></li>
+        <li><a href="#endomorphism">Endomorphism</a></li>
+      </ol>
+    </li>
+    <li><a href="#wnaf-windowed-non-adjacent-form">WNAF (windowed Non-adjacent form)</a></li>
+  </ol>
+</nav>
+    </details>
+</aside>
+
+
+      
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+    
+    
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+  
+  
+  
+
+
+
+
+
+
+<p>Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an <a href="/thoughts/elliptic-curves" rel="noopener" class="internal-link" data-src="/thoughts/elliptic-curves">EC</a>.</p>
+<p>Scalar size: $b$ bits</p>
+<a href="#naive"><h1 id="naive"><span class="hanchor" ariaLabel="Anchor"># </span>Naive</h1></a>
+<p>Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/msm.png" width="auto" alt="msm"  /></p>
+<p>MSM can be divided into two main parts:</p>
+<ol>
+<li>Modular multiplication</li>
+<li>Point additions</li>
+</ol>
+<a href="#pippenger-bucketed-approach"><h1 id="pippenger-bucketed-approach"><span class="hanchor" ariaLabel="Anchor"># </span>Pippenger Bucketed Approach</h1></a>
+<blockquote class="info-callout">
+<p></p>
+<p>Squaring: double add, i.e. $2*P$, where P is an EC point.</p>
+</blockquote>
+<ol>
+<li>Divide scalar into windows of m, each with $w$ bits.</li>
+<li>calculate: $P=\sum_{i} k_iP_i=\sum_{j}2^{cj}\left(\sum_{i} k_{ij}P_i\right)=\sum_j 2^{cj} B_j$</li>
+<li>$B_{j}=\sum_{i}k_{ij}P_{i}=\sum_{2^{w}-1}\lambda\sum_{u(\lambda)}P_{u}$</li>
+<li>Example: c=3, j=15, $B_{1}=4P_{1}+3P_{2}+5P_{3}+1P_{4}+4P_{5}+6P_{7}+6P_{8}+\ldots+3P_{14}+5P_{15}$</li>
+<li>Now, group points with same coefficients together, i.e. create buckets of $2^c-1$, and $B_{j}=\sum_{\lambda}\lambda S_{j\lambda}$</li>
+<li>Take partial sums:
+$$\begin{align}T_{j1}&amp;=S_{j7}\\ T_{j2}&amp;=S_{j6}+T_{j1}\\ T_{j3}&amp;=T_{j2}+S_{j5}\\ &amp;\vdots\\ T_{j7}&amp;=T_{j6}+S_{j1}\end{align}$$</li>
+<li>Sum each window.</li>
+</ol>
+<p>Complexity: $\frac{b}{c}(2^c+N+1)$ additions +. $b$ squarings</p>
+<ul>
+<li>Part 1: window result calculation: $(2^c+N)b/c$</li>
+<li>Part 2: sum over all windows: each iteration require $1$ addition and $c$ squarings. $b/c$ windows -&gt; $\frac{b}{c} + \frac{b}{c}*c$ squarings</li>
+</ul>
+<a href="#point-addition-optimisations"><h1 id="point-addition-optimisations"><span class="hanchor" ariaLabel="Anchor"># </span>Point Addition Optimisations</h1></a>
+<p>Majority of complexity is due to point additions. Point addition complexity for affine coordinates is 1 division, 2 multiplications, 6 additions on $\mathbb{F}$. Division is very costly.</p>
+<p>Use projective coordinates. Division can be defered to when there is need for switch back to affine coordinates.</p>
+<p>Complexity: 7 mults, 4 squarings, 9 additions, 3 mults by 2, 1 by 1. But no division is required.</p>
+<a href="#batch-affine"><h2 id="batch-affine"><span class="hanchor" ariaLabel="Anchor"># </span>Batch Affine</h2></a>
+<p>Can be used in cases where aim is to find: $G_{i}=P_i+Q_i$ where P, Q are points on EC.</p>
+<p>Denote: $a_{i}=x_{i,2}-x_{i,1}$</p>
+<ul>
+<li>$s$: $\prod_{i=1}^{n}a_i$</li>
+<li>$l_i$: $\prod_{j=1}^{i-1}a_{j}$</li>
+<li>$r_i$: $\prod_{j=i+1}^{n}a_{j}$</li>
+<li>$G_{i}=\frac{1}{x_{i,2}-x_{i,1}}=s*l_{i}*r_{i}$</li>
+</ul>
+<a href="#glv-with-endomorphism"><h2 id="glv-with-endomorphism"><span class="hanchor" ariaLabel="Anchor"># </span>GLV with Endomorphism</h2></a>
+<p>Goal: accelerate single point scalar mult $k*P$</p>
+<a href="#naive-approach"><h3 id="naive-approach"><span class="hanchor" ariaLabel="Anchor"># </span>Naive Approach</h3></a>
+<ol>
+<li>Divide into windows of c bits</li>
+<li>pre-compute $i*P \forall i\in[0,\ldots,2^c-1]$</li>
+<li>compute $k_i$ for each window $i$</li>
+<li>$d=b/c$</li>
+<li>$R=0$</li>
+<li>For i from d-1 to 0:
+<ol>
+<li>$R = 2^c*R$ (require c squaring)</li>
+<li>$R = R+(k_{i}*P)$ (require 1 point addition)</li>
+</ol>
+</li>
+<li>return $R$</li>
+</ol>
+<p>Complexity: $2^c(precompute)+d$ point additions and $c*d=b$ squarings</p>
+<a href="#endomorphism"><h3 id="endomorphism"><span class="hanchor" ariaLabel="Anchor"># </span>Endomorphism</h3></a>
+<p>For some curves like BN254, we can use cube roots of unity to find new points on the curve for same y.</p>
+<blockquote class="info-callout">
+<p> Equation of BN254: $y^2=x^3+b$.</p>
+</blockquote>
+<p>So, $k*P$ can be divided into $k_{1}*P_{1}+k_{2}*P_{2}$, where</p>
+<ul>
+<li>$k=k_1+(s*k_{2})$</li>
+<li>$P_{2}=s*P_{1}$</li>
+</ul>
+<p>This reduces no of point doublings by half.</p>
+<p>$k_1$ and $k_2$ are found using 
+<a href="https://hackmd.io/@chaosma/SyAvcYFxh" rel="noopener">barret-reduction</a> techniques.</p>
+<p>Complexity: b/2 squaring and $d/2+2^{c+1}$ additions</p>
+<a href="#wnaf-windowed-non-adjacent-form"><h2 id="wnaf-windowed-non-adjacent-form"><span class="hanchor" ariaLabel="Anchor"># </span>WNAF (windowed Non-adjacent form)</h2></a>
+<p>Most of the time in MSM is spent in additions, and number of additions depend on hamming weight of the scalar. Less number of additions will have to be done if the number of 1&rsquo;s in the scalar bits is less.</p>
+<p>That&rsquo;s exactly what NAF is used for in terms of MSM. Instead of representing number in bits 0, 1. It is represented in {-1, 0, 1}. This reduces the number of number of non-zero bits in the number by 1/3rd.</p>
+<p>Also, when the b-bit scalars are divided into c-bit slices, value of each slice is used as bucket index. In total, we need $2^{c}-1$ buckets. Using NAF, we map $0,1,\ldots,2^{c}-1$ to ${-2^{c-1},\ldots,-1,0,1,\ldots,2^{c-1}}$. For example, for slice $s_{i}\in{1,2,3,4,5,6,7}$ that needs $2^3−1=7$ buckets in total, if we map $s_i$ to ${−4,−3,−2,−1,1,2,3}$, only $2^(3−1)=4$ buckets are needed.</p>
+<p>Pseudocode to find NAF:</p>
+<p>Input: I = $(b_{n-1},b_{n-1},\ldots,b_{0})$
+Output O = $(\omega_{n-1},\omega_{n-2},\ldots,\omega_{0})$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">i=0
+</span></span><span class="line"><span class="cl">while I &gt; 0:
+</span></span><span class="line"><span class="cl">	if I is odd:
+</span></span><span class="line"><span class="cl">		w(i) = I mod 2^2
+</span></span><span class="line"><span class="cl">		I = I - w(i)
+</span></span><span class="line"><span class="cl">	else:
+</span></span><span class="line"><span class="cl">		w(i) = 0
+</span></span><span class="line"><span class="cl">	I = I/2
+</span></span><span class="line"><span class="cl">	i = i+1
+</span></span><span class="line"><span class="cl">return O
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s take a scalar $s$, with c-bit window size, $L = 2^c$. Split scalar into K slices, where $K = ceil(b/c)$.</p>
+<p>$$
+s = s_{0}+s_1L+\ldots+s_{K-1}L^{K-1} = \sum_{i}L^{i}K_{i}
+$$</p>
+<p>Now, to take advantage of wnaf, use following relation:</p>
+<p>$$
+s_{i}L^{i}+s_{i+1}L^{i+1}=(s_{i}-L)L^{i}+(s_{i+1}+1)L^{i+1}
+$$</p>
+<p>i.e. subtract $2^c$ from current slice and add 1 to next slice, whenever $s_i &gt;= L/2$. After this, slice comes in range $[-L/2,L/2)$. To convert it into array form, whenever sign of $s_i$ is negative, subtract it from ith index in bucket array.</p>
+<p>$$
+\begin{sequencediagram}</p>
+<p>\newinst[1]{p}{Prover}</p>
+<p>\newinst[3]{v}{Verifier}
+\end{sequencediagram}
+$$</p>
+<a href="#resources"><h1 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h1></a>
+<ul>
+<li>
+<a href="https://www.youtube.com/watch?v=Bl5mQA7UL2I" rel="noopener">zkStudyClub: Multi-scalar multiplication</a></li>
+<li>
+<a href="https://www.notion.so/Known-Optimizations-for-MSM-13042f29196544938d98e83a19934305#9d8b79321f584477ac945a738042c396" rel="noopener">Known optimisation for MSM</a></li>
+<li>
+<a href="https://hackmd.io/@aztec-network/rJ3VZcyZ9" rel="noopener">Aztec&rsquo;s wnaf</a></li>
+<li>
+<a href="https://hackmd.io/@drouyang/msm" rel="noopener">Optimizing Multi-Scalar Multiplication (MSM): Learning from ZPRIZE</a></li>
+<li>
+<a href="https://cryptographyinrustforhackers.com/chapter_4/elliptic_curves.html" rel="noopener">EC arithmetic</a></li>
+<li>
+<a href="https://www.ingonyama.com/blog/hardware-review-gpus-fpgas-and-zero-knowledge-proofs#section-6" rel="noopener">Hardware Review: GPUs , FPGAs and Zero Knowledge Proofs</a></li>
+<li>
+<a href="https://hackernoon.com/optimization-of-multi-scalar-multiplication-algorithm-sin7y-tech-review-21" rel="noopener">Optimisation of MSM</a></li>
+<li>
+<a href="https://bpb-us-w2.wpmucdn.com/wordpress.lehigh.edu/dist/0/2548/files/2023/05/Master_Thesis_Tal_Derei.pdf" rel="noopener">Accelerating the PlonK zkSNARK Proving System using GPU Architectures</a></li>
+<li>
+<a href="https://eprint.iacr.org/2022/1396" rel="noopener">FPGA Acceleration of Multi-Scalar Multiplication: CycloneMSM</a></li>
+<li>
+<a href="https://eprint.iacr.org/2022/1400" rel="noopener">EdMSM: Multi-Scalar-Multiplication for SNARKs and Faster Montgomery multiplication</a></li>
+<li>
+<a href="https://eprint.iacr.org/2022/1321.pdf" rel="noopener">cuZK: Accelerating Zero-Knowledge Proof with A Faster Parallel Multi-Scalar Multiplication Algorithm on GPUs</a></li>
+<li>
+<a href="https://eprint.iacr.org/2022/999" rel="noopener">PipeMSM: Hardware Acceleration for Multi-Scalar Multiplication</a></li>
+</ul>
+
+
+    </article>
+    
+
+<hr/>
+
+
+<div class="page-end" id="footer">
+    <div class="backlinks-container">
+        <h3>Backlinks</h3>
+<ul class="backlinks">
+    
+    
+    
+    
+    
+    
+    
+    <li>
+      No backlinks found
+    </li>
+    
+</ul>
+
+    </div>
+    <div>
+        <script
+  src="https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js"
+  integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI="
+  crossorigin="anonymous"
+></script>
+<h3>Interactive Graph</h3>
+<div id="graph-container"></div>
+<style>
+  :root {
+    --g-node: var(--secondary);
+    --g-node-active: var(--primary);
+    --g-node-inactive: var(--visited);
+    --g-link: var(--outlinegray);
+    --g-link-active: #5a7282;
+  }
+</style>
+
+<script src="https://lonerapier.xyz/js/graph.6579af7b10c818dbd2ca038702db0224.js"></script>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div id="contact_buttons">
+    <footer>
+        
+        
+        <p>Made by Sambhav <lonerapier> using <a href="https://github.com/jackyzha0/quartz">Quartz</a>, © 2023</p>
+        <ul>
+            
+            <li><a href="https://lonerapier.xyz/">Home</a></li>
+            <li><a href="https://twitter.com/lonerapier">Twitter</a></li><li><a href="https://github.com/lonerapier">Github</a></li></ul>
+    </footer>
+</div>
+
+
+</div>
+</body>
+</html>

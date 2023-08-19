@@ -48,5 +48,14 @@ stores states in state root
 Accounts 20-byte hex addresses whose state is stored on the blockchain</description>
     </item>
     
+    <item>
+      <title>Meaning</title>
+      <link>https://lonerapier.xyz/posts/Meaning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lonerapier.xyz/posts/Meaning/</guid>
+      <description>These are the list of quotes that I have discovered the meaning while doing some bullshit. Or loved it in first reading and trying to find the meaning of it through my experience.</description>
+    </item>
+    
   </channel>
 </rss>

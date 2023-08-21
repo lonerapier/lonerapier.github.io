@@ -24,9 +24,7 @@ MSM can be divided into two main parts:
 
 # Pippenger Bucketed Approach
 
-> [!info]
->
-> Squaring: double add, i.e. $2*P$, where P is an EC point.
+> [!info] Squaring: double add, i.e. $2*P$, where P is an EC point.
 
 1. Divide scalar into windows of m, each with $w$ bits.
 2. calculate: $P=\sum_{i} k_iP_i=\sum_{j}2^{cj}\left(\sum_{i} k_{ij}P_i\right)=\sum_j 2^{cj} B_j$

@@ -104,11 +104,11 @@ Let $a$ and $p$ be integers, and $p\neq 2$,
 
 $$
 \left(\frac{a}{p}\right)=
-\begin{dcases*}
-0 & when $a$ divides $p$ \\
-1 & if $a$ is quadratic residue of $p$\\
--1 & if $a$ is quadratic non-residue of $p$
-\end{dcases*}
+\begin{cases}
+0 & \text{when $a$ divides $p$} \\
+1 & \text{if $a$ is quadratic residue of $p$}\\
+-1 & \text{if $a$ is quadratic non-residue of $p$}
+\end{cases}
 $$
 
 ## Extension Fields

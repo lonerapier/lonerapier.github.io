@@ -69,10 +69,12 @@ Normally, curves are defined for large prime fields, where short equation covers
 
 ## Elliptic Curves in $\mathbb{F}_{p}$
 
-$$\begin{array}{rcl}
+$$
+\begin{array}{rcl}
   \left\lbrace(x, y) \in (\mathbb{F}_p)^2 \right. & \left. | \right. & \left. y^2 \equiv x^3 + ax + b \pmod{p}, \right. \\
-  & & \left. 4a^3 + 27b^2 \not\equiv 0 \pmod{p}\right\rbrace \cup \left\lbrace0\right\rbrace
-\end{array}$$
+  & & \left. 4a^3 + 27b^2 \not\equiv 0 \pmod{p}\right\rbrace \cup \left\lbrace 0 \right\rbrace
+\end{array}
+$$
 
 Every EC has an order $N$ which represents the number of points on the curve. This can be explained using group theory. Let's say we have a group, and the order of group denotes the number of points on the group. Now, if we take a point on the curve, then it tends to repeat itself in a cycle after some points.
 
@@ -287,7 +289,7 @@ Jacobian Point $(X,Y,Z)$ -> $\frac{X}{Z^{2}},\frac{Y}{Z^{3}}$. Curve equation be
 - [Pairings over BLS12-381](https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/)
 - [EC domain parameters](https://crypto.stackexchange.com/questions/66436/for-an-elliptic-curve-what-is-the-difference-between-the-base-field-modulus-q)
 - [choosing safe curves for elliptic-curve cryptography](https://safecurves.cr.yp.to/)
-- 
+-
 
 [^1]: [Pairings For Beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf) Page 14
 [^2]: Check Fermat's Little theorem.

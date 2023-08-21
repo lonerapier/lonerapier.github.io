@@ -32,7 +32,15 @@ MSM can be divided into two main parts:
 4. Example: c=3, j=15, $B_{1}=4P_{1}+3P_{2}+5P_{3}+1P_{4}+4P_{5}+6P_{7}+6P_{8}+\ldots+3P_{14}+5P_{15}$
 5. Now, group points with same coefficients together, i.e. create buckets of $2^c-1$, and $B_{j}=\sum_{\lambda}\lambda S_{j\lambda}$
 6. Take partial sums:
-$$\begin{align}T_{j1}&=S_{j7}\\ T_{j2}&=S_{j6}+T_{j1}\\ T_{j3}&=T_{j2}+S_{j5}\\ &\vdots\\ T_{j7}&=T_{j6}+S_{j1}\end{align}$$
+$$
+\begin{align*}
+T_{j1}&=S_{j7}\\
+T_{j2}&=S_{j6}+T_{j1}\\
+T_{j3}&=T_{j2}+S_{j5}\\
+&\vdots\\
+T_{j7}&=T_{j6}+S_{j1}
+\end{align*}
+$$
 7. Sum each window.
 
 Complexity: $\frac{b}{c}(2^c+N+1)$ additions +. $b$ squarings
@@ -134,14 +142,10 @@ $$
 
 i.e. subtract $2^c$ from current slice and add 1 to next slice, whenever $s_i >= L/2$. After this, slice comes in range $[-L/2,L/2)$. To convert it into array form, whenever sign of $s_i$ is negative, subtract it from ith index in bucket array.
 
-$$
-\begin{sequencediagram}
-
-\newinst[1]{p}{Prover}
-
-\newinst[3]{v}{Verifier}
-\end{sequencediagram}
-$$
+```mermaid
+sequenceDiagram
+Prover->>Verifier: Hello
+```
 
 # Resources
 

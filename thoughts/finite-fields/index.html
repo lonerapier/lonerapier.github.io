@@ -138,13 +138,13 @@ Properties  Abelian group under addition Non-zero numbers form abelian group und
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.f4befb713537f8bdb076cdcb734b8399.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.160fea4fc6253a9c6477bf48ae52acdf.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.844b38a5d0bc33bb656f0f106fc47804.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb3adc2fe68712eb37b0a8d7e6f5cdb8.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -353,6 +353,12 @@ May 4, 2023
   <ol>
     <li><a href="#properties-1">Properties</a></li>
     <li><a href="#roots-of-unity-in-finite-fields">Roots of Unity in Finite Fields</a></li>
+    <li><a href="#quadratic-residue">Quadratic Residue</a>
+      <ol>
+        <li><a href="#legendre-symbol">Legendre Symbol</a></li>
+      </ol>
+    </li>
+    <li><a href="#extension-fields">Extension Fields</a></li>
   </ol>
 </nav>
     </details>
@@ -414,6 +420,108 @@ May 4, 2023
   
   
 
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
 
 
 
@@ -438,6 +546,30 @@ May 4, 2023
   
     
     
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
       
       
     
@@ -460,7 +592,8 @@ May 4, 2023
 <li>Non-zero numbers form abelian group under multiplication</li>
 <li>multiplicative distribution over addition</li>
 </ul>
-<a href="#finite-fields-galois-fields"><h1 id="finite-fields-galois-fields"><span class="hanchor" ariaLabel="Anchor"># </span>Finite Fields (Galois Fields)</h1></a>
+<h1 id="finite-fieldshttpsenwikipediaorgwikifinite_field-galois-fields">
+<a href="https://en.wikipedia.org/wiki/Finite_field" rel="noopener">Finite Fields</a> (Galois Fields)</h1>
 <p>Fields defined on a number and the result is in the set.</p>
 <ol>
 <li>Closed</li>
@@ -484,9 +617,6 @@ May 4, 2023
 <p><strong>Prime fields</strong> can be defined on any integer and include number from 0 till that number. All of the operations are done modulo that number.</p>
 <p>Example: $\mathbb{F}_{5} = \left{0, 1, 2, 3, 4\right}$ is a field defined on prime number 5 and include these numbers.</p>
 <p><strong>Extension fields</strong> are polynomials and take the form: $\mathbb{F(m &gt; 1)} = a_{m-1}X^{m-1} + \cdots + a_1X^1 + a_0$</p>
-<p>
-
-<img src="https://miro.medium.com/max/1054/1*AScsGBdzW-L2JQq4hXgxMA.png" width="auto" alt="1*AScsGBdzW-L2JQq4hXgxMA.png"  /></p>
 <p>Example: $GF(2^3)$&rsquo;s elements are</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -525,6 +655,44 @@ May 4, 2023
 <li>Def: Primitive RoU: $x^{n}=1$, but $x^{m}\neq{1} \forall m&lt;n$.</li>
 <li>$\mathbb{F}_{q}$ has a nth primitive RoU iff n divides q-1.</li>
 </ol>
+<a href="#quadratic-residue"><h2 id="quadratic-residue"><span class="hanchor" ariaLabel="Anchor"># </span>Quadratic Residue</h2></a>
+<p>If $a$ and $m$ are co-prime, then $a$ is called 
+<a href="https://en.wikipedia.org/wiki/Quadratic_residue" rel="noopener">*quadratic residue</a> modulo m* if $x^{2}\equiv a \mod{m}$ has a solution. Vice Versa, $a$ is called quadratic non-residue if it does not have a solution.</p>
+<blockquote class="callout-collapsible callout-collapsed hint-callout">
+<p> Find the quadratic residues mod 11.</p>
+<ul>
+<li>$0^2$ mod 11 = 0</li>
+<li>$1^2$ mod 11 = 1</li>
+<li>$2^2$ mod 11 = 4</li>
+<li>$3^2$ mod 11 = 9</li>
+<li>$4^2$ mod 11 = 5</li>
+<li>$5^2$ mod 11 = 3</li>
+<li>$6^2$ mod 11 = 3</li>
+<li>$7^2$ mod 11 = 5</li>
+<li>$8^2$ mod 11 = 9</li>
+<li>$9^2$ mod 11 = 4</li>
+<li>$10^2$ mod 11 = 1</li>
+</ul>
+<p>0, 1, 3, 9, 5, 3 are quadratic residues.</p>
+<p>2, 6, 7, 8, 10 are quadratic non-residues modulo 11.</p>
+</blockquote>
+<p>Total quadratic residues of a prime $p=(p-1)/2$, excluding 0, if p is odd, and $(p+1)/2$, if p is even.</p>
+<blockquote class="callout-collapsible callout-collapsed important-callout">
+<p> Prove above statement.
+In a field, $x^2$ and $(p-x)^2$ is same. Thus, the square modulo are symmetric around $p/2$.</p>
+</blockquote>
+<a href="#legendre-symbol"><h3 id="legendre-symbol"><span class="hanchor" ariaLabel="Anchor"># </span>Legendre Symbol</h3></a>
+<p>Easier notation used to denote the relationship between $a$ and $n$. Can be easily encoded in a functional form to be used in cryptographic operations.</p>
+<p>Let $a$ and $p$ be integers, and $p\neq 2$,</p>
+<p>$$
+\left(\frac{a}{p}\right)=
+\begin{dcases*}
+0 &amp; when $a$ divides $p$ \
+1 &amp; if $a$ is quadratic residue of $p$\
+-1 &amp; if $a$ is quadratic non-residue of $p$
+\end{dcases*}
+$$</p>
+<a href="#extension-fields"><h2 id="extension-fields"><span class="hanchor" ariaLabel="Anchor"># </span>Extension Fields</h2></a>
 <a href="#references"><h1 id="references"><span class="hanchor" ariaLabel="Anchor"># </span>References</h1></a>
 <ul>
 <li>
@@ -532,7 +700,15 @@ May 4, 2023
 <li>
 <a href="https://www.cantorsparadise.com/the-theory-and-applications-of-finite-fields-e78844896eaa" rel="noopener">Finite Fields: Theory and Application</a></li>
 <li>
-<a href="https://en.wikipedia.org/wiki/Finite_field" rel="noopener">Finite Fields - Wikipedia</a></li>
+
+
+
+
+
+<a
+  href="/"
+  rel="noopener" class="internal-link"
+  data-src="/">Finite Fields - Wikipedia</a></li>
 <li>
 <a href="https://www.csd.uwo.ca/~mmorenom/CS874/Lectures/Newton2Hensel.html/node9.html" rel="noopener">Primitive nth root of unity</a></li>
 <li>
@@ -545,7 +721,8 @@ May 4, 2023
 <a href="https://research.swtch.com/field" rel="noopener">field</a></li>
 <li>
 <a href="https://mathweb.ucsd.edu/~jmckerna/Teaching/16-17/Winter/200B/" rel="noopener">Galois field course</a></li>
-<li></li>
+<li>
+<a href="https://kconrad.math.uconn.edu/blurbs/galoistheory/finitefields.pdf" rel="noopener">Finite Fields</a></li>
 </ul>
 
 

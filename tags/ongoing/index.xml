@@ -6,7 +6,16 @@
     <description>Recent content in ongoing on lonerapier.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Aug 2022 14:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/ongoing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jun 2023 14:02:48 -0700</lastBuildDate><atom:link href="https://lonerapier.xyz/tags/ongoing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fourier Transform</title>
+      <link>https://lonerapier.xyz/thoughts/fourier-transform/</link>
+      <pubDate>Wed, 21 Jun 2023 14:02:48 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/fourier-transform/</guid>
+      <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
+    </item>
+    
     <item>
       <title>Theory of Elliptic Curves</title>
       <link>https://lonerapier.xyz/thoughts/elliptic-curves/</link>

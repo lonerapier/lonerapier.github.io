@@ -19,6 +19,15 @@ Naive Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions</description>
     </item>
     
     <item>
+      <title>Fourier Transform</title>
+      <link>https://lonerapier.xyz/thoughts/fourier-transform/</link>
+      <pubDate>Wed, 21 Jun 2023 14:02:48 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/fourier-transform/</guid>
+      <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
+    </item>
+    
+    <item>
       <title>Group Theory</title>
       <link>https://lonerapier.xyz/thoughts/group-theory/</link>
       <pubDate>Sat, 06 May 2023 10:00:00 -0700</pubDate>
@@ -225,15 +234,6 @@ Blessed With our time in Hell.
       
       <guid>https://lonerapier.xyz/thoughts/fixed-rate-protocols/</guid>
       <description>DeFi&amp;rsquo;s next wave of protocols has come through fixed income protocols. I will go deep into yield curves based protocols i.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://lonerapier.xyz/thoughts/fourier-transform/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/fourier-transform/</guid>
-      <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
     </item>
     
     <item>

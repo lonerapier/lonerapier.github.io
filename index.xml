@@ -18,6 +18,15 @@ Naive Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions</description>
     </item>
     
     <item>
+      <title>Fourier Transform</title>
+      <link>https://lonerapier.xyz/thoughts/fourier-transform/</link>
+      <pubDate>Wed, 21 Jun 2023 14:02:48 -0700</pubDate>
+      
+      <guid>https://lonerapier.xyz/thoughts/fourier-transform/</guid>
+      <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
+    </item>
+    
+    <item>
       <title>Group Theory</title>
       <link>https://lonerapier.xyz/thoughts/group-theory/</link>
       <pubDate>Sat, 06 May 2023 10:00:00 -0700</pubDate>
@@ -265,15 +274,6 @@ Aims to develop a guide for designing protocols bridging different types of bloc
 state of the blockchain changes after executing transactions.
 stores states in state root
 Accounts 20-byte hex addresses whose state is stored on the blockchain</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://lonerapier.xyz/thoughts/fourier-transform/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://lonerapier.xyz/thoughts/fourier-transform/</guid>
-      <description>Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.</description>
     </item>
     
     <item>

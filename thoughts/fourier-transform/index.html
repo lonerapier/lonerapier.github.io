@@ -10,7 +10,7 @@
     name="description"
     content="Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs."
   />
-  <meta property="og:title" content="">
+  <meta property="og:title" content="Fourier Transform">
   <meta property="og:description" content="Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://lonerapier.xyz/icon.png">
@@ -18,7 +18,7 @@
   <meta property="og:width" content="200">
   <meta property="og:height" content="200">
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Fourier Transform" />
   <meta name="twitter:description" content="Erasure Coding is a fundamental part of many algorithms and have a variety of use cases like securing data availability in blockchains and STARKs." />
   <meta name="twitter:image" content="https://lonerapier.xyz/icon.png">
   
@@ -31,7 +31,7 @@
   
 
   <title>
-    lonerapier.xyz
+    Fourier Transform
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -135,13 +135,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.f4befb713537f8bdb076cdcb734b8399.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.160fea4fc6253a9c6477bf48ae52acdf.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.844b38a5d0bc33bb656f0f106fc47804.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb3adc2fe68712eb37b0a8d7e6f5cdb8.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -309,10 +309,10 @@
 
 
     <article>
-      
+      <h1>Fourier Transform</h1>
       <p class="meta">
         Last updated 
-Jul 24, 2023
+Jun 21, 2023
 
  
           
@@ -322,6 +322,20 @@ Jul 24, 2023
       </p>
       <ul class="tags">
           
+          <li><a href="https://lonerapier.xyz/tags/technical/">
+          
+            Technical
+          
+            </a>
+           </li>
+          
+          <li><a href="https://lonerapier.xyz/tags/ongoing/">
+          
+            Ongoing
+          
+            </a>
+           </li>
+          
       </ul>
       
 
@@ -330,28 +344,15 @@ Jul 24, 2023
         <summary>Table of Contents</summary>
         <nav id="TableOfContents">
   <ol>
-    <li><a href="#working-with-polynomials">Working with Polynomials</a></li>
-    <li><a href="#interpolation">Interpolation</a>
-      <ol>
-        <li><a href="#vandermode">Vandermode</a></li>
-      </ol>
-    </li>
+    <li><a href="#vandermode">Vandermode</a></li>
   </ol>
 
   <ol>
-    <li>
-      <ol>
-        <li><a href="#lagrange">Lagrange</a></li>
-      </ol>
-    </li>
-    <li><a href="#dft-and-fft">DFT and FFT</a></li>
-    <li><a href="#barrentenberg">Barrentenberg</a>
-      <ol>
-        <li><a href="#polynomial">polynomial</a></li>
-        <li><a href="#common">common</a></li>
-      </ol>
-    </li>
-    <li><a href="#resources">Resources</a></li>
+    <li><a href="#working-with-polynomials">Working With Polynomials</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#cooley-tukey-algorithm">Cooley-Tukey Algorithm</a></li>
   </ol>
 </nav>
     </details>
@@ -404,6 +405,45 @@ Jul 24, 2023
   
   
 
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
 
 
 
@@ -425,6 +465,25 @@ Jul 24, 2023
   
   
   
+  
+    
+    
+      
+      
+    
+    
+  
+    
+    
+      
+      
+        
+      
+      
+      
+      
+    
+    
   
     
     
@@ -451,20 +510,15 @@ Jul 24, 2023
 </blockquote>
 <p>Song time baby!! This time it&rsquo;s 
 <a href="https://open.spotify.com/track/1PlTjGYNKGsU7Rqi5dZZCk?si=3f7cb22c42c64ee0" rel="noopener">Dirty Little Thing</a> by Velvet Revolver. Oooooh, it&rsquo;s a wild song. I couldn&rsquo;t get the tune out of my head when I first listened to it.</p>
-<p>DFT: Coefficient representation -&gt; point-value
-Inverse DFT: Point-value -&gt; coefficient</p>
-<a href="#working-with-polynomials"><h2 id="working-with-polynomials"><span class="hanchor" ariaLabel="Anchor"># </span>Working with Polynomials</h2></a>
-<p>An $n$-degree polynomial is represented in coefficient form:</p>
+<a href="#dft"><h1 id="dft"><span class="hanchor" ariaLabel="Anchor"># </span>DFT</h1></a>
+<p>Process to convert sequence of complex numbers $\lbrace x_{n} \rbrace := x_0,x_1,\ldots,x_{n-1}$ to another sequence of complex numbers $\lbrace X_{n} \rbrace:=X_0,X_1,\ldots,X_{n-1}$.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <p>$$
-P(x) = \sum_{j=0}^{n-1}a_{j}x^{j}
+\begin{align}
+\mathcal{F}&amp;: C^{N} \rightarrow C^{N} \\ X_{k}&amp;=\sum_{n=0}^{N-1}x_{k}e^{\frac{-2\pi i}{N}kn} \\ \end{align}
 $$</p>
-<p>Algorithms and Time Complexity:</p>
-<ol>
-<li>Addition/Subtraction: $O(n)$ in coefficient and point-value</li>
-<li>Multiplication: $O(n^2)$ in coefficient and $O(n)$ in point-value and converting between the two can be done in $O(n\log n)$</li>
-</ol>
-<a href="#interpolation"><h2 id="interpolation"><span class="hanchor" ariaLabel="Anchor"># </span>Interpolation</h2></a>
-<a href="#vandermode"><h3 id="vandermode"><span class="hanchor" ariaLabel="Anchor"># </span>Vandermode</h3></a>
+<a href="#idft"><h1 id="idft"><span class="hanchor" ariaLabel="Anchor"># </span>IDFT</h1></a>
+<a href="#interpolation"><h1 id="interpolation"><span class="hanchor" ariaLabel="Anchor"># </span>Interpolation</h1></a>
+<a href="#vandermode"><h2 id="vandermode"><span class="hanchor" ariaLabel="Anchor"># </span>Vandermode</h2></a>
 <p>Vandermode matrix: $O(n^3)$</p>
 <h1 id="endpmatrix">$$
 \begin{pmatrix}
@@ -476,12 +530,39 @@ a_0 \\ a_1 \\ \vdots \\ a_{n-1}
 y_0 \\ y_1 \\ \vdots \\ y_{n-1}
 \end{pmatrix}
 $$</p>
-<a href="#lagrange"><h3 id="lagrange"><span class="hanchor" ariaLabel="Anchor"># </span>Lagrange</h3></a>
+<a href="#working-with-polynomials"><h2 id="working-with-polynomials"><span class="hanchor" ariaLabel="Anchor"># </span>Working With Polynomials</h2></a>
+<blockquote class="callout-collapsible callout-collapsed tldr-callout">
+<p></p>
+<ul>
+<li><strong>DFT</strong>: Coefficient representation -&gt; point-value</li>
+<li><strong>Inverse DFT</strong>: Point-value -&gt; coefficient</li>
+</ul>
+</blockquote>
+<p>An $n$-degree polynomial is represented in coefficient form:</p>
+<p>$$
+P(x) = \sum_{j=0}^{n-1}a_{j}x^{j}
+$$</p>
+<p>Lagrange coefficients:</p>
 <p>$$
 P(x) = \sum_{k=0}^{n-1}y_k\frac{\prod_{j\neq k}(x-x_{j})}{\prod_{j \neq k}x_{k}-x_{j}}
 $$</p>
-<a href="#dft-and-fft"><h2 id="dft-and-fft"><span class="hanchor" ariaLabel="Anchor"># </span>DFT and FFT</h2></a>
-<p>Domain should be power of 2, and complex roots of unity, $\omega_n^i$.</p>
+<p>Algorithms and Time Complexity:</p>
+<ol>
+<li>Addition/Subtraction: $O(n)$ in coefficient and point-value</li>
+<li>Multiplication: $O(n^2)$ in coefficient and $O(n)$ in point-value and converting between the two can be done in $O(n\log n)$</li>
+</ol>
+<p>Let the polynomial $P$ be defined with coefficients $a={a_0,a_1,\ldots,a_{n-1}}$, with results $y_{k}$ for $k=0,1,\ldots,n-1$.</p>
+<p>$$
+\begin{align}
+y_{k} &amp;= P(\omega^{k}<em>{n}) \\ &amp;= \sum^{n-1}</em>{j=0}a_{j}\omega_{n}^{kj}
+\end{align}
+$$</p>
+<p>Above equation is the DFT equation, represented as $DFT_n(a)$.</p>
+<a href="#fft"><h1 id="fft"><span class="hanchor" ariaLabel="Anchor"># </span>FFT</h1></a>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/recursive-fft.png" width="auto" alt="recursive-fft"  /></p>
 <p>Lemma&rsquo;s that help in understanding FFT:</p>
 <ol>
 <li>Cancellation Lemma: $\omega_{dn}^{dk}=\omega_n^k$</li>
@@ -492,90 +573,32 @@ $$</p>
 
 
 <img src="https://lonerapier.xyz//thoughts/images/fft.png" width="auto" alt="fft"  /></p>
-<a href="#barrentenberg"><h2 id="barrentenberg"><span class="hanchor" ariaLabel="Anchor"># </span>Barrentenberg</h2></a>
-<a href="#polynomial"><h3 id="polynomial"><span class="hanchor" ariaLabel="Anchor"># </span>polynomial</h3></a>
-<a href="#polynomial_arithmetic"><h4 id="polynomial_arithmetic"><span class="hanchor" ariaLabel="Anchor"># </span><code>polynomial_arithmetic</code></h4></a>
-<ul>
-<li><code>fft_inner_serial</code>:</li>
-<li><code>compute_multiplicative_subgroup</code>: compute <code>(g.X)^n</code></li>
-<li><code>compute_linear_polynomial_product</code></li>
-<li><code>compute_kate_coefficients</code></li>
-<li><code>fft_inner_parallel</code>:</li>
-<li><code>compute_interpolation</code></li>
-<li><code>compute_efficient_interpolation</code></li>
-<li></li>
-<li><code>compute_lagrange_polynomial_fft</code>:</li>
-</ul>
-<a href="#evaluation_domain"><h4 id="evaluation_domain"><span class="hanchor" ariaLabel="Anchor"># </span><code>evaluation_domain</code></h4></a>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    size_t size;        // n, always a power of 2
-</span></span><span class="line"><span class="cl">    size_t num_threads; // num_threads * thread_size = size
-</span></span><span class="line"><span class="cl">    size_t thread_size;
-</span></span><span class="line"><span class="cl">    size_t log2_size;
-</span></span><span class="line"><span class="cl">    size_t log2_thread_size;
-</span></span><span class="line"><span class="cl">    size_t log2_num_threads;
-</span></span><span class="line"><span class="cl">    size_t generator_size;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    Fr root;           // omega; the nth root of unity
-</span></span><span class="line"><span class="cl">    Fr root_inverse;   // omega^{-1}
-</span></span><span class="line"><span class="cl">    Fr domain;         // n; same as size
-</span></span><span class="line"><span class="cl">    Fr domain_inverse; // n^{-1}
-</span></span><span class="line"><span class="cl">    Fr generator;
-</span></span><span class="line"><span class="cl">    Fr generator_inverse;
-</span></span><span class="line"><span class="cl">    Fr four_inverse;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  private:
-</span></span><span class="line"><span class="cl">    std::vector&lt;Fr*&gt; round_roots; // An entry for each of the log(n) rounds: each entry is a pointer to
-</span></span><span class="line"><span class="cl">                                  // the subset of the roots of unity required for that fft round.
-</span></span><span class="line"><span class="cl">                                  // E.g. round_roots[0] = [1, ω^(n/2 - 1)],
-</span></span><span class="line"><span class="cl">                                  //      round_roots[1] = [1, ω^(n/4 - 1), ω^(n/2 - 1), ω^(3n/4 - 1)]
-</span></span><span class="line"><span class="cl">                                  //      ...
-</span></span><span class="line"><span class="cl">    std::vector&lt;Fr*&gt; inverse_round_roots;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    std::shared_ptr&lt;Fr[]&gt; roots;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li><code>invert_with_external_scratch</code>: acc: 1/a1..a5, scratch_i = prod(a_i-1)</li>
-</ul>
-<p>implementing runtime states, can&rsquo;t figure out right now, how to share vector between the threads.
-It&rsquo;s done using pointer arithmetic in cpp, but how to do this in rust? <code>Rc</code> maybe?
-But read that <code>Rc&lt;Vec&gt;</code> doesn&rsquo;t make any sense? Why? it doesn&rsquo;t sit right to reference count a vector.</p>
-<a href="#common"><h3 id="common"><span class="hanchor" ariaLabel="Anchor"># </span>common</h3></a>
-<a href="#resources"><h2 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h2></a>
+<p>Domain should be power of 2, and complex roots of unity, $\omega_n^i$.</p>
+<blockquote>
+<p>Why does it need to be power of 2?</p>
+</blockquote>
+<p>It actually depends upon the algorithm used, the most optimised Cooley-Tukey algorithm runs in $O(nlogn)$ time, and uses roots of unity as the domain. And Cooley-Tuckey uses $\omega$ properties to divide into length $k$, mostly 2. This is the radix property of the algorithm, thus it requires domain to order of length $k^{r}$.</p>
+<p>Let&rsquo;s understand radix-2 Cooley-Tukey FFT algorithm</p>
+<a href="#cooley-tukey-algorithm"><h2 id="cooley-tukey-algorithm"><span class="hanchor" ariaLabel="Anchor"># </span>Cooley-Tukey Algorithm</h2></a>
+<a href="#resources"><h1 id="resources"><span class="hanchor" ariaLabel="Anchor"># </span>Resources</h1></a>
 <ul>
 <li>CLRS, Introduction to Algorithms, Chapter 30</li>
 <li>
+<a href="https://hackmd.io/@akshayk07/ryn-yR7qr" rel="noopener">Radix-4 FFT</a></li>
+<li>
 <a href="https://vanhunteradams.com/FFT/FFT.html" rel="noopener">FFT</a></li>
+<li>
+<a href="https://cp-algorithms.com/algebra/fft.html" rel="noopener">CP algorithms: FFT</a></li>
 </ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>
+<a href="https://en.wikipedia.org/wiki/Discrete_Fourier_transform" rel="noopener">Discrete Fourier Transform</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
 
     </article>

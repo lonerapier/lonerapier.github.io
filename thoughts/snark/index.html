@@ -138,13 +138,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.f4befb713537f8bdb076cdcb734b8399.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.160fea4fc6253a9c6477bf48ae52acdf.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.844b38a5d0bc33bb656f0f106fc47804.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb3adc2fe68712eb37b0a8d7e6f5cdb8.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -364,6 +364,7 @@ May 2, 2023
       </ol>
     </li>
     <li><a href="#recap">Recap</a></li>
+    <li><a href="#formal-protocol">Formal Protocol</a></li>
     <li><a href="#improvements">Improvements</a></li>
     <li><a href="#references">References</a></li>
   </ol>
@@ -378,6 +379,36 @@ May 2, 2023
 
 
 
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
 
   
   
@@ -1130,8 +1161,8 @@ $$w\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)$$</p>
 <blockquote class="info-callout">
 <p>
 Length of SNARK: $t$ commitments + $q$ eval proofs</p>
-<p>Verifier time: q$*$O(eval)+O(IOP-verify)</p>
-<p>Prover time: t$<em>$O(commit)+q$</em>$O(prove)+O(IOP-prove)</p>
+<p>Verifier time: $q*O(eval)+O(IOP-verify)$</p>
+<p>Prover time: $t<em>O(commit)+q</em>O(prove)+O(IOP-prove)$</p>
 </blockquote>
 <a href="#plonk-poly-iop-for-general-circuit"><h3 id="plonk-poly-iop-for-general-circuit"><span class="hanchor" ariaLabel="Anchor"># </span>PLONK: poly-IOP for General Circuit</h3></a>
 <p>Plonk IOP can be used with different PCS to generate different proving systems. For example:</p>
@@ -1139,13 +1170,14 @@ Length of SNARK: $t$ commitments + $q$ eval proofs</p>
 <li>Aztec&rsquo;s proving system: KZG+Plonk</li>
 <li>Halo2: Bulletproofs + Plonk, used by zcash</li>
 <li>Plonky2: FRI + Plonk, used by polygon zkevm</li>
+<li>Scroll: (halo2) plonk + kzg</li>
 </ol>
 <a href="#step-1-compile-circuit-for-a-computation-trace"><h4 id="step-1-compile-circuit-for-a-computation-trace"><span class="hanchor" ariaLabel="Anchor"># </span>Step 1: Compile Circuit for a Computation Trace</h4></a>
 <p>Suppose you have a circuit with inputs $I: I_{x},I_{w}$, and gates C where $x$ is the statement inputs and $w$ is the witness input. Our goal is to prove to verifier that $C(w)=0$.</p>
 <p>
 
 
-<img src="https://lonerapier.xyz//./images/example-circuit.png" width="auto" alt="circuit"  /></p>
+<img src="https://lonerapier.xyz//thoughts/images/example-circuit.png" width="auto" alt="circuit"  /></p>
 <p>We put inputs $x_1=5, x_2=6, w_1=1$, and compute the computation trace through the circuit. The <strong>computation trace</strong> comes out to be:</p>
 <table>
 <thead>
@@ -1214,7 +1246,7 @@ Length of SNARK: $t$ commitments + $q$ eval proofs</p>
 </ul>
 </li>
 </ul>
-<p>let $\Upomega$ be some subset of $\mathbb{F}<em>{p}$ of size $k$. Let $f \in \mathbb{F}</em>{p}^{&lt;=d}[X]$ be the polynomial that prover wants to prove. Verifer has commitment to this polynomial $Com(f)$.</p>
+<p>let $\Upomega$ be some subset of $\mathbb{F}<em>{p}$ of size $k$. Let $f \in \mathbb{F}</em>{p}^{&lt;=d}[X]$ be the polynomial that prover wants to prove. Verifier has commitment to this polynomial $Com(f)$.</p>
 <p>We can construct efficient poly-IOPs for the following tasks:</p>
 <ol>
 <li>Zero Test: Prove that $f$ is identically zero on $\Upomega$</li>
@@ -1276,26 +1308,27 @@ If $\Upomega$ becomes the multiplicative subgroup formed using primitive kth roo
 <li>$t(\omega.x)=t(x).f(\omega.x)$ for all $x\in\Upomega$. This will be used to a zero test on t(X) so that verifier can get convinced that prover actually computed $t(x)$. This is proven using: $t(\omega r)-t(\omega)f(\omega r)=q(r)(r^k-1)$.</li>
 </ol>
 <blockquote class="note-callout">
-<p>
-The same product check holds for rational function as well, i.e. $f/g$. Prove this using: $t(\omega x)g(\omega x)=t(x)f(\omega x)$</p>
+<p> The same product check holds for rational function as well, i.e. $f/g$. Prove this using: $t(\omega x)g(\omega x)=t(x)f(\omega x)$</p>
 </blockquote>
 <a href="#permutation-check"><h4 id="permutation-check"><span class="hanchor" ariaLabel="Anchor"># </span>Permutation Check</h4></a>
 <p>It is used to check that two polynomials $f, g$ are permutation of each other. Mainly, prover wants to prove that: $(f(1),f(\omega),\cdots,f(\omega^{k-1}))\in\mathbb{F}<em>{p}^{k}$ is a permutation of $(g(1),g(\omega),\cdots,g(\omega^{k-1}))\in\mathbb{F}</em>{p}^{k}$.</p>
+<p>
+
+
+<img src="https://lonerapier.xyz//thoughts/images/permutation.png" width="auto" alt="permutation"  /></p>
+<p>Consider a permutation function $\sigma$, such that $f(x)=f(\sigma(x))$</p>
 <p>Can be done by creating two polynomials $\hat{F}=\prod_{a\in\Upomega}(X-f(a))$ and $\hat{G}=\prod_{a\in\Upomega}(X-g(a))$ and doing product check on these two polynomials. How will the product check work? It&rsquo;s simply testing that $\frac{\hat{f}(r)}{\hat{g}(r)} = \prod_{a\in\Upomega}\left(\frac{r-f(a)}{r-g(a)}\right)=1$.</p>
 <blockquote class="question-callout">
-<p>
-Why can&rsquo;t we do zero test to check that these polynomials are equal? ::</p>
+<p> Why can&rsquo;t we do zero test to check that these polynomials are equal? ::</p>
 </blockquote>
 <a href="#prescribed-permutation-check"><h4 id="prescribed-permutation-check"><span class="hanchor" ariaLabel="Anchor"># </span>Prescribed Permutation Check</h4></a>
-<p>Instead of just proving the permutataion, prover wants to prove that $f(x)=g(W(x))$, where $W:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.</p>
+<p>Instead of just proving the permutation, prover wants to prove that $f(x)=g(W(x))$, where $W:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.</p>
 <blockquote class="question-callout">
-<p>
-Why can&rsquo;t you use zero check here to check the two polynomials are equal? :: because g(W(y)) where y in $\Upomega$ will become O(d^2) in prover time. We don&rsquo;t want quadratic time prover.</p>
+<p> Why can&rsquo;t you use zero check here to check the two polynomials are equal? :: because g(W(y)) where y in $\Upomega$ will become O(d^2) in prover time. We don&rsquo;t want quadratic time prover.</p>
 </blockquote>
 <p>Observation: If $(W(a),f(a))_{a\in\Upomega}$ is a permutation of $(a, g(a))$ then $f(y)=g(W(y))$. We prove this by defining bivariate polynomial:</p>
 <blockquote class="question-callout">
-<p>
-didn&rsquo;t understand why this $(W(a),f(a))$ and $a, g(a)$, if the thing that we&rsquo;re trying to prove is f=g(W).</p>
+<p> didn&rsquo;t understand why this $(W(a),f(a))$ and $a, g(a)$, if the thing that we&rsquo;re trying to prove is f=g(W).</p>
 </blockquote>
 <p>$$
 \begin{aligned}
@@ -1319,11 +1352,11 @@ $$</p>
 <p>Then, you define the polynomial:</p>
 <p>$$S(y)[T(y)+T(wy)]+(1-S(y))[T(y).T(wy)]=T(w^2y)$$</p>
 <p>then it&rsquo;s just the zero check.</p>
-<a href="#combining-gate-constraints-into-one-equation"><h4 id="combining-gate-constraints-into-one-equation"><span class="hanchor" ariaLabel="Anchor"># </span>Combining gate constraints into one equation</h4></a>
+<a href="#combining-gate-constraints-into-one-equation"><h4 id="combining-gate-constraints-into-one-equation"><span class="hanchor" ariaLabel="Anchor"># </span>Combining Gate Constraints into One Equation</h4></a>
 <p>You can very easily combine gate constraints into one equation:</p>
 <p>$$
 \begin{equation}
-Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)=0
+Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)=0 \tag{1}\label{eq1}
 \end{equation}
 $$</p>
 <p>where,</p>
@@ -1334,8 +1367,16 @@ $$</p>
 <li>$Q_{C}$: polynomial for constant in a gate, ex: public inputs of the circuit.</li>
 <li>$a(x),b(x),c(x)$: polynomial for left, input and output values of the gates.</li>
 </ol>
+<p>We can rewrite $\eqref{eq1}$ in terms of linear factors in $\omega^{i}$,</p>
+<p>$$\begin{equation}
+Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)=(x-\omega)\ldots(x-\omega^n)h(X)
+\end{equation}$$</p>
+<p>Term $(x-\omega)\ldots(x-\omega^n)$ is <strong>Vanishing Polynomial:</strong>$H(X)$. Since, $\omega$ is a primitive nth root of unity, $\omega^i$ forms a cyclic group, and $H(X)=X^{n}-1$ . Plonk says that, constraint system is satisfied, when the constraint equation is completely divided by Vanishing polynomial.</p>
+<p>$$
+H(X)|Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)
+$$</p>
 <a href="#prove-gate-wirings-are-correct"><h4 id="prove-gate-wirings-are-correct"><span class="hanchor" ariaLabel="Anchor"># </span>Prove Gate Wirings Are Correct.</h4></a>
-<p>encode the wires as permutation polynomial and prove through permutation check that permutation is correct.</p>
+<p>encode the wires as permutation polynomial and prove through permutation check that wiring along the circuit is correct.</p>
 <p>$$T(y)=T(W(y)) \qquad \forall y \in \Upomega$$</p>
 <p>But we have three different n-degree poly, namely $a(X),b(X),c(X)$, this</p>
 <a href="#recap"><h2 id="recap"><span class="hanchor" ariaLabel="Anchor"># </span>Recap</h2></a>
@@ -1343,6 +1384,7 @@ $$</p>
 
 
 <img src="https://lonerapier.xyz//thoughts/images/plonk-iop.png" width="auto" alt="plonk-iop"  /></p>
+<a href="#formal-protocol"><h2 id="formal-protocol"><span class="hanchor" ariaLabel="Anchor"># </span>Formal Protocol</h2></a>
 <a href="#improvements"><h2 id="improvements"><span class="hanchor" ariaLabel="Anchor"># </span>Improvements</h2></a>
 <ul>
 <li>Turboplonk: Custom gates</li>
@@ -1373,11 +1415,13 @@ $$</p>
 <li>
 <a href="https://github.com/fabrizio-m/TyPLONK" rel="noopener">Plonk toy implementation</a></li>
 <li>
-<a href="https://www.youtube.com/watch?v=NqrVcDuQ8hM&amp;t=1669s" rel="noopener">Plonk with Zac</a>: Might have the questions that I&rsquo;m looking for, i.e. the reasons behind decision in the protocol.</li>
-<li>
 <a href="https://hackmd.io/@aztec-network/ByiUK_Plt" rel="noopener">FAQs about PLONK prover and verifier algorithm</a></li>
 <li>
 <a href="https://hackmd.io/@jpw/BJAf6spB9" rel="noopener">ZK Proving systems by Jonathan Wang</a></li>
+<li>
+<a href="https://hackmd.io/@jake/plonk-arithmetization" rel="noopener">Plonk Arithmetization</a></li>
+<li>
+<a href="https://hackmd.io/@gnark/plonk" rel="noopener">Gnark&rsquo;s Plonk</a></li>
 </ul>
 
 

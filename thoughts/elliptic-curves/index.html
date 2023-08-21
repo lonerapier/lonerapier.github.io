@@ -135,13 +135,13 @@
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.f4befb713537f8bdb076cdcb734b8399.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.160fea4fc6253a9c6477bf48ae52acdf.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.844b38a5d0bc33bb656f0f106fc47804.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb3adc2fe68712eb37b0a8d7e6f5cdb8.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({
@@ -963,6 +963,24 @@ Aug 21, 2022
   
   
 
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
 
 
 
@@ -1143,15 +1161,24 @@ Aug 21, 2022
 <a href="#elliptic-curves"><h1 id="elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves</h1></a>
 <p>$$
 \begin{array}{rcl}
-\left{(x, y) \in \mathbb{R}^2 \right. &amp; \left. | \right. &amp; \left. y^2 = x^3 + ax + b, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \ne 0\right}\\ \cup\\ \left{0\right}
+\left\lbrace(x, y) \in \bar{K} \right. &amp; \left. | \right. &amp; \left. y^{2}+a_{1}xy+a_{3}y = x^3 + a_{2}x^2+a_{4}x + a_6, \right\rbrace \cup \left\lbrace0\right\rbrace
 \end{array}
 $$</p>
 <ul>
+<li>Above equation is called the <em>general Weierstrass equation</em>. $0$ is the point at infinity.</li>
+<li>$\bar{K}$ is the algebraic closure of field $K$.</li>
 <li>Can be defined on any fields, such as $\mathbb{F}_{p}, \mathbb{Q}, \mathbb{R}$.</li>
 <li>EC defined on $\mathbb{F}_{p}$ are finite groups.</li>
 <li>ECDLP is discrete logarithm problem for the EC defined on finite field which has exponential time complexity to solve.</li>
 <li>Best known algorithm for an EC defined over $\mathbb{F}_p$ takes $O(\sqrt{p})$.</li>
 </ul>
+<p>We make simplification of the general equation with the case when field characteristic is not 2 or 3. Define curve $E/K$  read as curve $E$ over field $K$. This gives rise to <em>short Weierstrass equation</em> form of the EC.</p>
+<p>$$
+\begin{align}
+E:y^2=x^3+ax+b
+\end{align}
+$$</p>
+<p>Normally, curves are defined for large prime fields, where short equation covers all possible isomorphism classes of elliptic curves. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <a href="#group-law-of-elliptic-curves"><h2 id="group-law-of-elliptic-curves"><span class="hanchor" ariaLabel="Anchor"># </span>Group Law of Elliptic Curves</h2></a>
 <ul>
 <li>Elements of the group are points on elliptic curve.</li>
@@ -1161,7 +1188,7 @@ $$</p>
 </ul>
 <a href="#elliptic-curves-in-mathbbf_p"><h2 id="elliptic-curves-in-mathbbf_p"><span class="hanchor" ariaLabel="Anchor"># </span>Elliptic Curves in $\mathbb{F}_{p}$</h2></a>
 <p>$$\begin{array}{rcl}
-\left{(x, y) \in (\mathbb{F}_p)^2 \right. &amp; \left. | \right. &amp; \left. y^2 \equiv x^3 + ax + b \pmod{p}, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \not\equiv 0 \pmod{p}\right}\\ \cup\\ \left{0\right}
+\left\lbrace(x, y) \in (\mathbb{F}_p)^2 \right. &amp; \left. | \right. &amp; \left. y^2 \equiv x^3 + ax + b \pmod{p}, \right. \\ &amp; &amp; \left. 4a^3 + 27b^2 \not\equiv 0 \pmod{p}\right\rbrace \cup \left\lbrace0\right\rbrace
 \end{array}$$</p>
 <p>Every EC has an order $N$ which represents the number of points on the curve. This can be explained using group theory. Let&rsquo;s say we have a group, and the order of group denotes the number of points on the group. Now, if we take a point on the curve, then it tends to repeat itself in a cycle after some points.</p>
 <p>For Example: Let&rsquo;s take a curve $y^{2} \equiv x^{3}+2x+3 \pmod{p}$ and the point $P = (3,6)$. The multiples of P are just 5 distinct point on the curve $(0, P, 2P, 3P, 4P)$ and they are just repeating themselves.</p>
@@ -1242,8 +1269,7 @@ $$</p>
 <p>They have a favourable embedding degree, and a large prime-order subgroup.</p>
 <a href="#bls12-381"><h3 id="bls12-381"><span class="hanchor" ariaLabel="Anchor"># </span>BLS12-381</h3></a>
 <blockquote class="note-callout">
-<p></p>
-<p>Most of these notes are taken from this amazing 
+<p> Most of these notes are taken from this amazing 
 <a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">post</a> by Ben</p>
 </blockquote>
 <p>This was first introduced by Sean Bowe from ZCash in 2017 and has been used in various things from then. Now for the naming,</p>
@@ -1260,8 +1286,7 @@ $$</p>
 </ul>
 <a href="#field-extensions"><h4 id="field-extensions"><span class="hanchor" ariaLabel="Anchor"># </span>Field Extensions</h4></a>
 <p>The two curves used in BLS12-381 are defined on $\mathbb{F}$ and $\mathbb{F}_{q^{12}}$. This power raised is known as an extension field of field $\mathbb{F}_q$.</p>
-<p>Let&rsquo;s construct $\mathbb{F}_{q^{2}}$, quadratic extension of $\mathbb{F}_q$.</p>
-<p>element representation $\mathbb{F}<em>{q^{2}}$: $a</em>{0}+a_{1}x$ also written as $(a_{0},a_1)$.</p>
+<p>Let&rsquo;s construct $F_{q^{2}}$, quadratic extension of $F_q$. element representation $F_{q^{2}}:a_{0}+a_{1}x$ also written as $(a_{0},a_1)$.</p>
 <ul>
 <li>addition: $(a,b)+(c,d)=(a+c,b+d)$</li>
 <li>multiplication: $(ac-bd, ad+bc)$</li>
@@ -1272,19 +1297,18 @@ $$</p>
 <li>the polynomial we&rsquo;re reducing must be a $k$ degree polynomial, where $k$ is the extension degree.</li>
 <li>It must be irreducible in the field it is getting extended.</li>
 </ol>
-<p>BLS12-381 consists of two curves: $\mathbb{G}_{1}$ and $\mathbb{G}_2$. $\mathbb{G}_1$ is a fairly simple curve defined over finite field $\mathbb{F}_q$.</p>
-<p>We can call this curve $E(\mathbb{F}_{q})$. Curve equation for $\mathbb{G}_1$ is $y^2=x^3+4$.</p>
+<p>BLS12-381 consists of two curves: $\mathbb{G}_1$ and $\mathbb{G}_2$. $\mathbb{G}_1$ is a fairly simple curve defined over finite field $\mathbb{F}_q$. We can call this curve $E(\mathbb{F}_q)$. Curve equation for $\mathbb{G}_1$ is $y^2=x^3+4$.</p>
 <p>The other curve is defined over an extension of $\mathbb{F}$ to $\mathbb{F}<em>{q^{12}}$. Since arithmetic on $\mathbb{F}</em>{q^{12}}$ is fairly complex, it is reduced to $\mathbb{F}<em>{q^{2}}$. So, we&rsquo;ll call this curve $E&rsquo;(\mathbb{F}</em>{q^2})$. Curve equation is slightly modified to be $y^2=x^3+4(1+i)$.</p>
 <a href="#subgroups"><h4 id="subgroups"><span class="hanchor" ariaLabel="Anchor"># </span>Subgroups</h4></a>
-<p>BLS12-381 is popular because it&rsquo;s a pairing friendly curve. For pairings, we need two points from <strong>distinct</strong> groups, each of order $r$. The first curve only has one subgroup of order $r$, and thus we can&rsquo;t just use that one curve. That&rsquo;s why we require a second different curve which has a distinct subgroup of same order. Fortunately, this is exhibited by the curve defined over the extension field and one of these groups only contains points having a trace of zero. This is where $k=12$, embedding degree comes in. Thus, we have group $G_1$ of order $r$ in $E(\mathbb{F}<em>{q})$, and a distinct group $G_2$ of same order in $E(\mathbb{F}</em>{q^12})$. This enables pairings.</p>
+<p>BLS12-381 is popular because it&rsquo;s a pairing friendly curve. For pairings, we need two points from <strong>distinct</strong> groups, each of order $r$. The first curve only has one subgroup of order $r$, and thus we can&rsquo;t just use that one curve. That&rsquo;s why we require a second different curve which has a distinct subgroup of same order. Fortunately, this is exhibited by the curve defined over the extension field and one of these groups only contains points having a trace of zero. This is where $k=12$, embedding degree comes in. Thus, we have group $\mathbb{G}<em>1$ of order $r$ in $E(\mathbb{F}</em>{q})$, and a distinct group $G_2$ of same order in $E(\mathbb{F}_{q^{12}})$. This enables pairings.</p>
 <blockquote>
 <p>Note: <code>Trace of Zero</code></p>
 </blockquote>
 <a href="#twists"><h4 id="twists"><span class="hanchor" ariaLabel="Anchor"># </span>Twists</h4></a>
 <p>As explained earlier, that arithmetic on field $\mathbb{F}<em>{q^12}$ is fairly complex and inefficient. And all the curve operations like <code>add</code>, <code>sub</code>, <code>mul</code>, etc. requires a lot of arithmetic. Thus, we need to transform the $E(\mathbb{F}</em>{q^12})$ curve into a curve defined over a lower degree field that still has an order $r$ subgroup. Why we didn&rsquo;t take this lower order field in the first place? Because we require subgroup having trace of zero points.</p>
 <blockquote>
-<p>Quoting section 3 of [this](
-<a href="https://eprint.iacr.org/2005/133.pdf%29" rel="noopener">https://eprint.iacr.org/2005/133.pdf)</a> :</p>
+<p>Quoting section 3 of 
+<a href="https://eprint.iacr.org/2005/133.pdf" rel="noopener">this</a>:</p>
 <p>The basic idea for point compression is not only to restrict the first pairing argument to $E(\mathbb{F}<em>{p})$, but also to take the second argument $Q \in E(\mathbb{F}</em>{p^{12}})$ as the image $\psi(Q&rsquo;)$ of a point on a sextic twist $E&rsquo;(\mathbb{F}<em>{p^2})$, where $\psi : E&rsquo;(\mathbb{F}</em>{p^2}) \rightarrow E(\mathbb{F}<em>{p^{12}})$ is an injective group homomorphism. This way one would work only with $E(\mathbb{F}</em>{p})$ and $E&rsquo;(\mathbb{F}<em>{p^2})$ for non-pairing operations like key generation, and map from $E&rsquo;(\mathbb{F}</em>{p^2})$ to $E(\mathbb{F}_{p^{12}})$ only when actually computing pairing values.</p>
 </blockquote>
 <p>BLS12-381 uses a <code>sextic twist</code>. This means reducing the extension field degree by a factor of <code>6</code>.  We find a $u$ such that $u^{6}=(1+i)^{-1}$, then we define a twisting transformation as $(x,y) \rightarrow (\frac{x}{u^2},\frac{y}{u^3})$. This transforms the original curve from $E:y^2=x^3+4$ to $E&rsquo;:y^2=x^3+4/u^6$. $E$ and $E&rsquo;$ looks different but actually are same objected with coefficients in different base fields.</p>
@@ -1348,12 +1372,18 @@ Reduction rule: $w^2-v=0$ which is irreducible in $F_{q^{6}}$.</li>
 <a href="https://hackmd.io/@benjaminion/bls12-381" rel="noopener">BLS12-381 for the rest of us</a></li>
 <li>
 <a href="https://research.nccgroup.com/2020/07/13/pairing-over-bls12-381-part-2-curves/" rel="noopener">Pairings over BLS12-381</a></li>
+<li>
+<a href="https://crypto.stackexchange.com/questions/66436/for-an-elliptic-curve-what-is-the-difference-between-the-base-field-modulus-q" rel="noopener">EC domain parameters</a></li>
+<li>
+<a href="https://safecurves.cr.yp.to/" rel="noopener">choosing safe curves for elliptic-curve cryptography</a></li>
+<li></li>
 </ul>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Check Fermat&rsquo;s Little theorem.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>
+<a href="https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf" rel="noopener">Pairings For Beginners</a> Page 14&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

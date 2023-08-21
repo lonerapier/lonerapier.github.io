@@ -138,13 +138,13 @@ Safety: guarantees that something bad never happen. Examples: Tendermint from Co
     const PRODUCTION =  true 
     const BASE_URL = "https://lonerapier.xyz/"
     const fetchData = Promise.all([
-          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.f4befb713537f8bdb076cdcb734b8399.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/linkIndex.160fea4fc6253a9c6477bf48ae52acdf.min.json")
             .then(data => data.json())
             .then(data => ({
               index: data.index,
               links: data.links,
             })),
-          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.844b38a5d0bc33bb656f0f106fc47804.min.json")
+          fetch("https:\/\/lonerapier.xyz\/indices\/contentIndex.cb3adc2fe68712eb37b0a8d7e6f5cdb8.min.json")
             .then(data => data.json()),
         ])
         .then(([{index, links}, content]) => ({

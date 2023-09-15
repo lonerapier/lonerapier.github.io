@@ -48,7 +48,7 @@ Three main types of functional commitments possible:
 2. Multilinear commitments: Multivariate polynomial
 3. Linear commitments: Linear functions $f_\vec{v}(\vec{u}) = <\vec{u},\vec{v}>=\sum^{i=1}_{n}u_{i}v_{i}$
 
-> [!info] different types of PCS:
+> [!info]- Different types of PCS:
 > 1. Basic Elliptic curves: Bulletproofs
 > 2. Bilinear groups: KZG
 > 3. Groups of unknown order: DARK
@@ -78,7 +78,7 @@ A **polynomial commitment scheme** allows anyone to commit to a polynomial $p(X)
 
 - Let $\mathbb{G_1}$ and $\mathbb{G_2}$ be two elliptic curves with a pairing $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.
 - Let $p$ be the order of $\mathbb{G}_1$ and $\mathbb{G}_2$ and $G$ is generator of $\mathbb{G}_1$ and $H$ is generator of $\mathbb{G}_2$.
-- $\[x]_1 = xG \in \mathbb{G}_1$ and $\[x]_2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.
+- $[x]_1 = xG \in \mathbb{G}_1$ and $[x]_2 = xH \in \mathbb{G}_2$ where $x \in \mathbb{F}_p$.
 
 ### Trusted Setup
 
@@ -152,7 +152,7 @@ For soundness, prover would have to compute incorrect proof,
 
 $$\pi' = (C - [y']_1)^{\frac{1}{\tau-z}}$$
 
-But it's not possible to do this as $\tau$ is not known to prover and if they can forge this proof, then they can convince verifier for anything.
+But it's not possible to do this as $\tau$ is not known to prover and if they can forge this proof, then they can convince verifier for anything. Or it would have to forge a fake proof with fake evaluation $\omega$ which somehow has $\tau$ as root of $\frac{P-\omega}{X-z}$, whose probability is negligible due to Schwartz Zippel Lemma.
 
 ### Comparison to Merkle Trees
 
@@ -188,10 +188,39 @@ $$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$
 
 This really blew my mind when I was first studying them. You can have a million proofs batch together in one single 48 bytes proof which anyone can verify by just computing $I(x)$ and $Z(x)$.  Cryptography really is cool.
 
+```pseudo
+    \begin{algorithm}
+    \caption{Quicksort}
+    \begin{algorithmic}
+      \Procedure{Quicksort}{$A, p, r$}
+        \If{$p < r$}
+          \State $q \gets $ \Call{Partition}{$A, p, r$}
+          \State \Call{Quicksort}{$A, p, q - 1$}
+          \State \Call{Quicksort}{$A, q + 1, r$}
+        \EndIf
+      \EndProcedure
+      \Procedure{Partition}{$A, p, r$}
+        \State $x \gets A[r]$
+        \State $i \gets p - 1$
+        \For{$j \gets p$ \To $r - 1$}
+          \If{$A[j] < x$}
+            \State $i \gets i + 1$
+            \State exchange
+            $A[i]$ with $A[j]$
+          \EndIf
+        \State exchange $A[i]$ with $A[r]$
+        \EndFor
+      \EndProcedure
+      \end{algorithmic}
+    \end{algorithm}
+```
+
 ## Resources
 
 - [KZG Commitments By Dankrad](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
 - [Kate Commitments in ETH](https://hackmd.io/yqfI6OPlRZizv9yPaD-8IQ?view)
+- [Efficient polynomial commitment schemes for multiple points and polynomials](https://eprint.iacr.org/2020/081.pdf)
+- [Fast amortized KZG proofs](https://eprint.iacr.org/2023/033.pdf)
 - [ethresear.ch post about commitments](https://ethresear.ch/t/open-problem-ideal-vector-commitment/7421/27)
 - [Using polynomial commitments to replace state roots](https://ethresear.ch/t/using-polynomial-commitments-to-replace-state-roots/7095)]
 - [Kate Commitments: A Primer](https://hackmd.io/@tompocock/Hk2A7BD6U)

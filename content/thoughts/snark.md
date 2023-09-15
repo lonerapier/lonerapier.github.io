@@ -38,15 +38,23 @@ More formal definition:
 
 (S,P,V) is **knowledge sound** for a circuit if for every ***poly. time adversary A*** = (A_0, A_1) such that:
 
-$$S(C)\rightarrow(S_{p},S_{v})$$
-$$(x,state)\leftarrow A_{0}(S_{p})$$
-$$w\leftarrow A_{1}(x,S_{p},state)$$
+$$
+\begin{align}
+S(C)&\rightarrow(S_{p},S_{v}) \\
+(x,state)&\leftarrow A_{0}(S_{p}) \\
+w&\leftarrow A_{1}(x,S_{p},state)
+\end{align}
+$$
 
 there is an efficient ***extractor*** $E$, that uses $A_{1}$ s.t.
 
-$$S(C)\rightarrow (S_{p},S_{v})$$
-$$(x,state)\leftarrow A_{0}(S_{p})$$
-$$w\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)$$
+$$
+\begin{align}
+S(C)&\rightarrow (S_{p},S_{v}) \\
+(x,state)&\leftarrow A_{0}(S_{p}) \\
+w&\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)
+\end{align}
+$$
 
 ## Zero Knowledge
 
@@ -54,11 +62,11 @@ $$w\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)$$
 
 (S,P,V) is zero knowledge for circuit C if there is an efficient **Sim** s.t. $\forall x\in\mathbb{F}^{n} \rightarrow \exists w:C(x,w)=0$, the distribution:
 
-$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$
+$$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$$
 
 is indistinguishable from the distribution:
 
-$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$
+$$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$$
 
 ## Proofs
 
@@ -176,9 +184,9 @@ What does prover needs to prove to verifier in order to convince it?
 
 ### Proof Gadgets for IOP
 
-- **equality test** -> to test if polynomial $f$ and $g$ are equal and note that verifer only has the commitment, verifier queries the polynomial at point $r$ or opens the commitment and test if values providied by prover are equal. But this generates soundness error.
-- soundness error -> two polynomials in $\mathbb{F}_{p}$ can be zero at atmost d roots, if f(r)-g(r)=0 => f-g=0 => f=g v.h.p
-	- this assumption has error d/p such that if suppose g is not same as f, then g can have at most d different roots. thus, error -> d/p
+- **equality test** -> to test if polynomial $f$ and $g$ are equal and note that verifier only has the commitment, verifier queries the polynomial at point $r$ or opens the commitment and test if values providied by prover are equal. But this generates soundness error.
+- soundness error -> two polynomials in $\mathbb{F}_{p}$ can be zero at at most d roots, if $f(r)-g(r)=0 => f-g=0 => f=g \qquad \text{v.h.p}$
+	- this assumption has error d/p such that if suppose g is not same as f, then g can have at most d different roots. thus, error -> $d/p$
 	- this is derived from [Schwartz-Zippel Lemma](https://courses.cs.washington.edu/courses/cse521/17wi/521-lecture-7.pdf)
 	![kzg-proof-system](thoughts/images/kzg-proof-system.png)
 
@@ -197,7 +205,7 @@ We can construct efficient poly-IOPs for the following tasks:
 > - Find the reasons behind these checks? Could you have come up with these yourselves?
 
 > Vanishing Polynomial of $\Upomega$ is $Z_{\Upomega}(X) := \prod_{a\in\Upomega}(X-a)$. $Deg(Z_{\Upomega})=k$
-> If $\Upomega$ becomes the multiplicative subgroup formed using primitive kth root of unity, then VP becomes $X^{k}-1$. Thus, VP can be calculated in logarithmic time.
+> If $\Upomega$ becomes the multiplicative subgroup formed using primitive $k^{th}$ root of unity, then VP becomes $X^{k}-1$. Thus, VP can be calculated in logarithmic time.
 
 #### Zero Check
 
@@ -246,22 +254,22 @@ Can be done by creating two polynomials $\hat{F}=\prod_{a\in\Upomega}(X-f(a))$ a
 
 #### Prescribed Permutation Check
 
-Instead of just proving the permutation, prover wants to prove that $f(x)=g(W(x))$, where $W:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.
+Instead of just proving the permutation, prover wants to prove that $f(x)=g(\sigma(x))$, where $\sigma:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.
 
 > [!question] Why can't you use zero check here to check the two polynomials are equal? :: because g(W(y)) where y in $\Upomega$ will become O(d^2) in prover time. We don't want quadratic time prover.
 
-Observation: If $(W(a),f(a))_{a\in\Upomega}$ is a permutation of $(a, g(a))$ then $f(y)=g(W(y))$. We prove this by defining bivariate polynomial:
+Observation: If $(\sigma(a),f(a))_{a\in\Upomega}$ is a permutation of $(a, g(a))$ then $f(y)=g(\sigma(y))$. We prove this by defining bivariate polynomial:
 
-> [!question] didn't understand why this $(W(a),f(a))$ and $a, g(a)$, if the thing that we're trying to prove is f=g(W).
+> [!question] didn't understand why this $(\sigma(a),f(a))$ and $a, g(a)$, if the thing that we're trying to prove is $f=g(\sigma)$.
 
 $$
 \begin{align}
-\hat{f}(X,Y)&=\prod_{a\in\Upomega}(X-Y.W(a)-f(a)) \\
+\hat{f}(X,Y)&=\prod_{a\in\Upomega}(X-Y.\sigma(a)-f(a)) \\
 \hat{g}(X,Y)&=\prod_{a\in\Upomega}(X-Y.a-g(a))
 \end{align}
 $$
 
-We do product check on these two polynomials such that $\prod_{a\in\Upomega}\left(\frac{r-s.W(a)-f(a)}{r-s.a-g(a)}\right)=1$, where $r,s$ is the input queried by verifier.
+We do product check on these two polynomials such that $\prod_{a\in\Upomega}\left(\frac{r-s.\sigma(a)-f(a)}{r-s.a-g(a)}\right)=1$, where $r,s$ is the input queried by verifier.
 
 #### Proving Validity of T(x).
 
@@ -317,24 +325,73 @@ $$
 Term $(x-\omega)\ldots(x-\omega^n)$ is **Vanishing Polynomial:**$H(X)$. Since, $\omega$ is a primitive nth root of unity, $\omega^i$ forms a cyclic group, and $H(X)=X^{n}-1$ . Plonk says that, constraint system is satisfied, when the constraint equation is completely divided by Vanishing polynomial.
 
 $$
-
 H(X)|Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)
-
 $$
 
 #### Prove Gate Wirings Are Correct.
 
 encode the wires as permutation polynomial and prove through permutation check that wiring along the circuit is correct.
 
-$$T(y)=T(W(y)) \qquad \forall y \in \Upomega$$
+$$T(y)=T(\sigma(y)) \qquad \forall y \in \Upomega$$
 
-But we have three different n-degree poly, namely $a(X),b(X),c(X)$, this
+But we have three different n-degree poly, namely $a(X),b(X),c(X)$, thus we join these three polys into one polynomial of degree-3n:
+
+$$
+u=x_{l}||x_{r}||x_{o}=(x_{l}^{1},\ldots,x_{l}^{n},x_{r}^{1},\ldots,x_{r}^{n},x_{o}^{1},\ldots,x_{o}^{n})
+$$
+
+and create a permutation $\sigma \in S_{3n}$ on $u$ which gives $v$. $\sigma$ is chosen such that subset of array $u$ forms cycles.
 
 ## Recap
 
 ![plonk-iop](thoughts/images/plonk-iop.png)
 
 ## Formal Protocol
+
+### Prover's Algorithm
+
+#### Round 1:
+
+Compute $a(x),b(x),c(x)$ and send commitments $[a]_1,[b]_1,[c]_1$ to verifier.
+
+#### Round 2:
+
+- Compute permutation challenge $\beta,\gamma$.
+- Compute permutation polynomial $z(x)$ and send commitment $[z]_1$ to verifier.
+
+#### Round 3:
+
+- Compute quotient polynomial $t(x)$ and send commitment $[t_{low}(x)]_{1},[t_{mid}(x)]_{1},[t_{hi}(x)]_{1}$ to verifier.
+- It uses **quotient challenge**: $\alpha$ to distinguish the three conditions.
+
+It contains all three conditions that is to be proven to the verifier, i.e.
+
+- equality constraint involving $a(x),b(x),c(x)$
+- permutation constraint:
+	- $z(x)f'(x)=g'(x)z(x\omega)$
+	- $L_{1}(z(x)-1)=0 \qquad \forall x \in \Upomega$
+
+#### Round 4:
+
+Evaluation of $a,b,c,S_{\sigma 1},S_{\sigma 2},t$ at $\mathfrak{z}$ and **evaluation challenge**: $z$ at $\mathfrak{z}\omega$. Namely, $\bar{a},\bar{b},\bar{c},\bar{s}_{\sigma 1},\bar{s}_{\sigma 2},\bar{z}$.
+
+#### Round 5:
+
+Linearisation polynomial $r(x)$ can be interpreted as $t(x)=t_{low}(X)+X^{n}t_{mid}(X)+X^{2n}t_{hi}(X)=l(X)/Z_{H}(X)$.  Thus, prover proves $r(x)=l(X)-Z_{H}(\mathfrak{z})(t_{low}(X)+\mathfrak{z}^{n}t_{mid}(X)+\mathfrak{z}^{2n}t_{hi}(X))=0$, evaluated at $\mathfrak{z}$.
+
+Proof polynomial: $W_{\mathfrak{z}}(x)=\frac{M(X)}{X-\mathfrak{z}}$, and $W_{\mathfrak{z\omega}}(x)=\frac{N(X)}{X-\mathfrak{z}\omega}$. It contains separate terms for each polynomial, separated using **opening challenge**: $v^{i}$.  Send $[W_{\mathfrak{z}}]_1$ and $[W_{\mathfrak{z\omega}}]_1$.
+
+#### Overall Proof:
+
+Proof consists of:
+
+1. 9 $G_1$ points: $[a]_1,[b]_1,[c]_1,[t_{low}]_{1},[t_{mid}]_{1},[t_{hi}]_{1},[z]_1,[W_{\mathfrak{z}}]_1,[W_{\mathfrak{z\omega}}]_1$
+2. 6 $\mathbb{F}$ evaluations: $\bar{a},\bar{b},\bar{c},\bar{s}_{\sigma 1},\bar{s}_{\sigma 2},\bar{z}$
+3. multipoint evaluation challenge: $u$
+4. $54(n+a)\log(n+a) \enspace \mathbb{F} \enspace mul$ operations
+	1. 
+
+### Verifier Algorithm
 
 ## Improvements
 

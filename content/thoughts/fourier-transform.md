@@ -68,13 +68,13 @@ $$
 An $n$-degree polynomial is represented in coefficient form:
 
 $$
-P(x) = \sum_{j=0}^{n-1}a_{j}x^{j}
+A(x) = \sum_{j=0}^{n-1}a_{j}x^{j}
 $$
 
 Lagrange coefficients:
 
 $$
-P(x) = \sum_{k=0}^{n-1}y_k\frac{\prod_{j\neq k}(x-x_{j})}{\prod_{j \neq k}x_{k}-x_{j}}
+A(x) = \sum_{k=0}^{n-1}y_k\frac{\prod_{j\neq k}(x-x_{j})}{\prod_{j \neq k}x_{k}-x_{j}}
 $$
 
 Algorithms and Time Complexity:
@@ -82,11 +82,11 @@ Algorithms and Time Complexity:
 1. Addition/Subtraction: $O(n)$ in coefficient and point-value
 2. Multiplication: $O(n^2)$ in coefficient and $O(n)$ in point-value and converting between the two can be done in $O(n\log n)$
 
-Let the polynomial $P$ be defined with coefficients $a={a_0,a_1,\ldots,a_{n-1}}$, with results $y_{k}$ for $k=0,1,\ldots,n-1$.
+Let the polynomial $A$ be defined with coefficients $a={a_0,a_1,\ldots,a_{n-1}}$, with results $y_{k}$ for $k=0,1,\ldots,n-1$.
 
 $$
 \begin{align}
-y_{k} &= P(\omega^{k}_{n}) \\
+y_{k} &= A(\omega^{k}_{n}) \\
 &= \sum^{n-1}_{j=0}a_{j}\omega_{n}^{kj}
 \end{align}
 $$
@@ -95,7 +95,7 @@ Above equation is the DFT equation, represented as $DFT_n(a)$.
 
 # FFT
 
-![recursive-fft](thoughts/images/recursive-fft.png)
+![recursive-fft|600](thoughts/images/recursive-fft.png)
 
 Lemma's that help in understanding FFT:
 
@@ -103,7 +103,16 @@ Lemma's that help in understanding FFT:
 2. Halving Lemma: squares of nth complex root of unity are n/2 complex n/2th root of unity. $(\omega_n^{k+n/2})^{2}=(\omega_n^{k})^2$
 3. Summation Lemma: $\sum_{j=0}^{n-1}(\omega_{n}^{k})^j=0$
 
-![fft](thoughts/images/fft.png)
+Uses the following relation: $A(x)=A_{even}(x^2)+xA_{odd}(x^2)$.
+
+$$
+\begin{align}
+y_{even,k}=A_{even}(\omega_{n}^{2k}) \\
+y_{odd,k}=A_{odd}(\omega_{n}^{2k})
+\end{align}
+$$
+
+![fft|600](thoughts/images/fft.png)
 
 Domain should be power of 2, and complex roots of unity, $\omega_n^i$.
 
@@ -121,5 +130,8 @@ Let's understand radix-2 Cooley-Tukey FFT algorithm
 - [Radix-4 FFT](https://hackmd.io/@akshayk07/ryn-yR7qr)
 - [FFT](https://vanhunteradams.com/FFT/FFT.html)
 - [CP algorithms: FFT](https://cp-algorithms.com/algebra/fft.html)
+- [FFT over Finite Fields](https://decentralizedthoughts.github.io/2023-09-01-FFT)
+- [Ingonyama's NTT 201](https://github.com/ingonyama-zk/papers/blob/main/ntt_201_book.pdf)
+- [Cryptography Caffe's NTT: Part 1](https://cryptographycaffe.sandboxaq.com/posts/ntt-01/) & [Part 2](https://cryptographycaffe.sandboxaq.com/posts/ntt-02/)
 
 [^1]: [Discrete Fourier Transform](https://en.wikipedia.org/wiki/Discrete_Fourier_transform)

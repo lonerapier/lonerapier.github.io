@@ -19,6 +19,11 @@ These are the list of quotes that I have discovered the meaning while doing some
 - Don’t care about the **destination**, enjoy the **journey**.[^9]
 - Unhealthy **obsession**.[^10]
 - **Generalise** and **Unlearn**.[^11]
+- **Uncertainty** is better than **discomfort**.[^12]
+
+# Undiscovered but Intriguing
+
+- Focus is all about cutting distractions.[^13]
 
 [^1]: I used to think doing 15 reps was okay and will lead me to gains, but discovered that 12 of those 15 reps is just timewaste. You do them for those last 3 reps. That's when it matters.
 [^2]: God knows I've read so many self help books, articles about motivation which led me nowhere. Training my body has led me to believe that only action matters when you're confused. [Thinking](https://www.lesswrong.com/posts/vzfz4AS6wbooaTeQk/staring-into-the-abyss-as-a-core-life-skill) is for a peaceful and calm mind.
@@ -31,3 +36,5 @@ These are the list of quotes that I have discovered the meaning while doing some
 [^9]: You only realise the value of something you love when you let it go. When you love a thing so much, why would you ever want to leave it, right? LOVE YOUR OBSESSIONS.
 [^10]: Observed in me that things that I'm trying to learn stick with me for longer time when I am randomly trying to look through the details. Deadlines suck. Period.
 [^11]: Read somewhere the similarities between generalizing and unlearning. Our brain unlearns by generalising, increasing it’s long term memory capacity each time.
+[^12]: More like, uncertainty houses discomfort. You can feel comfortable and uncomfortable doing uncertain things, but you won’t feel certain and uncertain when doing uncomfortable things.
+[^13]: "People think focus means saying yes to the thing you've got to focus on. But that's not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I'm actually as proud of the things we haven't done as the things I have done. Innovation is saying no to 1,000 things." - Steve Jobs

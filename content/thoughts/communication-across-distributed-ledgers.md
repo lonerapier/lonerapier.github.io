@@ -5,10 +5,8 @@ date: 2022-04-11T22:15:20-09:00
 tags:
 - papers
 - technical
+link: https://eprint.iacr.org/2019/1128.pdf
 ---
-
-[Communication Across Distributed
-Ledgers](https://eprint.iacr.org/2019/1128.pdf)
 
 Aims to develop a guide for designing protocols bridging different types of blockchains (distributed ledgers).
 
@@ -16,12 +14,12 @@ Shows that CCC is impossible without **_third party._**
 
 Presents a framework keeping these trust assumptions in mind. Classifies current CCC protocols on the basis of framework.
 
-## Introduction
+# Introduction
 
 - NB-AC (_Non-Blocking Atomic Commit_) is used in distributed databases to ensure that correct processes don't have to wait for crashed processes to recover.
 - Can be extrapolated to distributed ledgers by handling _byzantine failures._
 
-## Distributed Ledger Model
+# Distributed Ledger Model
 
 - $X, Y$: Blockchains
 - $Lx$, $Ly$: ledgers with _states_ as dynamically evolving sequences of _transactions_
@@ -36,14 +34,14 @@ Presents a framework keeping these trust assumptions in mind. Classifies current
 
 **Liveness**: if tx $TX$ is included in ledger $L$ at time $t$, then it will appear in ledger at time $t$’.
 
-### CCC System Model
+## CCC System Model
 
 - $P: TX_P, Q: TX_Q$: separate processes running on two different ledgers with txs
 - $P$ possesses a description $d_Q$ which characterises the transaction $TX_Q$, while $Q$ possesses $d_P$ which characterises $TX_P$
 - Thus, $P$ wants $Q$ to be written to $Ly$ and vice-versa.
 - $m_P, m_Q$: boolean error variables for malicious processes
 
-## Formalisation of correct CCC
+# Formalisation of Correct CCC
 
 Goal: sync of P and Q such that Q is included iff P is included. For example, they can constitute an exchange of assets which must be completed atomically.
 
@@ -53,7 +51,7 @@ Goal: sync of P and Q such that Q is included iff P is included. For example, th
 
 **Timeliness**: If a process behaves correctly, $TX_P$ will be included and $Q$ will verify. It is a liveness property.
 
-## Generic CCC Protocol
+# Generic CCC Protocol
 
 > $u_x$: liveness delay
 >
@@ -65,13 +63,13 @@ Goal: sync of P and Q such that Q is included iff P is included. For example, th
 4. **Commit on Y:** $Q$ writes $TX_Q$ to $L^Q_Y$ at time $t$’ in round $r$’.
 5. **Abort**: revert $TX_P$ on $Lx$ in case of verification failure or $Q$ fails
 
-![Image.png](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/doc/2875A4D6-F00A-45A2-96EE-7222C31E634F/490D063A-EBE6-49DA-A5C7-D53342042837_2/q21xMyyBAkdRygr7FHp2PQr7J452ctL6JuxUysHHwccz/Image.png)
+![Image.png](thoughts/images/sok-communication-across-distributed-ledgers.png)
 
 CCC protocols follow two-phase commit design.
 
 Pre-commit and commit on Y is executed in parallel following verification and abortion, if required.
 
-## Impossibility of CCC without TTP (Trusted Third Party)
+# Impossibility of CCC without TTP (Trusted Third Party)
 
 Analogous to **_Fair Exchange_** Problem.
 
@@ -95,7 +93,7 @@ Many other frameworks for designing a CCC protocol:
 - Slashing the rewards
 - Optimistic
 
-## CCC Design Framework
+# CCC Design Framework
 
 Three main types of trust model:
 
@@ -103,9 +101,9 @@ Three main types of trust model:
 - Synchrony
 - Hybrid
 
-### Pre-Commit Phase
+## Pre-Commit Phase
 
-#### Model 1: TTP (Coordinators)
+### Model 1: TTP (Coordinators)
 
 Can participate in two ways:
 
@@ -118,18 +116,18 @@ Coordinator Implementations
 - Consensus Level Custodians (Consensus Committee)
 - External Escrows (Multisig Contracts)
 
-#### Model 2: Synchrony (Locking)
+### Model 2: Synchrony (Locking)
 
 - Locks based on hashes
 - Locks based on signatures
 - Timelock puzzles & Verifiable delay fns
 - Smart Contracts
 
-#### Model 3: Hybrid
+### Model 3: Hybrid
 
 Watchtowers (Other external parties) to be used as fallback if one of the service fails or crashes
 
-### Verification Phase
+## Verification Phase
 
 Same models but applied on verification part
 
@@ -137,15 +135,15 @@ Same models but applied on verification part
 2. Direct Observation/Relay SCs (Using light clients)
 3. Hybrid using watchtowers
 
-### Abort Phase
+## Abort Phase
 
-## Classification of Existing Protocols
+# Classification of Existing Protocols
 
-### Exchange Protocols
+## Exchange Protocols
 
 Atomic exchange of digital goods: $x$ on Chain $X$ again $y$ on $Y$. Both parties pre-commit, then verify and abort in case of failure.
 
-#### Pre-Commit
+### Pre-Commit
 
 Done through atomic swaps
 
@@ -153,15 +151,15 @@ Done through atomic swaps
 - On turing-complete blockchains, atomic swaps can be handled through smart contracts which can verify the state of chain $Y$ (_chain relay_).
 - Hybrid: symmetric with TTP is used to solve usability challenges in atomic swaps.
 
-#### Verify
+### Verify
 
 Done through external validators in symmetric swaps or through chain relays in SPV based atomic swaps.
 
-#### Abort
+### Abort
 
 Timelocks are set up on assets for a pre-defined duration to prevent indefinite lock up in case of failures.
 
-### Migration Protocols
+## Migration Protocols
 
 Migrate the asset $x$ from chain $X$ using write locks on $x$ preventing further use on $X$ and creating a wrapped version of same asset on $Y$.
 
@@ -172,7 +170,7 @@ Four main use cases of these protocols:
 - sidechains
 - bootstrapping a new chain
 
-#### Pre-commit
+### Pre-commit
 
 Relies on a single/committee based external custodian for TTP or through multisigs.
 
@@ -184,47 +182,47 @@ _Bi-directional chain relays_ can also be used if both chains support smart cont
 
 **Proof of Burn**: used for uni-directional flow as asset $x$ is burned on chain $X$.
 
-#### Verify
+### Verify
 
 - Chain relay contracts
 - Consensus committees to sign to verify pre-commit step.
 
-#### Abort
+### Abort
 
 Migration protocol doesn’t have explicit abort phase.
 
-## CCC Challenges
+# CCC Challenges
 
-### Heterogeneous Models and Parameters Across Chains
+## Heterogeneous Models and Parameters Across Chains
 
 - Different parameters used by different chains
 - security models
 - consensus differences: consensus execution, finality
 
-### Cryptographic Primitives
+## Cryptographic Primitives
 
 different cryptographic algorithms for hash locks or signatures
 
 ZK proofs may provide a workaround but increases complexity, communication costs.
 
-### Collateralization and Exchange Rates
+## Collateralization and Exchange Rates
 
 Using collaterals to prevent malicious behaviour among custodians or TTPs, incentivising correct behaviour but different types and rates of collateral b/w different chains.
 
 Dynamic Collateralization based on exchange rates among different blockchains
 
-#### Lack of Formal Security Analysis
+### Lack of Formal Security Analysis
 
 - Replay Attacks on state verification: if proofs are submitted multiple times either on the same chain or on different chains can lead to multiple spendings of assets.
 - Data availability: timely requirements of proofs and data, if not reached in time, leads to incorrect behaviour of process.
 
 Need more research on this topic as current solution increases complexity and decreases efficiency.
 
-#### Lack of Formal Privacy Analysis
+### Lack of Formal Privacy Analysis
 
 didn’t understand perfectly
 
-### Upcoming Research
+## Upcoming Research
 
 - Interoperability chains: Cosmos and polkadot Layer 0 based ecosystems.
 - Light Clients: for better verification

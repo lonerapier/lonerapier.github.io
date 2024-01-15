@@ -6,7 +6,7 @@ tags:
 - algebra
 ---
 
-# Groups
+## Groups
 
 Groups $G$ are algebraic structures which are set and has a binary operation $\bigoplus$ that combines two elements $a, b$ of the set to produce a third element $a\bigoplus b$ in the set. The operation is said to have following properties:
 
@@ -19,6 +19,6 @@ Groups which satisfy an additional property: *commutativity* on the set of eleme
 
 Example: $\mathbb{Z}$ is an abelian group while $\mathbb{N}$ is not a group as it doesn't satisfy inverse element property.
 
-## Cyclic Groups
+### Cyclic Groups
 
 Finite groups that can be represented as $g,g\bigoplus g,\cdots$

@@ -44,28 +44,28 @@ This means, number of gates, $g=3$, and number of unique constraints, $w=5$. Wit
 R1CS matrices looks like:
 
 $$
-\begin{array}{A}
+\begin{array}{cc}
 A &=
 &\begin{bmatrix}
-1 &out &x &y &v1 &v2 \ 
-0 &0 &3 &0 &0 &0 \
-0 &0 &3 &0 &0 &1 \
-0 &0 &5 &0 &0 &0 \
-\end{bmatrix} \
+1 &out &x &y &v1 &v2 \\
+0 &0 &3 &0 &0 &0 \\
+0 &0 &3 &0 &0 &1 \\
+0 &0 &5 &0 &0 &0 \\
+\end{bmatrix} \\
 
 B &=
 &\begin{bmatrix}
-0 &0 &1 &0 &0 &0 \
-0 &0 &0 &1 &0 &0 \
-0 &0 &0 &1 &0 &0 \
-\end{bmatrix} \
+0 &0 &1 &0 &0 &0 \\
+0 &0 &0 &1 &0 &0 \\
+0 &0 &0 &1 &0 &0 \\
+\end{bmatrix} \\
 
 C &=
 &\begin{bmatrix}
-0 &0 &3 &0 &1 &0 \
-0 &0 &0 &0 &0 &1 \
--3 &1 &1 &2 &0 &-1 \
-\end{bmatrix} \
+0 &0 &3 &0 &1 &0 \\
+0 &0 &0 &0 &0 &1 \\
+-3 &1 &1 &2 &0 &-1 \\
+\end{bmatrix} \\
 \end{array}
 $$
 
@@ -84,7 +84,7 @@ $$
 These polys, then can be evaluated at a random point $\tau$. $u_i(x)$ is a polynomial interpolated from $i^{th}$ constraint from matrix $A$.
 
 $$
-\begin{array}{C}
+\begin{array}{cc}
 \sum_{i=0}^{w}a_{i}u_{i}(\tau) \sum_{i=0}^{w}a_{i}v_{i}(\tau) &= &\sum_{i=0}^{w}a_{i}w_{i}(\tau) + h(\tau)t(\tau) \\
 \sum^{w}_{i=0}a_{i}[u_i(\tau)]_{1}&=&\sum^{w}_{i=0}a_i\sum^{g-1}_{j=0}u_{i,j}[\tau^{j}G]_{1} \\
 \sum^{w}_{i=0}a_{i}[v_i(\tau)]_{2}&=&\sum^{w}_{i=0}a_i\sum^{g-1}_{j=0}v_{i,j}[\tau^{j}G]_{2} \\
@@ -96,7 +96,7 @@ $$
 and verified by verifier using following relation:
 
 $$
-\begin{array}{A}
+\begin{array}{cc}
 e([A]_1,[B]_{2})=e([C]_1,[G]_{2})\\
 \end{array}
 $$

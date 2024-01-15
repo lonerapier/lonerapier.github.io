@@ -3,7 +3,8 @@ title: "SNARKs"
 date: 2023-05-02T00:00:00Z
 tags:
 - cryptography
-- zk
+- math
+- seed
 ---
 
 Properties that any zero knowledge based proving system needs to entertain:
@@ -16,7 +17,7 @@ Any proving system defines an n-variate polynomial with an evaluation recipe. Tw
 > [!note]- [What is the difference between proof and argument of knowledge](https://crypto.stackexchange.com/questions/34757/what-is-the-difference-between-proofs-and-arguments-of-knowledge)?
 > SNARKS are succinct argument of knowledge: Mostly used interchangeably but in proofs the soundness holds against a computationally unbounded adversary while in argument of knowledge soundness only holds against polynomially unbounded adversary. Arguments are thus called *computationally sound proofs*.
 
-## SNARK
+# SNARK
 
 ![snark](thoughts/images/easy-snark.png)
 
@@ -29,48 +30,37 @@ Requirements:
 1. Completeness: $\forall x,w:C(x,w)=0 \rightarrow Pr[V(S_{v},x,P(S_{p},x,w))]=1$
 2. Knowledge Sound: P doesn't know $w \rightarrow Pr[V(S_v,x,\pi)]=$ negligible
 
-> [!question]- why are finite fields important for SNARKs?
-> [Because](https://twitter.com/norswap/status/1621637419165523969) of hard DLP, group operations, roots of unity.
-
 More formal definition:
 
-### Soundness
+## Soundness
 
 > [!tldr] For dummies like me: for every polynomial time adversary, there exists an extractor that uses adversary to find out about $w$, even though adversary doesn't know about $w$, because if it would, then adversary can generate arbitrary proofs.
 
 (S,P,V) is **knowledge sound** for a circuit if for every ***poly. time adversary A*** = (A_0, A_1) such that:
 
-$$
-\begin{align}
-S(C)&\rightarrow(S_{p},S_{v}) \\
-(x,state)&\leftarrow A_{0}(S_{p}) \\
-w&\leftarrow A_{1}(x,S_{p},state)
-\end{align}
-$$
+$$S(C)\rightarrow(S_{p},S_{v})$$
+$$(x,state)\leftarrow A_{0}(S_{p})$$
+$$w\leftarrow A_{1}(x,S_{p},state)$$
 
 there is an efficient ***extractor*** $E$, that uses $A_{1}$ s.t.
 
-$$
-\begin{align}
-S(C)&\rightarrow (S_{p},S_{v}) \\
-(x,state)&\leftarrow A_{0}(S_{p}) \\
-w&\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)
-\end{align}
-$$
+$$S(C)\rightarrow (S_{p},S_{v})$$
+$$(x,state)\leftarrow A_{0}(S_{p})$$
+$$w\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)$$
 
-### Zero Knowledge
+## Zero Knowledge
 
 > [!tldr] For any normal proof, there exists a simulator which can generate proofs without knowledge of $w$.
 
 (S,P,V) is zero knowledge for circuit C if there is an efficient **Sim** s.t. $\forall x\in\mathbb{F}^{n} \rightarrow \exists w:C(x,w)=0$, the distribution:
 
-$$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$$
+$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$
 
 is indistinguishable from the distribution:
 
-$$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$$
+$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$
 
-### Proofs
+## Proofs
 
 Two ways to prove statement:
 
@@ -104,7 +94,7 @@ Any circuit need to be proven to verifier, so we need to encode and evaluate our
 1. [[polynomial-commitments|Functional commitment scheme]] (FCS)
 2. Interactive oracle proofs (IOP)
 
-### IOP
+## IOP
 
 Reference: <https://nmohnblatt.github.io/zk-jargon-decoder/definitions/polynomial_interactive_oracle_proof.html>
 
@@ -136,12 +126,12 @@ $(t,q)$ Poly-IOP:
 
 > [!info]
 > Length of SNARK: $t$ commitments + $q$ eval proofs
-> 
+>
 > Verifier time: $q*O(eval)+O(IOP-verify)$
-> 
+>
 > Prover time: $t*O(commit)+q*O(prove)+O(IOP-prove)$
 
-#### PLONK: poly-IOP for General Circuit
+### PLONK: poly-IOP for General Circuit
 
 Plonk IOP can be used with different PCS to generate different proving systems. For example:
 
@@ -150,7 +140,7 @@ Plonk IOP can be used with different PCS to generate different proving systems. 
 3. Plonky2: FRI + Plonk, used by polygon zkevm
 4. Scroll: (halo2) plonk + kzg
 
-##### Step 1: Compile Circuit for a Computation Trace
+#### Step 1: Compile Circuit for a Computation Trace
 
 Suppose you have a circuit with inputs $I: I_{x},I_{w}$, and gates C where $x$ is the statement inputs and $w$ is the witness input. Our goal is to prove to verifier that $C(w)=0$.
 
@@ -164,7 +154,7 @@ We put inputs $x_1=5, x_2=6, w_1=1$, and compute the computation trace through t
 | Gate 1: |  6  |  1  |        7         |
 | Gate 2: | 11  |  7  | ==77== <- Output |
 
-##### Step 2: Encode Trace in Polynomial $P$
+#### Step 2: Encode Trace in Polynomial $P$
 
 - Calculate $d$ of $P$ = $3|C|+|I|$ where |C|: no. of gates and |I|: no. of inputs
 - Aim: encode in a polynomial of form: $F_{p}^{(<=d)}(X)$
@@ -175,7 +165,7 @@ We put inputs $x_1=5, x_2=6, w_1=1$, and compute the computation trace through t
 	- $P(w^{3l+2})=$ output of gate l
 - Prover has $d$ evaluations of $P$, can use FFT to interpolate coefficients in $O(log_{2}d)$
 
-##### Step 3: Prove Validity of P
+#### Step 3: Prove Validity of P
 
 What does prover needs to prove to verifier in order to convince it?
 
@@ -184,11 +174,11 @@ What does prover needs to prove to verifier in order to convince it?
 - correct intermediate gate evaluations:
 - wiring between gates is according to the statement specified by prover
 
-#### Proof Gadgets for IOP
+### Proof Gadgets for IOP
 
-- **equality test** -> to test if polynomial $f$ and $g$ are equal and note that verifier only has the commitment, verifier queries the polynomial at point $r$ or opens the commitment and test if values providied by prover are equal. But this generates soundness error.
-- soundness error -> two polynomials in $\mathbb{F}_{p}$ can be zero at at most d roots, if $f(r)-g(r)=0 => f-g=0 => f=g \qquad \text{v.h.p}$
-	- this assumption has error d/p such that if suppose g is not same as f, then g can have at most d different roots. thus, error -> $d/p$
+- **equality test** -> to test if polynomial $f$ and $g$ are equal and note that verifer only has the commitment, verifier queries the polynomial at point $r$ or opens the commitment and test if values providied by prover are equal. But this generates soundness error.
+- soundness error -> two polynomials in $\mathbb{F}_{p}$ can be zero at atmost d roots, if f(r)-g(r)=0 => f-g=0 => f=g v.h.p
+	- this assumption has error d/p such that if suppose g is not same as f, then g can have at most d different roots. thus, error -> d/p
 	- this is derived from [Schwartz-Zippel Lemma](https://courses.cs.washington.edu/courses/cse521/17wi/521-lecture-7.pdf)
 	![kzg-proof-system](thoughts/images/kzg-proof-system.png)
 
@@ -207,17 +197,17 @@ We can construct efficient poly-IOPs for the following tasks:
 > - Find the reasons behind these checks? Could you have come up with these yourselves?
 
 > Vanishing Polynomial of $\Upomega$ is $Z_{\Upomega}(X) := \prod_{a\in\Upomega}(X-a)$. $Deg(Z_{\Upomega})=k$
-> If $\Upomega$ becomes the multiplicative subgroup formed using primitive $k^{th}$ root of unity, then VP becomes $X^{k}-1$. Thus, VP can be calculated in logarithmic time.
+> If $\Upomega$ becomes the multiplicative subgroup formed using primitive kth root of unity, then VP becomes $X^{k}-1$. Thus, VP can be calculated in logarithmic time.
 
-##### Zero Check
+#### Zero Check
 
 Let $\Upomega = 1, \omega, \cdots, \omega^{k-1}$. Calculate $q(X) = f(X)/X^k-1$.
 
 Send $Com_{q}$ to verifier, and verifier opens commitment at point $r$, and check $f(r)=q(r)(r^k-1)$. This proves that f(x) is divisible by X^k-1, hence, f has roots in $\Upomega$.
 
-##### Sum Check
+#### Sum Check
 
-##### Product Check on $\Upomega$
+#### Product Check on $\Upomega$
 
 We want to prove $\prod_{a\in\Upomega}f(a)=1$. Naively, we can send all evaluations of $f$ in $\Upomega$ but that will be quadratic in degree d. Instead, we can create a polynomial $t\in\mathbb{F}_{p}^{<=k}(X)$ that evaluates to 1 at $\omega^k-1$.
 
@@ -244,7 +234,7 @@ So, we can define polynomial $t$ s.t. $t(1)=1, \enspace t(\omega^{s})=\prod_{i=0
 
 > [!Note] The same product check holds for rational function as well, i.e. $f/g$. Prove this using: $t(\omega x)g(\omega x)=t(x)f(\omega x)$
 
-##### Permutation Check
+#### Permutation Check
 
 It is used to check that two polynomials $f, g$ are permutation of each other. Mainly, prover wants to prove that: $(f(1),f(\omega),\cdots,f(\omega^{k-1}))\in\mathbb{F}_{p}^{k}$ is a permutation of $(g(1),g(\omega),\cdots,g(\omega^{k-1}))\in\mathbb{F}_{p}^{k}$.
 
@@ -254,28 +244,30 @@ Can be done by creating two polynomials $\hat{F}=\prod_{a\in\Upomega}(X-f(a))$ a
 
 > [!question] Why can't we do zero test to check that these polynomials are equal? ::
 
-##### Prescribed Permutation Check
+#### Prescribed Permutation Check
 
-Instead of just proving the permutation, prover wants to prove that $f(x)=g(\sigma(x))$, where $\sigma:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.
+Instead of just proving the permutation, prover wants to prove that $f(x)=g(W(x))$, where $W:\Upomega\rightarrow\Upomega$ is a permutation if $\forall i\in[k]:W(\omega^{i})=\omega^{j}$ is a bijection.
 
 > [!question] Why can't you use zero check here to check the two polynomials are equal? :: because g(W(y)) where y in $\Upomega$ will become O(d^2) in prover time. We don't want quadratic time prover.
 
-Observation: If $(\sigma(a),f(a))_{a\in\Upomega}$ is a permutation of $(a, g(a))$ then $f(y)=g(\sigma(y))$. We prove this by defining bivariate polynomial:
+Observation: If $(W(a),f(a))_{a\in\Upomega}$ is a permutation of $(a, g(a))$ then $f(y)=g(W(y))$. We prove this by defining bivariate polynomial:
+
+> [!question] didn't understand why this $(W(a),f(a))$ and $a, g(a)$, if the thing that we're trying to prove is f=g(W).
 
 $$
 \begin{align}
-\hat{f}(X,Y)&=\prod_{a\in\Upomega}(X-Y.\sigma(a)-f(a)) \\
+\hat{f}(X,Y)&=\prod_{a\in\Upomega}(X-Y.W(a)-f(a)) \\
 \hat{g}(X,Y)&=\prod_{a\in\Upomega}(X-Y.a-g(a))
 \end{align}
 $$
 
-We do product check on these two polynomials such that $\prod_{a\in\Upomega}\left(\frac{r-s.\sigma(a)-f(a)}{r-s.a-g(a)}\right)=1$, where $r,s$ is the input queried by verifier.
+We do product check on these two polynomials such that $\prod_{a\in\Upomega}\left(\frac{r-s.W(a)-f(a)}{r-s.a-g(a)}\right)=1$, where $r,s$ is the input queried by verifier.
 
-##### Proving Validity of T(x).
+#### Proving Validity of T(x).
 
 T(x) is the polynomial that encodes the computation trace of the circuit.
 
-##### Prove Inputs Were Correct.
+#### Prove Inputs Were Correct.
 
 Create polynomial v(y) on $\Upomega_{inp}:=\{\omega^{-1},\omega^{-2},\cdots,\omega^{-|Ix|}\}\subseteq\Upomega$ and do zero test on:
 
@@ -283,7 +275,7 @@ $$
 T(y)-v(y)=0 \qquad \forall y \in \Upomega_{inp}
 $$
 
-##### Prove Gate Evaluations Are Correct
+#### Prove Gate Evaluations Are Correct
 
 Define a selector polynomial S(X) which is:
 
@@ -296,7 +288,7 @@ $$S(y)[T(y)+T(wy)]+(1-S(y))[T(y).T(wy)]=T(w^2y)$$
 
 then it's just the zero check.
 
-##### Combining Gate Constraints into One Equation
+#### Combining Gate Constraints into One Equation
 
 You can very easily combine gate constraints into one equation:
 
@@ -325,95 +317,33 @@ $$
 Term $(x-\omega)\ldots(x-\omega^n)$ is **Vanishing Polynomial:**$H(X)$. Since, $\omega$ is a primitive nth root of unity, $\omega^i$ forms a cyclic group, and $H(X)=X^{n}-1$ . Plonk says that, constraint system is satisfied, when the constraint equation is completely divided by Vanishing polynomial.
 
 $$
+
 H(X)|Q_{L}(x)a(x)+Q_{R}(x)b(x)+Q_{O}(x)c(x)+Q_{M}(x)(a(x).b(x))+Q_{C}(x)
+
 $$
 
-##### Prove Gate Wirings Are Correct.
+#### Prove Gate Wirings Are Correct.
 
 encode the wires as permutation polynomial and prove through permutation check that wiring along the circuit is correct.
 
-$$T(y)=T(\sigma(y)) \qquad \forall y \in \Upomega$$
+$$T(y)=T(W(y)) \qquad \forall y \in \Upomega$$
 
-But we have three different n-degree poly, namely $a(X),b(X),c(X)$, thus we join these three polys into one polynomial of degree-3n:
+But we have three different n-degree poly, namely $a(X),b(X),c(X)$, this
 
-$$
-u=x_{l}||x_{r}||x_{o}=(x_{l}^{1},\ldots,x_{l}^{n},x_{r}^{1},\ldots,x_{r}^{n},x_{o}^{1},\ldots,x_{o}^{n})
-$$
-
-and create a permutation $\sigma \in S_{3n}$ on $u$ which gives $v$. $\sigma$ is chosen such that subset of array $u$ forms cycles.
-
-### Recap
+## Recap
 
 ![plonk-iop](thoughts/images/plonk-iop.png)
 
-### Formal Protocol
+## Formal Protocol
 
-#### Prover's Algorithm
-
-##### Round 1:
-
-Compute $a(x),b(x),c(x)$ and send commitments $[a]_1,[b]_1,[c]_1$ to verifier.
-
-##### Round 2:
-
-- Compute permutation challenge $\beta,\gamma$.
-- Compute permutation polynomial $z(x)$ and send commitment $[z]_1$ to verifier.
-
-##### Round 3:
-
-- Compute quotient polynomial $t(x)$ and send commitment $[t_{low}(x)]_{1},[t_{mid}(x)]_{1},[t_{hi}(x)]_{1}$ to verifier.
-- It uses **quotient challenge**: $\alpha$ to distinguish the three conditions.
-
-It contains all three conditions that is to be proven to the verifier, i.e.
-
-- equality constraint involving $a(x),b(x),c(x)$
-- permutation constraint:
-	- $z(x)f'(x)=g'(x)z(x\omega)$
-	- $L_{1}(z(x)-1)=0 \qquad \forall x \in \Upomega$
-
-##### Round 4:
-
-Evaluation of $a,b,c,S_{\sigma 1},S_{\sigma 2},t$ at $\mathfrak{z}$ and **evaluation challenge**: $z$ at $\mathfrak{z}\omega$. Namely, $\bar{a},\bar{b},\bar{c},\bar{s}_{\sigma 1},\bar{s}_{\sigma 2},\bar{z}$.
-
-##### Round 5:
-
-Linearisation polynomial $r(x)$ can be interpreted as $t(x)=t_{low}(X)+X^{n}t_{mid}(X)+X^{2n}t_{hi}(X)=l(X)/Z_{H}(X)$. Thus, prover proves $r(x)=l(X)-Z_{H}(\mathfrak{z})(t_{low}(X)+\mathfrak{z}^{n}t_{mid}(X)+\mathfrak{z}^{2n}t_{hi}(X))=0$, evaluated at $\mathfrak{z}$.
-
-Proof polynomial: $W_{\mathfrak{z}}(x)=\frac{M(X)}{X-\mathfrak{z}}$, and $W_{\mathfrak{z\omega}}(x)=\frac{N(X)}{X-\mathfrak{z}\omega}$. It contains separate terms for each polynomial, separated using **opening challenge**: $v^{i}$. Send $[W_{\mathfrak{z}}]_1$ and $[W_{\mathfrak{z\omega}}]_1$.
-
-##### Overall Proof:
-
-Proof consists of:
-
-1. 9 $G_1$ points: $[a]_1,[b]_1,[c]_1,[t_{low}]_{1},[t_{mid}]_{1},[t_{hi}]_{1},[z]_1,[W_{\mathfrak{z}}]_1,[W_{\mathfrak{z\omega}}]_1$
-2. 6 $\mathbb{F}$ evaluations: $\bar{a},\bar{b},\bar{c},\bar{s}_{\sigma 1},\bar{s}_{\sigma 2},\bar{z}$
-3. multipoint evaluation challenge: $u$
-4. $54(n+a)\log(n+a) \enspace \mathbb{F} \enspace mul$ operations
-
-#### Verifier Algorithm
-
-Explained intuition behind the steps really well [here](https://hackmd.io/@aztec-network/ByiUK_Plt). Just reiterating those here:
-
-$W_{\mathfrak{z}}(X)$ can be written as $M(X)/(X-\mathfrak{z})$, and $W_{\mathfrak{z}\omega}(x)=N(x)/(X-\mathfrak{z}\omega)$. Combining these two identities with [multipoint evaluation challenge](https://hackmd.io/@gnark/plonk#PLONK1) $u$, we get:
-
-$$
-X(W(X)+uW_{\mathfrak{z}\omega}(X))=\mathfrak{z}W(X)+\mathfrak{z}\omega uW_{\mathfrak{z}\omega}(X) + M(X) + uN(X)
-$$
-
-### Plonk Extensions
+## Improvements
 
 - Turboplonk: Custom gates
-- Ultraplonk: Turboplonk+ Plookup
-- Hyperplonk
-- Goblinplonk
+- ultraplonk: turboplonk+ Plookup
+- hyperplonk
+- goblinplonk
 
-### TurboPlonk
-
-Plonk's arithmetization allows to efficiently add gates other than addition/multiplication. These gates are necessary to reduce constraints in a repetitive computation like hash function computation which involves bitwise arithmetic like XOR.
-
-This [article](https://kobi.one/2021/05/20/plonk-custom-gates.html) from Kobi explains really well, the design considerations for a custom gate model of MiMc hash.
-
-### References
+## References
 
 - [ZK Whiteboard sessions](https://youtu.be/h-94UhJLeck)
 - [Why and How ZK-SNARKS work?](https://medium.com/@imolfar/why-and-how-zk-snark-works-2-proving-knowledge-of-a-polynomial-f817760e2805)
@@ -423,12 +353,10 @@ This [article](https://kobi.one/2021/05/20/plonk-custom-gates.html) from Kobi ex
 - [Vitalik's Understanding PLONK](https://vitalik.ca/general/2019/09/22/plonk.html)
 - [David Wong's Understand PLONK](https://www.cryptologie.net/article/527/understanding-plonk/)
 - [Plonk by hand](https://research.metastate.dev/plonk-by-hand-part-1/)
+- [Notes on Plonk Prover’s and Verifier’s Algorithm](https://hackmd.io/@aztec-network/ByiUK_Plt)
 - [Plonk toy implementation](https://github.com/fabrizio-m/TyPLONK)
+- [FAQs about PLONK prover and verifier algorithm](https://hackmd.io/@aztec-network/ByiUK_Plt)
 - [ZK Proving systems by Jonathan Wang](https://hackmd.io/@jpw/BJAf6spB9)
 - [Plonk Arithmetization](https://hackmd.io/@jake/plonk-arithmetization)
 - [Gnark's Plonk](https://hackmd.io/@gnark/plonk)
 - [Zac: Adding zk to PLONK](https://hackmd.io/@zacwilliamson/r1dm8Rj7D#The-problem-with-this-approach)
-- [The Pantheon of Zero Knowledge Proof Development Frameworks](https://blog.celer.network/2023/08/04/the-pantheon-of-zero-knowledge-proof-development-frameworks/)
-- [zkHarness](https://github.com/zkCollective/zk-Harness)
-- [zkalc](https://github.com/mmaker/zkalc)
-- [Jump: A primer on proof systems](https://jumpcrypto.com/writing/a-primer-on-proof-systems/)

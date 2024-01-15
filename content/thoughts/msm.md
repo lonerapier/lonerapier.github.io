@@ -2,8 +2,7 @@
 title: "MSM - Multi scalar multiplication"
 date: 2023-07-08T10:00:00-07:00
 tags:
-- tech
-- math
+- zk
 - cryptography
 ---
 
@@ -11,7 +10,7 @@ Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $
 
 Scalar size: $b$ bits
 
-# Naive
+## Naive
 
 Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions
 
@@ -22,7 +21,7 @@ MSM can be divided into two main parts:
 1. Modular multiplication
 2. Point additions
 
-# Pippenger Bucketed Approach
+## Pippenger Bucketed Approach
 
 > [!info] Squaring: double add, i.e. $2*P$, where P is an EC point.
 
@@ -32,6 +31,7 @@ MSM can be divided into two main parts:
 4. Example: c=3, j=15, $B_{1}=4P_{1}+3P_{2}+5P_{3}+1P_{4}+4P_{5}+6P_{7}+6P_{8}+\ldots+3P_{14}+5P_{15}$
 5. Now, group points with same coefficients together, i.e. create buckets of $2^c-1$, and $B_{j}=\sum_{\lambda}\lambda S_{j\lambda}$
 6. Take partial sums:
+
 $$
 \begin{align*}
 T_{j1}&=S_{j7}\\
@@ -41,22 +41,23 @@ T_{j3}&=T_{j2}+S_{j5}\\
 T_{j7}&=T_{j6}+S_{j1}
 \end{align*}
 $$
-7. Sum each window.
+
+1. Sum each window.
 
 Complexity: $\frac{b}{c}(2^c+N+1)$ additions +. $b$ squarings
 
 - Part 1: window result calculation: $(2^c+N)b/c$
 - Part 2: sum over all windows: each iteration require $1$ addition and $c$ squarings. $b/c$ windows -> $\frac{b}{c} + \frac{b}{c}*c$ squarings
 
-# Point Addition Optimisations
+## Point Addition Optimisations
 
 Majority of complexity is due to point additions. Point addition complexity for affine coordinates is 1 division, 2 multiplications, 6 additions on $\mathbb{F}$. Division is very costly.
 
-Use projective coordinates. Division can be defered to when there is need for switch back to affine coordinates.
+Use projective coordinates. Division can be deferred to when there is need for switch back to affine coordinates.
 
 Complexity: 7 mults, 4 squarings, 9 additions, 3 mults by 2, 1 by 1. But no division is required.
 
-## Batch Affine
+### Batch Affine
 
 Can be used in cases where aim is to find: $G_{i}=P_i+Q_i$ where P, Q are points on EC.
 
@@ -67,11 +68,11 @@ Denote: $a_{i}=x_{i,2}-x_{i,1}$
 - $r_i$: $\prod_{j=i+1}^{n}a_{j}$
 - $G_{i}=\frac{1}{x_{i,2}-x_{i,1}}=s*l_{i}*r_{i}$
 
-## GLV with Endomorphism
+### GLV with Endomorphism
 
 Goal: accelerate single point scalar mult $k*P$
 
-### Naive Approach
+#### Naive Approach
 
 1. Divide into windows of c bits
 2. pre-compute $i*P \forall i\in[0,\ldots,2^c-1]$
@@ -85,7 +86,7 @@ Goal: accelerate single point scalar mult $k*P$
 
 Complexity: $2^c(precompute)+d$ point additions and $c*d=b$ squarings
 
-### Endomorphism
+#### Endomorphism
 
 For some curves like BN254, we can use cube roots of unity to find new points on the curve for same y.
 
@@ -102,7 +103,7 @@ $k_1$ and $k_2$ are found using [barret-reduction](https://hackmd.io/@chaosma/Sy
 
 Complexity: b/2 squaring and $d/2+2^{c+1}$ additions
 
-## WNAF (windowed Non-adjacent form)
+### WNAF (windowed Non-adjacent form)
 
 Most of the time in MSM is spent in additions, and number of additions depend on hamming weight of the scalar. Less number of additions will have to be done if the number of 1's in the scalar bits is less.
 
@@ -147,7 +148,7 @@ sequenceDiagram
 Prover->>Verifier: Hello
 ```
 
-# Resources
+## Resources
 
 - [zkStudyClub: Multi-scalar multiplication](https://www.youtube.com/watch?v=Bl5mQA7UL2I)
 - [Known optimisation for MSM](https://www.notion.so/Known-Optimizations-for-MSM-13042f29196544938d98e83a19934305#9d8b79321f584477ac945a738042c396)

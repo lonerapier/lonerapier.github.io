@@ -6,17 +6,17 @@ tags:
 - algebra
 ---
 
-# Fields
+## Fields
 
 Algebraic structure on which basic math can be performed.
 
-## Properties
+### Properties
 
 - Abelian group under addition
 - Non-zero numbers form abelian group under multiplication
 - multiplicative distribution over addition
 
-# [Finite Fields](https://en.wikipedia.org/wiki/Finite_field) (Galois Fields)
+## [Finite Fields](https://en.wikipedia.org/wiki/Finite_field) (Galois Fields)
 
 Fields defined on a number and the result is in the set.
 
@@ -57,20 +57,20 @@ Example: $GF(2^3)$'s elements are
 (1, 1, 1) = x²+x+1
 ```
 
-## Properties
+### Properties
 
 - Every element of a GF(q) are roots of the polynomial $x^q-x=0$. Generally, every element in GF(p^n) satisfies the polynomial equation $x^{p^{n}}-x=0$.
 - every field has a **characteristic** $p$ which is p for which np=0 and is used to find identity of the field.
 - Non-zero elements of a finite field form a **multiplicative cyclic subgroup**. This means, all non-zero elements can be expressed as powers of a single element. This element is called **primitive element**.
 - All fields generated in GF(q) are isomorphic.
 
-## Roots of Unity in Finite Fields
+### Roots of Unity in Finite Fields
 
 1. Every non-zero element of $\mathbb{F}_{q}$ is a root of unity.
 2. Def: Primitive RoU: $x^{n}=1$, but $x^{m}\neq{1} \forall m<n$.
 3. $\mathbb{F}_{q}$ has a nth primitive RoU iff n divides q-1.
 
-## Quadratic Residue
+### Quadratic Residue
 
 If $a$ and $m$ are co-prime, then $a$ is called [*quadratic residue](https://en.wikipedia.org/wiki/Quadratic_residue) modulo m* if $x^{2}\equiv a \mod{m}$ has a solution. Vice Versa, $a$ is called quadratic non-residue if it does not have a solution.
 
@@ -86,9 +86,9 @@ If $a$ and $m$ are co-prime, then $a$ is called [*quadratic residue](https://en.
 > - $8^2$ mod 11 = 9
 > - $9^2$ mod 11 = 4
 > - $10^2$ mod 11 = 1
->
+> 
 > 0, 1, 3, 9, 5, 3 are quadratic residues.
->
+> 
 > 2, 6, 7, 8, 10 are quadratic non-residues modulo 11.
 
 Total quadratic residues of a prime $p=(p-1)/2$, excluding 0, if p is odd, and $(p+1)/2$, if p is even.
@@ -96,7 +96,7 @@ Total quadratic residues of a prime $p=(p-1)/2$, excluding 0, if p is odd, and $
 > [!important]- Prove above statement.
 > In a field, $x^2$ and $(p-x)^2$ is same. Thus, the square modulo are symmetric around $p/2$.
 
-### Legendre Symbol
+#### Legendre Symbol
 
 Easier notation used to denote the relationship between $a$ and $n$. Can be easily encoded in a functional form to be used in cryptographic operations.
 
@@ -111,9 +111,15 @@ $$
 \end{cases}
 $$
 
-## Extension Fields
+### Extension Fields
 
-# References
+### Adicity
+
+Something which is referenced very often when creating various fields for proving systems is the [2-adicity](https://cryptologie.net/article/559/whats-two-adicity/) of the field.
+
+Adicity refers to the largest size of the subgroup that can be formed in the field. All the other subgroups are smaller than the largest subgroup and thus, to create snarks that can prove large computation, it is required to take fields with high 2-adicity value.
+
+## References
 
 - [Learning Cryptography, Part 1: Finite Fields](https://medium.loopring.io/learning-cryptography-finite-fields-ced3574a53fe)
 - [Finite Fields: Theory and Application](https://www.cantorsparadise.com/the-theory-and-applications-of-finite-fields-e78844896eaa)

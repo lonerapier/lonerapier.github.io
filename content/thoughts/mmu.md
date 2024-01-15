@@ -6,13 +6,13 @@ tags:
 - seed
 ---
 
-# Memory
+## Memory
 
-# Management
+## Management
 
-# Unit
+## Unit
 
-# MMU
+## MMU
 
 Paging is dividing process into equal blocks, but complete process is not treated equal by the cpu. Each process is divided into segments like code, data, functions, symbols, global variables, local variables, etc.
 These segments can be divided and stored in main memory differently rather than single sequence of bytes.
@@ -23,7 +23,7 @@ Segmentation is a memory management scheme that divides process into these diffe
 
 ![segmentation-addressing](segmentation-addressing.png)
 
-## Questions
+### Questions
 
 - What are the segments in which the process is divided?
 - How is the logical address divided? :: into `<segment number, offset>`. Segment table is created which stores `<segment length, base frame address>`.
@@ -71,18 +71,18 @@ Segmentation is a memory management scheme that divides process into these diffe
 	- 80% TLB hit, out of remaining 20%, 2% are page faults.
 	- Total time = $0.8*1+0.18*2+0.02*20002 = 401.2\micro s$
 
-# Demand Paging
+## Demand Paging
 
 requires two things:
 
 1. Page replacement algorithm
 2. Frame allocation
 
-## Page Replacement Algorithm
+### Page Replacement Algorithm
 
-## Frame Allocation
+### Frame Allocation
 
-# Questions?
+## Questions?
 
 - fully-associative mapping scheme?
 - does page size the lowest unit of memory that is managed for a process? :: yes
@@ -121,7 +121,7 @@ requires two things:
 - imagine two threads demanding memory at same time, does MMU allocate at once or on demand? :: obviously fix size at once, then depends on the process if it needs more.
 - how does memory get cleaned up after the process ends?
 
-# References
+## References
 
 - [Virtual Memory lectures](https://www.cs.utexas.edu/users/witchel/372/lectures/15.VirtualMemory.pdf)
 - [How is Virtual Memory Translated to Physical Memory?](https://blogs.vmware.com/vsphere/2020/03/how-is-virtual-memory-translated-to-physical-memory.html)

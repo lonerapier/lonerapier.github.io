@@ -36,31 +36,31 @@ The reason why Bilinear map works?
 
 First, we look into the concept of [[divisors|divisors]].
 
-# Tate Pairings
+## Tate Pairings
 
-# Miller's Algorithm
+## Miller's Algorithm
 
-# MOV Attack
+## MOV Attack
 
 MOV attack refers to the transfer of DLP over EC to finite field $\mathbb{F_{p^k}}$ where it's much easier to solve. This is related to the [embedded degree](https://math.stackexchange.com/questions/824123/what-is-an-embedding-degree-of-elliptic-curve) of the EC.
 
 > *Embedded Degree* of an EC refers to the minimum value of k for which $p^k \equiv 1 \pmod{n}$, where p = prime used for the field and n = order of the curve. This is actually called an attack because DLP shouldn't be solvable on ECs and thus for curves used throughout the cryptographic primitives, value of k is unreasonably large such that pairings are computably infeasible to compute.
 
-# Complexities Assumptions on Bilinear Groups
+## Complexities Assumptions on Bilinear Groups
 
 - Discrete Log problem is still difficult if target group is sufficiently large.
 - CDH (Computation Diffie-Hellman) is still hard as we can't find $g^{xy}$ if we know $g$, $g^x$, $g^y$.
 - Bilinear Diffie-Hellman Problem: Given $P, aP, bP, cP \in G_1$, compute $e(P, P)^{abc}$
 	![tripartite-key-exchange](thoughts/images/example-tripartite-key-exchange.jpeg)
 
-# Prerequisites
+## Prerequisites
 
 1. Fermat's Little Theorem: for a prime p, and any positive integer a, $a^p \equiv a \space mod \space p$
 2. Additive Group: set of numbers with operation defined on addition
 3. Multiplicative group: set of numbers with operation defined on multiplication
 4. Order of Multiplicative group
 
-# Resources
+## Resources
 
 - [Vitalik: Exploring Elliptic Curve Pairings](https://medium.com/@VitalikButerin/exploring-elliptic-curve-pairings-c73c1864e627)
 - [Statebox’s Elliptic Curve Pairings](https://blog.statebox.org/elliptic-curve-pairings-213131769fac)

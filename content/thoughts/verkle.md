@@ -23,7 +23,7 @@ In a Verkle trie, inner nodes are $d$-ary vector commitments to their children i
 
 But fortunately in case of polynomial commitments, instead of giving commitment and proof for each level, we can combine the proof and give a multiproof that convinces the verifier that value of a leaf node is indeed what we want to prove. Following is the steps of a scheme that generate multiproof using random evaluation.
 
-# Proof
+## Proof
 
 Given $m$ commitments $C_i=[f_{i}(s)]_1$, prove evaluations $f_{i}(z_{i})=y_{i}$ where $z_{i} \in \lbrace{\omega^i\rbrace}$ and $\omega$ is a $d$-th root of unity.
 
@@ -34,7 +34,9 @@ Given $m$ commitments $C_i=[f_{i}(s)]_1$, prove evaluations $f_{i}(z_{i})=y_{i}$
 
 3. Prover create a commitment $D=[g(s)]_1$
 4. evaluate $g(X)$ at point $t$, where $t \leftarrow H(r,D)$
+
    $$g(t) = \underbrace{\sum_{i=0}^{m-1} r^i \frac{f_i(t)}{t-z_i}}_{g_1(t)} -  \underbrace{\sum_{i=0}^{m-1} r^i \frac{y_i}{t-z_i}}_{g_2(t)}$$
+
 5. $y=g_{2}(t)$ can be computed by verifier as all the inputs are known
 6. $h(X) = \sum_{i=0}^{m-1}r^{i} \frac{f_{i}(X)}{t-z_{i}}$ => $E = [h(s)]_{1} = \sum^{m-1}_{i=0} \frac{r^{i}}{t-z_{i}} C_i$ can also be computed by verifier
 7. Prover gives the proof $\pi=[(h(s)-g(s)-y)/(s-t)]_1$
@@ -47,19 +49,19 @@ This allows us to prove an arbitrary number of evaluations.
 - Only leaves keys and values, and corresponding commitment to each level are required
 - For $n = 2^{30}$ and $d=2^{10}$, the average depth comes out to be $3$.
 
-## Design Goals
+### Design Goals
 
 - Cheaper access to neighbouring code chunks and storage slots to prevent thrashing
 - distribute data as evenly as possible in the tree
 - Fast in SNARKs
 - Forward compatible, i.e. interface should be pure (key, value) pair of *32 bytes*.
 
-## Reasoning for Pedersen Commitments
+### Reasoning for Pedersen Commitments
 
 Now, there are two commitment schemes that can be used for vector commitments.
 
 1. [[polynomial-commitments|KZG Polynomial commitments]]
-2. [[thoughts/pedersen-commitments|Pedersen Vector commitments]] + IPA (Inner Product Arguments)
+2. [[pedersen-commitments|Pedersen Vector commitments]] + IPA (Inner Product Arguments)
 
 Ethereum has decided to go with Pedersen commitments citing following advantages:
 
@@ -70,7 +72,7 @@ Ethereum has decided to go with Pedersen commitments citing following advantages
 
 **Disadvantage**: Not as efficient for proving a single witness. But this is not very important to us.
 
-## Changes in Tree Structure
+### Changes in Tree Structure
 
 ![verkle_tree_structure](thoughts/images/verkle-tree-structure.png)
 
@@ -82,11 +84,11 @@ Verkle Trees introduces a number of changes in the tree structure.
 4. merge of account and storage tries
 5. gas changes
 
-# ETH Verkle Explainer
+## ETH Verkle Explainer
 
 ![verkle_tree](thoughts/images/VerkleTree.jpg)
 
-# Resources
+## Resources
 
 - [Vitalik's explainer on Verkle Trees](https://vitalik.ca/general/2021/06/18/verkle.html)
 - [verkle.dev](https://verkle.dev/docs/intro)

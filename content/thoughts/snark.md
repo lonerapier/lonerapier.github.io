@@ -64,11 +64,11 @@ $$
 
 (S,P,V) is zero knowledge for circuit C if there is an efficient **Sim** s.t. $\forall x\in\mathbb{F}^{n} \rightarrow \exists w:C(x,w)=0$, the distribution:
 
-$$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$$
+$$(C,S_{p},S_{v},x,\pi): \text{where}\space (S_{p},S_{v}):S(C), \pi:P(S_{p},x,w)$$
 
 is indistinguishable from the distribution:
 
-$$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$$
+$$(C,S_{p},S_{v},x,\pi): \text{where} \space(S_p,S_{v},\pi)\leftarrow Sim(C,x)$$
 
 ### Proofs
 
@@ -136,9 +136,9 @@ $(t,q)$ Poly-IOP:
 
 > [!info]
 > Length of SNARK: $t$ commitments + $q$ eval proofs
-> 
+>
 > Verifier time: $q*O(eval)+O(IOP-verify)$
-> 
+>
 > Prover time: $t*O(commit)+q*O(prove)+O(IOP-prove)$
 
 #### PLONK: poly-IOP for General Circuit
@@ -216,6 +216,8 @@ Let $\Upomega = 1, \omega, \cdots, \omega^{k-1}$. Calculate $q(X) = f(X)/X^k-1$.
 Send $Com_{q}$ to verifier, and verifier opens commitment at point $r$, and check $f(r)=q(r)(r^k-1)$. This proves that f(x) is divisible by X^k-1, hence, f has roots in $\Upomega$.
 
 ##### Sum Check
+
+Read [[sumcheck-and-gkr|Sumcheck]]
 
 ##### Product Check on $\Upomega$
 
@@ -377,7 +379,7 @@ Evaluation of $a,b,c,S_{\sigma 1},S_{\sigma 2},t$ at $\mathfrak{z}$ and **evalua
 
 ##### Round 5:
 
-Linearisation polynomial $r(x)$ can be interpreted as $t(x)=t_{low}(X)+X^{n}t_{mid}(X)+X^{2n}t_{hi}(X)=l(X)/Z_{H}(X)$. Thus, prover proves $r(x)=l(X)-Z_{H}(\mathfrak{z})(t_{low}(X)+\mathfrak{z}^{n}t_{mid}(X)+\mathfrak{z}^{2n}t_{hi}(X))=0$, evaluated at $\mathfrak{z}$.
+[Linearisation polynomial](https://o1-labs.github.io/proof-systems/plonk/maller.html) $r(x)$ can be interpreted as $t(x)=t_{low}(X)+X^{n}t_{mid}(X)+X^{2n}t_{hi}(X)=l(X)/Z_{H}(X)$. Thus, prover proves $r(x)=l(X)-Z_{H}(\mathfrak{z})(t_{low}(X)+\mathfrak{z}^{n}t_{mid}(X)+\mathfrak{z}^{2n}t_{hi}(X))=0$, evaluated at $\mathfrak{z}$.
 
 Proof polynomial: $W_{\mathfrak{z}}(x)=\frac{M(X)}{X-\mathfrak{z}}$, and $W_{\mathfrak{z\omega}}(x)=\frac{N(X)}{X-\mathfrak{z}\omega}$. It contains separate terms for each polynomial, separated using **opening challenge**: $v^{i}$. Send $[W_{\mathfrak{z}}]_1$ and $[W_{\mathfrak{z\omega}}]_1$.
 
@@ -403,8 +405,10 @@ $$
 ### Plonk Extensions
 
 - Turboplonk: Custom gates
-- Ultraplonk: Turboplonk+ Plookup
+- [[lookup-arguments|Ultraplonk]]: Turboplonk+ Plookup
 - Hyperplonk
+- UniPlonk
+- Fflonk
 - Goblinplonk
 
 ### TurboPlonk
@@ -412,6 +416,10 @@ $$
 Plonk's arithmetization allows to efficiently add gates other than addition/multiplication. These gates are necessary to reduce constraints in a repetitive computation like hash function computation which involves bitwise arithmetic like XOR.
 
 This [article](https://kobi.one/2021/05/20/plonk-custom-gates.html) from Kobi explains really well, the design considerations for a custom gate model of MiMc hash.
+
+### [Plonkup](https://eprint.iacr.org/2022/086)
+
+Explanation of prover and verifier's algorithm with reasoning of each step can be found in a beautiful explanation in a [blog post](https://hackmd.io/gMXxXhCXQ8GFb1bvnFgOIA) by Joshua and by [Hector](https://hackmd.io/@Wimet/Sk1HL2brK).
 
 ### References
 

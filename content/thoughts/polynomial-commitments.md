@@ -59,7 +59,7 @@ Three main types of functional commitments possible:
 ## Polynomial Commitment Scheme (PCS)
 
 - what properties are desirable for an efficient PCS? :: commitment time is fast and proof is small, verify/eval time is fast
-- what do you mean by small and fast? :: small means few bytes, for ex: in KZG, it's just one group element and BN254 is just 32 bytes. By fast, i mean in quasilinear time. for ex: verification in KZG takes $O(logd)$, where d is degree of polynomial. 
+- what do you mean by small and fast? :: small means few bytes, for ex: in KZG, it's just one group element and BN254 is just 32 bytes. By fast, i mean in quasilinear time. for ex: verification in KZG takes $O(logd)$, where d is degree of polynomial.
 
 - see, commitment to a polynomial is just evaluation of that polynomial at a point and brute force method takes $O(d)$ time, where d is the degree of the polynomial and if you want to commit to d polynomials, it amounts to $O(d^2)$ time.
 	- there's a better method than that, i.e. NTT Number theory transform which can do this in O(d logd).
@@ -168,7 +168,7 @@ This is a very simple polynomial commitment that is inefficient to its core but 
 - The verifier need to do linear work to compute $z$. While in KZG, verification is constant as only two multiplications and pairings are required to verify proof.
 - commitments using merkle trees makes the polynomial public and doesn't hide anything. While it's mostly hidden in Kate commitments.
 
-Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs. [^1]
+Now, the best part about Kate proofs are it can create one proof for multiple evaluation, i.e. only one group element for multiple proofs.
 
 ### Multiproofs
 
@@ -192,12 +192,13 @@ This really blew my mind when I was first studying them. You can have a million 
 
 - [KZG Commitments By Dankrad](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
 - [Kate Commitments in ETH](https://hackmd.io/yqfI6OPlRZizv9yPaD-8IQ?view)
+- [Efficient polynomial commitment schemes for multiple points and polynomials](https://eprint.iacr.org/2020/081.pdf)
+- [PCS Multiproofs](https://dankradfeist.de/ethereum/2021/06/18/pcs-multiproofs.html)
+- [Fast amortized KZG proofs](https://eprint.iacr.org/2023/033.pdf)
+	- [Explanation of above paper by Alin Tomescu](https://alinush.github.io/2021/06/17/Feist-Khovratovich-technique-for-computing-KZG-proofs-fast.html)
 - [ethresear.ch post about commitments](https://ethresear.ch/t/open-problem-ideal-vector-commitment/7421/27)
 - [Using polynomial commitments to replace state roots](https://ethresear.ch/t/using-polynomial-commitments-to-replace-state-roots/7095)]
 - [Kate Commitments: A Primer](https://hackmd.io/@tompocock/Hk2A7BD6U)
 - [Understanding KZG10 Polynomial Commitments](https://taoa.io/posts/Understanding-KZG10-Polynomial-Commitments)
 - [Polynomials in bit reversal permutation](https://github.com/ethereum/consensus-specs/pull/3006)
 - [Formulas for Polynomial Commitments](https://hackmd.io/@Evaldas/SJ9KHoDJF)
-- [Uncovering KZG](https://scroll.io/blog/kzg)
-
-[^1]: This is the first footnote.

@@ -34,7 +34,7 @@ Note: $0 \le c < N.N < R.N$. Let's understand how $redc$ works:
 $$
 \begin{align*}
 R.R^{-1}&=N.N'+1 \\
-c.N' \mod{R}&=c.\frac{R.R^{-1}+1}{N}\mod{R}=c.N'\mod{R} \\
+c.N' \mod{R}&=c.\frac{R.R^{-1}-1}{N}\mod{R}=c.N'\mod{R} \\
 k&=c.N'\mod{R} \\
 t&=\frac{c+kN}{R} \\
 t\mod{N}&=c.R^{-1}\mod{N} \\
@@ -108,5 +108,6 @@ Instead of updating $t$ every loop, we'll split and update $t_{i}$ and shift $t$
 - [EdMSM](https://eprint.iacr.org/2022/1400)
 - [HPC: Montgomery](https://en.algorithmica.org/hpc/number-theory/montgomery/)
 - [Ingonyama: modular multiplication](https://github.com/ingonyama-zk/papers/blob/main/modular_multiplication.pdf)
+- [montgomery-reduction algorithm](https://www.nayuki.io/page/montgomery-reduction-algorithm)
 - [Barret reduction](https://en.wikipedia.org/wiki/Barrett_reduction)
 -

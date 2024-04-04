@@ -54,11 +54,11 @@ $$w\leftarrow E^{A_{1}(x,S_{p},state)}(S_{p},x)$$
 
 (S,P,V) is zero knowledge for circuit C if there is an efficient **Sim** s.t. $\forall x\in\mathbb{F}^{n} \rightarrow \exists w:C(x,w)=0$, the distribution:
 
-$(C,S_{p},S_{v},x,\pi):$ where $(S_{p},S_{v}):S(C)$, $\pi:P(S_{p},x,w)$
+$$(C,S_{p},S_{v},x,\pi): \text{where}\space (S_{p},S_{v}):S(C), \pi:P(S_{p},x,w)$$
 
 is indistinguishable from the distribution:
 
-$(C,S_{p},S_{v},x,\pi):$ where $(S_p,S_{v},\pi)\leftarrow Sim(C,x)$
+$$(C,S_{p},S_{v},x,\pi): \text{where} \space(S_p,S_{v},\pi)\leftarrow Sim(C,x)$$
 
 ## Proofs
 
@@ -148,11 +148,11 @@ Suppose you have a circuit with inputs $I: I_{x},I_{w}$, and gates C where $x$ i
 
 We put inputs $x_1=5, x_2=6, w_1=1$, and compute the computation trace through the circuit. The **computation trace** comes out to be:
 
-| inputs: |  5  |  6  |        1         |
-|:-------:|:---:|:---:|:----------------:|
-| Gate 0: |  5  |  6  |        11         |
-| Gate 1: |  6  |  1  |        7         |
-| Gate 2: | 11  |  7  | ==77== <- Output |
+| inputs: |   5   |   6   |        1         |
+| :-----: | :---: | :---: | :--------------: |
+| Gate 0: |   5   |   6   |        11        |
+| Gate 1: |   6   |   1   |        7         |
+| Gate 2: |  11   |   7   | ==77== <- Output |
 
 #### Step 2: Encode Trace in Polynomial $P$
 
@@ -207,7 +207,9 @@ Send $Com_{q}$ to verifier, and verifier opens commitment at point $r$, and chec
 
 #### Sum Check
 
-#### Product Check on $\Upomega$
+Read [[sumcheck-and-gkr|Sumcheck]]
+
+##### Product Check on $\Upomega$
 
 We want to prove $\prod_{a\in\Upomega}f(a)=1$. Naively, we can send all evaluations of $f$ in $\Upomega$ but that will be quadratic in degree d. Instead, we can create a polynomial $t\in\mathbb{F}_{p}^{<=k}(X)$ that evaluates to 1 at $\omega^k-1$.
 
@@ -336,14 +338,78 @@ But we have three different n-degree poly, namely $a(X),b(X),c(X)$, this
 
 ## Formal Protocol
 
-## Improvements
+#### Prover's Algorithm
+
+##### Round 1:
+
+Compute $a(x),b(x),c(x)$ and send commitments $[a]_1,[b]_1,[c]_1$ to verifier.
+
+##### Round 2:
+
+- Compute permutation challenge $\beta,\gamma$.
+- Compute permutation polynomial $z(x)$ and send commitment $[z]_1$ to verifier.
+
+##### Round 3:
+
+- Compute quotient polynomial $t(x)$ and send commitment $[t_{low}(x)]_{1},[t_{mid}(x)]_{1},[t_{hi}(x)]_{1}$ to verifier.
+- It uses **quotient challenge**: $\alpha$ to distinguish the three conditions.
+
+It contains all three conditions that is to be proven to the verifier, i.e.
+
+- equality constraint involving $a(x),b(x),c(x)$
+- permutation constraint:
+	- $z(x)f'(x)=g'(x)z(x\omega)$
+	- $L_{1}(z(x)-1)=0 \qquad \forall x \in \Upomega$
+
+##### Round 4:
+
+Evaluation of $a,b,c,S_{\sigma 1},S_{\sigma 2},t$ at $\mathfrak{z}$ and **evaluation challenge**: $z$ at $\mathfrak{z}\omega$. Namely, $\bar{a},\bar{b},\bar{c},\bar{s}_{\sigma 1},\bar{s}_{\sigma 2},\bar{z}$.
+
+##### Round 5:
+
+[Linearisation polynomial](https://o1-labs.github.io/proof-systems/plonk/maller.html) $r(x)$ can be interpreted as $t(x)=t_{low}(X)+X^{n}t_{mid}(X)+X^{2n}t_{hi}(X)=l(X)/Z_{H}(X)$. Thus, prover proves $r(x)=l(X)-Z_{H}(\mathfrak{z})(t_{low}(X)+\mathfrak{z}^{n}t_{mid}(X)+\mathfrak{z}^{2n}t_{hi}(X))=0$, evaluated at $\mathfrak{z}$.
+
+Proof polynomial: $W_{\mathfrak{z}}(x)=\frac{M(X)}{X-\mathfrak{z}}$, and $W_{\mathfrak{z\omega}}(x)=\frac{N(X)}{X-\mathfrak{z}\omega}$. It contains separate terms for each polynomial, separated using **opening challenge**: $v^{i}$. Send $[W_{\mathfrak{z}}]_1$ and $[W_{\mathfrak{z\omega}}]_1$.
+
+##### Overall Proof:
+
+Proof consists of:
+
+1. 9 $G_1$ points: $[a]_1,[b]_1,[c]_1,[t_{low}]_{1},[t_{mid}]_{1},[t_{hi}]_{1},[z]_1,[W_{\mathfrak{z}}]_1,[W_{\mathfrak{z\omega}}]_1$
+2. 6 $\mathbb{F}$ evaluations: $\bar{a},\bar{b},\bar{c},\bar{s}_{\sigma 1},\bar{s}_{\sigma 2},\bar{z}$
+3. multipoint evaluation challenge: $u$
+4. $54(n+a)\log(n+a) \enspace \mathbb{F} \enspace mul$ operations
+
+#### Verifier Algorithm
+
+Explained intuition behind the steps really well [here](https://hackmd.io/@aztec-network/ByiUK_Plt). Just reiterating those here:
+
+$W_{\mathfrak{z}}(X)$ can be written as $M(X)/(X-\mathfrak{z})$, and $W_{\mathfrak{z}\omega}(x)=N(x)/(X-\mathfrak{z}\omega)$. Combining these two identities with [multipoint evaluation challenge](https://hackmd.io/@gnark/plonk#PLONK1) $u$, we get:
+
+$$
+X(W(X)+uW_{\mathfrak{z}\omega}(X))=\mathfrak{z}W(X)+\mathfrak{z}\omega uW_{\mathfrak{z}\omega}(X) + M(X) + uN(X)
+$$
+
+### Plonk Extensions
 
 - Turboplonk: Custom gates
-- ultraplonk: turboplonk+ Plookup
-- hyperplonk
-- goblinplonk
+- [[lookup-arguments|Ultraplonk]]: Turboplonk+ Plookup
+- Hyperplonk
+- UniPlonk
+- Fflonk
+- Goblinplonk
 
-## References
+### TurboPlonk
+
+Plonk's arithmetization allows to efficiently add gates other than addition/multiplication. These gates are necessary to reduce constraints in a repetitive computation like hash function computation which involves bitwise arithmetic like XOR.
+
+This [article](https://kobi.one/2021/05/20/plonk-custom-gates.html) from Kobi explains really well, the design considerations for a custom gate model of MiMc hash.
+
+### [Plonkup](https://eprint.iacr.org/2022/086)
+
+Explanation of prover and verifier's algorithm with reasoning of each step can be found in a beautiful explanation in a [blog post](https://hackmd.io/gMXxXhCXQ8GFb1bvnFgOIA) by Joshua and by [Hector](https://hackmd.io/@Wimet/Sk1HL2brK).
+
+### References
 
 - [ZK Whiteboard sessions](https://youtu.be/h-94UhJLeck)
 - [Why and How ZK-SNARKS work?](https://medium.com/@imolfar/why-and-how-zk-snark-works-2-proving-knowledge-of-a-polynomial-f817760e2805)

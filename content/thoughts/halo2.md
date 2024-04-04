@@ -19,7 +19,7 @@ Then went ahead and gained some context on what [Lookup tables](https://en.wikip
 
 So, here is the summary of my understanding of Halo2 as of now:
 
-# Arithmetization
+## Arithmetization
 
 - circuit represented in terms of matrix.
 - Rows and columns
@@ -30,12 +30,15 @@ So, here is the summary of my understanding of Halo2 as of now:
 		- More columns, require new commitment, scalar mult increases, **proof size** increases.
 	- Rows: ~~arithmetic gates~~ domain at which columns are evaluated. More rows, FFT increases, **proving time** increases
 - Divides the circuit in chips and gadgets.
-- A circuit is divided into disjoint related cells as **regions**. Relative constrains are set in regions only. **Floor planner** is used to decide where to each region.
+- A circuit is divided into disjoint related cells as **regions**. Relative constrains are set in regions only.
+- **Floor planner** is used to decide where to put each region.
+	- Must include all local constraints, i.e. the checks on gates involved in the region. simple or custom.
+	- need not have all global constraints.
 - High level APIs are made accessible using already validated **gadgets**. For example: creating halo2 circuit for verifying a hash function would require many several independent chips, which can be integrated as gadgets and directly used, instead of making another implementation.
 - relative constrains reduce the number of columns required, and thus reduces proof size. If not for relative constraints, you would have to prove each output of a gate, and thus would increase the proof size of, let’s say a custom gate, much higher.
 - Chips also define lookup tables, and if more than one lookup argument is used, then tag column is used to specify which table to use. don’t understand this as of the moment. will look back on it.
 
-# Commitment
+## Commitment
 
 Uses Inner Product Argument as commitment scheme to prove polynomials. Requires no trusted setup.
 
@@ -48,7 +51,19 @@ Uses Inner Product Argument as commitment scheme to prove polynomials. Requires 
 	- $q_{1}(X)=A_0(X)+x_{1}A_1(X)$
 	- $q_{2}(X)=A_2(X)+x_{2}A_3(X)$
 - evaluate at the points in the set at $x,\omega x$, to get $q_{1}(x),q_{2}(x),q_{2}(\omega x)$.
+- interpolate the evaluations at the specified set.
+- create quotient polynomials to check correctness of evaluation, $f_{i}(x)$
+	- $f_{1}(x)=\frac{q_{1}(x)-r_{1}(x)}{X-x}$
+	- $f_{2}(x)=\frac{q_{2}(x)-r_{2}(x)}{(X-x)(X-\omega x)}$
+- construct $f(x)$ as one large quotient polynomial.
+- create `final_poly(X)` with $f(x),q_{i}(x)$.
 
-# References
+### Steps to write a circuit
+
+- create `Config`
+- create `Chip`
+- define `Circuit`
+
+## References
 
 - [Halo2 book](https://zcash.github.io/halo2/index.html)

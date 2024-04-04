@@ -9,11 +9,11 @@ tags:
 Once again, this is just another of my notes aggregated from various sources. This is a very dumbed down version for just my understanding and it's my advice to follow the resources attached as they are more thorough and detailed explained by experts on the topic. I'm just a novice who is interested in learning cryptography.
 
 > *Walking side by side with death*
-> 
+>
 > *The devil mocks their every step*
-> 
+>
 > *The snow drives back the foot that's slow*
-> 
+>
 > *The dogs of doom are howling more*
 
 Now, for the song. This time we'll listen [No Quarter](https://open.spotify.com/track/55ZL7fjGAWfClmpnsK6Xon?si=2a10756c4a094826) by Led Zeppelin. No description for this. I guess they don't need one :)
@@ -33,20 +33,24 @@ DLP is easy for:
 
 And for some groups, it is difficult but not computably infeasible:
 
-- $\mathbb{F}_p^*$ under multiplication: said to be subexponential
+- $\mathbb{F}_p^*$ under multiplication: said to be sub-exponential
 
 ## Elliptic Curves
 
+![ec-curve|480x480](https://i.imgur.com/7K5pcAc.png)
+
+This is a curve defined in plane $\mathbb{R}^2$.
+
 $$
 \begin{array}{rcl}
-  \left\lbrace(x, y) \in \bar{K} \right. & \left. | \right. & \left. y^{2}+a_{1}xy+a_{3}y = x^3 + a_{2}x^2+a_{4}x + a_6, \right\rbrace \cup \left\lbrace0\right\rbrace
+  \left\lbrace(x, y) \in \bar{K} \right. & \left. | \right. & \left. y^{2}+a_{1}xy+a_{3}y = x^{3} + a_{2}x^{2}+a_{4}x + a_{6}, \right\rbrace \cup \left\lbrace0\right\rbrace
 \end{array}
 $$
 
 - Above equation is called the *general Weierstrass equation*. $0$ is the point at infinity.
-- $\bar{K}$ is the algebraic closure of field $K$.
+- $\bar{K}$ is the [algebraic closure](https://en.wikipedia.org/wiki/Algebraic_closure) of [[finite-fields|field]] $K$.
 - Can be defined on any fields, such as $\mathbb{F}_{p}, \mathbb{Q}, \mathbb{R}$.
-- EC defined on $\mathbb{F}_{p}$ are finite groups.
+- EC defined on $\mathbb{F}_{p}$ are finite [[group-theory|groups]].
 - ECDLP is discrete logarithm problem for the EC defined on finite field which has exponential time complexity to solve.
 - Best known algorithm for an EC defined over $\mathbb{F}_p$ takes $O(\sqrt{p})$.
 
@@ -58,32 +62,27 @@ E:y^2=x^3+ax+b
 \end{align}
 $$
 
-Normally, curves are defined for large prime fields, where short equation covers all possible isomorphism classes of elliptic curves. [^1]
+### Coordinate System
 
-There are other ways to express an elliptic curve:
+#### Affine Coordinates
 
-- [Montgomery equation](https://www.ams.org/journals/mcom/1987-48-177/S0025-5718-1987-0866113-7/S0025-5718-1987-0866113-7.pdf) $By^2=x^3+Ax^2+x$, where $B(A^{2}-4) \neq 0$ in $\mathbb{F}_p$. substituting $x=Bu-A/3$ and $y=bv$ gives short weierstrass equation.
-- [Edwards equation](https://www.ams.org/journals/bull/2007-44-03/S0273-0979-07-01153-6/home.html) $x^2+y^2=1+dx^{2}y^{2}$, substituting $u=\frac{1+y}{1-y}$ and $v=\frac{1+y}{(1-y)x}$ produces montgomery equation.
+ Traditional representation of the coordinates, i.e. just an $(x,y)$ where $x$ and $y$ satisfy curve equation. Normally this representation is used for storing and transmitting points.
 
-> [!question] What is the difference between these curve equations? And how does one is beneficial over other?
+#### Standard Projective Coordinates
 
-Concisely answered [here](https://crypto.stackexchange.com/questions/26329/what-are-the-differences-between-the-elliptic-curve-equations) and [here](https://crypto.stackexchange.com/questions/107929/why-do-ed25519-use-twisted-edwards-curve-but-not-regular-edwards-curve). Expanding on this, montgomery ladder is faster than standard Weierstrass point multiplication methods as montgomery ladder is constant-time.
+Point in standard projective coordinates $(X,Y,Z)$ represents $(\frac{X}{Z},\frac{Y}{Z})$ in Affine coordinate system. Also called homogeneous projective coordinates as the curve equation takes on the homogeneous form $Y^{2}Z=X^{3}+4Z^{3}$.
 
-### Montgomery curves
+![standard-projective-coordinates](thoughts/images/standard-projective-coordinates.png)
+
+Points become straight line through the origin in $(X,Y,Z)$ space, with the affine point being the intersection of the line with the plane $Z=1$. [Equivalence relation](https://crypto.stackexchange.com/questions/40947/what-is-the-projective-space) from plane to projective space can be defined as:
 
 $$
-\begin{align}
-M_{A,B}:By^{2}&=x^{3}+Ax^{2}+x  \space ,{B(A^{2})-4 \neq 0}
-\end{align}
+\sim : (a:b:c) \sim (a':b':c') \iff \exists \lambda (a,b,c) = (\lambda a', \lambda b', \lambda c')
 $$
 
-Why [montgomery form](https://en.wikipedia.org/wiki/Montgomery_curve) is better for multiplication?
+#### Jacobian Coordinates
 
-TODO
-
-### Edwards curves
-
-TODO
+Jacobian Point $(X,Y,Z)$ -> $\frac{X}{Z^{2}},\frac{Y}{Z^{3}}$. Curve equation becomes $Y^2=X^3+4Z^6$.
 
 ### Group Law of Elliptic Curves
 
@@ -107,210 +106,52 @@ For Example: Let's take a curve $y^{2} \equiv x^{3}+2x+3 \pmod{p}$ and the point
 
 This makes set of the multiples of $P$ a **cyclic subgroup** of the group formed by the elliptic curve. The point $P$ is called the **generator** or **base point** of the cyclic subgroup. Finding order of the subgroup is done by finding smallest $n$ such that $nP=0$.
 
-### Elliptic Curve Cryptography
+Normally, curves are defined for large prime fields, where short equation covers all possible isomorphism classes of elliptic curves. [^1]
 
-$$ y^2 = x^3 + ax^2 + bx + c $$
+There are other ways to express an elliptic curve:
 
-[$secp256k1$](https://river.com/learn/terms/s/secp256k1/): used by Bitcoin and Ethereum to implement public key cryptography. Elliptic curve over a field $z_p$ where $p$ is a 256-bit prime.
+- [Montgomery equation](https://www.ams.org/journals/mcom/1987-48-177/S0025-5718-1987-0866113-7/S0025-5718-1987-0866113-7.pdf) $By^2=x^3+Ax^2+x$, where $B(A^{2}-4) \neq 0$ in $\mathbb{F}_p$. substituting $x=Bu-A/3$ and $y=bv$ gives short weierstrass equation.
+- [Edwards equation](https://www.ams.org/journals/bull/2007-44-03/S0273-0979-07-01153-6/home.html) $x^2+y^2=1+dx^{2}y^{2}$, substituting $u=\frac{1+y}{1-y}$ and $v=\frac{1+y}{(1-y)x}$ produces montgomery equation.
 
-ECDSA: Elliptic Curve Digital Signature Algorithm
+> [!question] What is the difference between these curve equations? And how does one is beneficial over other?
 
-Public key cryptography uses this method to calculate public keys which is a point on ECC curve.
+Concisely answered [here](https://crypto.stackexchange.com/questions/26329/what-are-the-differences-between-the-elliptic-curve-equations) and [here](https://crypto.stackexchange.com/questions/107929/why-do-ed25519-use-twisted-edwards-curve-but-not-regular-edwards-curve). Expanding on this, montgomery ladder is faster than standard Weierstrass point multiplication methods as montgomery ladder is constant-time. There is very concise explanation about [Curve25519](https://martin.kleppmann.com/papers/curve25519.pdf) by Martin Klepmann.
 
-$$ K = (k * G) \% p $$
+### Montgomery curve
 
-- $K$ = 512-bit public key
-- $k$ = 256-bit randomly generated private key
-- $G$ = base point on the curve
-- $p$ = prime number
+$$
+\begin{align}
+M_{A,B}:By^{2}&=x^{3}+Ax^{2}+x  \space ,{B(A^{2})-4 \neq 0}
+\end{align}
+$$
 
-Take a [base point](https://medium.com/asecuritysite-when-bob-met-alice/picking-a-base-point-in-ecc-8d7b852b88a6) $G$, add it $n$ (private key) times to make $nG (\% p)$ (public key).
+Why [montgomery form](https://en.wikipedia.org/wiki/Montgomery_curve) is better for multiplication?
 
-> **Note**: addition here means addition in elliptic curve and not addition in field of integers mod p.
+### Edwards curve
 
-[Order](https://medium.com/asecuritysite-when-bob-met-alice/whats-the-order-in-ecc-ac8a8d5439e8) of a base point is when keys generated using this point starts to form a cycle. Max number of points on the curve.
+TODO
 
-Thus, choosing a good base point is necessary in any public key generation curves.
+### Twisted Edwards curve
 
-secp256k1:
+$$
+\begin{equation}
+E(\mathbb{F}):\lbrace{ax^{2}+y^2=1+dx^{2}y^{2} \rbrace} 
+\end{equation}
+$$
 
-```other
-x = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798
-y = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
-p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
-```
+There is a 1:1 correspondence between TEd curves and Mont curves. In a more cryptographic glossary, every Twisted Edwards curve is *birationally equivalent* to Montgomery curve[^2]. To convert a curve from Twisted Edwards form to montgomery form:
 
-The order is:
+$$
+\frac{4}{a-d}y^{2}=x^{3}+\frac{2(a+d)}{a-d}x^2+x
+$$
 
-```other
-N = FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
-```
+We can also convert a montgomery curve to Twisted Edwards curves using following equation:
 
-Ethereum public keys are serialisation of 130 hex characters
+$$
+\frac{A+2}{B}x^2+y^2=1+\frac{A-2}{B}x^{2}y^{2}
+$$
 
-```other
-04 + x-coord (64) + y-coord (64)
-```
 
-> 04 is prefixed as it is used to define uncompressed point on the ECC.
-
-Ethereum addresses are hexadecimal numbers, identifiers derived from the last 20 bytes of the Keccak256 hash of the public key.
-
-#### Why Discrete Logarithm?
-
-ECC is significant because solving $k * G$ is trivial but obtaining $k$ from product $k * G$ is not.
-
-$k*G$ can be obtained using Fast-Exponentiation algorithm but solving for $k$ requires computing discrete logarithms.
-
-### Security
-
-Big-O Notation of discrete logarithm problem is $O(\sqrt{n})$.
-
-Base point $G$, is chosen to be closer to $2^{256}$ and thus is in the order of `256`.
-
-So, $\sqrt{256} = 128$ bits level of security is provided by curves like $secp256k1$.
-
-### [secp256k1 v/s secp256r1](https://dappworks.com/why-did-satoshi-decide-to-use-secp256k1-instead-of-secp256r1/)
-
-[$secp256k1$](https://www.johndcook.com/blog/2018/08/21/a-tale-of-two-elliptic-curves/) is a Koblitz curve defined in a characteristic 2 finite field while $secp256r1$ is a prime field curve.
-
-Not going into details as to what a characteristic 2 finite field is, we can specify $secp256r1$ as a pseudo-randomised curve and $secp256k1$ as completely random curve which can’t be solved using discrete logarithm problem **yet**.
-
-### [Pairing Friendly Curves](https://www.ietf.org/archive/id/draft-irtf-cfrg-pairing-friendly-curves-11.html)
-
-Pairing-based cryptography is a new cryptographic primitive that has been developed in recent times, enabling new applications like short digital signatures that are aggregatable, identity-based cryptography, MPC, efficient [[polynomial-commitments|polynomial commitments]].
-
-They have a favourable embedding degree, and a large prime-order subgroup.
-
-#### BLS12-381
-
-> [!note] Most of these notes are taken from this amazing [post](https://hackmd.io/@benjaminion/bls12-381) by Ben
-
-This was first introduced by Sean Bowe from ZCash in 2017 and has been used in various things from then. Now for the naming,
-
-- BLS stands for Barreto, Lynn, Scott.
-- 12 stands for embedding degree of the curve
-- 381 stands for the order of the prime used for the field $2^{381}$, i.e. number of bits used to represent coordinates on the curve. **Why 381?** because 48 bytes per field element and remaining 3 bytes for flags or arithmetic optimisations.
-
-Equation: $y^{2}=x^{3}+4 \pmod{q}$
-
-Key parameters of the curve are derived from a single parameter $\texttt{x}$ = `-0xd201000000010000`
-
-- Field modulus, $q: \frac{1}{3}({\texttt{x}}-1)^2({\texttt{x}}^4-{\texttt{x}}^2+1)+{\texttt{x}}$
-- Subgroup size or the number of points on the curve, $r: ({\texttt{x}}^4-{\texttt{x}}^2+1)$
-
-Reason for such x:
-
-- low hamming weight, allows for efficient pairing operation
-- field modulus in 381 bits, efficient curve operation in 64 bit machines
-- subgroup size of 256 bits
-- curve security of 128 bits
-- nth root of unity for FFT
-
-##### Field Extensions
-
-The two curves used in BLS12-381 are defined on $\mathbb{F}$ and $\mathbb{F}_{q^{12}}$. This power raised is known as an extension field of field $\mathbb{F}_q$.
-
-Let's construct $F_{q^{2}}$, quadratic extension of $F_q$. element representation $F_{q^{2}}:a_{0}+a_{1}x$ also written as $(a_{0},a_1)$.
-
-- addition: $(a,b)+(c,d)=(a+c,b+d)$
-- multiplication: $(ac-bd, ad+bc)$
-
-Understanding multiplication is a tricky thing and it takes time to get accustomed to field arithmetic. Basically, the original multiplication has a $x^2$ term which doesn't make any sense in the $\mathbb{F}_{q^2}$ field, so we need a mechanism to remove this term. This is where reduction of polynomial terms is used. Certain rules are used to reduce the polynomials having degree greater than 2. Rule in this case is $x^2+1=0$
-
-There are only 2 rules about this rule:
-
-1. the polynomial we're reducing must be a $k$ degree polynomial, where $k$ is the extension degree.
-2. It must be irreducible in the field it is getting extended.
-
-BLS12-381 consists of two curves: $\mathbb{G}_1$ and $\mathbb{G}_2$. $\mathbb{G}_1$ is a fairly simple curve defined over finite field $\mathbb{F}_q$. We can call this curve $E(\mathbb{F}_q)$. Curve equation for $\mathbb{G}_1$ is $y^2=x^3+4$.
-
-The other curve is defined over an extension of $\mathbb{F}$ to $\mathbb{F}_{q^{12}}$. Since arithmetic on $\mathbb{F}_{q^{12}}$ is fairly complex, it is reduced to $\mathbb{F}_{q^{2}}$. So, we'll call this curve $E'(\mathbb{F}_{q^2})$. Curve equation is slightly modified to be $y^2=x^3+4(1+i)$.
-
-##### Subgroups
-
-BLS12-381 is popular because it's a pairing friendly curve. For pairings, we need two points from **distinct** groups, each of order $r$. The first curve only has one subgroup of order $r$, and thus we can't just use that one curve. That's why we require a second different curve which has a distinct subgroup of same order. Fortunately, this is exhibited by the curve defined over the extension field and one of these groups only contains points having a trace of zero. This is where $k=12$, embedding degree comes in. Thus, we have group $\mathbb{G}_1$ of order $r$ in $E(\mathbb{F}_{q})$, and a distinct group $G_2$ of same order in $E(\mathbb{F}_{q^{12}})$. This enables pairings.
-
-> Note: `Trace of Zero`
-
-##### Twists
-
-As explained earlier, that arithmetic on field $\mathbb{F}_{q^12}$ is fairly complex and inefficient. And all the curve operations like `add`, `sub`, `mul`, etc. requires a lot of arithmetic. Thus, we need to transform the $E(\mathbb{F}_{q^{12}})$ curve into a curve defined over a lower degree field that still has an order $r$ subgroup. Why we didn't take this lower order field in the first place? Because we require subgroup having trace of zero points.
-
-> Quoting section 3 of [this](https://eprint.iacr.org/2005/133.pdf):
-> 
-> The basic idea for point compression is not only to restrict the first pairing argument to $E(\mathbb{F}_{p})$, but also to take the second argument $Q \in E(\mathbb{F}_{p^{12}})$ as the image $\psi(Q')$ of a point on a sextic twist $E'(\mathbb{F}_{p^2})$, where $\psi : E'(\mathbb{F}_{p^2}) \rightarrow E(\mathbb{F}_{p^{12}})$ is an injective group homomorphism. This way one would work only with $E(\mathbb{F}_{p})$ and $E'(\mathbb{F}_{p^2})$ for non-pairing operations like key generation, and map from $E'(\mathbb{F}_{p^2})$ to $E(\mathbb{F}_{p^{12}})$ only when actually computing pairing values.
-
-BLS12-381 uses a **sextic twist**. This means reducing the extension field degree by a factor of `6`. We find a $u$ such that $u^{6}=(1+i)^{-1}$, then we define a twisting transformation as $(x,y) \rightarrow (\frac{x}{u^2},\frac{y}{u^3})$. This transforms the original curve from $E:y^2=x^3+4$ to $E':y^2=x^3+4/u^6$. $E$ and $E'$ looks different but actually are same objected with coefficients in different base fields.
-
-This twist gives curve $E'$ that has a subgroup of order $r$ that maps to our $G_2$ group. So, we can work over more efficient $E'(\mathbb{F}_{q^2})$ and map $G_2$ back to $E(\mathbb{F}_{q^{12}})$, when required.
-
-Now, we have two groups:
-
-- $G_{1} \subset E(F_q)$ where $E:y^2=x^3+4$
-- $G_{2} \subset E'(F_{q^2})$ where $E':y^2=x^3+4(1+i)$
-
-Since, point in $G_2$ are complex numbers, it takes twice the amount of storage and are more expensive to perform arithmetic operations.
-
-##### Embedding Degree
-
-Smallest $k$ such that $q^{k} \equiv 1 \pmod{r}$. Embedding Degree is the smallest positive integer required to extend the field to satisfy conditions required for pairings.
-
-1. $F_{q^k}$ contains more than one subgroup of order $r$ for constructing $G_{2}$.
-2. $F_{q^k}$ contains all the $r^{th}$ roots of unity for constructing $G_{T}$.
-
-Embedding Degree should be chosen such that it doesn't compromise security and efficiency. Basically, a higher embedding degree makes it harder to to solve DLP in $G_T$. But a higher embedding degree also make it harder to operations in higher field like $F_{q^{12}}$. Maximum available twist is degree six, so best we can do is reduce the field extension degree by six.
-
-#### Cofactor
-
-It's the ratio of order of the curve group and order of the subgroup $hr = n$. Usually, cofactor should be very small in order to avoid subgroup attacks on discrete logarithms. But in pairing-based cryptography, the cofactors of $G_1$, $G_2$ and $G_{T}$ can be very large.
-
-By multiplying by the cofactor, a point on the curve is mapped to the appropriate group known as **cofactor clearing**. Cofactors for $G_1$ and $G_2$ are as follows:
-
-- $h_1=(\texttt{x}-1)^2/3$
-- $h_2=$
-
-#### Roots Of Unity
-
-[Roots of Unity](https://brilliant.org/wiki/roots-of-unity/) are complex solutions to the equation: $x^n=1$. Every nonzero element of a finite field is a root of unity, as $x^{q-1} = 1$ for every nonzero element of $\mathbb{F}_{q}$.[^2]
-
-*Primitive root of unity* is when a number is solution to $x^n=1$ but not for $x^m=1$ for any positive integer $m<n$. So, if $a$ is a $n$th primitive root of unity in a field $\mathbb{F}$, then $\mathbb{F}$ contains all the roots of unity, $1, a, a^{2}, \ldots, a^{n-1}$.
-
-Effect of the pairing is to map a point from $G_1$ and $G_2$ onto an $r$th root of unity in $F_{q^{12}}$. These $r$th roots of unity form a subgroup in $F_{q^{12}}$ of order $r$, which is the group $G_T$.
-
-#### Extension Towers
-
-For BLS12-381, $F_{q^{12}}$ is constructed as a 2-3-2 extension tower, i.e. quadratic extension -> cubic extension -> quadratic extension.
-
-1. $F_{q^{2}}:F_{q}(u)/(u^2-\beta)$ where $\beta=-1$.
-   Point in $F_{q^{2}}$ looks like $a_0+a_1u$ where $a_{j} \in F_{q}$.
-   Reduction rule is $u^{2}+1=0$ which is irreducible in $F_{q}$.
-2. $F_{q^{6}}:F_{q^{2}}(v)/v^3-\xi$ where $\xi=u+1$.
-   Point in $F_{q^{6}}$ looks like $b_0+b_{1}v+b_{2}v^{2}$ where $b_{j} \in F_{q^{2}}$.
-   Reduction rule: $v^3-(u+1)=0$ which is irreducible in $F_{q^2}$.
-3. $F_{q^{12}}:F_{q^{6}}(w)/(w^2-\gamma)$ where $\gamma=v$.
-   Point in $F_{q^{12}}$ looks like $c_0+c_{1}w$ where $c_{j} \in F_{q^{6}}$.
-   Reduction rule: $w^2-v=0$ which is irreducible in $F_{q^{6}}$.
-
-### Coordinate System
-
-#### Affine Coordinates
-
- Traditional representation of the coordinates, i.e. just an $(x,y)$ where $x$ and $y$ satisfy curve equation. Normally this representation is used for storing and transmitting points.
-
-#### Standard Projective Coordinates
-
-Point in standard projective coordinates $(X,Y,Z)$ represents $(\frac{X}{Z},\frac{Y}{Z})$ in Affine coordinate system. Also called homogeneous projective coordinates as the curve equation takes on the homogeneous form $Y^{2}Z=X^{3}+4Z^{3}$.
-
-![standard-projective-coordinates](thoughts/images/standard-projective-coordinates.png)
-
-Points become straight line through the origin in $(X,Y,Z)$ space, with the affine point being the intersection of the line with the plane $Z=1$.
-
-#### Jacobian Coordinates
-
-Jacobian Point $(X,Y,Z)$ -> $\frac{X}{Z^{2}},\frac{Y}{Z^{3}}$. Curve equation becomes $Y^2=X^3+4Z^6$.
-
-### BLS Signatures
 
 ### Resources
 
@@ -323,6 +164,9 @@ Jacobian Point $(X,Y,Z)$ -> $\frac{X}{Z^{2}},\frac{Y}{Z^{3}}$. Curve equation be
 - [choosing safe curves for elliptic-curve cryptography](https://safecurves.cr.yp.to/)
 - [The animated elliptic curves](https://curves.xargs.org/)
 - [Elliptic Curve Cryptography: a gentle introduction](https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/ "Elliptic Curve Cryptography: a gentle introduction")
+- [An introduction to elliptic curves](https://people.reed.edu/~jerry/311/ecintro.pdf)
+- 
 
 [^1]: [Pairings For Beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf) Page 14
-[^2]: Check Fermat's Little theorem.
+[^2]: [Birationally equivalent](https://crypto.stackexchange.com/questions/43013/what-does-birational-equivalence-mean-in-a-cryptographic-context) just means that a map exists between two objects and is invertible.
+[^3]: Check Fermat's Little theorem.

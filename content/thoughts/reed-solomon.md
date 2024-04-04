@@ -7,30 +7,30 @@ tags:
 - seed
 ---
 
-# What Are Erasure Codes
+## What Are Erasure Codes
 
 n
 
-# Where They Are Used
+## Where They Are Used
 
 a
 
-## Where They Are Used in ZKPs
+### Where They Are Used in ZKPs
 
 n
 
-# RS Codes
+## RS Codes
 
 n
 
-## Encoding
+### Encoding
 
 n
 
-## Decoding
+### Decoding
 
 n
 
-# Resources
+## Resources
 
 - [Reed solomon encoding in risc0](https://www.youtube.com/watch?v=NHAuw2mkg0o&list=PLcPzhUaCxlCgPFYnnhDbsE-7H3scbtjye)

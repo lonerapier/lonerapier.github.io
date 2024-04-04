@@ -10,6 +10,12 @@ tags:
 
 Algebraic structure on which basic math can be performed.
 
+[Algebraic closure](https://en.wikipedia.org/wiki/Algebraic_closure) $\bar{K}$ of field $K$ is an algebraic extension of $K$ that is algebraically closed. For example: fundamental theorem of algebra states that algebraic closure of field of real numbers is field of complex numbers. 
+
+> [Algebraic extension](https://en.wikipedia.org/wiki/Algebraic_extension) of a field $L/K$ refers to a field $L$ such that every element is a root to a non-zero polynomial with coefficients in $K$, in other words, every element of field $K$ is algebraic over small field.
+> 
+> A *field* is [algebraically closed](https://en.wikipedia.org/wiki/Algebraically_closed_field) if every non-constant polynomial $F[x]$ has a root in $\mathbb{F}$.
+
 ### Properties
 
 - Abelian group under addition
@@ -72,7 +78,7 @@ Example: $GF(2^3)$'s elements are
 
 ### Quadratic Residue
 
-If $a$ and $m$ are co-prime, then $a$ is called [*quadratic residue](https://en.wikipedia.org/wiki/Quadratic_residue) modulo m* if $x^{2}\equiv a \mod{m}$ has a solution. Vice Versa, $a$ is called quadratic non-residue if it does not have a solution.
+If $a$ and $m$ are co-prime, then $a$ is called *[quadratic residue](https://en.wikipedia.org/wiki/Quadratic_residue) modulo m* if $x^{2}\equiv a \mod{m}$ has a solution. Vice Versa, $a$ is called quadratic non-residue if it does not have a solution.
 
 > [!hint]- Find the quadratic residues mod 11.
 > - $0^2$ mod 11 = 0
@@ -86,9 +92,9 @@ If $a$ and $m$ are co-prime, then $a$ is called [*quadratic residue](https://en.
 > - $8^2$ mod 11 = 9
 > - $9^2$ mod 11 = 4
 > - $10^2$ mod 11 = 1
-> 
+>
 > 0, 1, 3, 9, 5, 3 are quadratic residues.
-> 
+>
 > 2, 6, 7, 8, 10 are quadratic non-residues modulo 11.
 
 Total quadratic residues of a prime $p=(p-1)/2$, excluding 0, if p is odd, and $(p+1)/2$, if p is even.
@@ -118,6 +124,32 @@ $$
 Something which is referenced very often when creating various fields for proving systems is the [2-adicity](https://cryptologie.net/article/559/whats-two-adicity/) of the field.
 
 Adicity refers to the largest size of the subgroup that can be formed in the field. All the other subgroups are smaller than the largest subgroup and thus, to create snarks that can prove large computation, it is required to take fields with high 2-adicity value.
+
+## Interesting fields
+
+Field element is the most granular entity in a SNARK which require operations like MSM, NTT to perform actions on a polynomial. [Many interesting fields](https://medium.com/delendum/field-selection-for-recursive-snarks-726ad56c3a3c) have been invented to perform [efficient arithmetic](https://blog.icme.io/small-fields-for-zero-knowledge/) inside the field.
+
+### Goldilocks
+
+$$
+p: \varphi^{2}-\varphi+1
+$$
+
+`+1` in the modulus means that field will have high 2-powers root of unity which are used in computing large NTTs in SNARKs. Originally, introduced in [Ham15](https://eprint.iacr.org/2015/625) which satisfied golden ratio: $\varphi^2-\varphi-1$, `-1` meant not having high 2-adicity, thus was modified to $\varphi^2-\varphi+1$ by [Plonky2](https://github.com/0xPolygonZero/plonky2) team.
+
+Pros:
+
+- 64 bit implying field arithmetic can be done efficiently on 64-bit machines
+- [fast modulo reduction](https://www.youtube.com/watch?v=r9F3m_qK5Cw) from 128 bits. explained really well in [recmo's article](https://xn--2-umb.com/22/goldilocks/).
+- [NTT](https://github.com/ingonyama-zk/papers/blob/main/goldilocks_ntt_trick.pdf) trick
+
+Cons:
+
+- non-native arithmetic can't be emulated efficiently
+
+### Baby Bear
+
+### Mersenne
 
 ## References
 

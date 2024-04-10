@@ -47,7 +47,7 @@ jobs:
         run: npx quartz build --bundleInfo
 
   publish-tag:
-    if: ${{ github.repository == 'jackyzha0/quartz' }}
+    if: ${{ github.repository == 'lonerapier/lonerapier.github.io' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

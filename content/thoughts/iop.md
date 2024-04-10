@@ -47,9 +47,9 @@ $(t,q)$ Poly-IOP:
 
 > [!info]
 > Length of SNARK: $t$ commitments + $q$ eval proofs
->
+> 
 > Verifier time: $q*O(eval)+O(IOP-verify)$
->
+> 
 > Prover time: $t*O(commit)+q*O(prove)+O(IOP-prove)$
 
 ## References

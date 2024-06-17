@@ -12,9 +12,62 @@ Prerequisite:
 - multilinear polynomials
 - low degree extension
 
+## Multilinear extensions
+
+A multivariate polynomial $g$ is multilinear if the degree of the polynomial in each variable is at most one.
+
+let $f:\left\{0,1\right\}^v\to \mathbb{F}$ be any function mapping the v-dimensional hypercube to $\mathbb{F}$, then multilinear extension of $f$  is $g$, a $v$-variate polynomial that agrees with $f$ on all $x\in\left\{0,1\right\}^v$.
+
+> [!question] Why multilinear extensions?
+> Allows to represent domain of length 2^v into v variable multilinear polynomial, which is way less than univariate polynomials where $v-1$ variable polynomial is needed to represent length $v$ domain.
+
+Using SZ lemma, verifier gains power over prover as if two functions $f,f'$ differ at even one point in $\left\{0,1\right\}^v$, then their extension $g,g'$ disagree almost everywhere, precisely agree at most $\frac{d}{\mid \mathbb{F}\mid}$.
+
+> Prove that a function $f:\left\{0,1\right\}^v\to \mathbb{F}$ has a unique multilinear extension $\widetilde{f}$ over $\mathbb{F}$.
+> a
+
+### Lagrange interpolation
+
+$$
+\begin{equation}
+\widetilde{f}(x_{1},x_{2},\dots,x_{v})=\sum_{w\in\left\{0,1\right\}^v }f(w)\cdot \widetilde{eq}(x_{1},\dots,x_{v})
+\end{equation}
+$$
+
+where for any $w=(w_{1},\dots ,w_{v})$, $\widetilde{eq}_{w}(x)$ is called equality polynomial,
+
+$$
+\widetilde{eq}(x_{1},\dots,x_{v})=\prod_{i=1}^{v}(x_{i}w_{i}+(1-x_{i})(1-w_{i}))
+$$
+
 ## Sumcheck protocol
 
 To Prove: $\sum_{i=0}^{n} f = c$
+
+More precisely, sumcheck protocol is used to prove a v-variate polynomial defined over a Finite field $\mathbb{F}$.
+
+$$
+\begin{equation}
+	H:=\sum_{b_{1}\in\left\{0,1\right\} }\sum_{b_{2}\in\left\{0,1\right\} }\cdots \sum_{b_{v}\in\left\{0,1\right\} }g(b_{1},\dots,b_{v})
+\end{equation}
+$$
+
+Let's see how the protocol behaves:
+
+- $\mathcal{P}\to \mathcal{V}:C$ claiming $C$ to equal to $H$
+- round 1: $\mathcal{P}$ sends a univariate polynomial: 
+$$g_{1}(X_{1})=\sum_{x_{2},\dots,x_{v}\in\left\{0,1\right\}^{v-1}}g(X_{1},x_{2},\dots,x_{v})$$
+- $\mathcal{V}$ checks that $C_{1}=g_{1}(0)+g_{1}(1)$, and $\deg_{1}(g)\leq \deg(X_{1})$
+- $r\in\mathbb{F}\leftarrow\mathcal{V}$, and sends to $\mathcal{P}$
+- round i: 
+	- $\mathcal{P}\to \mathcal{V}: g_{j}(X_{j})=\sum_{x_{j+1},\dots,x_{v}\in\left\{0,1\right\}^{v-i} }g(r_{1},\dots,r_{i-1},X_{j},x_{j+1},\dots,x_{v})\forall\space i\in[2,v-1]$
+	- $\mathcal{V}$ checks $g_{j}(0)+g_{j}(1)=g_{j-1}(r_{j-1})$ and sends $r_{j}\in\mathbb{F}$ to $\mathcal{P}$
+- last round: $\mathcal{P}\to \mathcal{V}:g_{v}(X_{v})=g(r_{1},\dots,r_{v-1},X_{v})$
+	- $\mathcal{V}$ checks $g_{v}(0)+g_{v}(1)=g_{v-1}(r_{v-1})$, and $\deg(g_{v})\leq deg(X_{v}\in g)$
+	- checks with oracle query access to $g$ that $g(r_{1},\dots,r_{v})=g_{v}(r_{v})$
+
+Efficiency:
+- $P$: for each round i: $\mathcal{O}(1+\deg_{i}(g))\cdot 2^{v-j}$ terms are sent
 
 ### Univariate sumcheck
 
@@ -42,10 +95,50 @@ $$
 \end{align}
 $$
 
+- <https://hackmd.io/>@kIJ38IbETaGkxGkcxhrNVg/HycoeJUJh?utm_source=preview-mode&utm_medium=rec
+- 
+
 ## GKR
 
 $\mathcal{P}$ and $\mathcal{V}$ agrees to a circuit.
 $\mathcal{P}$ proves $\mathcal{V}$, the output of the circuit.
+
+Taken from jolt repo:
+
+GKR is a SNARK protocol for binary trees of multiplication / addition gates. The standard form allows combinations of both using a wiring predicate $\tilde{V}_i$, and two additional MLEs $\tilde{add}_i$ and $\tilde{mult}_i$. 
+
+$\widetilde{V}_i(j)$ evaluates to the value of he circuit at the $i$-th layer in the $j$-th gate. For example $\tilde{V}_1(0)$ corresponds to the output gate.
+
+$\widetilde{add}_i(j)$ evaluates to 1 if the $j$-th gate of the $i$-th layer is an addition gate.
+
+$\widetilde{mult}_i(j)$ evaluates to 1 if the $j$-th gate of the $i$-th layer is a multiplication gate.
+
+The sumcheck protocol is applied to the following:
+$$
+\tilde{V}_i(z) = \sum_{(p,\omega_1,\omega_2) \in \{0,1\}^{s_i+2s_{i+1}}} f_{i,z}(p,\omega_1,\omega_2),
+$$
+
+where
+
+$$
+f_i(z, p, \omega_1, \omega_2) = \beta_{s_i}(z, p) \cdot \tilde{add}_i(p, \omega_1, \omega_2)(\tilde{V}_{i+1}(\omega_1) + \tilde{V}_{i+1}(\omega_2)) + \tilde{mult}_i(p, \omega_1, \omega_2)\tilde{V}_{i+1}(\omega_1) \cdot \tilde{V}_{i+1}(\omega_2)
+$$
+$$
+\beta_{s_i}(z, p) = \prod_{j=1}^{s_i} ((1-z_j)(1-p_j) + z_j p_j).
+$$
+
+
+Lasso and Jolt implement the [Thaler13](https://eprint.iacr.org/2013/351.pdf) version of GKR which is optimized for the far simpler case of a binary tree of multiplication gates. This simplifies each sumcheck to:
+$$
+\tilde{V}_i(z) = \sum_{p \in \{0,1\}^{s_i}} g^{(i)}_z(p),
+$$
+
+where
+
+$$
+g^{(i)}_z(p) = \beta_{s_i}(z, p) \cdot \tilde{V}_{i+1}(p,0) \cdot \tilde{V}_{i+1}(p,1)
+$$
+GKR is utilized in [memory-checking](./memory-checking.html) for the multi-set permutation check.
 
 ## Resources
 

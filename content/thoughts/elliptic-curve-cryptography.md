@@ -135,8 +135,8 @@ BLS12-381 is popular because it's a pairing friendly curve. For pairings, we nee
 
 As explained earlier, that arithmetic on field $\mathbb{F}_{q^12}$ is fairly complex and inefficient. And all the curve operations like `add`, `sub`, `mul`, etc. requires a lot of arithmetic. Thus, we need to transform the $E(\mathbb{F}_{q^{12}})$ curve into a curve defined over a lower degree field that still has an order $r$ subgroup. Why we didn't take this lower order field in the first place? Because we require subgroup having trace of zero points.
 
-> Quoting section 3 of [this](https://eprint.iacr.org/2005/133.pdf):
->
+> [!quote] [Quoting section 3](https://eprint.iacr.org/2005/133.pdf):
+> 
 > The basic idea for point compression is not only to restrict the first pairing argument to $E(\mathbb{F}_{p})$, but also to take the second argument $Q \in E(\mathbb{F}_{p^{12}})$ as the image $\psi(Q')$ of a point on a sextic twist $E'(\mathbb{F}_{p^2})$, where $\psi : E'(\mathbb{F}_{p^2}) \rightarrow E(\mathbb{F}_{p^{12}})$ is an injective group homomorphism. This way one would work only with $E(\mathbb{F}_{p})$ and $E'(\mathbb{F}_{p^2})$ for non-pairing operations like key generation, and map from $E'(\mathbb{F}_{p^2})$ to $E(\mathbb{F}_{p^{12}})$ only when actually computing pairing values.
 
 BLS12-381 uses a **sextic twist**. This means reducing the extension field degree by a factor of `6`. We find a $u$ such that $u^{6}=(1+i)^{-1}$, then we define a twisting transformation as $(x,y) \rightarrow (\frac{x}{u^2},\frac{y}{u^3})$. This transforms the original curve from $E:y^2=x^3+4$ to $E':y^2=x^3+4/u^6$. $E$ and $E'$ looks different but actually are same objected with coefficients in different base fields.
@@ -161,19 +161,30 @@ Embedding Degree should be chosen such that it doesn't compromise security and e
 
 ### Full Torsion Groups
 
-Torsion group is a group where each element has finite order. $r$-torsion group of an Elliptic curve $E(\mathbb{F})[r]$ is defined as set:
+Torsion group is a group where each element has finite order. $r$-torsion group of an Elliptic curve $E(\mathbb{F})[r]$, where $\mathbb{F}$ is the finite field, $n$ is curve order, and $r$ is factor of $n$, is defined as set:
 
 $$
-E(\mathbb{F}[r]):=\lbrace{P\in E(\mathbb{F})\space|\space[r]P=\mathscr{O} \rbrace}
+E(\mathbb{F}[r]):=\lbrace{P\in E(\mathbb{F})\space|\space[r]P=\mathcal{O} \rbrace}
 $$
 
-Now, for an elliptic curve with defined on extension field $p^m$, the full $r$-torsion group is defined as:
+A simple example of $r$-torsion subgroups are the cyclic subgroups generated on each factor $r$ of curve order $n$.
+
+Now, for an elliptic curve with defined on extension field $p^m$, the **full $r$-torsion group** is defined as:
 
 $$
 E[r]:=E(\mathbb{F}_{p^{k(r)}})[r]
 $$
 
-An interesting observation is, r-torsion group $E(\mathbb{F}_{p^m})[r]$ of a curve extension is equal to $E\mathbb{F_{p}}[r]$ if power $m$ is less than the embedding degree of $E(\mathbb{F_{p}})$.
+An interesting observation is, $r$-torsion group $E(\mathbb{F}_{p^m})[r]$ of a curve extension is equal to $E(\mathbb{F})_{p}[r]$ if power $m$ is less than the embedding degree of $E(\mathbb{F_{p}})$. Full $r$-torsion groups contain $r^{2}$ many elements and $r+1$ subgroups, one of which is $E(\mathbb{F}_{p})[r]$. These subgroups are used during finding appropriate subgroups for pairings.
+
+> [!question] Prove why full r-torsion group contain $r^2$ elements and $r+1$ subgroups?
+
+$$
+\begin{align}
+E(\mathbb{F}_{p})&\subset E(\mathbb{F}_{p^2})&\cdots&\subset &E(\mathbb{F}_{p^{k(r)}})&\subset &E(\mathbb{F}_{p^{k(r)+1}})&\subset &\cdots \\
+E(\mathbb{F}_{p})[r]&= E(\mathbb{F}_{p^{2}})[r]&\cdots&\subset&E(\mathbb{F}_{p^{k(r)}})[r]&=&E(\mathbb{F}_{p^{k(r)+1}})&=\cdots\\
+\end{align}
+$$
 
 ### Cofactor
 

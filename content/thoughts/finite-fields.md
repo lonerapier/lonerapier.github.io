@@ -92,9 +92,9 @@ If $a$ and $m$ are co-prime, then $a$ is called *[quadratic residue](https://en.
 > - $8^2$ mod 11 = 9
 > - $9^2$ mod 11 = 4
 > - $10^2$ mod 11 = 1
->
-> 0, 1, 3, 9, 5, 3 are quadratic residues.
->
+> 
+> 0, 1, 3, 9, 5, 4 are quadratic residues.
+> 
 > 2, 6, 7, 8, 10 are quadratic non-residues modulo 11.
 
 Total quadratic residues of a prime $p=(p-1)/2$, excluding 0, if p is odd, and $(p+1)/2$, if p is even.
@@ -116,6 +116,10 @@ $$
 -1 & \text{if $a$ is quadratic non-residue of $p$}
 \end{cases}
 $$
+
+### Computing sqrt
+
+[Refer](https://zerobone.net/blog/math/tonelli-shanks/)
 
 ### Extension Fields
 
@@ -163,3 +167,4 @@ Cons:
 - [field](https://research.swtch.com/field)
 - [Galois field course](https://mathweb.ucsd.edu/~jmckerna/Teaching/16-17/Winter/200B/)
 - [Finite Fields](https://kconrad.math.uconn.edu/blurbs/galoistheory/finitefields.pdf)
+- [Polynomials Basis](https://people.inf.ethz.ch/gander/papers/changing.pdf)

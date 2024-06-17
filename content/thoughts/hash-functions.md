@@ -6,7 +6,7 @@ tags:
 - cryptography
 ---
 
-# Properties
+## Properties
 
 Following are the desired properties of a strong hash function: $f$
 
@@ -41,11 +41,11 @@ Used in Blake2.
 
 TODO
 
-# ZK Friendly hash functions
+## ZK Friendly hash functions
 
 It's natural to put cryptographic hash functions on protocols that boasts ZK properties like SNARKs or STARKs.
 
-# Resources
+## Resources
 
 - [ZK friendly hash functions](https://www.zellic.io/blog/zk-friendly-hash-functions)
 - [Ingonyama's ZK friendly hash functions](https://github.com/ingonyama-zk/papers/blob/main/sok_zk_friendly_hashes.pdf)

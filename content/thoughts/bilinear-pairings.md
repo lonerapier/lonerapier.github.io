@@ -8,20 +8,19 @@ tags:
 
 [[elliptic-curves|Elliptic curves]] are used in cryptography mainly because of DLP i.e. it’s infeasible to calculate $x$ from $X = Gx$.
 
-Pairing helps to compute certain complicated equations on EC points. Traditional EC math lets anyone check linear constraints on the number (eg. $P = Gp, Q = Gq, R = Gr,$ checking $5P + 7Q = 11R$), but pairing lets you check *quadratic* constraints ($e(P,Q) * e(G,G5) = 1$ *is checking* $p*q + 5 = 0$**).
+Pairing helps to compute certain complicated equations on EC points. Traditional EC math lets anyone check linear constraints on the number (eg. $P = Gp, Q = Gq, R = Gr,$ checking $5P + 7Q = 11R$), but pairing lets you check *quadratic* constraints ($e(P,Q) \times e(G,G5) = 1$ *is checking* $p*q + 5 = 0$).
 
 > This makes DDH (Decision Diffie-Hellman) problem very easy to compute using pairings. Also DLog reduction becomes computably feasible if not done on extension fields of Finite Field as we want the target group to be sufficiently bigger so that it's not possible to do DLog reduction.
 
-$e(P,Q)$ is a function defined on EC points. This is the *pairing.* Also known as bilinear map. It is called as bilinear because it satisfies following constraints:
+$e(P,Q)$ is a function defined on EC points. This is the *pairing.* Also known as bilinear map. It is called as bilinear because it satisfies following constraints, i.e. it doesn't matter if we apply group law first and then map, or map then group law:
 
 - $e(P, Q+R) = e(P, Q) + e(P, R)$
 - $e(P+S, Q) = e(P, Q) + e(S, Q)$
+- $e(G_{1},G_{2})\neq 1$: This property is called **Non-Degeneracy**. If whenever $\mathbb{G}_{3}$ is neutral element, then either $\mathbb{G}_{1}\lor \mathbb{G}_{2}$ is neutral. 
 
 The pairing is linear in both constraints. So, EC Pairing is a function that takes a pair of points on an elliptic curve and returns an element of some other group, called the *target group*.
 
 Example: $e(x,y) = 2^{xy}$, where $x = 3, y = 9$ -> $P = 3, Q = 4, R = 5$
-
-Pairing needs to have another property, i.e. **Non-Degeneracy**. For generators $g1$, $g2$: $e(G_1, G_2) \neq 1$
 
 > Note: $+$ and $\cdot$ can be any arbitrary operators. It doesn't matter what symbols are used in abstract mathematics as long as they obey the properties of associativity, commutativity and reflexivity.
 > - $a + b = b + a$
@@ -30,13 +29,42 @@ Pairing needs to have another property, i.e. **Non-Degeneracy**. For generators 
 
 However, such simple pairings are not suitable for cryptography as its trivial to divide, compute logarithms and other computations. Simple integers can’t be used in a field having terms like public-private keys or one-way functions because anyone can go back to $y$ knowing $x$ and $e(x,y)$. Thus, we require numbers that can essentially function as “black boxes” or it's only possible to do simple arithmetic like addition, subtraction, multiplication and division on them and nothing else. That's where ECs and EC-points come in.
 
-Pairing - $e: \mathbb{G_1} \times \mathbb{G_2} \rightarrow \mathbb{G_T}$
+### Frobenius endomorphism
+
+Frobenius endomorphism maps EC point to another point:
+
+$$
+\begin{equation}
+\pi: E(\mathbb{F})\to E(\mathbb{F}):
+\begin{cases}
+(x,y)\to(x^{p},y^{p}) \\ \\
+\mathcal{O}\to \mathcal{O}
+\end{cases}
+\end{equation}
+$$
+
+full r-torsion groups has two interesting subgroups: namely,
+
+- $\mathbb{G}_{1}[r]:=\left\{(x,y)\in E[r]|\pi(x,y)=(x,y)\right\}$ can also be seen as $r$-tosion group given by mapping un-extended elliptic curve point to itself.
+- $G_{2}[r]:=\left\{(x,y)\in E[r]|\pi(x,y)=[p](x,y)\right\}$
+
+### Pairing groups
+
+$$e: \mathbb{G}_{1} \times \mathbb{G}_{2} \rightarrow \mathbb{G}_{T}$$ 
+
+$\mathbb{G}_{1}$ and $\mathbb{G}_{2}$ are subgroups given from Frobenius endomorphism on [[elliptic-curve-cryptography#Full Torsion Groups|torsion subgroups]] of ECs.
 
 The reason why Bilinear map works?
 
 First, we look into the concept of [[divisors|divisors]].
 
-## Tate Pairings
+## Weil Pairing
+
+$$
+e(\cdot,\cdot):\mathbb{G}_{1}[r]\times \mathbb{G}_{2}[r]\to \mathbb{F}_{p^{k}}^{*}: (P,Q) \to (-1)\frac{^{r}f_{r,P}(Q)}{f_{r,Q}(P)}
+$$
+
+## Tate Pairing
 
 ## Miller's Algorithm
 

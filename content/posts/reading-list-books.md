@@ -16,3 +16,4 @@ This post highlights my read of the year, probably too late in 2023, but better 
 - [[proofs-args-and-zk|Proofs, Arguments and Zero Knowledge]]
 - [[the-book-of-five-rings|Miyamoto Musashi: The Book Of Five Rings]]
 - Dune
+- [The Bibliography of a Writing Life](https://www.essayful.co/p/1-the-bibliography-of-a-writing-life-42b)

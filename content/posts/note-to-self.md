@@ -22,13 +22,14 @@ These are the list of quotes that I have discovered the meaning while doing some
 - **Uncertainty** is better than **discomfort**.[^12]
 - Entrepreneur's mind. Athlete's body. Artist's soul. [^13]
 - "Suffering becomes beautiful when anyone bears great calamity with cheerfulness, not through insensibility but through greatness of mind." - Aristotle [^14]
+- "It never gets easier, you just go faster" - Greg LeMond[^15]
 
 ## Undiscovered but Intriguing
 
-- Focus is all about cutting distractions.[^15]
-- The first principle is that you must not fool yourself—and you are the easiest person to fool.[^16]
-- You are going to be dead soon. No need to be shameful. You are already naked.[^17]
-- "Your worst sin is that you betrayed yourself for nothing." - Dostoevsky [^18]
+- Focus is all about cutting distractions.[^16]
+- The first principle is that you must not fool yourself—and you are the easiest person to fool.[^17]
+- You are going to be dead soon. No need to be shameful. You are already naked.[^18]
+- "Your worst sin is that you betrayed yourself for nothing." - Dostoevsky [^19]
 - "Don't be a career." - Steve Jobs
 - "I do not think there is any thrill that can go through the human heart like that felt by the inventor as he sees some creation of the brain unfolding to success… such emotions make a man forget food, sleep, friends, love, everything." - Nikola Tesla
 
@@ -46,7 +47,8 @@ These are the list of quotes that I have discovered the meaning while doing some
 [^12]: More like, uncertainty houses discomfort. You can feel comfortable and uncomfortable doing uncertain things, but you won’t feel certain and uncertain when doing uncomfortable things.
 [^13]: Atomic Habits - James Clear
 [^14]: This [video](https://www.youtube.com/watch?v=i0UTeQfnzfM) of Mathematician Prof. Andrew Wiles is perfect example of the quote `Beauty is Suffering`.
-[^15]: "People think focus means saying yes to the thing you've got to focus on. But that's not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I'm actually as proud of the things we haven't done as the things I have done. Innovation is saying no to 1,000 things." - Steve Jobs
-[^16]: [Richard Feynman's 1974 Caltech commencement speech](https://calteches.library.caltech.edu/51/2/CargoCult.htm)
-[^17]: "Let each thing you do, say, or intend be like that of a dying person" - Marcus Aurelius
-[^18]: Meditations
+[^15]: Have experienced this firsthand myself while learning almost everything. It's a beautiful quote that summarises everything related to learning. It really is humbling, accepting yourself as a beginner, and asking dumb question, [relearning](https://terrytao.wordpress.com/career-advice/learn-and-relearn-your-field/) things that you once thought are understood.
+[^16]: "People think focus means saying yes to the thing you've got to focus on. But that's not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I'm actually as proud of the things we haven't done as the things I have done. Innovation is saying no to 1,000 things." - Steve Jobs
+[^17]: [Richard Feynman's 1974 Caltech commencement speech](https://calteches.library.caltech.edu/51/2/CargoCult.htm)
+[^18]: "Let each thing you do, say, or intend be like that of a dying person" - Marcus Aurelius
+[^19]: Meditations

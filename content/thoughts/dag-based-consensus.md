@@ -115,7 +115,7 @@ Decouples data dissemination from metadata ordering. [Narwhal&Tusk](https://arxi
 
 > Narwhal off-loads reliable transaction dissemination to the mempool protocol.
 
-Narwhal main task is to create a DAG using $N$ nodes in the network with upto $f<N/3$ byzantine nodes. Since, communication happens in an asynchronous network, Narwhal alone is not sufficient to guarantee liveness property and thus, Tusk/Bullshark was introduced that totally orders the DAG and satisifies BFT properties. DAG formation happens in a round-based structure.
+Narwhal main task is to create a DAG using $N$ nodes in the network with upto $f<N/3$ byzantine nodes. Since, communication happens in an asynchronous network, Narwhal alone is not sufficient to guarantee liveness property and thus, Tusk/Bullshark was introduced that totally orders the DAG and satisfies BFT properties. DAG formation happens in a round-based structure.
 
 Design Goals for Narwhal:
 

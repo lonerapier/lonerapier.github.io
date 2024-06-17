@@ -54,7 +54,7 @@ Goal: sync of P and Q such that Q is included iff P is included. For example, th
 # Generic CCC Protocol
 
 > $u_x$: liveness delay
->
+> 
 > $k_x$: depth parameter
 
 1. **Setup**: inherently done by both blockchains due to the properties defined above

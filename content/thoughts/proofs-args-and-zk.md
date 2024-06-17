@@ -8,4 +8,8 @@ tags:
 
 Contains either references or my notes about Prof. Thaler's [ProofsArgsAndZK](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf) book.
 
+- [[pazk-ch-02|Chapter 02]]
+- [[pazk-ch-03|Chapter 03]]
+- [[pazk-ch-04|Chapter 04]]
+
 

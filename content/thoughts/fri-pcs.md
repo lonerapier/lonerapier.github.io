@@ -9,12 +9,18 @@ tags:
 
 Note that most of these notes are taken from incredibly accessible resources. They're written by actual mathematicians and cryptographers, so please check those out.
 
-[FRI](https://drops.dagstuhl.de/storage/00lipics/lipics-vol107-icalp2018/LIPIcs.ICALP.2018.14/LIPIcs.ICALP.2018.14.pdf) is a [[polynomial-commitments|polynomial commitment scheme]] based on hashing, and can be combined with any PIOP to create a [[snark|SNARK]]. Basic idea is to prove that a vector commitment is close to a [[reed-solomon|Reed-Solomon]] codeword using [low-degree](https://medium.com/starkware/low-degree-testing-f7614f5172db) testing.
+FRI is a low-degree test of a polynomial in a FFT domain, i.e. roots of unity group in a finite field. FRI proves that a function $f: D\to F$ corresponds to a polynomial of low degree with respect to size of $D$. Suppose, if you have two polynomials $f,g$ and want to prove how similar they are to each other in domain $D$ and co-domain $F$. So, the naive way is to check for all points in the domain, if they agree then they are same polynomials. Now, FRI proves that a polynomial $f$ is $\theta-$close to a polynomial, where the distance is measured using hamming distance:
+
+$$
+\begin{equation}
+\delta(f,g)=\frac{1}{|D|}\cdot |x\in D:f(x)\neq g(x)|
+\end{equation}
+$$
 
 Let's first explain what the full form of FRI is:
 
-- **Fast**: corresponds to use [[fourier-transform|Fast Fourier Transform]] algorithm used in folding property of FRI.
-- **Reed-Solomon**: converts a polynomial evaluations at roots of unity to a reed solomon codeword.
+- **Fast**: corresponds to use [[fourier-transform|Fast Fourier Transform]] algorithm used in folding phase of FRI.
+- **Reed-Solomon**: converts a polynomial evaluations at roots of unity to a [[reed-solomon|reed solomon]] codeword.
 - **IOPP**: [[iop|Interactive Oracle Proofs]] of Proximity
 	- **Interactive**: soundness is proved in interactivity between Prover and Verifier. **TODO**
 	- **Oracle Proofs**: Prover behaves like an oracle answering queries of the verifier at random points.
@@ -63,8 +69,8 @@ take use of [[fourier-transform|FFT]] equation to divide polynomial into two pol
 $$
 \begin{align}
 q(X) &= q_{\textsf{even}}(X^{2}) + Xq_{\textsf{odd}}(X^{2})  \\
-q_{even}(X^{2}) &= \frac{q(X) + q(-X)}{2} = \sum^{(d+1)/2-1}_{i=0} c_{2i}X^{2i}\\
-q_{odd}(X^{2}) &= \frac{q(X)-q(-X)}{2X} = \sum^{(d+1)/2-1}_{i=0} c_{2i+1}X_{2i}\\
+q_{\textsf{even}}(X^{2}) &= \frac{q(X) + q(-X)}{2} = \sum^{(d+1)/2-1}_{i=0} c_{2i}X^{2i}\\
+q_{\textsf{odd}}(X^{2}) &= \frac{q(X)-q(-X)}{2X} = \sum^{(d+1)/2-1}_{i=0} c_{2i+1}X_{2i}\\
 \end{align}
 $$
 
@@ -143,7 +149,7 @@ verifier will accept proof if all verifier queries lie within $T$ with probabili
 Problem with FRI is following two things:
 
 1. P merkle commit q to nth roots of unity in field but not the complete field. but verifier can send random point in the complete field, and thus, prover won’t be able to open the polynomial at that point. even if it opens, the commitment doesn’t have the property to prove from that random point.
-2. V after low degree test, only knows that q is `not too far` from degree k-1 honest polynomial, but doesn’t know if it’s exactly low degree.
+2. V after low degree test, only knows that q is *not too far* from degree k-1 honest polynomial, but doesn’t know if it’s exactly low degree.
 
 How a PCS is described? create a quotient polynomial similar to done in KZG, and apply fold+query procedure on that quotient poly of degree k-1. So, to illustrate:
 
@@ -183,8 +189,10 @@ This *combination polynomial* proves that $g(X)$ is a polynomial of $deg(g(X))<2
 - [ZKP MOOC Lecture 7](https://youtu.be/A3edAQDPnDY)
 - [Anatomy of STARK Proof: Part 3](https://aszepieniec.github.io/stark-anatomy/fri)
 - [Arithmetization I](https://medium.com/starkware/arithmetization-i-15c046390862) & [Arithmetization II](https://medium.com/starkware/arithmetization-ii-403c3b3f4355) & [Low-Degree Testing](https://medium.com/starkware/low-degree-testing-f7614f5172db)
+- [STARKs](https://eprint.iacr.org/2018/046)
 - [EthSTARK](https://eprint.iacr.org/2021/582)
 - [DEEP-FRI](https://eprint.iacr.org/2019/336)
 - [A summary on FRI Low-Degree test](https://eprint.iacr.org/2022/1216)
 - [Fiat-Shamir security of FRI and related SNARKs](https://eprint.iacr.org/2023/1071)
-- [STARKs](https://eprint.iacr.org/2018/046)
+- [Proximity Gaps for Reed-Solomon Codes](https://eprint.iacr.org/2020/654)
+- [Reed-Solomon Codes over the Circle Group](https://eprint.iacr.org/2023/824)

@@ -93,7 +93,7 @@ If $a$ and $m$ are co-prime, then $a$ is called *[quadratic residue](https://en.
 > - $9^2$ mod 11 = 4
 > - $10^2$ mod 11 = 1
 >
-> 0, 1, 3, 9, 5, 3 are quadratic residues.
+> 0, 1, 3, 9, 5, 4 are quadratic residues.
 >
 > 2, 6, 7, 8, 10 are quadratic non-residues modulo 11.
 
@@ -117,7 +117,11 @@ $$
 \end{cases}
 $$
 
-## Extension Fields
+### Computing sqrt
+
+[Refer](https://zerobone.net/blog/math/tonelli-shanks/)
+
+### Extension Fields
 
 ### Adicity
 
@@ -163,3 +167,4 @@ Cons:
 - [field](https://research.swtch.com/field)
 - [Galois field course](https://mathweb.ucsd.edu/~jmckerna/Teaching/16-17/Winter/200B/)
 - [Finite Fields](https://kconrad.math.uconn.edu/blurbs/galoistheory/finitefields.pdf)
+- [Polynomials Basis](https://people.inf.ethz.ch/gander/papers/changing.pdf)

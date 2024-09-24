@@ -1,0 +1,15 @@
+Contains list of papers that were transformational for the field, and really defined or proved amazing results.
+
+- [A Mathematical Theory of Communication](https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf)
+- [Communication Theory of Secrecy Systems](https://www.cs.virginia.edu/~evans/greatworks/shannon1949.pdf)
+- [GM84: Probabilistic Encryption](https://www.sciencedirect.com/science/article/pii/0022000084900709)
+- [GMR85: The KnowledgeComplexity of Interactive Proof-Systems](https://dl.acm.org/doi/pdf/10.1145/22145.22178)
+- [GL89: A hard-core predicate for all one-way functions](https://dl.acm.org/doi/10.1145/73007.73010)
+- [BM84: How to generate cryptographically strong sequences of pseudo random bits](https://ieeexplore.ieee.org/document/4568382)
+- [GGM86: How to construct Random Functions](https://dl.acm.org/doi/10.1145/6490.6503)
+- [DH76: New Directions in Cryptography](https://dl.acm.org/doi/10.1145/3549993.3550007)
+- [BFM88: Noninteractive zero-knowledge and its applications](https://dl.acm.org/doi/abs/10.1145/3335741.3335757)
+- [BGW88: Completeness theorems for non-cryptographic fault-tolerant distributed computation](https://dl.acm.org/doi/10.1145/62212.62213)
+- [GMW87: How to play ANY mental game](https://dl.acm.org/doi/10.1145/28395.28420)
+- [RB89: Verifiable Secret Sharing and Multiparty Protocols with Honest Majority](https://dl.acm.org/doi/10.1145/73007.73014)
+- [Yao82: Protocols for Secure Computations](https://dl.acm.org/doi/10.5555/1382436.1382751)

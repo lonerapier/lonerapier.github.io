@@ -20,11 +20,13 @@ Started learning cryptography end of 2023 rigorously, i.e. getting deeper into c
 
 > [!note] I'm not an expert in any way, still learning, and breaking things. Most of the implementations that I've done are broken and were done for toy purposes, and still yet to write production grade cryptographic software.
 
-First of all, learning cryptography hasn't been easy. It's a paradigm of information theory that has been in use since the information age began, and it's the only technology I know of, that has gone through countless failures to get to a point where it powers literally all of internet, and will power verifiable computing age in the coming decade.
+First of all, learning cryptography hasn't been easy. It's a paradigm of information theory that has been in use since the information age began, and it's the only technology I know of, that has gone through countless failures to get to a point where it powers literally all of internet, and will power [verifiable computing](https://0xparc.org/blog/programmable-cryptography-1) age in the coming decade.
 
 ## Why Cryptography
 
-TODO
+- Open
+- Control shift
+- [Standard-based](https://andrewkelley.me/post/why-we-cant-have-nice-software.html)
 
 ## Struggle
 

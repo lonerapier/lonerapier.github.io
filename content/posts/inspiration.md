@@ -26,3 +26,4 @@ There are amazing people that have lived on the face of Earth, and literally eve
 - [George Hotz](https://geohot.github.io/blog/)
 - [Grant Sanderson](https://www.youtube.com/@3blue1brown)
 	- [3blue1brown](https://www.3blue1brown.com/)
+- Ustad Nusrat Fateh Ali Khan: All of his creations are absolutely mesmerizing to me.

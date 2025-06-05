@@ -46,8 +46,8 @@ Not feasible, requires interaction from *verifier*. Also not publicly verifiable
 ## Schnorr Digital Signature
 
 Schnorr's Identification Scheme $\Pi=(\textsf{Gen},\mathcal{P_{1},P_{2},V})$. Let there be two parties $A$ (Prover) and $B$ (Verifier):
-1. A runs $\textsf{Gen}(1^{n})\to (pk,sk)$. Let private key be $x$ and public key = $Gx (mod N)$
-2. Generates random value using $\mathcal{P}_{1}$, $Y = Gy (mod N)$
+1. A runs $\textsf{Gen}(1^{n})\to (pk,sk)$. Let private key be $x$ and public key = $Gx \mod{N}$
+2. Generates random value using $\mathcal{P}_{1}$, $Y = Gy \mod N$
 3. $Y$ is sent to B
 4. B generates random challenge $c$, and send to A
 5. A sends back: $z = y + xc$

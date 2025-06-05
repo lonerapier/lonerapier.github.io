@@ -1,6 +1,6 @@
 ---
-title: "Garbled Circuit"
-date: 2024-07-27:12:00:00
+title: Garbled Circuit
+date: 2024-07-27
 tags:
 - cryptography
 - mpc

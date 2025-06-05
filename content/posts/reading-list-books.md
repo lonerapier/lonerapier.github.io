@@ -13,11 +13,13 @@ This post highlights my read of the year, probably too late in 2023, but better 
 
 ## 2024
 
-- [Introduction to modern cryptography by Katz, Lindell]
+- [Introduction to modern cryptography by Katz, Lindell](https://www.cs.umd.edu/~jkatz/imc.html)
 - [[proofs-args-and-zk|Proofs, Arguments and Zero Knowledge]]
 - [The Last Question by Isaac Asimov](https://users.ece.cmu.edu/~gamvrosi/thelastq.html)
 - [Rust Atomics and Locks by Mara Bos](https://marabos.nl/atomics/)
 - [[the-book-of-five-rings|Miyamoto Musashi: The Book Of Five Rings]]
+- [Surely You're Joking, Mr Feynman](https://www.goodreads.com/book/show/35167685-surely-you-re-joking-mr-feynman)
+- ["The Egg", Andy Weir](https://theaegisinstitute.org/wp-content/uploads/2023/06/The-Egg-by-Andy-Weir.pdf)
 
 ## To-Read
 
@@ -31,7 +33,8 @@ This post highlights my read of the year, probably too late in 2023, but better 
 - The Art of Learning - Josh Waitzkin 
 	- [the-art-of-learning-waitzkin](https://maxfrenzel.com/books/the-art-of-learning-waitzkin)
 - [[art-of-discovery]]
-- 
+- [The art of doing science and Engineering by Richard Hamming](https://www.goodreads.com/book/show/530415.The_Art_of_Doing_Science_and_Engineering)
+- [The Unreasonable effectiveness of mathematics](https://web.njit.edu/~akansu/PAPERS/The%20Unreasonable%20Effectiveness%20of%20Mathematics%20(RW%20Hamming).pdf)
 - The myth of freedom - Chogyam Trunpa Rinpoche 
 - Starting strength - Mark Rippetoe 
 - John Boyd: The Fighter Pilot who Changed the Art of War - Robert Coram 
@@ -53,4 +56,13 @@ This post highlights my read of the year, probably too late in 2023, but better 
 - [Philosophy of Set theory]
 - [Levels of Infinity: Selected Papers on Mathematics and Philosophy - Hermann Weyl](https://singlelogin.re/book/2337046/44f6bb/levels-of-infinity-selected-papers-on-mathematics-and-philosophy.html)
 - [Philosophical Essays - Gottfried Wilhelm Leibniz](https://singlelogin.re/book/1251030/182256/philosophical-essays.html)
+- [The Selfish Gene by Richard Dawkins](https://www.goodreads.com/book/show/61535.The_Selfish_Gene)
+- Cult of the dead cow - Joseph Menn
+- Silence on the Wire  - Michal Zalewski
+- [Serial Killing: A Philosophical Anthology](https://www.goodreads.com/book/show/26050194-serial-killing)
+- 
+
+## References
+
+- [Patrick Collison's bookshelf](https://patrickcollison.com/bookshelf)
 - 

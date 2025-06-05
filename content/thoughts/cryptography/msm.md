@@ -5,6 +5,7 @@ tags:
 - tech
 - math
 - cryptography
+- engineering
 ---
 
 Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an [[elliptic-curves|EC]].

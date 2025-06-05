@@ -1,8 +1,9 @@
 ---
-title: "Forking Lemma"
-date: 2024-07-10:12:00:00
+title: Forking Lemma
+date: 2024-07-10
 tags:
 - cryptography
+- foundations
 - theoretical
 ---
 

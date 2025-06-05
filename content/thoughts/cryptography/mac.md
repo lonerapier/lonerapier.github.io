@@ -1,6 +1,6 @@
 ---
 title: "Message authentication"
-date: 2024-07-01:12:00:00
+date: 2024-07-01
 tags:
 - cryptography
 ---

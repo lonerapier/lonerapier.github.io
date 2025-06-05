@@ -1,6 +1,6 @@
 ---
-title: "Intro to Mathematical Cryptography"
-date: 2024-05-26:12:00:00
+title: Intro to Mathematical Cryptography
+date: 2024-05-26
 tags:
 - cryptography
 - math

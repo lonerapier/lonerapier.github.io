@@ -9,11 +9,11 @@ tags:
 This is a really informal post of my understanding of polynomial commitments. I am in no way a professional in cryptography and is just learning this for fun. Most of the excerpts in these notes are borrowed from the amazing article by [Dankrad](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html) and [Alinush](https://alinush.github.io/2020/05/06/kzg-polynomial-commitments.html).
 
 > *My pain*
-> 
+>
 > *Is self-chosen*
-> 
+>
 > *At least*
-> 
+>
 > *So The Prophet says*
 
 Now, another song for you to listen along for this ride that you're embarking on with me. [River of Deceit](https://open.spotify.com/track/5EUsI3LIV042IV5ydksV9y?si=7e97529079ca4e70) by Mad Season. This was a total random song found while listening to my Daily Mix playlist. Anyways, I like it.
@@ -53,7 +53,7 @@ Three main types of functional commitments possible:
 > 2. Bilinear groups: KZG
 > 3. Groups of unknown order: DARK
 > 4. Hash functions: FRI
-> 
+>
 > More info about comparison between these schemes [here](https://hackernoon.com/kzg10-ipa-fri-and-darks-analysis-of-polynomial-commitment-schemes).
 
 ## Polynomial Commitment Scheme (PCS)
@@ -188,7 +188,50 @@ $$[q(s) \cdot Z(s)]_{T} = [p(s)-I(s)]_T$$
 
 This really blew my mind when I was first studying them. You can have a million proofs batch together in one single 48 bytes proof which anyone can verify by just computing $I(x)$ and $Z(x)$.  Cryptography really is cool.
 
-## Resources
+```pseudo
+    \begin{algorithm}
+    \caption{Quicksort}
+    \begin{algorithmic}
+      \Procedure{Quicksort}{$A, p, r$}
+        \If{$p < r$}
+          \State $q \gets $ \Call{Partition}{$A, p, r$}
+          \State \Call{Quicksort}{$A, p, q - 1$}
+          \State \Call{Quicksort}{$A, q + 1, r$}
+        \EndIf
+      \EndProcedure
+      \Procedure{Partition}{$A, p, r$}
+        \State $x \gets A[r]$
+        \State $i \gets p - 1$
+        \For{$j \gets p$ \To $r - 1$}
+          \If{$A[j] < x$}
+            \State $i \gets i + 1$
+            \State exchange
+            $A[i]$ with $A[j]$
+          \EndIf
+        \State exchange $A[i]$ with $A[r]$
+        \EndFor
+      \EndProcedure
+      \end{algorithmic}
+    \end{algorithm}
+```
+
+# Comparisons
+
+| Name      |     |     |     |
+| --------- | --- | --- | --- |
+| KZG       |     |     |     |
+| Hyrax     |     |     |     |
+| HyperKZG  |     |     |     |
+| Zeromorph |     |     |     |
+| Dory      |     |     |     |
+| FRI       |     |     |     |
+| Brakedown |     |     |     |
+| Orion     |     |     |     |
+| Basefold  |     |     |     |
+| Blaze     |     |     |     |
+|           |     |     |     |
+
+# Resources
 
 - [KZG Commitments By Dankrad](https://dankradfeist.de/ethereum/2020/06/16/kate-polynomial-commitments.html)
 - [Kate Commitments in ETH](https://hackmd.io/yqfI6OPlRZizv9yPaD-8IQ?view)

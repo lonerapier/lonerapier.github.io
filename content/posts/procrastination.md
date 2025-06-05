@@ -22,8 +22,9 @@ I don't know the solution to it, but I know it goes through training of mind, ma
 - Make it harder to access objects that starts the cycle: Switch off the phone, turn off the network, focus more on offline entertainment. Every business idea feeds on user's time, and I have to treat my time more expensively.[^1]
 
 Going to try these solutions and update my findings regularly here.
-
-## Say NO
+- Say NO: didn't work. most of the time I just forgot saying No lol.
+- Focus extensions: Raycast focus session extension has improved my focus for the initial friction duration. I typically set it for 1 hour, after 15 minutes, when I'm inside my flow/focused state, I don't even pay attention to the remaining time.
+- [ADHD body-double](https://add.org/the-body-double/): working for me a lot better, since my wife has been working from home. She acts as my anchor, and keeps me from distracting myself.
 
 ## References
 

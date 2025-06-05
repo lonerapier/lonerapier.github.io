@@ -4,6 +4,7 @@ date: 2022-10-03T10:00:00-07:00
 tags:
 - math
 - algebra
+- cryptography
 ---
 
 Definition of [divisor](https://crypto.stanford.edu/pbc/notes/elliptic/divisor.html) of a [[rational-functions|rational function]] $z \in k(C)$:

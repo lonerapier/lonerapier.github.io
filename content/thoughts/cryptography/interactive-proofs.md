@@ -1,8 +1,7 @@
 ---
-title: "Interactive Proofs"
-date: "2024-02-06T00:00:00Z"
+title: Interactive Proofs
+date: 2024-02-06
 tags:
-- math
 - cryptography
 - zk
 ---

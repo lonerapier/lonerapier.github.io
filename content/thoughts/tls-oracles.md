@@ -1,10 +1,10 @@
 ---
-title: "TLS Notary"
+title: TLS Oracles
 date: 2024-07-30:12:00:00Z
 tags:
-- cryptography
-- distributed-systems
-- drafts
+  - cryptography
+  - distributed-systems
+  - drafts
 ---
 
 A primer on [TLSN][tlsn].
@@ -57,47 +57,64 @@ In other words, protocol can be divided into two phases:
 - you're making a wrapper on top of the APIs provided by the companies? How do you plan to play the cat-mouse game? What happens when responses change? Or request changes?
 - 
 
+## [Origo][origo]
+
+### Introduction
+
+Aim of TLS oracle based protocols:
+- **Client Integrity**: client cannot forge response sent by the server.
+- In proxy based approaches, 
+	- **Proxy Integrity**: proxy cannot provide invalid message to client.
+	- **Privacy**: Proxy cannot read plaintext message.
+
+Steps involved:
+- 2PC between client and verifier to create a secure connection with server by executing TLS handshake
+- Client and verifier collaboratively sends the request to the server. Verifier obtains response before client obtains decryption key.
+- Client generates a ZKP for the selective data within the payload attested by signature from verifier.
+
+create attestations of data on [[tls|TLS 1.3]].
+- Why specifically TLS 1.3? Because IV for AAD is derived from traffic secret which prevents any communication intensive 2PC.
+- Previous approaches required interactive protocol with communication complexity linear in number of gates in 2PC circuit.
+
+Assumption of weaker network adversary that cannot intercept between proxy and server.
+- MITM attack prone
+- Can proxy not distinguish between malicious and correct server?
+- Can a malicious client with server certificate simulate the server and trick proxy in creating an attestation to false response?
+- the first connection happens between client and server where client obtains server handshake keys. Since TLS uses symmetric encryption, malicious client can perform MITM (machine-in-the-middle) attack with an honest server.
+
+### Previous research
+TLS oracles
+- TLSN: require server-side extension for generating privacy-preserving proofs
+- [DECO][DECO]: supports modern TLS versions, but uses 2PC to perform the handshake, and is thus, slower due to high communicational complexity.
+- [DiStefano][DiStefano]: guarantees ring privacy by using ring signatures over TLS certificates. Uses maliciously secure 2PC similar to Deco.
+- Zero-Knowledge Middle Boxes: client sends queries and prove in zero-knowledge that request satisfies network policy. Only limited to request proofs, and can't generate client-side proofs for response sent by server.
+- [Garble-Then-Prove][Garble-Then-Prove]: replaces authenticated Garbled Circuits and SNARKs with semi-authenticated GC and interactive ZKPs based on VOLE.
+	- ==Understand what authenticated GC and VOLE based snarks mean==
+- [Janus][Janus]: targets TLS 1.3 to generate proofs relying on Honest-Verifier ZK proof system for KBs of data in proxy setting. Uses 2PC in handshake and record layer, **mitigating MITM** attack in proxy mode.
+
+Regex proofs
+- Zombie: extends ZKMB to enable proofs on DNS requests by transforming regular expression into an NFA and using SpartanNIZK to generate a proof.
+- zk-regex: uses similar NFA approach but instead of proving that, converts it into Boolean circuit and MPCitH for the proof.
+
+### Preliminaries
+[[tls#[TLS 1.3][tls13]]]
+[[snark]]
+
+### Attack on TLS1.3
+- It's possible to equivocate plaintext from ciphertext as AES-GCM (primary ciphertext suite used in TLS 1.3) isn't *receiver binding*.
+- AES-GCM provides ciphertext integrity only in case of two parties, i.e. sender and receiver. When reporting anythings on the content of message to a third party, it is possible to find conflicting plaintext that matches ciphertext and authentication tag due to GCM being not collision resistant.
+- Adversary $\mathcal{A}$ wins if it can output $((\tilde{P},IV,K),(\tilde{P}',IV',K'),\{ C_{1},C_{2},\dots,C_{m} \},T)$ such that $F(K,IV,\tilde{P})=F(K',IV',\tilde{P}')$.
+- 
+
 ## Next steps
 
 - Read [TLSN](https://discovery.ucl.ac.uk/id/eprint/10182343/1/2017-578.pdf) in depth
-- Why moving to [Origo](https://eprint.iacr.org/2024/447.pdf)
-	- [Thor's](https://hackmd.io/jsRFD1IORCGveQlzRBwwnA) [notes](https://hackmd.io/xdGO4XX7QpaItSZ4e1Snaw?view)
 - Read other approaches.
-	- [DECO](https://dl.acm.org/doi/pdf/10.1145/3372297.3417239)
-	- [Janus](https://eprint.iacr.org/2023/1377)
-	- [Lightweight Authentication of Web Data via Garble-Then-Prove](https://eprint.iacr.org/2023/964.pdf)
-	- [Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability](https://eprint.iacr.org/2024/733)
-	- [DiStefano](https://eprint.iacr.org/2023/1063)
-- TLSN new approach: VOLE based SNARKs
-- [OLE](https://eprint.iacr.org/2019/273)
-- [VOLE based SNARKs](https://eprint.iacr.org/2023/857.pdf)
-- [SoK: Data sovereignty](https://eprint.iacr.org/2023/967)
+	- [OLE](https://eprint.iacr.org/2019/273)
+	- [VOLE based SNARKs](https://eprint.iacr.org/2023/857.pdf)
+	- [SoK: Data sovereignty](https://eprint.iacr.org/2023/967)
 
 ## Projects & Use cases
-
-- zkEmail
-- zkPassport
-- web proofs
-
-This paves the way for countless Web3 applications:
-​
--  Identity authentication
--  Resolution in prediction markets
--  Mixed Web2-Web3 loyalty and incentive program
--  Privacy-focused verifiable assets
--  Tokenising Domain
--  On-Chain Attestations of Off-Chain Activity
--  DeFi protocols with undercollateralised loans
--  Verification and claims in insurance 
--  Shared electronic medical records 
--  Secure, private e-commerce 
--  Payment attestations for on/off ramp
--  Interoperable social media platforms 
--  Verified gaming history 
--  AI collaboration with zkLLM
--  Machine verification in DePIN
--  Secure digital voting
--  Encrypted mempools
 
 <https://x.com/Euler__Lagrange/status/1829064325224407061>
 <https://x.com/richardzliang/status/1828992045844746727>
@@ -124,8 +141,15 @@ This paves the way for countless Web3 applications:
 - [TLS Oracles (zkTLS): Liberating Private Web Data with Cryptography](https://bwetzel.medium.com/tls-oracles-liberating-private-web-data-with-cryptography-e66e5fad7c34)
 - [TLSNotary Updates](https://mirror.xyz/privacy-scaling-explorations.eth/T4MR2PgBzBmN2I3dhDJpILXkQsqZp1Bp8GSm_Oo3Vnw)
 - [The zk in zkTLS](https://blog.reclaimprotocol.org/posts/zk-in-zktls)
+- [Thor's](https://hackmd.io/jsRFD1IORCGveQlzRBwwnA) [notes](https://hackmd.io/xdGO4XX7QpaItSZ4e1Snaw?view)
 
 
 [tlsn]: <https://github.com/tlsnotary/tlsn>
+[DECO]: <https://dl.acm.org/doi/pdf/10.1145/3372297.3417239>
+[Janus]: <https://eprint.iacr.org/2023/1377>
+[Garble-Then-Prove]: <https://eprint.iacr.org/2023/964>
+[Proxying is Enough]: <https://eprint.iacr.org/2024/733>
+[DiStefano]: <https://eprint.iacr.org/2023/1063>
+[origo]: <https://eprint.iacr.org/2024/447>
 
 [^1]: [Pluto's: How TLSNotary Works](https://pluto.xyz/blog/how-tlsnotary-works)

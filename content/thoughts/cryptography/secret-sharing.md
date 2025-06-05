@@ -79,3 +79,6 @@ I am going to explain again the hiding property of SSS, but has a more formal de
 - [A graduate course in applied cryptography by Dan Boneh and Victor Shoup: Chapter 22]()
 - [Polynomial Secret Sharing and the Lagrange Basis](https://decentralizedthoughts.github.io/2020-07-17-polynomial-secret-sharing-and-the-lagrange-basis/)
 - [zkDocs: SSS](https://www.zkdocs.com/docs/zkdocs/protocol-primitives/shamir/)
+- ["Function Secret Sharing and Homomorphic Secret Sharing", Geoffroy Couteau](https://geoffroycouteau.github.io/assets/pdf/HSS_FSS.pdf)
+- ["Secret-Sharing Schemes Based on Linear Codes", Lukas Nieuweboer](https://www.math.ru.nl/~bosma/Students/LukasNieuweboerBSc.pdf)
+- ["Secret-Sharing Schemes: A Survey", Amos Beimel](https://www.cs.bgu.ac.il/~beimel/Papers/Survey.pdf)

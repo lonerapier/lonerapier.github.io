@@ -116,9 +116,17 @@ Let's understand radix-2 Cooley-Tukey FFT algorithm
 
 # Resources
 
+### Explanatory
+["An Interactive Introduction to Fourier Transforms", Jez Swanson](https://www.jezzamon.com/fourier/)
+
+### Practical
 - CLRS, Introduction to Algorithms, Chapter 30
 - [Radix-4 FFT](https://hackmd.io/@akshayk07/ryn-yR7qr)
 - [FFT](https://vanhunteradams.com/FFT/FFT.html)
 - [CP algorithms: FFT](https://cp-algorithms.com/algebra/fft.html)
+- [FFT over Finite Fields](https://decentralizedthoughts.github.io/2023-09-01-FFT)
+- [Ingonyama's NTT 201](https://github.com/ingonyama-zk/papers/blob/main/ntt_201_book.pdf)
+- [Cryptography Caffe's NTT: Part 1](https://cryptographycaffe.sandboxaq.com/posts/ntt-01/) & [Part 2](https://cryptographycaffe.sandboxaq.com/posts/ntt-02/)
+-
 
 [^1]: [Discrete Fourier Transform](https://en.wikipedia.org/wiki/Discrete_Fourier_transform)

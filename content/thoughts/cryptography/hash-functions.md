@@ -1,9 +1,9 @@
 ---
-title: "Hash functions"
-date: 2023-08-29T00:00:00Z
+title: Hash functions
+date: 2023-08-29
 tags:
-- math
 - cryptography
+- hash
 ---
 
 ## Properties
@@ -129,7 +129,7 @@ It's natural to put cryptographic hash functions on protocols that boasts ZK pro
 
 ## Questions
 
-6.1: 
+6.1
 - TODO: prove that if H is second-preimage, then $H$ is preimage resistant.
 - can be given by again creating a reduction proof and proving that probability calculated of $\mathcal{A}$ breaking pre-image resistant means $\mathcal{A}'$ breaking second-preimage, but since prob of latter is negligible, former's prob is also negligible.
 

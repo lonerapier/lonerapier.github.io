@@ -27,7 +27,6 @@ $$A(G) = B(R(G)) = B(G’)$$
 
 ## References
 
-- read sipser’s [theory of computation](https://math.mit.edu/~sipser/18404/)
 - read arora’s complexity theory
 - [https://www.quantamagazine.org/complexity-theorys-50-year-journey-to-the-limits-of-knowledge-20230817/](https://www.quantamagazine.org/complexity-theorys-50-year-journey-to-the-limits-of-knowledge-20230817/)
 - [https://cs.stackexchange.com/questions/9556/what-is-the-definition-of-p-np-np-complete-and-np-hard](https://cs.stackexchange.com/questions/9556/what-is-the-definition-of-p-np-np-complete-and-np-hard)
@@ -40,6 +39,7 @@ $$A(G) = B(R(G)) = B(G’)$$
 - [https://courses.cs.cornell.edu/cs6815/2022fa/](https://courses.cs.cornell.edu/cs6815/2022fa/)
 - [https://sites.math.rutgers.edu/~sk1233/courses/topics-S17/](https://sites.math.rutgers.edu/~sk1233/courses/topics-S17/)
 - [https://www.cs.princeton.edu/~zdvir/LDCnotes/ldc-notes.html](https://www.cs.princeton.edu/~zdvir/LDCnotes/ldc-notes.html)
+- [CMSC 652 --- Complexity Theory](https://www.cs.umd.edu/~jkatz/complexity/f11/)
 - [https://people.seas.harvard.edu/~salil/cs221/fall02/scribenotes/](https://people.seas.harvard.edu/~salil/cs221/fall02/scribenotes/)
 - [https://www.cs.ubc.ca/~nickhar/W12/](https://www.cs.ubc.ca/~nickhar/W12/)
 - [http://users.cms.caltech.edu/~vidick/teaching/286_qPCP/index.html](http://users.cms.caltech.edu/~vidick/teaching/286_qPCP/index.html)

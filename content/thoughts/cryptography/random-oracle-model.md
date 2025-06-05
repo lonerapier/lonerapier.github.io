@@ -1,9 +1,10 @@
 ---
-title: "Random Oracle Model"
-date: 2024-06-09:12:00:00
+title: Random Oracle Model
+date: 2024-06-09
 tags:
 - cryptography
 - theoretical
+- foundations
 ---
 
 - What even is a *model*?

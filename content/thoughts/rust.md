@@ -84,7 +84,20 @@ Question: how rust defines the relation about conversion from one type to anothe
 
 ### Pointers and References
 
+Both refer to same thing, i.e. an address in the virtual memory. Major differences are:
+- Compiler adds several rules (borrow checker) to references, i.e. reference cannot outlive the thing it's referencing to. Mutable reference cannot be aliased.
+- Pointers are more about the address. Modifying a pointer, changes the address it's pointing to.
 
+```rust
+fn main() {
+	let x: u32 = 10;
+	let ref_x: &u32 = &x;
+	let pointer_x: *const u32 = &x;
+	dbg!(x);
+	dbg!(ref_x);
+	dbg!(pointer_x);
+}
+```
 
 ### Functions and traits
 
@@ -716,10 +729,8 @@ Extends rust trait's functionality to have overloading like feature using [speci
 
 introduces property testing, a framework to determine failing inputs for certain properties of the system. can be used substitute for fuzzing + UTs.
 
-### [tokio](https://docs.rs/tokio/latest/tokio/)
-
 ### [serde](https://serde.rs/)
-
+- Inspiration to build 
 ### [reqwest](https://docs.rs/reqwest/latest/reqwest/)
 
 ### [hyper](https://hyper.rs/guides/1/)
@@ -741,7 +752,13 @@ introduces property testing, a framework to determine failing inputs for certain
 
 - [Rust Reference](https://doc.rust-lang.org/reference/introduction.html)
 - [rust design patterns](https://www.reddit.com/r/rust/comments/1bn8s72/share_rust_design_patterns/)
-- 
+- ["Basic Things", matklad](https://matklad.github.io/2024/03/22/basic-things.html)
+	- Good readme, `architecture.md` for large projects
+	- dev and user docs
+	- use workspaces
+	- test features, not code
+	- "What is the purpose of review?", author should lay out what it want from the reviewer.
+	- 
 
 ### Interesting Questions
 - [reborrowing of mutable references](https://stackoverflow.com/questions/65474162/reborrowing-of-mutable-reference)

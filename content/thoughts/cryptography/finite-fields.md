@@ -1,6 +1,6 @@
 ---
-title: "Finite Fields"
-date: 2023-05-04T10:00:00-07:00
+title: Finite Fields
+date: 2023-05-04
 tags:
 - math
 - algebra

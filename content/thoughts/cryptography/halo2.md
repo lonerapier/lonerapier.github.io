@@ -1,8 +1,9 @@
 ---
 title: Halo2
-date: 2023-09-12T00:00:00Z
+date: 2023-09-12
 tags:
 - cryptography
+- zk
 ---
 
 started reading about Halo2 which is used in zk-email for creating RSA, sha and regex verification chips.

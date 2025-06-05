@@ -1,0 +1,24 @@
+{
+	"nodes":[
+		{"id":"88b572d1a5d6eecd","type":"group","x":-2320,"y":1100,"width":2800,"height":1360,"label":"Captcha"},
+		{"id":"33b454a59d76f106","type":"group","x":-1700,"y":1320,"width":2160,"height":540,"color":"#107012","label":"TEE"},
+		{"id":"65019498121f5bb2","type":"text","text":"### Docker container\n1. connect to operator through proxy\n2. runs the user script using CDP\n3. calls notary for `/prompt, /oauth, /prove`\n\nQuestions:\n- Can JS script detects captcha, pause execution of script, and pass control to proxy? i.e. take the charge for captcha detection?","x":-714,"y":1400,"width":400,"height":380,"color":"5"},
+		{"id":"b75d1a250c2275e1","type":"text","text":"### Solver\n1. subscribe to client stream\n2. Solver clicks on the captcha button\n3. Solver start solving captcha","x":-980,"y":2000,"width":304,"height":240,"color":"6"},
+		{"id":"0c14a8289d4d359a","type":"text","text":"### Operator \n1. run the script over CDP session\n2. receive screenshot commands on captcha detection\n3. saves screenshot, and send back to proxy with configurable `x` fps.","x":-2300,"y":1780,"width":380,"height":260,"color":"#4da3ff"},
+		{"id":"7ae7ab508c3b328b","type":"text","text":"### CDP Proxy\n- acts as proxy between script and operator\n\n[2] detects captcha while proxying the CDP traffic to script\n[3] pauses script execution, connect to solver using websocket, start streaming screenshots of bounding box \n[4] receives and Replays mouse interactions using CDP in the page, gets new bounding box, send that back to solver\n[5] sends solve commands to operator","x":-1640,"y":1340,"width":402,"height":440,"color":"2"},
+		{"id":"30801fe4980b2b78","type":"text","text":"### Notary\n- starts docker container to run the script\n- acts as proxy between solver client and script\n- opens websocket connection with solver, and streams bounding box screenshots","x":60,"y":1400,"width":351,"height":380,"color":"#e6d14c"},
+		{"id":"59750ace77c5c954","type":"text","text":"### User","x":173,"y":1120,"width":125,"height":60,"color":"#c733ba"},
+		{"id":"a83676fe33e6b003","type":"text","text":"### Flow \n1. User runs script into the frame which connects with the notary\n2. Notary starts docker container and runs the script\n\t1. Script interfaces with notary for any user prompts\n\t2. Script requests CDP connect to notary for relayer setup\n3. CDP proxy sits between script and chrome operator, and starts detection capablity\n4. Proxy forwards client RPC requests to operator\n5. Chrome sends RPC response/notification events back to proxy\n6. On detection, proxy pauses script commands, take control, and sends `Page.screenshot` commands to operator\n7. Operator replies back with screenshot of the iframe's bounding box\n8. Proxy streams screenshots to solver\n9. Solver sends mouse/keyboard interaction back to proxy\n10. Proxy replays these events on chrome and also detects whether captcha is solved.\n11. Resume script by sending buffered messages back to user\n12. If, any new bounding box appears, proxy detects, and start this interaction between solver and operator again","x":-372,"y":1910,"width":608,"height":530,"color":"1"}
+	],
+	"edges":[
+		{"id":"ccb32d73828a854a","fromNode":"b75d1a250c2275e1","fromSide":"left","toNode":"7ae7ab508c3b328b","toSide":"bottom","label":"9. Sends mouse interactions"},
+		{"id":"5c680a6ce8940840","fromNode":"7ae7ab508c3b328b","fromSide":"bottom","toNode":"b75d1a250c2275e1","toSide":"top","label":"8. streaming with X fps"},
+		{"id":"ef1a0933d931ca64","fromNode":"30801fe4980b2b78","fromSide":"top","toNode":"59750ace77c5c954","toSide":"right","fromEnd":"arrow","label":"13. /prompt, /prove"},
+		{"id":"02bb3c243e267570","fromNode":"7ae7ab508c3b328b","fromSide":"bottom","toNode":"0c14a8289d4d359a","toSide":"right","label":"4. send CDP interaction commands\n6. detect captcha and send screenshot commands\n10. solve captcha"},
+		{"id":"2c007c4c2e8260d0","fromNode":"65019498121f5bb2","fromSide":"left","toNode":"7ae7ab508c3b328b","toSide":"right","label":"3. connect operator, run script, CDP interaction\n11. resume scripts"},
+		{"id":"be03a56c259c8f23","fromNode":"0c14a8289d4d359a","fromSide":"top","toNode":"33b454a59d76f106","toSide":"left","label":"5. send CDP replies back\n7. send screenshots back\n\n"},
+		{"id":"8d833635a7ffecd1","fromNode":"59750ace77c5c954","fromSide":"left","toNode":"30801fe4980b2b78","toSide":"top","label":"1. connect, run_script"},
+		{"id":"c5a64c2a7056d26e","fromNode":"30801fe4980b2b78","fromSide":"top","toNode":"65019498121f5bb2","toSide":"top","label":"2. start docker container"},
+		{"id":"b3aa2695620308f1","fromNode":"65019498121f5bb2","fromSide":"right","toNode":"30801fe4980b2b78","toSide":"left","fromEnd":"arrow","label":"12. /prompt, /prove"}
+	]
+}

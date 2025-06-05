@@ -5,11 +5,27 @@ tags:
 - technical
 ---
 
+## TODO
+
+- [ ] Remote attestation
+- [ ] TPM
+- [ ] SE
+- [ ] HSM
+- [ ] TDX
+	- [ ] ["Intel TDX", Enclaive](https://docs.enclaive.cloud/confidential-cloud/technology-in-depth/intel-tdx)
+- [x] chrome headless protocol
+	- [ ] chromiumoxide
+- [x] let's encrypt
+- [ ] EKM
+- [ ] TEE deployment stack
+	- [ ] [dstack](https://github.com/Dstack-TEE/dstack)
+	- [ ] yocto
+	- [ ] 
+	- [x] microvm: firecracker
+
 ## Why?
 
 Data is a really precious commodity in an environment where most of the decisions are taken based on information. Trusted Execution Environments give us the capability of executing application code with secrets in an environment where not even the host system can access the secrets and determine the access patterns. Most of the data processing has been moved from local systems to cloud providers in a remote physical location. Any security breach at these remote systems compromises users' secrets and can thus, confidential computing is required which reduces TCB and attack surfaces to a minimum.
-
-## Use cases 
 
 1. Any personal data like Medical Records, Biometrics
 2. Password Manager
@@ -19,7 +35,7 @@ These data items in vocabulary of trusted execution environment are called ***se
 
 > [!info] 
 > A term that we'll come back to often is **Trusted Computing Base (TCB)**. It refers to the hardware and software components of a system that are required to run a particular program/software securely. It comprises of the OS, BIOS, firmware, drivers, software dependencies, etc. Any breach of security in TCB can compromise the executing program and reveal the secrets. 
->
+> 
 > Larger TCB means larger surface of area for attacks and more trust in the underlying components.
 
 
@@ -43,7 +59,7 @@ This gives protection from a variety of threats:
 
 Program is run inside an encrypted region called **Enclave**. This is made possible by extending x86 architecture with new instruction sets. Enclaves provide confidentiality and integrity of the data inside the enclave through the use of **Enclave Page Cache** (EPC), which the system reserves at boot time. [^1]
 
-![memory-structure-enclave](thoughts/images/memory-structure-enclave.png)
+![memory-structure-enclave](https://i.imgur.com/UZKnk09.png)
 
 Enclaves are secure compartments but have boundaries to determine trusted and untrusted part of the application. Trusted Part contains the sensitive piece or secrets of the enclave's code and untrusted part containing other parts of the program. The enclave memory is a volatile memory that gets removed whenever system goes to sleep, machine is destroyed, or application exits. 
 
@@ -78,10 +94,10 @@ Intel provides a pseudo-filesystem[^3] inside enclave as `/dev/attestation` whic
 
 Let's understand attestation flow used in SGX:
 
-![epid-based-attesation](thoughts/images/epid-based-attestation.png)[^4]
+![epid-based-attestation](https://i.imgur.com/XGQ1rv2.png)[^4]
 
 1. Application requests report data from `/dev/attestation/user_report_data` which internally calls `EREPORT` hardware-instruction call to write enclave report.
-2. Calls `/dev/attestation/quote`, reads `/dev/attestation/user_report_data`, sends to Quoting Enclave.[^]
+2. Calls `/dev/attestation/quote`, reads `/dev/attestation/user_report_data`, sends to Quoting Enclave.
 3. Quoting enclave reads the EPID key provided by Provisioning Enclave at the time of deployment.
 4. Provisioning Enclave fetches EPID key from Intel Provisioning Service, which is a remote trusted server by Intel.
 5. Quoting enclave generates quote along with report from the `/dev/attestation/report`, and sends to enclave.
@@ -91,27 +107,9 @@ Let's understand attestation flow used in SGX:
 
 Data Center Attestation Primitives are attestation services that doesn't utilise Intel's attestation service instead have their own ECDSA attestation certificates in a remote data center. Also the Quoting Enclave doesn't talk with Provisioning Enclave but with Provisioning Certificate Enclave which in turn calls Intel Provisioning Certificate service to get the attestation collateral.[^]
 
-![dcap-based-attestation](thoughts/images/dcap-based-attestation.png)
+![dcap-based-attestation](https://i.imgur.com/Ly7aww5.png)
 
 These certificates are cached at remote verifier and the remote user doesn't need to check with Provisioning service each time a quote arrives, and then periodically fetched to update.
-
-### Example
-
-Password Manager
-
-Secrets:
-
-1. Vault file
-2. account passwords
-3. account info
-4. primary key
-5. encryption key
-
-1. Encrypted vault file using an encryption key derived 
-2. User's master key is derived from passphrase which is generated using KDF that uses SHA256.
-3. Primary key used to encrypt passwords is generated randomly using RDSEED instruction
-
-1. 
 
 ### Tradeoffs
 
@@ -119,20 +117,10 @@ Secrets:
 2. EPC limit: Each enclave has a fixed size, and is divided in pages. Any enclave that exceeds the EPC's size limit has to be swapped out to DRAM and is encrypted in doing so. This induces an overhead of approx 3x.
 3. Due to the confidentiality of the data involved, the program has to be designed very carefully. Unoptimised designs lead to poor performance and prone to many attacks.[^5]
 
-## LibOS
-
-The program needs to be modified in order to make it compatible to run inside SGX environment. LibOSes help here as they allow to run unmodified programs inside the SGX environments.
-
-> [!note] Common things to keep in mind:
-> 1. It's all about secrets and efficient communication b/w enclaves
-> 2. 
-
-## Resources
-
+### References
 - [https://01.org/sites/default/files/documentation/intel_sgx_developer_guide_pdf.pdf](https://01.org/sites/default/files/documentation/intel_sgx_developer_guide_pdf.pdf)
 - [https://sgx101.gitbook.io/sgx101/sgx-bootstrap/sealing](https://sgx101.gitbook.io/sgx101/sgx-bootstrap/sealing)
 - [https://blog.quarkslab.com/overview-of-intel-sgx-part-2-sgx-externals.html](https://blog.quarkslab.com/overview-of-intel-sgx-part-2-sgx-externals.html)
-- [Remote Attestation](https://encyclopedia.pub/entry/7912)
 - [sgx.fail](https://sgx.fail)
 - [SGXoMeter](https://www.ibr.cs.tu-bs.de/users/mahhouk/papers/eurosec2021.pdf)
 - [Quote verification with Intel SGX DCAP](https://www.intel.com/content/www/us/en/developer/articles/technical/quote-verification-attestation-with-intel-sgx-dcap.html)
@@ -140,9 +128,41 @@ The program needs to be modified in order to make it compatible to run inside SG
 - [difference b/w trusted computing and confidential computing](https://stackoverflow.com/questions/63335341/what-is-the-difference-between-trusted-computing-and-confidential-computing)
 - [Intel SGX Demystified](https://medium.com/obscuro-labs/intel-sgx-demystified-757a242682a3)
 
+## TDX
+
+Difference from SGX:
+- SGX is container or process-oriented, while TDX is VM oriented.
+- TCB
+	- SGX: OS, VMM/hypervisor, container
+	- TDX: OS, VMM/hypervisor
+		- implies VM is shielded from all other system processes
+- Trust boundary:
+	- SGX: only the application
+	- 
+- In application level enclave, CPU has to be told explicitly that the application is being run in encrypted region of the memory, i.e. wrapping the application in a libOS for interfacing with the OS, but for VMs, it works out of the box, because the all of the memory of Guest OS running the VM is encrypted by default, and it handles the memory IO for the application.
+> [!question] does the guest OS need to be modified in a certain way so that it knows that it's running on encrypted memory? How does it handle disk IO, is that also encrypted?
+- Attestation:
+	- SGX: Specific process level measurement
+	- TDX: measurement includes all information about the guest OS and its apps
+- Performance:
+	- SGX: depends on number of calls outside the enclave
+
+![vm-vs-containers](https://i.imgur.com/1I6C60V.png)
+
+### References
+- [Intel TDX Documentation](https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/documentation.html)
+- ["The Flawed Design of Intel TDX", x86.lol](https://x86.lol/generic/2023/02/07/intel-tdx.html)
+- [Intel SGX vs TDX: what is the difference?](https://www.canarybit.eu/intel-sgx-vs-tdx-what-is-the-difference/)
+- ["Intel TDX", Enclaive](https://docs.enclaive.cloud/confidential-cloud/technology-in-depth/intel-tdx)
+- ["Intel TDX Demystified: A Top-Down Approach", P. Cheng et. al.](https://dl.acm.org/doi/pdf/10.1145/3652597)
+
+## Resources
+
+
+- [Securing TEE Apps: A Developer's Guide](https://www.bedlamresear.ch/posts/securing-tee-apps/)
+
 [^1]: How does the Enclave provide integrity of data? What does it mean to provide integrity?
 [^2]: What are the attacks that are possible due to poor design?
 [^3]: pseudofs is a virtual file system where files are generated virtually on the fly when it's used by system calls like open, read, write, close, etc.
 [^4]: How can ZK Proofs help here? Or does it not even require zk proofs?
 [^5]: Source: [Gramine docs](https://gramine.readthedocs.io/en/stable/attestation.html)
-[^6]: Don't understand what these provisioning certificates are.

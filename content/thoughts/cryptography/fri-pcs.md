@@ -1,8 +1,7 @@
 ---
-title: "FRI PCS"
-date: "2024-04-01T00:00:00Z"
+title: FRI PCS
+date: 2024-04-01
 tags:
-- math
 - cryptography
 - zk
 ---

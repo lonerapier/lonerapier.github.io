@@ -1,9 +1,8 @@
 ---
-title: "Interactive Oracle Proofs"
-date: "2024-04-02:00:00:00Z"
+title: Interactive Oracle Proofs
+date: 2024-04-02
 tags:
 - zk
-- math
 - cryptography
 ---
 

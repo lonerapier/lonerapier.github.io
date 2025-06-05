@@ -3,6 +3,7 @@ title: "Writing a Btree in Rust"
 date: 2024-08-22:12:00:00Z
 tags:
 - technical
+- data-structures
 ---
 
 ## references

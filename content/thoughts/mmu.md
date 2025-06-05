@@ -4,13 +4,8 @@ date: 2023-04-26T10:00:00-07:00
 tags:
 - technical
 - incomplete
+- computer-architecture
 ---
-
-# Memory
-
-# Management
-
-# Unit
 
 # MMU
 

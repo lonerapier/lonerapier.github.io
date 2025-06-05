@@ -3,6 +3,8 @@ title: "Chinese Remainder Theorem"
 date: 2024-05-26:12:00:00
 tags:
 - cryptography
+- algorithms
+- number-theory
 ---
 
 > [!quote] "In addition to being a theorem and an algorithm, we would suggest to the reader that the Chinese remainder theorem is also a state of mind." - "Introduction to Mathematical Cryptography" by Jeffrey Hoffstein, Jill Pipher, Joseph H. Silverman

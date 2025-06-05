@@ -3,6 +3,8 @@ title: "TEE"
 date: 2023-01-15T12:40:00-07:00
 tags:
 - technical
+- confidential-computing
+- computer-architecture
 ---
 
 ## TODO
@@ -20,7 +22,7 @@ tags:
 - [ ] TEE deployment stack
 	- [ ] [dstack](https://github.com/Dstack-TEE/dstack)
 	- [ ] yocto
-	- [ ] 
+	- [ ]
 	- [x] microvm: firecracker
 
 ## Why?
@@ -33,21 +35,21 @@ Data is a really precious commodity in an environment where most of the decision
 
 These data items in vocabulary of trusted execution environment are called ***secrets***. Even though there are ways of encrypting the data when it's getting transported, or static data in the server, but any processing on the data needs to happen on raw and unencrypted one. There are countless incidents where local systems or remote servers have been compromised, exposing the data to an attacker.
 
-> [!info] 
-> A term that we'll come back to often is **Trusted Computing Base (TCB)**. It refers to the hardware and software components of a system that are required to run a particular program/software securely. It comprises of the OS, BIOS, firmware, drivers, software dependencies, etc. Any breach of security in TCB can compromise the executing program and reveal the secrets. 
-> 
+> [!info]
+> A term that we'll come back to often is **Trusted Computing Base (TCB)**. It refers to the hardware and software components of a system that are required to run a particular program/software securely. It comprises of the OS, BIOS, firmware, drivers, software dependencies, etc. Any breach of security in TCB can compromise the executing program and reveal the secrets.
+>
 > Larger TCB means larger surface of area for attacks and more trust in the underlying components.
 
 
 ## SGX
 
-SGX(Software Guard Extensions) is a technology which models the Trusted Execution Environment capabilities on hardware. Hence, making it easier to run programs in an encrypted hardware memory region on RAM. This includes protection from adversarial entity even with control of OS, BIOS. 
+SGX(Software Guard Extensions) is a technology which models the Trusted Execution Environment capabilities on hardware. Hence, making it easier to run programs in an encrypted hardware memory region on RAM. This includes protection from adversarial entity even with control of OS, BIOS.
 
 - Production level enclaves doesn't allow debuggers.
 - The memory region created for enclave is encrypted and unadressable from outside of trusted part of the application. No cpu instructions like calls, jump, register manipulation or stack manipulation cannot be used to enter the memory inside the enclave region.
-- Even if any malicious party is successful in tapping into the DRAM modules would only gain encrypted garbage. 
+- Even if any malicious party is successful in tapping into the DRAM modules would only gain encrypted garbage.
 - Memory encryption is randomly changed periodically, i.e. every power cycle.
-- Any external attempt at accessing the memory inside the enclave is denied. 
+- Any external attempt at accessing the memory inside the enclave is denied.
 
 This gives protection from a variety of threats:
 
@@ -61,7 +63,7 @@ Program is run inside an encrypted region called **Enclave**. This is made possi
 
 ![memory-structure-enclave](https://i.imgur.com/UZKnk09.png)
 
-Enclaves are secure compartments but have boundaries to determine trusted and untrusted part of the application. Trusted Part contains the sensitive piece or secrets of the enclave's code and untrusted part containing other parts of the program. The enclave memory is a volatile memory that gets removed whenever system goes to sleep, machine is destroyed, or application exits. 
+Enclaves are secure compartments but have boundaries to determine trusted and untrusted part of the application. Trusted Part contains the sensitive piece or secrets of the enclave's code and untrusted part containing other parts of the program. The enclave memory is a volatile memory that gets removed whenever system goes to sleep, machine is destroyed, or application exits.
 
 SGX has two calls used to communicate between the two parts:
 
@@ -79,7 +81,7 @@ The main aim of SGX is to not let raw secrets spill out of the enclave, and many
 2. ***MRSIGNER***: sealing happens using key specific to the developer signing key on the system, and thus unsealing of data occurs when accessed by other enclave started by the same developer signing key.
 
 > [!hint]
-> how I as a user can be sure that there is no adversary manipulating the untrusted system and data integrity is intact. Attestation helps any entity to verify the integrity of the enclave and untrusted party to gain trusted party's trust.  
+> how I as a user can be sure that there is no adversary manipulating the untrusted system and data integrity is intact. Attestation helps any entity to verify the integrity of the enclave and untrusted party to gain trusted party's trust.
 
 ### Remote attestation
 
@@ -103,7 +105,7 @@ Let's understand attestation flow used in SGX:
 5. Quoting enclave generates quote along with report from the `/dev/attestation/report`, and sends to enclave.
 6. Enclave sends the quote to the remote verifier on request.
 7. Verifier sends the quote to Intel Attestation service that checks whether the quote was generated by the enclave or not and sends the result back to verifier.
-8. Verifier then verifies the quote metadata and SGX enclave measurements against local measurements like the policies MRENCLAVE and MRSIGNER are the ones that the user knows, are the architectural enclaves up to date, the quoting enclave's identity is correct. 
+8. Verifier then verifies the quote metadata and SGX enclave measurements against local measurements like the policies MRENCLAVE and MRSIGNER are the ones that the user knows, are the architectural enclaves up to date, the quoting enclave's identity is correct.
 
 Data Center Attestation Primitives are attestation services that doesn't utilise Intel's attestation service instead have their own ECDSA attestation certificates in a remote data center. Also the Quoting Enclave doesn't talk with Provisioning Enclave but with Provisioning Certificate Enclave which in turn calls Intel Provisioning Certificate service to get the attestation collateral.[^]
 
@@ -138,7 +140,7 @@ Difference from SGX:
 		- implies VM is shielded from all other system processes
 - Trust boundary:
 	- SGX: only the application
-	- 
+	-
 - In application level enclave, CPU has to be told explicitly that the application is being run in encrypted region of the memory, i.e. wrapping the application in a libOS for interfacing with the OS, but for VMs, it works out of the box, because the all of the memory of Guest OS running the VM is encrypted by default, and it handles the memory IO for the application.
 > [!question] does the guest OS need to be modified in a certain way so that it knows that it's running on encrypted memory? How does it handle disk IO, is that also encrypted?
 - Attestation:

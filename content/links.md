@@ -14,7 +14,7 @@ Other links:
 	- [How Paradoxical Questions and Simple Wonder Lead to Great Science \| Quanta Magazine](https://www.quantamagazine.org/how-paradoxical-questions-and-simple-wonder-lead-to-great-science-20250528/)
 	- [Recreational Biology: Topological Puzzles at Cellular Scales - Manu Prakash - YouTube](https://www.youtube.com/watch?v=9k1AUuKoy3w)
 - [Spatial technologies of the future - by Zack Chiang](https://cellularalchemy.substack.com/p/spatial-technologies-of-the-future)
-- [Why I have slightly longer timelines than some of my guests](https://www.dwarkesh.com/p/timelines-june-2025), [AGI Is Not Multimodal](https://thegradient.pub/agi-is-not-multimodal/): I agree with a lot of what's said here:  
+- [Why I have slightly longer timelines than some of my guests](https://www.dwarkesh.com/p/timelines-june-2025), [AGI Is Not Multimodal](https://thegradient.pub/agi-is-not-multimodal/): I agree with a lot of what's said here:
 	- "the fundamental problem is that LLMs don’t get better over time the way a human would.": Have been feeling this firsthand while trying to work with browser-use. Currently the only way to make an agent learn on-the-fly is to engineer prompts really carefully. Humans don't need that.
 	- Scaling laws are kinda dead.
 		- Current Llama maverick runs on 400B parameters that probably need 1000s of GPUs to work. All smaller models (~5-20B) models serves as MoE, but never at the scale of large models.
@@ -45,7 +45,7 @@ Other links:
 	- Models solved intelligence problem in last 2 years. Next step is long-term agentic capabilities.
 	- Where they struggle in agentic performance? Models can work on small, tightly-scoped task or long widely recognised boilerplate tasks seamlessly. Where they struggle right now is the exploration phase of a loosely-scoped, iteration-heavy task that requires multiple changes across the environment of the agent.
 	- What happened with RL from last year? New kid on the block: RL with VR (Verifiable Rewards). RLHF has been the primary technique used to train these LLMs on human tasks. Verifiable Rewards work on scenarios where reward function is deterministic, and objective. While RLHF is analogous to a subjective response. Example: coding use case of unit tests passing, or completing a task on the web.
-	- 
+	-
 - [Overcoming India's technological cowardice](https://www.infinitesunrise.com/p/overcoming-indias-technological-cowardice)
 	- Promise -> Despair -> Hope with a special emphasis on absolutely bizarre state of overregulation, administrative incompetence, and government underfunding.
 	- How traditional family run businesses work in India: "Apply trade barriers for world-class companies outside India, create a low cost half-good copycat product for Indian consumers, sell to poverty stricken overburdened consumer, invest the profits in media entertainment to sell to the same exceedingly free and overstimulated viewer."
@@ -60,7 +60,7 @@ Other links:
 		- Critical Minerals
 		- Batteries
 		- Energy
-		- 
+		-
 - [Fundamental Development Gap Map v1.0](https://www.gap-map.org/): List of unsolved gaps in R&D.
 
 ## Apr '25
@@ -83,14 +83,14 @@ Other links:
 - [Strongest hints yet of biological activity outside the solar system - YouTube](https://www.youtube.com/live/yc0757j2R8s): Very interesting finding of DiMethyl-Sulphide(DMS) on K12-8b exoplanet that's 128 light years away, with presence of other hydrocarbon like $CO_{2},CH_{4}$.
 	- Is there no other planet with these characteristics? What are the characteristics of this exact planet? Can DMS be found due to other reasons? What's the half-life of DMS?
 - ["How off-grid solar microgrids can power the AI race"](https://www.offgridai.us/) By [Kyle Baranko](https://x.com/kyle__cb) (Paces), [Duncan Campbell](https://x.com/duncan__c) (Scale Microgrids), [Zeke Hausfather](https://x.com/hausfath) (Stripe),  [James McWalter](https://x.com/james_mcwalter) (Paces), [Nan Ransohoff](https://x.com/nanransohoff) (Stripe)
-	- What are microgrids? What are off-grid? What are their current costs? How much energy is needed today, by 2030, by 2050? Why is it not being deployed at large scale already? How are data-centers powered today? 
+	- What are microgrids? What are off-grid? What are their current costs? How much energy is needed today, by 2030, by 2050? Why is it not being deployed at large scale already? How are data-centers powered today?
 - ["VPN - a Very Precarious Narrative", Dennis Schubert](https://overengineer.dev/blog/2019/04/08/very-precarious-narrative/): VPNs for normal users are mostly a marketing gimmick to keep users scared about their personal identity, and does very little to actually protect the users.
 	- Should mostly be used for accessing geolocked content, or internal private networks.
 	- I want to read more about internals of Wireguard or OpenVPN
 - ["How do you make a 250x better vaccine at 1/10 the cost? Develop it in India. (Soham Sankaran, Ep #2)", Owl Posting](https://www.youtube.com/watch?v=CHokQ5dMxHQ)
 	- You can't ignore a locked-in cracked Indian founder in **biotech** space. It's a gem of a podcast.
 	- TODO: write more notes.
-- 
+-
 
 ## Mar '25
 - ["You and Your Research", Richard Hamming](https://gwern.net/doc/science/1986-hamming): Revisit
@@ -116,7 +116,7 @@ Other links:
 ## Feb'25
 - ["Everyone knows your location: tracking myself down through in-app ads"](https://timsh.org/tracking-myself-down-through-in-app-ads/), [tim](https://timsh.org/author/tim/): this is beyond scary. Imagine the data owned by by big organisations, regarding your interests, financial capacity, relationships, geographic location. It's not just targeted ads, this ad-based economy has been influencing people already. Mega organisations have been accused of altering election outcomes, race hate, propagandist thinking several times now. It's supposed to end at some point, and I think the arrival of agents will solve that to an extent. Internet will become more AI friendly and less user friendly. Information will be hidden behind paid APIs
 - [Will DeepSeek deep-six the US economy?](https://asiatimes.com/2025/02/will-deepseek-deep-six-the-us-economy/), by [Steve Hsu](https://asiatimes.com/author/steve-hsu/) and [David P Goldman](https://asiatimes.com/author/david-p-goldman-2/)
-- ["The Generalist’s Productivity Stack", The Generalist](https://substack.com/home/post/p-156091567): Raycast's focus extension has done wonders for my focus. It fights that initial friction and agitation, and helps to avoid any and all distractions. 
+- ["The Generalist’s Productivity Stack", The Generalist](https://substack.com/home/post/p-156091567): Raycast's focus extension has done wonders for my focus. It fights that initial friction and agitation, and helps to avoid any and all distractions.
 	- ["Every productivity thought I've ever had, as concisely as possible"](https://guzey.com/productivity/), [Alexey Guzey](https://guzey.com/)
 - ["MODERN-DAY ORACLES or BULLSHIT MACHINES?", Carl T. Bergstrom and Jevin D. West](https://thebullshitmachines.com/)
 - ["Terence Tao on how we measure the cosmos | Part 1"](https://youtu.be/YdOXS_9_P4U?si=rjSBLzt1_Sqcx3gS): 3b1b goated content never ends. It really blew my mind that initial mathematical intuition began from asking simple questions and using logic + analysis to reach the answer. It didn't include any sophisticated mathematical equations, but very lengthy process of data collection, observation, and pattern matching through the series of unrelated dots that when connected gave the answer in plain sight.
@@ -138,15 +138,15 @@ Other links:
 - ["Privacy guides"](https://www.privacyguides.org/): Extensive list of privacy guides for browsers, DNS, VPN, cloud providers, etc. Highly recommended.
 - ["Machines of Loving Grace", Dario Amodei](https://darioamodei.com/machines-of-loving-grace): 5/5. well-explained 10K ft view of what AGI will and won't do. Most of the article can be summarised as being a lengthy discussion on human processes, which might be all true. AGI's, according to me, will be considered useful, if it can design processes far more efficient, creative and organised than the human counterparts that are mostly riddled with bureaucratic administrative problems. Easy way of estimating what AGI can achieve is to imagine *100* parallel researchers, working on different problems in different domain, but with same accuracy. With speed and efficiency, will also come reduced cost of deployment, and thus, ultimately benefitting humanity with low-cost, accurate, and efficient **end products**. These products can be substituted with anything: medicines, drugs, therapy. Revisit
 	- ["All Watched over by Machines of Loving Grace", Richard Braughtton](https://jgc.org/awobmolg-1967.pdf)
-	- Is it possible for AI to reduce economic disparity within a society, and internationally? If yes, what's the path forward? How do we reduce the constraints set by humans? 
+	- Is it possible for AI to reduce economic disparity within a society, and internationally? If yes, what's the path forward? How do we reduce the constraints set by humans?
 	- How to use that extra intelligence in reducing the per capita income gap of developing vs developed countries?
 	- Reduce poverty -> reduce corruption.  Goal of every government across nation boundaries should be to lift the economically backward section of your society to a point where it has access to cheap education, healthcare, household.
 	- What's the threshold for BPL in India? How much families have been thrived out of BPL in last 5 years? What were the major regions where these families are located?
-	- 
+	-
 - ["Beyond nature and nurture"](https://davidbessis.substack.com/p/beyond-nature-and-nurture), [David Bessis](https://substack.com/@davidbessis): I think it's disrespectful to label someone as untouchable *geniuses*. There are obviously, people whose mathematical intuition, and imagination is much more capable and develop at an early age, and there are also people who invest every second of their life to reach that step. I personally, like and do mathematics for the problem solving. There are no shortcuts in enjoying it, you have to get your hands and mind dirty.
 - ["Things unlearned", Jamie Brandon](https://www.scattered-thoughts.net/writing/things-unlearned/): Good list of things that worked for a person doing programming for 10 years. Most of the advice is reoccurring in retrospective pieces that we see flying around a niche part of the internet. Problem solving, intelligence over expertise, mathematical foundations, High leverage options, better time management. I think everyone knows that these are the steps one need to take, it's the execution that's difficult. Discipline is what's most needed here.
 - ["my phone is making me dumb"](https://read.mindmine.xyz/p/dumb), [Isabel](https://substack.com/@mindmine): Yes, and a whole lot yes. You know this is true, yet you can't escape the tentacles of the giant squid that the algorithm has become.
-- ["Reading as a creative act", Bits of Wonder](https://www.bitsofwonder.co/p/reading-as-a-creative-act): This is solid advice that is applicable to almost all form of entertainment consumption. Textbooks, fiction or non-fiction books, videos, music, even short form content like essays, or reels. All of these need to be consumed with much greater friction, i.e. each should have some questions that it answered, or created new ones, or helped clear doubts, or helped formed new beliefs. Otherwise, we're all hamsters on a wheel. I'm also guilty of doing passive reading, even when learning through textbooks. I'm too focused on completing a lecture, or finishing a book, instead of completely understanding what the material wants to convey. 
+- ["Reading as a creative act", Bits of Wonder](https://www.bitsofwonder.co/p/reading-as-a-creative-act): This is solid advice that is applicable to almost all form of entertainment consumption. Textbooks, fiction or non-fiction books, videos, music, even short form content like essays, or reels. All of these need to be consumed with much greater friction, i.e. each should have some questions that it answered, or created new ones, or helped clear doubts, or helped formed new beliefs. Otherwise, we're all hamsters on a wheel. I'm also guilty of doing passive reading, even when learning through textbooks. I'm too focused on completing a lecture, or finishing a book, instead of completely understanding what the material wants to convey.
 	- I think the solution is to have a list of questions that you want answered from the text, form new questions as you go through it, set of questions that the text was able to answer.
 - ["Future of Energy Reading list", Casey Handmer](https://caseyhandmer.wordpress.com/2023/10/19/future-of-energy-reading-list/): TODO
 - ["Life Lessons from the First Half-Century of My Career", David A. Patterson](https://cacm.acm.org/opinion/life-lessons-from-the-first-half-century-of-my-career/): some that i'm practicing still:
@@ -170,7 +170,7 @@ Other links:
 - ["Law of Leaky Abstraction", Joel Spolsky](https://www.laws-of-software.com/laws/leaky-astractions/)
 - ["The Architecture of Open Source Applications (Volume 1) BerkleyDB", Margo Seltzer and Keith Bostic](https://aosabook.org/en/v1/bdb.html)
 - ["Global renewables: Pioneering the energy transition", DW Documentary](https://youtu.be/UVf2Yw7uFoE?si=7PdbdPgs8Q1duPEd)
-- ["The age of average", Alex Murrell](https://www.alexmurrell.co.uk/articles/the-age-of-average): Agree with this in some sense. Observed that all of the images he presented in the article are beautiful. So, it's natural to get attracted towards a beautiful thing. What really comes out is, there's lack of creativity in people. 
+- ["The age of average", Alex Murrell](https://www.alexmurrell.co.uk/articles/the-age-of-average): Agree with this in some sense. Observed that all of the images he presented in the article are beautiful. So, it's natural to get attracted towards a beautiful thing. What really comes out is, there's lack of creativity in people.
 - ["The Intellectual Obesity Crisis", Gurwinder](https://open.substack.com/pub/gurwinder/p/the-intellectual-obesity-crisis): Kinda mehh, not really that meaningful. I think it's just an evolutionary process, which the society will go through before AI agents take over the internet. Everyone obviously knows how much they're putting themselves at risk with ingesting content at a rate not meant for the brain to handle. You have to start living a more subtractionary life, start over-optimising on things that are worth your time, and just throwing away the things that are not. Start setting more strict rules regarding social media usage, health goals, etc. I can go on and on, not worth it again.
 - ["Explorables"](https://explorabl.es/)
 	- [Simon Willison tags](https://simonwillison.net/tags/explorables/)
@@ -178,7 +178,7 @@ Other links:
 	- ["Moon", Bartosz Ciechanowski](https://ciechanow.ski/moon/)
 - ["the divine discontent", Celine Nguyen](https://www.personalcanon.com/p/the-divine-discontent)
 - ["Cognitive load is what matters", zakirullin](https://minds.md/zakirullin/cognitive#long)
-- 
+-
 
 ## Nov '24
 
@@ -201,7 +201,7 @@ Other links:
 - [Perceived Age](https://suryad.com/blog/percieved-age/)
 - [some principles for building an r&d organisation](https://alexobadia.com/(ツ)/blog/some+principles+for+building+an+r%26d+organisation)
 - [Exit the supersensorium](https://www.theintrinsicperspective.com/p/exit-the-supersensorium)
-- [What Is Analog Computing?](https://www.quantamagazine.org/what-is-analog-computing-20240802/) 
+- [What Is Analog Computing?](https://www.quantamagazine.org/what-is-analog-computing-20240802/)
 - [Attention is your scarcest resource](https://www.benkuhn.net/attention/)
 - [Phrack Inc., Breaking The Spell](https://phrack.org/issues/71/1.html)
 - [What life means to Einstein](https://www.saturdayeveningpost.com/wp-content/uploads/satevepost/what_life_means_to_einstein.pdf)

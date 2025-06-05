@@ -10,7 +10,6 @@ on:
 
 jobs:
   build-and-test:
-    if: ${{ github.repository == 'lonerapier/lonerapier.github.io' }}
     strategy:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
@@ -47,7 +46,6 @@ jobs:
         run: npx quartz build --bundleInfo -d docs
 
   publish-tag:
-    if: ${{ github.repository == 'lonerapier/lonerapier.github.io' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

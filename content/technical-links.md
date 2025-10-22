@@ -7,6 +7,26 @@ tags:
 - evergreen
 ---
 
+## Oct '25
+- [Why is everything so scalable? - Stavros' Stuff](https://www.stavros.io/posts/why-is-everything-so-scalable/)
+	- [Not Just Scale - Marc's Blog](https://brooker.co.za/blog/2024/06/04/scale.html): Kind of a rebuttal to above post.
+	- Every post like these can be summarised into one sentence. Say no to overengineering. Measure and scale.
+- [Zero-dependency random number generation in Rust - Orhun's Blog](https://blog.orhun.dev/zero-deps-random-in-rust/): using `RandomState` to generate seeds is a nice trick!
+
+## Sep '25
+- ["Accurate mental model for Rust’s reference types", dtolnay](https://docs.rs/dtolnay/latest/dtolnay/macro._02__reference_types.html)
+- [Switching from Docker to Podman](https://codesmash.dev/why-i-ditched-docker-for-podman-and-you-should-too)
+- [My Own DNS Server At Home - Part 1: IPv4 - Jan Wildeboer’s Blog](https://jan.wildeboer.net/2025/08/My-DNS-Part-1/)
+- [Hashed sorting is typically faster than hash tables](https://reiner.org/hashed-sorting): this is the bitter lesson of all of software. Hybrid algorithms, like the one explained in this blog, works surprisingly well. 
+	- Memory is the bottleneck, that means fetching values from memory takes significantly more time than computing on the value, branchless code allows the compiler to add optimisations easily, simd is underrated.
+
+## Aug '25
+- ["Koalas vs. Crows: An Evolutionary Theory of Software", Alex Moon](https://ajmoon.com/posts/koalas-vs-crows-an-evolutionary-theory-of-software): Koala:Utility:::Crow:Abstraction.
+	- Crow is needed to create innovative businesses.
+	- Koala is needed to sustain those businesses.
+- [We'd be Better Off with 9-bit Bytes](https://pavpanchekha.com/blog/9bit.html): some HN posts are funny.
+- [How I use Tailscale · Chameth.com](https://chameth.com/how-i-use-tailscale/): TODO for when i'll set up my own homelab infra.
+
 ## May '25
 - [Ghostty Devlog 006 – Mitchell Hashimoto](https://mitchellh.com/writing/ghostty-devlog-006): Incredible introduction to SIMD, and how to actually benchmark a terminal emulator
 - [LLVM is Smarter Than Me](https://blog.sulami.xyz/posts/llvm-is-smarter-than-me/): this blew my mind. What if there can be much more of these 

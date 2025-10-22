@@ -13,3 +13,4 @@ List of helpful prompts sourced throughout internet:
 - [Learn and ask anything iteratively](https://index.globe.engineer/)
 - [GitHub - eastlondoner/cursor-tools: Give Cursor Agent an AI Team and Advanced Skills](https://github.com/eastlondoner/cursor-tools)
 - [The Prompt Engineering Playbook for Programmers](https://addyo.substack.com/p/the-prompt-engineering-playbook-for)
+- [Prompt design strategies  \|  Gemini API  \|  Google AI for Developers](https://ai.google.dev/gemini-api/docs/prompting-strategies)

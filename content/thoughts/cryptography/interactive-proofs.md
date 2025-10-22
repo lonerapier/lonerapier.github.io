@@ -24,7 +24,7 @@ Creating SNARK from Interactive proof:
 - simply sending the input $x$ to the verifier with circuit C to check the computation, not a SNARK as proof size too large and verification time too much.
 - sending $w$ to $V$, and sending an IP to verify $w$ satisfies $C$. Proof size might still be too big.
 
-Prequisites:
+Prerequisites:
 
 - [[polynomial-commitments|Polynomial Commitments]]
 - [[sz-lemma|Schwartz-Zippel Lemma]]

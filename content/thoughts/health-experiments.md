@@ -73,12 +73,26 @@ Will mainly contain the log of experiments that I'm doing with my body, mind hea
 	- Dysbiosis (Biofilm): Manuka honey, green tea, oregano and clove oil, D3, Curcumin (Ginger, turmeric), 
 	- Mitochondria: 
 	- Dandruff: 
+		- [DANDRUFF: An inflammatory / fungal condition you need to fix ASAP.](https://x.com/Outdoctrination/status/1934387895172993255)
 	- Strength: Back to *Surya Namaskar*, and weight training. Need to start sprinting or running once a week.
 	- Testosterone: Strength training + Zinc.
 	- Magnesium
 	- Copper
 	- D3
 	- B12
+
+15-08-2025: started taking zinc. back to regular yoga and running.
+- What I aim to solve with zinc?
+	- biofilm disruption
+	- dandruff
+	- increase testosterone
+
+01-09-2025: 
+- TIL hung curd and greek yogurt is literally translation of one another. Rugged by capitalism!!!
+	- [Probiotic potential of lactic acid bacteria present in home made curd in southern India - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC4248380/)
+	- [Probiotic curd as antibacterial agent against pathogens causing oral deformities – in vitro microbiological study - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC9926605/)
+- Next question that I want answer to: does plain water have no effect on the body and is simply discarded quickly? so all it do is put strain on the body and particularly kidneys to filter it out of the blood?
+	- If yes, what should I mix it with? normal spices (Clove, Cinnamon, Cardamom, …)
 
 
 ## Organs or Hormones

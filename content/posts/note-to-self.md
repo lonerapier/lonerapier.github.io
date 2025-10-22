@@ -33,6 +33,7 @@ Notes from life.
 - *"Mid-curve is lack of second-order thinking."*[^20]
 - *"Let each thing you do, say, or intend be like that of a dying person"* - Marcus Aurelius. You are going to be dead soon. No need to be shameful. You are already naked.[^21]
 - *"Singularity"*: Everything leads to the One. 
+- Strong opinions, weakly held.
 
 My takeaways from working on a early-stage startup:
 - Peers: Peers who push, inspire, build, and become a better version of yourself are much better than any community. Surrounding yourself with a room full of ambitious, slightly deranged people pushes you in ways you won’t even realise.

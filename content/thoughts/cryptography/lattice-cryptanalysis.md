@@ -19,8 +19,8 @@ tags:
 
 ### Function `SizeReduce(B) → B`:
 1. Compute Gram-Schmidt orthogonalization vectors: $\tilde{B} ← B$
-2. For $j = 2...n$, do:
-   - for $i = j-1...1$, do:
+2. For $j = 2…n$, do:
+   - for $i = j-1…1$, do:
    - Let $b_j' ← b_j - \lfloor\mu_{i,j}\rceil \cdot b_i$
 
 After every iteration: $B = B_0W$, where W is a uni-triangular matrix with just one non-zero off-diagonal entry at $i,j: -\mu_{i,j}$. 
@@ -38,7 +38,7 @@ To prove: LLL terminates in $\text{poly}(n,|B|)$
   c) Each iteration reduces potential by $\alpha > 1 : \sqrt{4/3}$ (actual)
   - Final time becomes $\log_{4/3}2^N = poly(n,|B|) = O(N)$
 
-**Potential Function**: $\phi(B) = \prod_{i=1}^n (d(B_i))$ where $B_i = (b_1,...,b_i)$ $\forall i\in\{1,n\}$
+**Potential Function**: $\phi(B) = \prod_{i=1}^n (d(B_i))$ where $B_i = (b_1,…,b_i)$ $\forall i\in\{1,n\}$
 
 $\hat{\phi}(B) = \prod_{i=1}^n \|\tilde{b}_i\|^{n-i+1}$
 
@@ -50,9 +50,9 @@ Each intermediate lattice has potential at least 1.
 > **Claim**: If $b_i$, $b_{i+1}$ is swapped, then the orthogonalization vector for the new basis $B'$ is such that $\tilde{b}_j' = \tilde{b}_j$ for $j\notin\{i,i+1\}$ and $\tilde{b}_i' = \mu_{i,i+1}\tilde{b}_i + \tilde{b}_{i+1}$
 
 **Proof:** 
-- because $b_j' = b_j$ for $j < i$ because these are the orthogonal components of $\text{span}(b_1,...,b_{j-1}) = \text{span}(b_1',...,b_{j-1}')$
-- for $j > i+1$, $(b_1,...,b_{j-1})$ are same with $b_i$, $b_{i+1}$ in reverse order.
-- for $i^{th}$ component $\tilde{b}_i', b_i' = b_{i+1}$ which is orthogonal to $span(b_1,...,b_{i-1}) = span(b_1...b_i)$, which is equal to $\mu_{i,i+1}\tilde{b}_i + \tilde{b}_{i+1}$
+- because $b_j' = b_j$ for $j < i$ because these are the orthogonal components of $\text{span}(b_1,…,b_{j-1}) = \text{span}(b_1',…,b_{j-1}')$
+- for $j > i+1$, $(b_1,…,b_{j-1})$ are same with $b_i$, $b_{i+1}$ in reverse order.
+- for $i^{th}$ component $\tilde{b}_i', b_i' = b_{i+1}$ which is orthogonal to $span(b_1,…,b_{i-1}) = span(b_1…b_i)$, which is equal to $\mu_{i,i+1}\tilde{b}_i + \tilde{b}_{i+1}$
 
 > **Lemma**: If $b_i$, $b_{i+1}$ is swapped, then for resulting basis $B'$: $\frac{\phi(B')}{\phi(B)} \leq \sqrt{\frac{3}{4}}$
 
@@ -105,7 +105,7 @@ $$
 3. $\det(B) = B^{d\cdot d+1/2} = N^d$. By running LLL, obtain a vector v ∈ L(B) for which
    $\|v\| \leq 2^{n-1/2} \cdot d_1(L(B)) = 2^{d/2} \cdot B^{d/2} \cdot N^{d/d+1}$ from LLL upper bound
 4. Define h(Bx) as the polynomial with coefficients given by v,
-   $h(x) = v_0 + v_1/B x + v_2/B^2 x^2 + ... + v_d/B^d x^d$
+   $h(x) = v_0 + v_1/B x + v_2/B^2 x^2 + … + v_d/B^d x^d$
 5. Note: $h(x) \in ℤ[x]$ as $v_i$ is divided by $B^i$. Question: Why?
 6. All roots of $f(x)$ are also roots of $h(x)$ by lattice construction. Why?
 7. $|h_iB^i| = |v_i| \leq \|v\| < N/\deg(h)+1$. Why?
@@ -120,7 +120,7 @@ a) root of $f \mod N$ is a root of $h \mod N^m$
 b) $h(Bx)$ is "short" i.e. $|h_iB^i| < N^m/n+1$
 
 Write a lattice with basis = coefficient of polynomial $g_{υ,ν}(Bx)$ where
-$g_{υ,ν}(x) = N^{m-ν} \cdot x^υ \cdot f(x)^ν$, $∀ υ ∈ \{0,...,d-1\}$, $ν ∈ \{0,...,m\}$
+$g_{υ,ν}(x) = N^{m-ν} \cdot x^υ \cdot f(x)^ν$, $∀ υ ∈ \{0,…,d-1\}$, $ν ∈ \{0,…,m\}$
 
 - $\deg(g_{υ,ν}) = υ + νd$ and has leading coefficient $N^{m-ν}$
 - $f(x_0) = 0 \mod N \Rightarrow g_{υ,ν}(x_0) = 0 \mod N^m$
@@ -135,7 +135,7 @@ I'll convert these handwritten notes about RSA, Coppersmith's method, and subset
 
 Define $h(8x)$ as the polynomial with coefficients given by $v$.
 
-**Theorem:** Let $N$ have bit length $n$, let $e = 3$, let $m = 2^{n/2}$ be padding length. Given two encryptions $C_1, C_2$ of message $M$, with distinct pads $k_1, k_2 \in \{0,...,m-1\}$, one can efficiently recover $M$.
+**Theorem:** Let $N$ have bit length $n$, let $e = 3$, let $m = 2^{n/2}$ be padding length. Given two encryptions $C_1, C_2$ of message $M$, with distinct pads $k_1, k_2 \in \{0,…,m-1\}$, one can efficiently recover $M$.
 
 **Proof:**
 - Let $M_1 = 2^m \cdot M + k_1$
@@ -171,14 +171,14 @@ Note: For $g_1, g_2$, consider them a polynomial $g_x$ with coefficients in $y$.
 
 # Subset-Sum Problem / Knapsack Cryptography
 
-**Subset-sum:** Given integer weights $a \in \{a_1,...,a_n\}$ and $x = \{0,1\}^n$. Given $S = \langle a,x \rangle$. Find $X$.
+**Subset-sum:** Given integer weights $a \in \{a_1,…,a_n\}$ and $x = \{0,1\}^n$. Given $S = \langle a,x \rangle$. Find $X$.
 
 - Used to encrypt message 'x' such that $S$ = ciphertext
 - To decrypt easily, a secret "trapdoor" in the weights are added that converts the unknown subset-sum to an easily solvable instance
 
 **Take:**
-- Super-increasing sequence $b = (b_1,...,b_n)$ s.t. $b_i > \sum_{j<i} b_j \forall i$
-- Choose some modulus $m > \sum b_i$, a uniformly sampled random multiplier $w \in \mathbb{Z}_m^*$ and uniformly random permutation $\pi$ on $\{1,...,n\}$
+- Super-increasing sequence $b = (b_1,…,b_n)$ s.t. $b_i > \sum_{j<i} b_j \forall i$
+- Choose some modulus $m > \sum b_i$, a uniformly sampled random multiplier $w \in \mathbb{Z}_m^*$ and uniformly random permutation $\pi$ on $\{1,…,n\}$
 - Encryption of message $x \in \{0,1\}^n$: $S = E_{nc}(0,1) = w \cdot \sum a_i x$ where $a_i = w \cdot b_{\pi(i)} \mod m$
 - Trapdoor: $(w,m,\pi)$
 - Decryption: $w^{-1}S = \sum b_{\pi(i)}x_i \mod m$
@@ -189,7 +189,7 @@ Solve subset-sum for $\sum b_{\pi(i)}x_i$ since $m > \sum a_i$ [true subset-sum]
 
 **Density of subset-sum instance:** $n/\max \log a_i$
 
-**L083:** Efficient algorithm that, given uniformly random $a = (a_1,...,a_n)$ $\in {1,...,X}$ where $X \geq 2^{n^2(1/2 + \epsilon)}$ for some $\epsilon > 0$ and $S = \langle a,x \rangle$ for some arbitrary $x \in {0,1}^n$, outputs $X$ with probability $1-2^{-n^2(\epsilon-o(1))}$ over the choice of $a_i$.
+**L083:** Efficient algorithm that, given uniformly random $a = (a_1,…,a_n)$ $\in {1,…,X}$ where $X \geq 2^{n^2(1/2 + \epsilon)}$ for some $\epsilon > 0$ and $S = \langle a,x \rangle$ for some arbitrary $x \in {0,1}^n$, outputs $X$ with probability $1-2^{-n^2(\epsilon-o(1))}$ over the choice of $a_i$.
 
 **Proof:**
 - TL;DR: Form a lattice with vectors parallel to scaled up $a_i$ vectors

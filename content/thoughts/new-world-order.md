@@ -10,6 +10,7 @@ China's progress:
 - most cited and patented papers
 - matches US on research investments and rate of increase is higher than US
 - Offered incentives to remove brain drain. More students are coming back after getting higher research experience from western universities.
+- [Chinese universities ranked above MIT, Oxford, Stanford in the new 2025 Nature Index.](https://x.com/kyleichan/status/1933367957268410725)
 - 
 
 India's progress:

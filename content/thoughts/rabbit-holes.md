@@ -15,10 +15,111 @@ tags:
 
 ## Microgrids
 
+## Generation
+- Solar PV
+- Fission
+- Fusion
+- Wind
+- Geothermal
 
 # List
-- Robotics
-	- [Ask HN: How do I learn robotics in 2025? \| Hacker News](https://news.ycombinator.com/item?id=44158353)
+- [Monte-Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method)
+	- MCMC: Markov chain
+	- MCTS: Tree search
+	- QMC: Quantum
+	- Phylogeny
+	- MCL: Localisation used in SLAM
+	- [Direct simulation Monte Carlo - Wikipedia](https://en.wikipedia.org/wiki/Direct_simulation_Monte_Carlo)
+	- [Kinetic Monte Carlo - Wikipedia](https://en.wikipedia.org/wiki/Kinetic_Monte_Carlo)
+	- [Sobol sequence - Wikipedia](https://en.wikipedia.org/wiki/Sobol_sequence): These sequences allows one to generate numbers with an even distribution than PRNGs.
+	- [Low-discrepancy sequence - Wikipedia](https://en.wikipedia.org/wiki/Low-discrepancy_sequence)
+- image sensor, ultrasound sensor
+	- [Sonair](https://www.sonair.com/)
+	- How does ultrasound sensor work?
+	- how does lidar work?
+	- why is lidar so expensive?
+	- can you make ultrasound work at the same accuracy as lidar?
+	- what pixxel is doing is creating imaging sensors to map earth for satellites? doesn't on-ground robots require same setup?
+- Actuators, motors
+	- What kind of motors are needed by current robots?
+	- what kind will be required by future robots?
+	- Will all sensors and motors be manufactured inhouse by these robot startups or exported to a manufacturer?
+	- what's the role of opensource drivers here?
+- Bioimage analysis
+	- [BioImage Analysis](https://www.biodip.de/resources/bioimage-analysis/index.html)
+	- [Introduction to Bioimage Analysis — Introduction to Bioimage Analysis](https://bioimagebook.github.io/index.html)
+	- [Bioimage Analysis Course: The Life Cycle of an Image Data Set • iBiology](https://www.ibiology.org/online-biology-courses/bioimage-analysis-course/)
+	- [Bioimage Analysis Lectures \| home](https://dwaithe.github.io/home/teaching.html)
+	- 
+- molecular dynamics to simulate interaction between atoms and molecules
+	- [A primer on molecular dynamics - by Abhishaike Mahajan](https://www.owlposting.com/p/a-primer-on-molecular-dynamics)
+	- [The-Art-of-Molecular-Dynamics-Simulation.pdf](https://lammpstube.com/wp-content/uploads/2019/09/The-Art-of-Molecular-Dynamics-Simulation.pdf)
+	- [An Introduction to Molecular Dynamics Simulations](https://portal.valencelabs.com/blogs/post/an-introduction-to-molecular-dynamics-simulations-C9nXeGJ8hbNYghL)
+	- [GitHub - openmm/openmm: OpenMM is a toolkit for molecular simulation using high performance GPU code.](https://github.com/openmm/openmm)
+	- [GitHub - lammps/lammps: Public development project of the LAMMPS MD software package](https://github.com/lammps/lammps)
+	- [GitHub - brucefan1983/Molecular-Dynamics-Simulation: Sample codes for my book on molecular dynamics simulation](https://github.com/brucefan1983/Molecular-Dynamics-Simulation)
+	- [GitHub - torchmd/torchmd: End-To-End Molecular Dynamics (MD) Engine using PyTorch](https://github.com/torchmd/torchmd?tab=readme-ov-file)
+	- [GitHub - atomistic-machine-learning/schnetpack: SchNetPack - Deep Neural Networks for Atomistic Systems](https://github.com/atomistic-machine-learning/schnetpack)
+- Do other animals dream? 
+	- If yes, about what? and what type of? and can you categorise the animals that dream in a bucket? what enable dreams? why evolution preferred it?
+	- If no, why is it specific to humans?
+- Intersection of biology and computation
+	- [Competition and Attraction Improve Model Fusion](https://x.com/SakanaAILabs/status/1959799343088857233)
+- [Synthetic biology for space exploration \| npj Microgravity](https://www.nature.com/articles/s41526-025-00488-7)
+- Space Robotics
+	- What kind of robots beyond rovers?
+	- Satellites are robots too. We'll want self-replicating self-healing machines.
+	- Robotics > Manufacturing > 3d printing > material science > software
+- Nanotechnology
+	- [Nanotechnology](https://www.zyvex.com/nano/)
+	- [About Nanotechnology - Foresight Institute](https://foresight.org/about-nanotechnology/)
+	- How feasible is it? What's the current progress? How programmable are we talking about?
+- Programmable Matter
+	- [FastCSP: Accelerated Molecular Crystal Structure Prediction with Universal Model for Atoms \| Research - AI at Meta](https://ai.meta.com/research/publications/fastcsp-accelerated-molecular-crystal-structure-prediction-with-universal-model-for-atoms/): This is what I was referring to, using AI to accelerate material science discovery.
+	- [Matbench Discovery](https://matbench-discovery.materialsproject.org/)
+	- [GitHub - instadeepai/mlip: Library for efficient training and application of Machine Learning Interatomic Potentials (MLIP)](https://github.com/instadeepai/mlip)
+	- [AI meets materials discovery - Microsoft Research](https://www.microsoft.com/en-us/research/story/ai-meets-materials-discovery/)
+	- 
+ - [What Are Virtual Cells? - by Elliot Hershberg](https://centuryofbio.com/p/virtual-cell)
+	 - [Arc Virtual Cell Challenge: A Primer](https://fleetwood.dev/posts/virtual-cell-challenge)
+	 - [The elusive virtual cell - Sri Kosuri](https://srikosuri.substack.com/p/the-elusive-virtual-cell)
+	 - [The state of research on virtual cell modeling](https://behindbioml.substack.com/p/the-state-of-research-on-virtual?r=y8mlf)
+	 - [Virtual cells](https://udara.io/science/virtual-cells)
+	 - [Behind the Data of the Virtual Cell Challenge \| Arc Institute](https://arcinstitute.org/news/behind-the-data-virtual-cell-challenge)
+- More physics simulations? Physics superintelligence?
+	- virtual cell?
+	- virtual earth?
+	- gaming environments?
+- Is human level general intelligence on real world tasks just prediction?
+	- Is dreaming one of the fundamental piece of prediction? humans creating our own world model inside our brain every night for the 1/3rd of our lives?
+	- What's supporting evidence can I find for this?
+	- [\[2309.10668\] Language Modeling Is Compression](https://arxiv.org/abs/2309.10668)
+	- [Why say lot word when few do trick? \| Liam's Blog](https://liambai.com/minimum-description-length/)
+	- [500'000€ Prize for Compressing Human Knowledge](http://prize.hutter1.net/)
+	- [OpenZL: An open source format-aware compression framework \| Hacker News](https://news.ycombinator.com/item?id=45492803)
+- Bees
+	- why does honey never go bad? how is it formed? what is its molecular composition?
+		- Low water content (20%), high sugar content (65%), low fat content, highly acidic (pH 3.9)
+		- This environment turns out to be highly hostile to microorganisms, giving honey its mindblowing "Immortal Preservation" property.
+		- complex sugars include fructose (38%), glucose (31%)
+	- Why fructose and glucose is so high in all of other complex sugars?
+		- Fructose give honey its sweetness, and it more soluble than other sugars, preventing crystallisation.
+		- Glucose is less sweeter, and responsible for granular structure of honey if kept over time, due to its crystalising property.
+	- Why is honey sweet?
+	- Why is honey so high in sugar content? 
+		- Because bees need concentrated energy to survive harsh climate conditions, and store that in minimum space.
+		- Sugars also provide immediate energy needed to collect nectar from flowers.
+		- 
+	- Why does bees live in hexagonal hives?
+		- Wax produced to create hive is extremely energy intensive. Honey and BeeWax is the product of millions of years of evolution.
+		- "Honeycomb Conjecture": Hexagons have highest area to perimeter ratio in polygons. This means you can fit maximum content inside while taking same amount of length as any other polygon.
+		- Hexagon tessellate perfectly.
+	- Lifespan of honeybees?
+	- How much does a honeybee travel in its lifetime?
+	- Does a hive have social or hierarchical structure? Or does queen command every worker bee?
+	- Can a queen change its commands, or its coded inside the DNA to protect the queen?
+	- Can a queen give birth to another queen?
+- [[robotics]]
 - [GitHub - bytedance/UI-TARS](https://github.com/bytedance/UI-TARS): I think I should go deeper into this, and try to find out if they do anything interesting, or its just a reiteration of what these Large models already do, because GPT 4o, 4.1 are really good at web interaction already.
 	- [\[2505.12370\] Enhancing Visual Grounding for GUI Agents via Self-Evolutionary Reinforcement Learning](https://arxiv.org/abs/2505.12370)
 - 3D gaussian splatting
@@ -31,6 +132,7 @@ tags:
 - fMRI: [Syllabus \| Functional Magnetic Resonance Imaging: Data Acquisition and Analysis \| Health Sciences and Technology \| MIT OpenCourseWare](https://ocw.mit.edu/courses/hst-583-functional-magnetic-resonance-imaging-data-acquisition-and-analysis-fall-2008/pages/syllabus/)
 	- How does it really work? How to interpret it? What are the results that I can infer from fMRI report? How detailed is it? Can it be more detailed?
 	- [CSE 377/591 - Introduction to Medical Imaging](https://www3.cs.stonybrook.edu/~mueller/teaching/cse377/)
+- EEG techniques: brain mappings
 - [A New Map of All the Particles and Forces \| Quanta Magazine](https://www.quantamagazine.org/a-new-map-of-the-standard-model-of-particle-physics-20201022/)
 	- [A Video Tour of the Standard Model \| Quanta Magazine](https://www.quantamagazine.org/a-video-tour-of-the-standard-model-20210716/)
 	- Quantum Field theory: [Syllabus \| Relativistic Quantum Field Theory I \| Physics \| MIT OpenCourseWare](https://ocw.mit.edu/courses/8-323-relativistic-quantum-field-theory-i-spring-2023/pages/syllabus/)
@@ -49,6 +151,8 @@ tags:
 	- [nehal's learnings \| Nehal Udyavar \| Substack](https://nehalslearnings.substack.com/)
 	- [How to understand cells, tissues and organisms as agents with agendas \| Aeon Essays](https://aeon.co/essays/how-to-understand-cells-tissues-and-organisms-as-agents-with-agendas)
 	- [The Explorer's Guide to Biology \| Free Learning Platform](https://explorebiology.org/)
+	- [Virtual cells](https://udara.io/science/virtual-cells)
+	- [https://book.bionumbers.org/](https://book.bionumbers.org/)
 - Solar Energy
 	- [Understanding Solar Energy - by Brian Potter](https://www.construction-physics.com/p/understanding-solar-energy)
 	- [PG&E Sucks or: How I Learned to Stop Worrying and Love Building my own Solar System \| by Joe Eklund \| May, 2025 \| Medium](https://medium.com/@joe_5312/pg-e-sucks-or-how-i-learned-to-stop-worrying-and-love-building-my-own-solar-system-acf0c9f03f3b)
@@ -69,5 +173,7 @@ tags:
 	- [Home \| Fusion Energy Base](https://www.fusionenergybase.com/)
 	- [What is Nuclear? – Learn about nuclear power](https://whatisnuclear.com/)
 - Brain, and its functions. How every [cortex](https://www.cell.com/neuron/fulltext/S0896-6273(19)30435-0) works, how does one relate to the other
+	- [KorrTecx - Mind](https://sites.google.com/view/korrtecx/mind?authuser=0)
+	- [\[2408.10234\] The Unbearable Slowness of Being: Why do we live at 10 bits/s?](https://arxiv.org/abs/2408.10234)
 - How dreams really work?
 

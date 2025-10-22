@@ -8,11 +8,11 @@ tags:
 Once again, this is just another of my notes aggregated from various sources. This is a very dumbed down version for just my understanding and it's my advice to follow the resources attached as they are more thorough and detailed explained by experts on the topic. I'm just a novice who is interested in learning cryptography.
 
 > *Walking side by side with death*
->
+> 
 > *The devil mocks their every step*
->
+> 
 > *The snow drives back the foot that's slow*
->
+> 
 > *The dogs of doom are howling more*
 
 Now, for the song. This time we'll listen [No Quarter](https://open.spotify.com/track/55ZL7fjGAWfClmpnsK6Xon?si=2a10756c4a094826) by Led Zeppelin. No description for this. I guess they don't need one :)
@@ -138,7 +138,7 @@ E(\mathbb{F}):\lbrace{ax^{2}+y^2=1+dx^{2}y^{2} \rbrace}
 \end{equation}
 $$
 
-There is a 1:1 correspondence between TEd curves and Mont curves. In a more cryptographic glossary, every Twisted Edwards curve is *birationally equivalent* to Montgomery curve[^2]. To convert a curve from Twisted Edwards form to montgomery form:
+There is a 1:1 correspondence between TEd curves and Mont curves. In a more cryptographic glossary, every Twisted Edwards curve is *birationally equivalent* to Montgomery curve.[^2] To convert a curve from Twisted Edwards form to montgomery form:
 
 $$
 \frac{4}{a-d}y^{2}=x^{3}+\frac{2(a+d)}{a-d}x^2+x
@@ -168,4 +168,3 @@ $$
 
 [^1]: [Pairings For Beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf) Page 14
 [^2]: [Birationally equivalent](https://crypto.stackexchange.com/questions/43013/what-does-birational-equivalence-mean-in-a-cryptographic-context) just means that a map exists between two objects and is invertible.
-[^3]: Check Fermat's Little theorem.

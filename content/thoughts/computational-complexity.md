@@ -55,7 +55,7 @@ info --> ct
 - $\symcal{O}$: Use $f=\symcal{O}(g)$, where there exists $c>0$ such that $f(n)\leq c\cdot g(n)$
 - $\Upomega$: $f=\Upomega(g) \implies g=\symcal{O}(f)$
 - $\Theta$: $f=\Theta(g) \implies g=\symcal{f}\ \text{and}\ f=\symcal{O}(g)$
-- $o,\omega$
+- $o,\omega$: there exists $\epsilon > 0$ such that $f(n) < \epsilon\cdot g(n) \implies \lim_{ n \to \infty }\frac{f}{g}=0$ 
 
 ## Chapter 1
 

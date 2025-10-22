@@ -692,6 +692,66 @@ let a = || {
 
 ### [[rust-multithreading|Interior mutability]]
 ### [[rust-multithreading|async]]
+### ffi
+- `extern` blocks: mark functions or statics as external items not defined in the current crate.
+```rust
+use libc::size_t;
+
+// "C" represents ABI of the external library
+// can be following values:
+// - "Rust"
+// - "C"
+// - "system": windows API
+unsafe extern "C" {
+	// variadic function: allows any number of variables
+	unsafe fn foo(size: size_t, ...); 
+	unsafe fn bar(x: i32, ...); 
+	unsafe fn with_name(format: *const u8, args: ...); 
+	// SAFETY: This function guarantees it will not access 
+	// variadic arguments. 
+	safe fn ignores_variadic_arguments(x: i32, ...); 
+}
+```
+
+- `#[repr()]`: representation of a struct in memory depending on the alignment and packing.
+	- values allowed: `C, Rust, transparent`
+	- functions: `align(), packed()`
+	- difference between the three reprs?
+	- is repr preemptive, i.e. if an outer struct is repr C, then will an inner Rust repr struct be changed to C repr or will it retain its own representation?
+		- It retains the original representation.
+```rust
+#[repr(C, align(8))]
+struct Complex {
+	re: i32
+	im: i32
+	sign: bool
+}
+
+// default repr: Rust
+struct Quaternions {
+	a: i32
+	b: i32
+	c: i32
+	d: i32
+}
+
+#[repr(C)]
+enum VectorSpace {
+	R(Real),
+	C(Complex),
+	Q(Quaternions),
+}
+```
+
+- `#[no_mangle]`
+- `#[link(name = "library_name", kind = "static|dylib|framework", modifiers = "+whole-archive,-xyz")]`: tells compiler to link to which native library
+	- How does the compiler know where to find the library?
+	- how can i link to custom library?
+- bindgen: generating rust bindings for c/cpp libraries, i.e. rust -> c/cpp 
+- cbindgen: generating c header files for rust libraries, i.e. c -> rust
+- cxx: 
+- [FFI - The Rustonomicon](https://doc.rust-lang.org/nomicon/ffi.html)
+
 ## Advanced Topics
 ### Allocation
 ### Memory Layout
@@ -706,6 +766,12 @@ let a = || {
 - [rust custom allocators](https://nical.github.io/posts/rust-custom-allocators.html)
 - [tsoding malloc impl](https://www.youtube.com/watch?v=sZ8GJ1TiMdk)
 
+#### Things that i'm missing with Rust
+- raw pointers
+- Box, Rc, Arc, Mutex, Cell, Refcell, Borrow, Cow, 
+- Async rust: Future, 
+- How ownership is being handled? where copy and clones are happening? how can i use more pointers? 
+
 ## Unstable features
 ### Specialisation
 Extends rust trait's functionality to have overloading like feature using [specialisations](https://rust-lang.github.io/rfcs/1210-impl-specialization.html).
@@ -715,38 +781,18 @@ Extends rust trait's functionality to have overloading like feature using [speci
 
 
 ## std crates
-
-#### [std](https://doc.rust-lang.org/nightly/std/index.html)
-
-#### [arch](https://doc.rust-lang.org/nightly/core/arch/index.html)
-
-#### [alloc](https://doc.rust-lang.org/nightly/alloc/index.html)
+- [std](https://doc.rust-lang.org/nightly/std/index.html)
+- [arch](https://doc.rust-lang.org/nightly/core/arch/index.html)
+- [alloc](https://doc.rust-lang.org/nightly/alloc/index.html)
 
 
 ## Crates
-
-### [Proptest](https://proptest-rs.github.io/proptest/proptest/getting-started.html)
-
-introduces property testing, a framework to determine failing inputs for certain properties of the system. can be used substitute for fuzzing + UTs.
-
-### [serde](https://serde.rs/)
-- Inspiration to build 
-### [reqwest](https://docs.rs/reqwest/latest/reqwest/)
-
-### [hyper](https://hyper.rs/guides/1/)
-
-### [rayon](https://docs.rs/rayon/latest/rayon/)
-
-### [anyhow](https://docs.rs/anyhow/latest/anyhow/)
-
-### [clap](https://docs.rs/clap/latest/clap/)
-
-### [tracing](https://docs.rs/tracing/latest/tracing/)
-
-### [criterion](https://docs.rs/criterion/latest/criterion/)
-
-### [cargo fuzz](https://rust-fuzz.github.io/book/cargo-fuzz.html)
-
+- [cargo fuzz](https://rust-fuzz.github.io/book/cargo-fuzz.html)
+- pyo3
+- polars
+- riverml
+- tokenizers
+- 
 
 ## Resources
 
@@ -759,6 +805,7 @@ introduces property testing, a framework to determine failing inputs for certain
 	- test features, not code
 	- "What is the purpose of review?", author should lay out what it want from the reviewer.
 	- 
+- [\_02\_\_reference\_types in dtolnay - Rust](https://docs.rs/dtolnay/latest/dtolnay/macro._02__reference_types.html)
 
 ### Interesting Questions
 - [reborrowing of mutable references](https://stackoverflow.com/questions/65474162/reborrowing-of-mutable-reference)

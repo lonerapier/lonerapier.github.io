@@ -79,7 +79,6 @@ montgomery curves
 - hash to curve
 - constant time operations
 - pairings
--
 
 ### resources
 
@@ -102,4 +101,3 @@ montgomery curves
 - [Selecting Elliptic Curves for Cryptography: An Efficiency and Security Analysis](https://eprint.iacr.org/2014/130)
 - [Faster addition and doubling on elliptic curves](https://eprint.iacr.org/2007/286)
 - [Montgomery curves and the Montgomery ladder](https://eprint.iacr.org/2017/293)
--

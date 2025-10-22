@@ -8,20 +8,259 @@ tags:
 Other links:
 - [[technical-links]]
 
+## Oct '25
+- ["Too much Tacit Knowledge", Keoni Gandall](https://keonigandall.com/posts/too_much_tacit.html)
+	- [Synbio25 - A man thinks about building biology: Chapter 3](https://synbio25.com/#chapter3): Extended version of above post.
+	- Need for protocol standardisation is eerily needed in biological experiments.
+	- Reproducible experiments opens the pathway for abstractions, and open scientific access.
+	- This is completely opposite of what happens in computer science or cryptography, where every result can be independently verified by anybody.
+	- What are the experiments that are already standardised? and what are the ones that need to be?
+	- Being a beginner in biology, does that mean the scientific papers are required to provide sufficient experimental evidence and steps to reproduce the result?
+	- What were the defining moments that made software reproducible and verifiable? Git, compilers, cryptography, virtualization.
+- ["Hilbert's Power"](https://fi-le.net/hilbert), [The Fiefdom of Files](https://fi-le.net/): It's wild to understand how each of hilbert's list of [unsolved problems](https://www.simonsfoundation.org/2020/05/06/hilberts-problems-23-and-math/) led to a different branch of mathematics. It's equivalent of *nerdsnipes* of today. 
+	- [*Entscheidungsproblem*](https://en.wikipedia.org/wiki/Entscheidungsproblem) led to turing discovering lambda calculus, and computation which underpins the computer science of today.
+	- Hilbert's second problems led Gödel to his [[undecidability|Incompleteness]] theorems.
+- ["Why Today’s Humanoids Won’t Learn Dexterity", Rodney Brooks](https://rodneybrooks.com/why-todays-humanoids-wont-learn-dexterity/)
+	- TODO write takeaways.
+- [OpenZL: An open source format-aware compression framework \| Hacker News](https://news.ycombinator.com/item?id=45492803)
+	- [How lossless compression works](https://alvinwan.com/how-lossless-compression-works/)
+	- Archivers vs compressors
+		- Archive: tar, rar, 7z, iso, dmg. Bundle packages together along with metadata into single file, often used alongside compressors to compress redundancy.
+		- Compressors: bzip2, gzip, zstd. Remove redundant data from a file to reduce storage size.
+	- Compression:
+		- Lossy: JPEG, WebP, AVIF, MPEG, H264, AAC, log compression, downsampling, model quantization
+		- Lossless: encoder/decoders, statistical, dictionary, run-length, predictive, BWT (Burrows-Wheeler Transform), delta, Huffman. Used in zstd, zip, FLAC, 
+	- Lossless compression encoders
+		- RLE: Run-length encoding. Compresses "HELLO HELLO HELLO" to "HELLO 3".
+		- Length-distance pair: store reference to previous values. "HELLOMISTERGOBACK HELLOMISTER GOBACK MISTER" becomes "HELLOMISTERGOBACK B18R11 B19R6 B32R6", reduces 46 bytes to 26 bytes.
+			- LZ77
+		- Sliding window: in order to reduce memory explosion, encodings are usually performed over a fixed sliding window to find encoding patterns.
+- [rsrch space](https://rsrch.space/): Cool list of computer science related links.
+- [Import AI 431: Technological Optimism and Appropriate Fear](https://importai.substack.com/p/import-ai-431-technological-optimism)
+- 
+
+## Sep '25
+- TIL, greek yogurt's translation is hung curd. Note to self, question everything.
+	- [Probiotic potential of lactic acid bacteria present in home made curd in southern India - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC4248380/)
+	- [Probiotic curd as antibacterial agent against pathogens causing oral deformities – in vitro microbiological study - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC9926605/)
+- ["Using spaced repetition systems to see through a piece of mathematics", Michael Nielsen](https://cognitivemedium.com/srs-mathematics): I'm still a complete beginner in [[reintroduction|mathematics]] but this is one piece of advice that I want to apply with my mathematical learning: Obsessing over a problem to the point that the representation escapes the physical or abstract boundaries of the mind, and you begin to understand the question in an even deeper manner.
+	- My thought process after I see any problem right now is almost similar to the one described in this [3b1b video](https://youtu.be/4NlrfOl0l8U?si=ZXXODp08d23jqmyP). Through theory you've learnt some facts, through past problems you begin to form algebraic reasoning, and auxiliary connections that help you form the arbitrary mathematical structures needed to solve that problem.
+		- Although I struggle with the third step a lot. Often times leaving the proof midway due to lack of second-order thinking.
+	- But there's so many ways of enhancing your experience with problems that I haven't even started exploring.
+	- Questions that I'm not asking, multiple ways of expressing the problem and its solution, generalising the theorem even more.
+	- Pre-written problems and textbooks and courses equip you with tools, but open-ended exploration is still needed to create those abstractions and new connections.
+	- Learning mathematics imho teaches you to ask the right questions, questions that scratches your creativity with abstract concepts, questions that beget insights, insights that promise to take you the end, but instead abandons you at another unknown. Many of these lead to nowhere, or are just incomplete, or are plain incorrect. But that's part of what makes learning maths beautiful. 
+- ["The Multidisciplinary Approach to Thinking", Peter Kaufman](https://fs.blog/great-talks/multidisciplinary-approach-thinking-peter-kaufman/)
+	- Trying to combine a new field with something that you're expert at, is the easiest way to understand any new hard thing.
+	- You're going to ask question no one is asking, and seeing through a lens only a little few has access to.
+	- 
+- [From cleaning bathrooms to raising $3.1M for a cancer prevention startup](https://www.communitymorgue.com/p/from-cleaning-bathrooms-to-raising)
+- [500'000€ Prize for Compressing Human Knowledge](http://prize.hutter1.net/): prize for compressing 1GB file. current record 120MB,
+- [I should have loved Biology, James Somers](https://jsomers.net/i-should-have-loved-biology/)
+	- How do you freeze a cell? what's the temperature at which the function of the cell stops? How does it stop? Does it pause, and can it be resumed? If it can be resumed, does it restart or continue where it froze?
+	- RNA sequencing?
+- [Francis Crick Was Misunderstood - Asimov Press](https://www.asimov.press/p/crick)
+	- What's the example of DNA -> protein?
+	- What's the example of reverse transcriptase, i.e. RNA -> DNA?
+	- Prion diseases? what are they, and how does information flow out of protein?
+	- how does methylation work?
+	- somatic cells?
+- [What does AI progress mean for medical progress?](https://blog.jacobtrefethen.com/ai-progress-medical-progress/)
+	- we'll soon understand human biology 
+- [OneZoom Tree of Life Explorer](https://www.onezoom.org/): What an awesome resource to sneak peek into the wonderful circus that the life on earth is.
+- [All Roads Lead to Rome: The Machine Learning Job Market in 2022 \| Eric Jang](https://evjang.com/2022/04/25/rome.html)
+	- Some timeless advice in there.
+	- Current technological shift is beyond what we've seen in our lifetime, and will generate gains for humanity far more than what we could've imagined a decade back.
+	- As an individual, you really have to ask the question, what do I want to spend the most productive years on? But with one thought at the back of your mind, that probing a problem deeper and deeper more or less leads to the same destination.
+	- Is it tackling a current customer problem, or researching a completely new way of designing recursively self-improving probabilistic stochastic models?
+	- Is it going to be working in mathematics, biology, robotics, high-precision manufacturing, material science, physics, space, cryptography?
+	- Do a thought experiment, and pick any of the above field, and with a little pondering, you'll find yourself combining all of the above tools to solve humanity's biggest problems.
+	- Our future is going to be increasingly multidisciplinary. We already have found ways to program most of our environment.
+	- Question on my mind right now, Is doing a PhD the right move? If i do want to complete a PhD, what problems am I most excited about?
+	- Prerequisites: Undergrad level maths, AI/ML, high-performance computing.
+		- These three have become the bare-minimum you expect from anyone who's showing willingness of contribution to your project.
+	- What I'm good at: Backend, Cryptography/Security.
+
+## Aug '25
+- [MIT's](http://www.mit.edu/) [Center for Bits and Atoms](https://cba.mit.edu/classes/index.html): What a treasure trove of knowledge. Wow.
+- [Historical Tech Tree](https://www.historicaltechtree.com/): Who even think of creating such an amazing thing. I can't stop reading it. Endless rabbit hole to understand how humanity has progressed since the dawn of time.
+	- [Learning to learn from inventions: electrophoresis, PCR, Sanger sequencing — lada nuzhna](https://www.ladanuzhna.xyz/writing/inventing-biology): On similar note as above page, but goes deep into Biology inventions.
+- [Feynman's Talk](https://www.zyvex.com/nanotech/feynman.html): Arguably his most controversial, but practically useful talk. I can't imagine how visionary these guys must be to predict the details of a technology a century before it's existence.
+- [Robotics Levels of Autonomy – SemiAnalysis](https://semianalysis.com/2025/07/30/robotics-levels-of-autonomy/): Good, maybe incomplete, survey of levels of robotic autonomy that's useful across different tasks in the actual world.
+	- L0: Industrial revolution, gears, actuators, sensors, machines operated by Humans.
+	- L1: Scripted programmable highly accurate machines without human oversight.
+	- L2: Intelligent, less agentic, weakly generalizable, manipulative machines.
+	- L3: Intelligent, agentic, scene understanding and planning, agile machines. Basically machines that can do human level work cheap.
+	- L4: Fast, agile, cheap, intelligent, machines that can do beyond human level work at a fraction (say 1/10 or even 1/100th) of cost.
+	- L5: self-evolving, healing, machines.
+	- Interesting points:
+		- Most L2 currently uses AprilTags, QR codes, visual cues across the environment to guide the robot.
+		- What's SOTA in scene analysis and understanding currently?
+		- Foundational models (multimodal capabilities) unlocked L2 and L3's path to production. What's current challenges?
+			- AllenAi's MolmoAct, Deepmind's [], Nvidia [], 
+		- Simulators like Nvidia Issac Sim is an interesting way to train foundational models and generate synthetic training data.
+	- What's the bottleneck to gain 10x speed? Some tasks (like cooking) are limited by time, but we're still seeing more than 20x difference in expert human and robot timings for task completion. Is it hardware, software, training data, physics?
+	- What are the hardware boosts needed to make efficiency 10x better? Can we design more efficient Cameras, Sensors, LiDAR, Batteries, Actuators?
+
+## Jul '25
+- [There Are No New Ideas in AI… Only New Datasets](https://blog.jxmo.io/p/there-are-no-new-ideas-in-ai-only)
+	- **"DNN -> Transformer -> RLHF -> Reasoning"**
+	- Is [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) really true for all kind of AI based architecture? Is scaling and massive computation all we need to unlock new general solutions from these models?
+	- Can you create a BERT-like model by using something other than a transformer?
+	- Is it mostly data problem, where new solutions can only be found when we have ample data points about a problem, like simulating a virtual cell?
+	- Is video learning through youtube the next big thing in robotics?  
+- [Superintelligence from first principles - Jack Morris](https://blog.jxmo.io/p/superintelligence-from-first-principles)
+	- AI playing Games
+	- AGI is performing any human tasks accurately.
+	- pre-ASI is predicting a human's thought and action perfectly.
+- [How to Fix Your Context \| Drew Breunig](https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html): Excellent post on "Context Engineering" that is more useful than anything these days.
+- [Methane Pollution Has Cheap, Effective Solutions That Aren’t Being Used \| WIRED](https://www.wired.com/story/cheap-and-effective-ways-to-cut-methane-pollution-arent-being-used/)
+- [N-Back Test - Free Online Working Memory Training \| N-Back.net](https://n-back.net/): Who doesn't love short fun games
+	- 1-back: 100%
+	- 2-back: 95%
+	- 3-back: 80% 
+	- dual-N-back: 50%
+- ["our universe is pretty rare in configuration space", rpoo](https://x.com/rpoo/status/1941359358258053411)
+	- [An anthropic universe? - BRETT HALL](https://www.bretthall.org/an-anthropic-universe.html)
+	- TODO: get answer on why certain constants have that particular value? Till what point are they configurable? I think this is the answer to identifying where to look for life?
+	- Is earth really the only place in whole universe to sustain life? Are we this early? or there were civilizations before us, and were just wiped out? or will there be a chance of civilization after us? Are we the creators of that civilization?
+	- Even more interesting question is the existence of many universes with different configuration?
+- ["Welcome to the Era of Experience", David Silver, Richard S. Sutton](https://storage.googleapis.com/deepmind-media/Era-of-Experience%20/The%20Era%20of%20Experience%20Paper.pdf)
+	- Video edition: [The Era of Experience & The Age of Design: Richard S. Sutton, Upper Bound 2025 - YouTube](https://www.youtube.com/watch?v=FLOL2f4iHKA)
+	- [The Era of Exploration \| Yiding's blog](https://yidingjiang.github.io/blog/post/exploration/)
+	- LLMs as next token predictors are no different than man's ultimate magical creation. They're nowhere close to humans. Human memory consists of patches of "experiences" that associates with multitudes of emotions.
+	- Will an artificial superintelligent model need to mimic human intelligence? Is massive compute + human brain architecture the answer to unlocking intelligence too cheap to meter?
+	- If all meaningful data is "exhausted" for these gluttonous models, does real world physics become the next milestone?
+	- Human experience in a nutshell depends upon generalisation. Both quality and quantity of experiences leads to better generalisation capability of the mind.
+		- Where does the generalisation capability of mind originate from?
+		- Is generalisation just another form of encoding and compressing memories into a long series of to-be connected dots?
+	- RL is a good approximation of exploration + reinforce analogy.
+		- MoE models (almost all reasoning models: Gemini 2.5, OpenAI o3, Claude Sonnet 4) all are RL post-trained to sound more human-like.
+		- Pre-training consists of making the model fat by giving it all high-quality data present in our world and training it on next-word prediction on the series of the tokes it's being trained on.
+	- Agent's intelligence index depends directly on generating "high-quality" trajectories, i.e. small trajectories, one of which contains the correct answer to the problem. This is the "Exploration" phase of agent's reasoning.
+		- Exploration depends directly on knowledge. That's why the pretraining phase is important, and eventually leads to small model distillation.
+		- But then pretraining also becomes the limitation on what model can think. Lower bound on the number of episodes possible at any given state is directly proportional to current state (which can be every possible text prefix) to next action (which can also be every possible text suffix).
+	- How RL is done right now? It's actually a constrained version of Supervised Learning.
+		- In Supervised learning, agent is given the answer in a boolean in one-shot. But in RL, agent has to find its way towards the current answer navigating the environment it's in, with very limited external stimulus.
+		- Agent is trained on various environments that have verifiable reward to nudge the model towards the correct answer. But availability of having such an environment in real world tasks becomes a constraint on model's extrapolation capability.
+	- Where RL is constrained on current strategies?
+		- Benchmark that's most important is testing whether model's generalisation works on entirely novel environments.
+		- "The way we do exploration with LLMs today is fairly simple, typically limited to sampling from the model’s autoregressive distribution with tweaks to temperature or entropy bonus".
+			- TODO: didn't understand this.
+	- How to scale exploration?
+		- World sampling: Agent decides where to go and start learning.
+			- This becomes the "data problem". Designing appropriate environments (math puzzle, games, coding problem) to train the model on, and then giving a new problem in the same environment to test agent's learning.
+			- Path to exploration lies directly in choosing what environment can give maximal learning transfer to the agent without sacrificing precious compute.
+		- Path sampling: Agent deciding what and how to learn once its at correct world. This means what trajectories to use for collecting maximally efficient data depending on the problem and the environment. This can include: curiosity driven policies, random walks, fudgy search, tree search, tool-use.
+			- So, Path sampling essentially is an algorithmic problem. Giving the agent capabilities to understand and distill a problem and it's environment.
+			- It's relatively straightforward on tasks that we already know how to solve, but for environments that are completely novel to humans are the true test for coming set of models. I agree that end goal of path sampling is to output a computationally efficient approximation of the problem, what tools will the agent need to get the end, is not entirely clear.
+		- Supervised to Reinforcement learning travels on this trade-off line between world sampling to path sampling.
+		- But RL is much more time consuming because information bits per flop is much less. A random trajectory will contain almost invaluable useful information, and results in wasting precious flops. So, the tradeoff becomes choosing between sampling more worlds to explore, or spending flops in *thinking* about how to sample next trajectory.
+	- Conclusion: Current set of LLMs are very good, like superhumanly good at navigating a search based task. A necessary objective of a superintelligence is to derive novel science, and that includes designing maximum transfer learning worlds and maximally efficient (useful information per flop) paths.
+- ["How do people get new ideas",  Isaac Asimov](https://www.technologyreview.com/2014/10/20/169899/isaac-asimov-asks-how-do-people-get-new-ideas/): Unconventional thinking, meeting similar minds, accepting foolishness, creating more, reading more.
+- [Asymmetry of verification and verifier’s law — Jason Wei](https://www.jasonwei.net/blog/asymmetry-of-verification-and-verifiers-law)
+	- [Verifiability is the Limit](https://alperenkeles.com/posts/verifiability-is-the-limit/)
+	- Agents will be bottlenecked by their environments verifiability.
+	- GUI, Coding, Physical tasks are top of the chart on verifiable tasks, while Art, Literature isn't.
+	- It's really hard to determine 
+- ["The “Energularity”, José Luis Cordeiro](https://cesd.az/new/wp-content/uploads/2013/05/CordeiroEnergularity2013_Paper.pdf)
+- [LLM Engineer's Almanac - Advisor \| Modal](https://modal.com/llm-almanac/advisor)
+	- How to benchmark different open source LLM engines to run open source LLMs on "light-speed".
+- ["Reward is enough", David Silver, Satinder Singh, Doina Precup, Richard S. Sutton](https://www.sciencedirect.com/science/article/pii/S0004370221000862?via%3Dihub#:~:text=https%3A//doi.org/10.1016/j.artint.2021.103535)
+	- 
+- [How to scale RL to 10^26 FLOPs - by Jack Morris](https://blog.jxmo.io/p/how-to-scale-rl-to-1026-flops): Jack's essays lays out the recent ideas in AI perfectly. Highly recommended read to anyone trying to understand what's going on.
+	- 
+- [Superintelligence from first principles - by Jack Morris](https://blog.jxmo.io/p/superintelligence-from-first-principles)
+	- Will the underlying architecture use transformers?
+	- Is the reward function going to be optimised using RL? is it going to be self-supervised learning?
+	- Is it going to be trained on text or multimodal?
+	- 
+
 ## Jun '25
 - ["The Grugbrained CEO", Sam Rodriques](https://www.sam-rodriques.com/post/the-grugbrained-ceo)
 - [Prakash Lab](https://prakashlab.stanford.edu/): This is a completely different and probably more humane proposition to academia that I actually like and prefer. Enabling and inspiring people all over the world with affordable tools with puzzles to solve. Real world example of curiosity driven science.
 	- [How Paradoxical Questions and Simple Wonder Lead to Great Science \| Quanta Magazine](https://www.quantamagazine.org/how-paradoxical-questions-and-simple-wonder-lead-to-great-science-20250528/)
 	- [Recreational Biology: Topological Puzzles at Cellular Scales - Manu Prakash - YouTube](https://www.youtube.com/watch?v=9k1AUuKoy3w)
 - [Spatial technologies of the future - by Zack Chiang](https://cellularalchemy.substack.com/p/spatial-technologies-of-the-future)
+	- understand how microscope evolved over the course of history.
+	- Map and Sequence.
+	- Mapping (Microscopy) allows to visualise the intricacies of a complex environment. Accurate position of subcomponents of the structure. Maps enable eyes to see what's happening inside.
+	- Sequencing allows to understand the relationship between different components of the structure. How everything relates to each other, what complex processes defines the environment, what functions are encoded inside the sequence that enables the organism's function as a whole.
+	- DNA genome sequencing went from $2.5B in its first attempt to under $500 in 2024, and will continue to go even under $100. That means, anyone can listen to life's harmony in real time.
+	- Deep Learning is the technique that has led the astronomical explosion of discoveries, and novel ideas in microscopy (to analyze more and more images), and sequencing (to validate our hypothesis about cells, and its multitude of modalities).
+	- *"Cellular Cartography"* is a new work coined to combine both microscopy and sequencing to better understand the information provided by both the tools.
+	- Cell sequencing:
+		- Extract and amplify the DNA
+		- load the amplified DNA onto a flowcell (surface containing billions of evenly-spaced nanowells)
+		- Flowcell goes into a sequencer, that performs successive rounds of four color imaging.
+		- Each color corresponds to DNA molecule (ACGT)
+		- Inversion problem: Sequencing is actually *simplified microscopy*.
+	- TODO
 - [Why I have slightly longer timelines than some of my guests](https://www.dwarkesh.com/p/timelines-june-2025), [AGI Is Not Multimodal](https://thegradient.pub/agi-is-not-multimodal/): I agree with a lot of what's said here:
 	- "the fundamental problem is that LLMs don’t get better over time the way a human would.": Have been feeling this firsthand while trying to work with browser-use. Currently the only way to make an agent learn on-the-fly is to engineer prompts really carefully. Humans don't need that.
 	- Scaling laws are kinda dead.
 		- Current Llama maverick runs on 400B parameters that probably need 1000s of GPUs to work. All smaller models (~5-20B) models serves as MoE, but never at the scale of large models.
 	- Seeing a baby learn is so much refreshing than huge training data used to train these models. We need a different architecture to be anywhere close to AGI. Agents will be useful, but never will be truly agentic with current approach.
 	    - This is a good read: [https://arxiv.org/abs/2505.22954](https://arxiv.org/abs/2505.22954)
-	- Taking a step back: task become to segment and distill the environment for the agent to efficiently encode the environment for agent's understanding. Mapping and sequencing agent's environment before waiting for it to take action.
+	- Taking a step back: task becomes to segment and distill the environment for the agent to efficiently encode the environment for agent's understanding. Mapping and sequencing agent's environment before waiting for it to take action.
 	- Memory: Ability to forge new memories from the ever-changing environment, unlearn useless ones. ChatGPT memory feels like a step in that direction, but it's way way far away from actual human episodic + long-term memory.
+- [A Quest for a Cure: AI Drug Design with Isomorphic Labs - YouTube](https://www.youtube.com/watch?v=XpIMuCeEtSk)
+	- Medicinal clinical trials need complete overhaul due to complete explosion that's happening in drug design phase.
+	- This opens up the possibility of whether it's possible to simulate a human or maybe a bit more tractable problem, to simulate a smaller animal's complete system to test what effects will a drug have.
+	- Things needed to understand: how a disease works, how designed molecules work, and affect toxicity inside us.
+	- [Virtual cells](https://udara.io/science/virtual-cells)
+		- [Virtual Cell Atlas \| Arc Institute](https://arcinstitute.org/tools/virtualcellatlas)
+		- [Arc Institute’s first virtual cell model: <span style="font-variant: small-caps">S<span style="font-weight: bolder">tate</span></span> \| Arc Institute](https://arcinstitute.org/news/virtual-cell-model-state)
+		- [Virtual Cell Challenge](https://virtualcellchallenge.org/)
+		- [What Are Virtual Cells? - by Elliot Hershberg](https://centuryofbio.com/p/virtual-cell)
+	- What is a disease? Diseases are basically "rogue" proteins inside a cell, and each protein has a function that it performs inside that cell. If there's a bug in that function, it will start affecting other parts of the cell, and when that cell multiplies, starts growing to the scale of the human body. This is basically what cancer is.
+	- How drug works? Let's go to the molecular level. Drugs are these little wrenches that gets injected into the body at the diseased site, and just flip those switches inside the protein that made it rogue. Eventually, the cells stop reproducing, and antibodies kill the bad cells.
+	- Why AI is such a good fit for biochemistry to design these drugs? **The Protein Database** consists of all the protein discovered till date, so it's a perfect fit for *supervised learning* ML models. But it's only thousands big, while these LLMs require millions of samples before overfitting. New models requiring much less training data to generalise the problem, then need to be developed for this problem.
+	- Alphafold3 works both ways. It can test a scientist's hypothesis about a protein, i.e. take that protein, fold it so that it can be perfectly fit into the little crevice into the cell LEGO, and test if it binds to that site, and then iterate on top of it. What's even more mindblowing is, It can also take your question, your hypothesis about a drug, and go generate 5 proteins for you that can be the target binding proteins for that site.
+	- I can't help but ask this question: **"Can we design diseases?"**. There might be million more diseases that we haven't even found, not just for humans but for the entire nature itself.
+	- Is the drug design explosion happening for other species? If yes, who is doing it and how? If not, why?
+	- What's happening at biochemistry, drug design, is trying to sample whole of protein space, which is a huge undertaking. What's also needed is our ability to design, test, develop, manufacture drugs in days and not months to fight Cov19 like diseases in future.
+- [How we built our multi-agent research system \\ Anthropic](https://www.anthropic.com/engineering/built-multi-agent-research-system)
+	- Classic architecture of master + worker agents doing work parallelly across different tasks identified and planned by the main agent.
+		- worker agents is assigned a singular task, and returns back with the results, that is accumulated, cleaned and embellished by the master.
+	- How did they enforce idempotency for single-purpose agents? Is main research agent responsible for tracking that new agents don't duplicate work?
+		- Answer lies in concise and accurate prompts. Lead agent has to come up with an initial plan that indicates what subagents will it create, and what each subagent will do. This reduces the duplication of work to some extent.
+	- Can an agent modify its own environment? Can it create new tools or combine existing ones for getting the information?
+	- Summary
+		- Prompts very important.
+		- Multi-agent architecture outperforms single agent architecture on every benchmark and metric.
+		- Orchestrator agent must assess a task's validity, complexity, and importance before delegating the tasks to subagents.
+		- Agent's tool has to be defined precisely, and detailed. It should also be able to scrutinise its own usage of tools, and improve from past memory.
+		- Teach agent to use its tools, rather than setting rigid rules for the agent to follow.
+		- Evaluate early. Test prompts extensively, and look at strategies creating large impacts.
+		- Unstructured tasks is better evaluated by the same agent that's executing the tasks. LLM-as-a-judge is suited for this task.
+		- Work with checkpoint state rather than evaluating and validating each step.
+		- Subagent output to a filesystem, or some other persistent storage for inter-agent communication with the main agent.
+- [Resources for starting an FRO - by Alex Shintaro Araki](https://thenewfrontier.substack.com/p/resources-for-starting-an-fro)
+- [Bengaluru is fated to run out of water. When will the crisis hit? \| Good Food Movement](https://gfm.akshayakalpa.org/read/feature-article/bengaluru-is-fated-to-run-out-of-water-when-will-the-crisis-hit)
+	- Waste management, Urban green spaces, Water management is what's needed at the earliest, but sadly, no one cares enough to even try.
+	- [Living in the most polluted city in the world](https://india.mongabay.com/2025/05/living-in-the-most-polluted-city-in-the-world/): Accounts of waste water being dumped into a living breathing river, crops getting blackened, livestock suffering due to industrial factories, beer manufacturing plants in a border town of Assam and Meghalaya.
+- [Is there a Half-Life for the Success Rates of AI Agents? — Toby Ord](https://www.tobyord.com/writing/half-life)
+	- Currently agent's success is measured by its ability to complete a task. A 60% success rate means out of 100 agents spawned to perform the task, 60 were able to reach the end of it.
+	- Instead, can we track agent's success as a survival rate where there's a constant hazard rate associated to it, i.e. the probability of an agent failing at next step, considering it reached current step is constant.
+		- This indicates that the survival rate of an agent falls exponentially as it progresses through the task.
+	- A 50% success rate is measured as half-life of the agent.
+	- Why should there be a constant hazard rate? Any task has certain success and failure indicators that signify when the task is determined to fail. These indicators increase with the length of the task at hand for the agent.
+	- IMO it's not helpful in any way to characterise an agent's success probability in this way. It does help to predict time horizons for an 80% task, and differentiate between 50%-80% tasks.
+	- Half-life of a radio isotope remains constant because its decay is independent of what has happened till now, and that's primarily because drastic change in the environment is rare. Agent's success rate depends upon many other factors (complexity, environment, context, task clarity).
+- [The Industrial Explosion \| Forethought](https://www.forethought.org/research/the-industrial-explosion)
+	- The problem that I have with all of these estimates is that they never account for a complete ecosystem bottlenecks.
+	- For example, the research here says that 
+		> [!quote] We’re uncertain about how large these uplifts might be, but it looks like – combining the gains from more productive individual workers, more productive firms, and more total human workers – the overall increase in physical output here might be about 10X.
+		- This paragraph has more *maybe*, *might*, *uncertainty* than my own future.
+		- How does the raw material gets sourced for this "Industrial explosion"?
+		- How does our energy demand change with robots self-replicating *every few hours* and working throughout the day?
+		- Humanoid robots represent supply side of the chain, where will the demand come from? We will automate all factory and production work with automated robots, but that doesn't mean we'll start consuming more, or living in more houses, or travelling more, or buying more gadgets. If humanity is tasked itself as the ultimate consumer, there has to be some limit where more consumption leads to deterioration of QoL.
+		- This line of thinking should also include what's needed from the society, which is where the demand comes from. Climate action, electrification, circular economy, extra-terrestrial life support, Biological equipment.
+	- Things I agree with:
+		- Cost of Cognitive task labour will start to go down exponentially as AI continue to automate workflows across enterprises and consumer.
+		- Physical labour will see a short-lived increase in demand due to it being a bottleneck until we reach humanoid robots capable of self-replication, and performing real-world tasks at human level.
+		- At some point, current physical infrastructure will start becoming bottlenecks for the humanoid robots, and we'll design optimised equipment that relax human capabilities.
 
 ## May '25
 - [Uses This / Interviews](https://usesthis.com/): Nice interviews of people from different professions about what their current tools are.
@@ -41,6 +280,7 @@ Other links:
 	- Generates $12B in revenue, and $2B in free cash flow in 2024-25 alone.
 	- "Ultimately, it aims to fly more than 40,000 satellites."
 	- "Amazon will need to spend between $16B and $20B to build Kuiper, Quilty estimates.". That's really expensive for any developing nation to bootstrap. A nation like India that spends ~1B in its entire space program will never even think of such an effort.
+	- [ARK’s Expected Value For SpaceX In 2030: \~$2.5 Trillion Enterprise Value](https://www.ark-invest.com/articles/valuation-models/ark-expected-value-spacex-2030)
 - [How Does Claude 4 Think? – Sholto Douglas & Trenton Bricken - YouTube](https://youtu.be/64lXQP6cs5M?si=--Uw4WWe60M_zD2T)
 	- Models solved intelligence problem in last 2 years. Next step is long-term agentic capabilities.
 	- Where they struggle in agentic performance? Models can work on small, tightly-scoped task or long widely recognised boilerplate tasks seamlessly. Where they struggle right now is the exploration phase of a loosely-scoped, iteration-heavy task that requires multiple changes across the environment of the agent.
@@ -113,6 +353,7 @@ Other links:
 	- What are my current rabbit holes?
 - ["The Impact of Generative AI on Critical Thinking", Microsoft Research](https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/lee_2025_ai_critical_thinking_survey.pdf): TL;DR question everything. having high confidence on GenAI responses signals low critical thinking. It works doesn't mean it's a good solution.
 	- I've also noticed how I've personally started delegating most of the critical thinking tasks to an LLM, and copy-pasting the example, only to notice it's not working when given an error by the IDE.
+	- [\[2506.08872\] Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task](https://arxiv.org/abs/2506.08872)
 ## Feb'25
 - ["Everyone knows your location: tracking myself down through in-app ads"](https://timsh.org/tracking-myself-down-through-in-app-ads/), [tim](https://timsh.org/author/tim/): this is beyond scary. Imagine the data owned by by big organisations, regarding your interests, financial capacity, relationships, geographic location. It's not just targeted ads, this ad-based economy has been influencing people already. Mega organisations have been accused of altering election outcomes, race hate, propagandist thinking several times now. It's supposed to end at some point, and I think the arrival of agents will solve that to an extent. Internet will become more AI friendly and less user friendly. Information will be hidden behind paid APIs
 - [Will DeepSeek deep-six the US economy?](https://asiatimes.com/2025/02/will-deepseek-deep-six-the-us-economy/), by [Steve Hsu](https://asiatimes.com/author/steve-hsu/) and [David P Goldman](https://asiatimes.com/author/david-p-goldman-2/)

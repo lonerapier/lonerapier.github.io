@@ -53,7 +53,7 @@ Complexity: $\frac{b}{c}(2^c+N+1)$ additions +. $b$ squarings
 
 Majority of complexity is due to point additions. Point addition complexity for affine coordinates is 1 division, 2 multiplications, 6 additions on $\mathbb{F}$. Division is very costly.
 
-Use projective coordinates. Division can be defered to when there is need for switch back to affine coordinates.
+Use projective coordinates. Division can be deferred to when there is need for switch back to affine coordinates.
 
 Complexity: 7 mults, 4 squarings, 9 additions, 3 mults by 2, 1 by 1. But no division is required.
 

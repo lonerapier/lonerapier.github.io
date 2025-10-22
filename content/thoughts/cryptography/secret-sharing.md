@@ -45,8 +45,6 @@ These $r_i$ coefficients are randomly sampled and the points are generated which
 
 To reconstruct the share back, any $t$ users can pool their shares, and use [Lagrange polynomial interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial) to create the polynomial, evaluating it at $x=0$, will give the original share.
 
-![math4.png](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/doc/70038E5D-C6DE-4FC6-9A42-D6D734E55270/6EE820CD-DA8D-43F9-A472-7C5B9B18A23A_2/YRLa7DIbI5gyAIkWykkHWsTRbs6fkOFNdqt2yOvXfi4z/math4.png)
-
 Putting $x = 0$, gives us $f(0) = S$
 
 > [!info] Note that using integer domain here, compromises security of SSS, as then the adversary start gaining knowledge about the secret with each new share. That's why we use finite field with $|\mathbb{F}|\gg t$. 

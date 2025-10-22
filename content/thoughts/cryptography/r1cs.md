@@ -121,7 +121,6 @@ TODO
 - [](https://learn.0xparc.org/materials/circom/additional-learning-resources/r1cs%20explainer/)
 - [](https://tlu.tarilabs.com/cryptography/rank-1)
 - [](https://crypto.stackexchange.com/questions/67857/what-is-a-rank-1-constraint-system)
-- [])
 - [vitalik article's sage mode](https://risencrypto.github.io/R1CSQAP/)
 - [](https://github.com/thogiti/thogiti.github.io/blob/master/_posts/2023-08-14-Mastering-Rank-One-Constraint-System-R1CS-with-Circom-Examples.md)
 - [](https://risencrypto.github.io/zkSnarks/)

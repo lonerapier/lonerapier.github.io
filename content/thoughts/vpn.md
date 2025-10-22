@@ -22,3 +22,6 @@ TODO:
 **Site-to-site** VPNs generally used when multiple parties involved are larger in size, and static in location. Network need to configured at all sites.
 
 **Remote-Access** VPNs are used when multiple parties involved are smaller, and network access need to be granted from a remote location.
+
+# References
+- [WireGuard topologies for self-hosting at home](https://garrido.io/notes/wireguard-topologies-for-self-hosting-at-home/)

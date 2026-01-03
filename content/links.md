@@ -8,6 +8,42 @@ tags:
 Other links:
 - [[technical-links]]
 
+## Jan '26
+
+
+## Dec '25
+- [LoganThrasherCollins.com](https://logancollinsblog.com/): What an awesome person to follow. I'll surely be checking out his guide to biology.
+	- [Want to learn biology? Recommended texts from beginner to advanced \| LoganThrasherCollins.com](https://logancollinsblog.com/2020/11/27/want-to-learn-biology-recommended-texts-from-beginner-to-advanced/)
+- [Before They Hatch - by Robert Yaman - Asimov Press](https://substack.com/home/post/p-147624656)
+	- The numbers written here are absolutely wild.
+		- "Poultry accounts for [96 percent](https://ourworldindata.org/grapher/animals-slaughtered-for-meat?country=~USA) of land animals eaten by Americans".
+		- "Some poultry facilities in the U.S. house over five million chickens".
+		- "we slaughter more than 80 billion land animals annually and catch and kill [one trillion fish](https://ourworldindata.org/explorers/animal-welfare?facet=none&country=~OWID_WRL&Metric=Animals+slaughtered&Animal=Wild-caught+fish&Per+person=false)."
+		- "Every two years, more [chickens are slaughtered](https://ourworldindata.org/grapher/animals-slaughtered-for-meat?facet=none&) than the [number of humans that have ever lived](https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/)."
+		- "[20 million chickens](https://www.theguardian.com/environment/2022/jun/15/more-than-20-million-farm-animals-die-on-way-to-abattoir-in-us-every-year) die during transport each year in the United States."
+	- In-Ovo sexing: Most beneficial technology in terms of animal welfare and poultry automation for the future. Determining the sex of the egg in embryonic stages, and combining it with in-ovo vaccination means no more maceration, and much better hatchery process efficiency.
+		- How much does each solution cost per million eggs? How fast is it?
+		- MRI
+		- PCR
+		- Mass spectrometry
+		- Gene-edited eggs: Halt development for male eggs by layers by using, say, blue light.
+	- On-farm hatching: Use of autonomous robotics here would increase the efficiency and reduce the cost by multiple factors.
+	- In-Ovo vaccination: Already considered at advanced stages of development.
+	- One stupid question that I have: Can sexing not be done pre-egg laying period? Can we not perform some kind of gene editing on the mother to prevent even laying male eggs for layers?
+- [From systems operators to systems architects](https://seemay.substack.com/cp/170799845): PDB contained enough structural information about proteins to make a model recognise the pattern behind static structure. But proteins have their functions embedded inside the motion (travelling, binding, catalyzing, breathing?). To get more informative data, the next problem is to go from static structure prediction to protein dynamics.
+	- What are protein conformations? Most probably these are the signals emitted by proteins during their identification.
+	- How is X-Ray crystallography used for protein conformation? What are it's other uses?
+	- What is the data that is discarded during X-Ray crystallography? And how can it be used to create richer molecular data? Why haven't this been done already?
+	- What data does diffuse scattering emit? And how can that be analysed and used for PDB 2.0?
+
+## Nov '25
+
+- [On AI Infrastructure in Biology - by Elliot Hershberg](https://centuryofbio.com/p/infra)
+	- What technology led to large-scale changes in biology:
+		- NGS: unlocked functional genomics, 
+- [The Dropout Curriculum](https://engineeringx.substack.com/p/the-dropout-curriculum)
+	- Maths, Physics, Computing and Chemistry seems to be the bare-minimum. Still before tackling a problem, understanding the fundamentals will make you stronger.
+
 ## Oct '25
 - ["Too much Tacit Knowledge", Keoni Gandall](https://keonigandall.com/posts/too_much_tacit.html)
 	- [Synbio25 - A man thinks about building biology: Chapter 3](https://synbio25.com/#chapter3): Extended version of above post.
@@ -37,13 +73,18 @@ Other links:
 		- Sliding window: in order to reduce memory explosion, encodings are usually performed over a fixed sliding window to find encoding patterns.
 - [rsrch space](https://rsrch.space/): Cool list of computer science related links.
 - [Import AI 431: Technological Optimism and Appropriate Fear](https://importai.substack.com/p/import-ai-431-technological-optimism)
-- 
+- [Mid-scale Science — Renaissance Philanthropy – A brighter future for all through science, technology, and innovation](https://www.renaissancephilanthropy.org/playbooks/mid-scale-science)
+- ["What Biology Can Learn from Physics", Asimov Press](https://www.asimov.press/p/biology-physics): Physics experiments have always been mega-scale surpassing billions of dollars in expenditure, comprising of 100, maybe 1000s, of practitioners coming together to complete. Biology has not seen experiments at this scale, with the exception of Whole Genomic Sequencing project.
+	- Lack of large scale experiments in biology can be blamed on lack of predictable models. Not having the knowledge of end state conclusion from the experiment leads to many failed attempts.
+	- AlphaFold2, 3 changed that with the sequence prediction capability, and was only made possible due to contribution of lifelong researches from tens of thousands of crystallographers that made the outcome of their research available in public datasets.
+	- 
+- [Edward Boyden, Adam Marblestone. "Architecting Discovery: A Model for How Engineers Can Help Invent Tools for Neuroscience - ScienceDirect"](https://www.sciencedirect.com/science/article/pii/S0896627319302867)
 
 ## Sep '25
 - TIL, greek yogurt's translation is hung curd. Note to self, question everything.
 	- [Probiotic potential of lactic acid bacteria present in home made curd in southern India - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC4248380/)
 	- [Probiotic curd as antibacterial agent against pathogens causing oral deformities – in vitro microbiological study - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC9926605/)
-- ["Using spaced repetition systems to see through a piece of mathematics", Michael Nielsen](https://cognitivemedium.com/srs-mathematics): I'm still a complete beginner in [[reintroduction|mathematics]] but this is one piece of advice that I want to apply with my mathematical learning: Obsessing over a problem to the point that the representation escapes the physical or abstract boundaries of the mind, and you begin to understand the question in an even deeper manner.
+- ["Using spaced repetition systems to see through a piece of mathematics", Michael Nielsen](https://cognitivemedium.com/srs-mathematics): I'm still a complete beginner in [[mathematics|mathematics]] but this is one piece of advice that I want to apply with my mathematical learning: Obsessing over a problem to the point that the representation escapes the physical or abstract boundaries of the mind, and you begin to understand the question in an even deeper manner.
 	- My thought process after I see any problem right now is almost similar to the one described in this [3b1b video](https://youtu.be/4NlrfOl0l8U?si=ZXXODp08d23jqmyP). Through theory you've learnt some facts, through past problems you begin to form algebraic reasoning, and auxiliary connections that help you form the arbitrary mathematical structures needed to solve that problem.
 		- Although I struggle with the third step a lot. Often times leaving the proof midway due to lack of second-order thinking.
 	- But there's so many ways of enhancing your experience with problems that I haven't even started exploring.

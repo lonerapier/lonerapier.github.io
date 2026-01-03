@@ -1,0 +1,447 @@
+---
+title: "Solutions for Linear Algebra Done Right, 4. ed"
+date: 2025-05-01
+tags:
+- mathematics
+- linear-algbera
+---
+
+
+Solution and notes to [Linear Algebra Done Right, Sheldon Axeler](https://linear.axler.net/). Each section is based on a chapter, and contains important result and exercise solutions.
+
+## Vector spaces
+
+- start: 
+- definition and properties
+- Subspaces
+	- Algebraic relation with calculus is really interesting. Example: All continuous real valued functions are subspace of $\mathbf{R}^{\mathbf{R}}$. Similarly, all differentiable real-valued functions are also subspace of $\mathbf{R}^{\mathbf{R}}$.
+	- What are the operations possible on subspaces? Can I add them?
+	- How to find out all possible subspaces of a vector space?
+	- I've seen math's obsession with subsets of a current structure. How are these utilized in real-world applications. I mean, are there examples where a subspace of a vector space is needed to solve a problem? or can you model real world problems into mathematical ones for these subsets?
+	- Linear dependence lemma
+- complete: 31-05-25
+Finite-dimensional vector spaces:
+- started: 31-05-25
+- Bases: vectors $v_{i}$ in a base of a vector space $V$ are linearly independent. Are all the elements derived using linear combination of the base **unique**?
+- dimension
+- extend LI vector to basis, extend spanning list to basis
+- analogy between sets and vector spaces:
+	- $\#s \leftrightarrow dim V$
+	- $S_{1} \cup S_{2} \leftrightarrow V_{1}+V_{2}$
+	- $\#(S_{1}\cup S_{2})\leftrightarrow \dim(V_{1}+V_{2})=\dim{V_{1}}+\dim{V_{2}}-\dim(V_{1} \cap V_{2})$
+- Is it possible to find out how many LI vectors exists in a n dim VS?
+
+## Linear Maps
+
+- start: 01-07-25
+- linear map lemma
+- To prove that any vector space is finite dimensional, can be proved by taking a basis, and proving that any arbitrary element is represented using finite basis.
+- fundamental theorem of linear maps: dim V = dim null T + dim range  T
+- Ex3B:
+	- 21: I can't figure out how to prove the dimension of $U \cap \text{range}\ T$. It was really straightforward, since I just had to represent that every element in the subspace lies in the intersection of U, and range T.
+	- 22: create a linear map from null S to V, and use that to prove that dim null ST <= dim null T (obvious) + dim null S
+	- 23: same as above, create a map from range S -> W, and prove dimension will be less for both of right hand side. then, the final answer is just stronger limit. can prove that weaker limit, i.e. max of both is not possible.
+	- 24: seems like a rubbish question.
+	- 25,26: use same strategy as 23, try to create a map, and prove both sides.
+	- 27: interesting problem. I forgot what was the relation for direct sum.
+	- 29: how do i approach this problem? if i have to prove existence of a polynomial. Claude says you need to take a poly q, and solve for arbitrary poly p. get a relation between coefficients of q and p. and solve the relation to get the coefficients.
+	- 32: understanding what maps I need to create that will help me form the contradiction or successful proof is being difficult for me.
+- **3C**: Matrices, Invertibility, isomorphism:
+- Linear map T:U -> V is denoted by a matrix of size `m x n`, $M(T)=A_{j,k}v_{j}$ where $v_{k}$ is the basis of V.
+- **3D**: Invertibility
+- Prove a LM is invertible iff injective and surjective.
+- For maps on same dimension spaces, injectivity, surjectivity, invertibility is same, i.e. they are **isomorphic**.
+- Linear maps act like Matrix multiplication: M(Tv) = M(T)M(v)
+- How do you define $M(Tv_k)$?
+- **3E**: Products and Quotient space
+- Product of vector space: V x W
+- $V/U={v+U:v\in V}$, where U is a subspace of V.
+- Quotient Map: $\pi(v)=v+U$
+- $\widetilde{T}(v+\text{null} \ T)=Tv$
+- Ex 3E:
+	- 2. proving it using dim of product space = sum of individual space is wrong because it's proven when individual spaces are assumed as finite dim VS.
+	- 3. very interesting question because the vector spaces we're dealing with are maps. So we have to create a map $\Phi$ that takes an element in the first VS and map it to an element in second space. To prove isomorphism, prove the map is indeed a LM, is injective and surjective. The main insight is $\Phi(T)=(T_{1},\dots,T_{m})$ where $T_{i}(v_{i})=T(0, 0, \dots,v_{i},\dots, 0)$. To prove that the map is surjective is a little tricky.
+	- 5. similar to 3, selecting the map is the main problem.
+	- 10. main thing is you already know what the other subspace for $A_{1}\cap A_{2}$ is. You just have to prove that the elements belonging to both $A_1$ and $A_2$ also lie in that subspace.
+	- 14. I forgot to prove that to prove that a list is a basis, I have to prove linear independence too, and only proved span.
+	- 17. I found out a flaw in my understanding of quotient spaces. $V/U$ is actually a vector space of cosets of $U$. So the elements of $V/U=v+U$ are not individual vector spaces, but a whole set.
+- **3F**: Dual Space and dual maps
+- Is this where I get information overload lol? the description is getting too complicated.
+- linear functional: way to measure a vector space
+- dual space: set of all measures of a vector space
+- dual map: takes a measure back to V from W for a map T: V->W
+- annihilator
+	- prove: $\dim U^{0}=\dim V-\dim U$
+	- how does annihilator relate to the subspace and the parent space? i.e. if annihilator is nil, 
+	- if annihilator exists, then double annihilator should exist as well. $(U^{0})^{0}$
+- relation between dimension of dual map and map and domain and codomain
+- QUES: can you prove in two distinct ways why column rank of $F^{m,n}$ is equal to row rank of matrix?
+- Ex 3F:
+	- 7: same as ex 3E.5,6.
+	- 16: T=0 => T' = 0 looks straightforward. other way round is my problem. $\varphi\cdot T(v)=0\implies \varphi(w)=0\ ,\forall \enspace \varphi \in W' \implies w=0$. can be proven using contradiction by selecting a map that takes w to 1.
+	- 17: What does inverse of T' mean? $T'(\varphi)=(\varphi\cdot T)\in\mathcal{L}(W',V')$, then $(T')^{-1}(\psi)=(\psi \cdot S)\in\mathcal{L}(V',W')$. This means if T is invertible, then S(w) exists for each w in W. Then just show composition of dual maps returns same map. converse can be proven using bijectivity of dual maps.
+	- 24: $\Gamma$ TODO
+	- 26: interesting framing of the annihilator.
+- Things I struggled at in this chapter:
+	- Proving a map is surjective. Injectivity can be proven is straightforward way, i.e. Tu = Tv => u = v, or null T = {0}. But surjectivity need to be proven for arbitrary vector in the range of T.
+	- Concept of Matrix of linear map is still not completely clear to me. M(T) allowed us to represent linear maps as matrix, which is pivotal for computation.
+	- what are the most prominent examples and use case i can think of quotient maps and dual maps?
+	- QUES: what are the proof techniques that I know of right now? contradiction, induction, counterexample, equality by subset, iff, at least logic, 
+
+## Polynomials
+- PROVE: polynomial division: p=sq+r with dim r <= dim q.
+> [!note] Trigonometry primer
+> - trigonometric interpretation of complex numbers = $r(\cos \theta+i\sin \theta)$
+> - geometric interpretation/polar representation is interpreted as vector of magnitude r with angle $\theta$ from origin.
+> - euler form: $e^{i\theta}=\cos \theta+i\sin \theta$. 
+> 	- TODO: Prove this. has implications in fourier transform.
+> - multiplication of complex number in polar form: $wz=rs(\cos(\alpha+\beta)+i\sin(\alpha +\beta))$
+> 	- To prove this: use formula of $\cos(\alpha+\beta),\sin(\alpha+\beta)$
+- de moivre's theorem: $z^{n}=r^{n}\cos(n\theta)+i\sin(n\theta)$. Can be trivially proved using induction.
+- TODO: come back to fundamental theorem of linear algebra proof. the current proof uses analysis (Extreme Value theorem precisely), to assume a complex-coefficient polynomial that attains minimum at certain $\zeta$.
+- Factorization of a polynomial over C exists and is unique with at most m roots.
+	- What are the subresults that need to be proven in order to prove above?
+	- Every polynomial can be written as p(z) = (z-a)q(z), with q being deg m-1 poly.
+	- Prove that any deg m polynomial has at most m roots.
+	- Prove polynomial in P(C) has a root in C.
+	- Prove polynomial can be written as p(z) = c(z-a1)(z-a2)…(z-am)
+	- prove a1..am is unique.
+- Ex 4:
+	- 9: prove using induction.
+	- 11: define $\bar{p(\bar{z})}$
+	- 14: I would have taken slightly more time if the steps (a), (b) were not explicitly provided.
+		- Show T is a LM.
+		- Injective: T(r1,s1)=T(r2,s2) => r1=r2, s1=s2.
+		- Surjective: TODO
+		- rp+sq=1 is proven trivially from (a,b)
+
+## Eigenvalue and Eigenvectors
+- START: 04-10
+- **5A**
+- operator
+- Invariant subspace
+- QUES: what examples other than {0}, V, can you provide for invariant subspaces? differentiation, null T, range T, all scalar multiples (1-dim subspace)
+- eigenvalue: all 1-dim subspace corresponding to a LM T is formed using a scalar (eigenvalue).
+- eigenvector: all vector associated with an eigenvalue.
+- PROVE: eigenvector corresponding to distinct eigenvalues are LI.
+- QUES: what's the upper bound for number of eigenvalues for a T?
+- QUES: What effect a polynomial $p$ can have on an operator $T$: $p(T)$? and why only operator, and not other LM?
+- QUES: can you represent an eigenvalue in matrix form? i.e. $Av=\lambda v$?
+- QUES: if eigenvectors are objects that remain unchanged in form after a map, then can this apply to objects beyond vector spaces? functions (differentiation, integral)?
+	- Answer is yes, and that exactly what we call *eigenfunction*.
+- QUES: Geometrically, what would the eigenvector of a rotation be?
+- QUES: what are the trivial subspaces of p(T) invariant under T?
+- Ex 5A:
+	- 1, 2, 3: trivial problems on proving why the said subspace is invariant under T.
+	- 6: eigenvalue = 1, eigenvector = (x, x)
+	- 9: $e^{kx}$, with k as eigenvalue.
+	- 10: $x^{a}$ as $p$
+	- 13: 
+	- 15: define eigenvalue of T'. use $T-\lambda I$ to prove T'->T direction.
+	- 16: 
+	- 17:
+	- 18:
+	- 19:
+	- 20:
+	- 21: Use T.T^-1 = I identity to prove 
+	- 23: if T has eigenvalue $\lambda_{1}$ and S has $\lambda_{2}$, then the problem is solved. My question is, it is possible to have following identity: $T(v)=\lambda_{1}u, S(u)=\lambda_{2}v\implies ST(v)=\lambda_{1}\lambda_{2}v$ and $T(u)=\lambda_{3}v,S(v)=\lambda_{4}u\implies TS(v)=\lambda_{3}\lambda_{4}v$. Won't that lead to different eigenvalues? TODO
+	- 26, 27: can be proven using $T-\lambda I$
+	- 28: T has atmost dim V eigenvalues from 5.12. rank-nullity implies dim null T + dim range T >= # eigenvalues. TODO
+	- 32: Take a polynomial that satisfies the invariant. use fundamental theorem of algebra to factorise it into individual factors. Use the fact that T has no eigenvalues to discard first two solutions.
+	- 33: a) T^m injective => T injective direction: can be proven using induction. Take T^2 as first step, prove using contradiction that if T^2 is injective implies T is injective. Scaled to T^m. b) T^m surjective => T surjective. can also be proven similarly using contradiction. Assume T is not surjective, that means there exists v in V such that v is not in range T. 
+	- 35: couldn't have done this without the hint. Proving $\lambda_{1},\dots,\lambda_n$ is eigenvalues, and $e^{\lambda_{i}x}$ are the eigenvectors of D. Using 5.12 you prove eigenvectors corresponding to distinct eigenvalues are LI.
+	- 37
+	- 40: write the definitions of both sides.
+	- 43: 
+- **5B**
+- existence and uniqueness of Minimal polynomial
+- roots of minimal polynomial equals eigenvalue of the operator
+- eigenvalues on odd dimensional real vector spaces
+- EX 5B
+	- 6: again find the minimal polynomial using matrix of T.
+	- 8: critical step: what's the matrix of T? then find the minimal polynomial from the matrix.
+	- 13: 
+	- 14: My first hunch was to find the matrix of T using minimal polynomial, take it's transpose, and then find the minimal polynomial of T^-1. But that turned ugly really quickly. The trick was to just invert the polynomial's invariant, i.e. calculate T(1/z) and then make it monic.
+	- 29: my reasoning so far is, let p(x) be the minimal polynomial.
+		- if 2 eigenvalues exist, then v1, v2 are the independent eigenvectors associated with it and span(v1, v2) is the invariant subspace
+		- if 1 eigenvalue exist, i.e. for nonreal vector space. Take a complex vector v = u + iw, Then for any real operator T(u) = kv = (a + ib)(u + iw) = Tu = (au - bw), Tw = (aw + bu) => invariance. span(u, w) is the 2-dim invariant subspace.
+		- if no eigenvectors exist. p(T) = (T^2 + bT + cI)q(T) = 0. Then, q(T)v is in null (T^2 + bT + cI). consider any w \in q(T)v. then bTw + Cw = -T^2w. thus taking w \in range T^2 + bT + cI. span(w, Tw) is the two dimensional invariant subspace.
+- **5C**
+- Upper triangular matrices
+- representation of M(T) in upper triangular form.
+- diagonal values of upper triangular matrix for T for some basis are eigenvalues
+- UMT exists iff $p(t) = \prod_{i=1}^{n}(z-\lambda_{k})$
+- Ex 5C
+	- 7. 
+	- 9. look at basis change.
+	- 13.  
+- **5D**
+- Eigenspace
+- Diagonalisable matrices. conditions equivalent to diagonalisability
+- conditions necessary for diagonalisability
+- Ex 5D
+	- 9, 10. basis change again.
+	- 17. what's the dim of L(V)? consider standard matrices for basis of L(V). can you prove them diagonalisable? How do you prove diagonalisability of E_ij?
+		- realisation: diagonalisable matrix doesn't mean that all diagonal entries are non-zero. to prove diagonalisability, find span of matrix that are itself diagonalisable, and reduce that to linearly independent operators.
+	- 21.
+	- 23.
+	- Exercise for this section has been fairly straightforward and mostly same as 5C.
+- **5E**
+	- Diagonalisable operator have diagonal matrix with respect to same basis iff they commute.
+	- Commutative operator have Upper-Triangular matrices with respect to same basis.
+	- Ex 5E
+
+## Inner Product Spaces
+- Start: 10-11
+- **6A**
+- Inner product, Inner product spaces, norm
+- Orthogonal vector, orthogonal representation
+- pythagoras
+- cauchy-schwarz
+- triangle
+- parallelogram
+- Ex 6A
+	- 19: Hint: take a look at Gregshorin disk theorem, and try to apply Cauchy-Schwarz. Identify the relation between the result and both of the above.
+		- 28: 
+	- 32: 
+	- 35: Problem is to prove p = q exists. Take any p = q + (1 - ||x||^2)r, and prove this exists, is injective and surjective, and is harmonic.
+- **6B**
+- orthonormal list, bases
+- bessel's inequality
+- Gram-schmidt procedure
+- UMT exists for every orthonormal bases
+- Riesz representation
+- Ex 6B
+	- 6:
+	- 10: Can you derive GM procedure from the assumptions provided in the question?
+	- 14: if not immediately clear, take example of R^2. Can GM procedure start with a different sign? 
+	- 15: If orthogonal vectors are same for both inner product. Take e1, ..., en to be the orthonormal vector in first inner product, then $\langle e_{i},e_{i}\rangle_{1}=1$. Consider e_i + e_j, e_i - e_j. It's orthogonal in first inner product, that means $\langle e_{i},e_{i}\rangle_{2}= \langle e_{j},e_{j} \rangle_{2} = c$. Then, decomposing $u=\sum a_{i}e_{i}$ and $v=\sum b_{i}e_{i}$, and taking both inner product, you get the final answer.
+	- **16**: None of the answers from LLMs were clear to me. TODO.
+	- 17: Use schur's theorem. Take the matrix and orthonormal basis, and apply norm to Tv_k.
+	- 19: the given condition is equivalent to dual basis. Construct a u using $u_{i}$ as basis, and apply $\varphi$ to it, to prove that it is indeed linearly independent. Then using dimensionality, it is a basis.
+	- 20: 2 results needed to prove this. Every commuting operator in a set has upper triangular matrices with respect to same basis. Then, every operator with an upper triangular matrix has an orthonormal basis using Gram-Schmidt operator.
+	- 21: TODO. Author has posted a solution [here](https://math.stackexchange.com/questions/1695248/question-on-upper-triangular-matrix-with-complex-eigenvalues-with-modulus-less-t).
+	- 22: 
+- **6C**
+- orthogonal complement: $U^{\perp}$
+	- properties of complement.
+- Projection: $P_{U}$. properties of projection.
+- Riesz representation theorem using complements. Proving why $v \mapsto \varphi_{v}$ is **surjective**.
+- Minimization problem.
+- Pseudoinverse: $T^{\dagger}$.
+	- algebraic properties of PI
+- Function approximation using PI
+- EX 6C
+	- 2. 
+	- 4.
+	- 6.
+	- 7.
+	- 8.
+	- 10.
+	- 12.
+	- 13.
+	- 14. 
+	- 16.
+	- 18.
+	- 19.
+	- 21: Form basis for null T. 
+	- 22: Use expression for $TT^{\dagger},T^{\dagger}T$. Then the problem becomes trivial of forming the connection between LHS and RHS.
+	- 23: Identify $\text{null}\ T^{\dagger}, \text{range}\ T^{\dagger}$. Form the expression for $(T^{\dagger})^{\dagger}$. Multiply by T both sides, and prove that it equals $P_{\text{range}\ T^{\dagger}}$.
+
+## Operators on IP
+- **7A**
+- start: 29-11
+- adjoint of an operator
+- properties of adjoint
+- dimension of adjoint operator
+- matrix of adjoint of an operator
+- self-adjoint operators
+- QUES: How do you write <Tv, w> as a combination of <Tu, u> when F = C?
+- normal operators
+- QUES: suppose T is normal. Find self-adjoint A, B such that T = A + iB.
+- Ex 7A
+	- 5. Use the property that `M(T*) = (M(T))*`. Write Tek = <Tek, f1>f1 + ... + <Tek, fn>fn. ||Tek||^2 = |<Tek, f1>|^2 + ... + |<Tek, fn>|^2. Write same for $T^{*}f_{k}=\sum_{j=1}^{n}\overline{\langle Te_{j},f_{k} \rangle}e_{j}$. summing all terms of `||T*fk||^2` across all f_k, and we get the same term as LHS because $|\lambda|^{2}=\overline{|\lambda|}^{2}$
+	- 13. Find out that A^2 = I. Eigenvalues of A = -1, 1. Minimal polynomial is $\lambda^{2}-1$.
+	- 16. Calculate how the matrix of T looks like (Upper triangular). Number of possible configurations for a dimension n = n(n+1)/2.
+	- 19. 
+	- 21. Do this after 27 because in 27, we prove that null T^k = null T, when T is normal. And D^9 = 0 => null D = P_8(R). Thus, there can't exist any inner product, where T is non zero and normal. 
+	- 26. Define `T*` = <v,x>u. For a) write T = T*. u comes out to be scalar multiple of x. For b) Write `TT*` and `T*T`, prove one direction by assuming u, x to be linearly dependent, T comes out to be normal. For other direction, go to the last identity when `TT* = T*T`, arrive at <v,x><u,u>x = <v,u><x,x>u. Take cases with u, x. and arrive to the conclusion.
+	- 27. Proving null T^k is subset of null T is the main part here. Prove it using induction. Assume the base case k=2. Prove that null T^2 is subset of null T. Take v in null T^2. So, `<T^2 v, v> = 0 = <Tv, T*v>`. Thus v is either in null T or null T*. And null T* = null T. Hence v in null T. Assume kth case to be true, prove for k+1 similarly as T^2.
+	- 28. 
+	- 29. Finding a counterexample for this was not straightforward. Need to find a matrix such that row-squared and column-squared are equal but T.T* != T*T.
+- **7B**
+- decomposition of P(R)
+- Necessary condition for T to have UTM
+- T is self-adjoint <=> p(z) = (z-k1)...(z-km)
+- Real/Complex spectral theorem
+- Ex 7B:
+	- 3. T is normal => T is diagonalisable => If eigenvalues = 0 implies v is in null T => eigenvalues = 1 implies Tv = v. Thus T = Pu.
+	- 6. If T^8 = T^9 and T has diagonalisable operator (due to normality) => eigenvalue is either 0 or 1 => T^2 = T => self-adjoint.
+	- 7. T^9 - T^8 = 0 = T^8(T-I). range(T-I) \in null(T^8).
+	- 9. Proving the non-trivial direction T is normal => p(T) exists. Use the complex spectral theorem to establish that T has diagonalisable matrix for some orthonormal basis, and then take individual eigenvalues on the matrix, To find a polynomial p(z) such that $p(\lambda_{i})=\bar{\lambda}_{i} \ \forall i\in n$. We can use any polynomial interpolation method to find the required polynomial. Now, we have to establish that p(T) is indeed equal to T*. Take the orthonormal eigenvectors as basis, and suppose v \in V, prove that both are equal.
+	- 10,11. Use spectral theorem to establish T has diagonalisable matrix for some orthonormal basis of V. S^2=T implies S is diagonalisable too, and has eigenvalues equal to square root of eigenvalues of T for F=C (complex spectral theorem). All complex numbers have a square root that can be calculated using De-Moivre's theorem. For F=R, each real number have a cube root.
+	- 14, 15. Every self-adjoint operator is normal. Eigenvector corresponding to each distinct eigenvalue for a normal operator is orthogonal. Thus, for distinct eigenvalues 1..m, corresponding eigenvectors form a basis, and thus T is diagonalisable.
+	- 16, 17. Two results needed. complex/real spectral theorem, and any set of diagonalisable operators commute under same orthogonal basis.
+- **7C**
+- Positive operators.
+- Properties of positive operators.
+- unique positive square root of a positive operator
+- Ex 7C:
+	- 19. fix an operator in F^2. and equate square of it to identity operator. Now, a^2 + b^2 = 1. This equation has infinitely many solutions when a, b are complex.
+	- 
+- **7D**
+- Isometry, Properties of isometries
+- Unitary, properties of unitaries
+- difference between matrix of isometry and unitary operators.
+- unitary operator for complex vector spaces.
+- unitary matrix
+- QR factorisation
+- positive definite matrix
+- Chlolesky factorisation
+- Questions:
+	- How are eigenvalues defined?
+	- What are some of the common examples of unitary, positive operators?
+	- Where is QR and cholesky factorisation used?
+	- Are there any alternative proofs for these factorisations?
+	- What's the analogy for self-adjoint/positive operators with C, and unitary operator with unit circle?
+- Ex 7D
+	- 6. First prove that for any normal operator T with distinct eigenvalues, `T = U*DU`, where U is unitary and D is diagonal operator (with diagonal values as eigenvalues). Now write `T1 = U1*DU1` and `T2 = U2*DU2`. Substitute `D = U2T2U2*` in 1.
+	- 7. For T to be equal to `U*DU` for any self-adjoint operator, all multiplicities of eigenvalues have to be same. So, in the example, just take different multiplicity for T1, and T2.
+	- 12. <S-1v, S-1v> = <Sv, Sv> => <S-1*S-1v, v> - <S*Sv, v> = 0 => S-1*S-1 = S*S => S*S = I.
+	- 14. forward direction using cauchy schwarz. For reverse direction, extend v to orthonormal basis
+- **7E**
+- Dimensionality of T*T.
+- Singular values
+- Singular value decomposition for $Tv, T^{*}v, T^{\dagger}v$
+- Matrix version of SVD.
+- Ex 7E
+	- 2. Let $Tv=\sum_{i=1}^{m} s_{i}\langle v,e_{i} \rangle f_{i}$. Let s be any singular value, then Tv correspond to $s_{k}\langle v,e_{k} \rangle f_{k}$. Consider `<Tv, w> = <sk <v, ek> fk, w> = <v, sk<w,fk>ek> = <v, T*w>`.
+	- 4. Expand SVD for $\lVert Tv \rVert = |s_{1}|^2 |\langle v,e_{1} \rangle|^{2}+\dots+|s_{n}|^{2}|\langle v,e_{n} \rangle|^{2}=|s_{1}|^{2}|a_{1}|^{2}+\dots$. Lower bound, substitute all s_k = s_1. upper bound, substitute all s_k = s_n.
+	- 10. Expand SVD for Tv. Find values for Tek. Multiply by inverse of T.
+	- 12 a)
+	- 13. a) let T1 = S1T2S2. `T1*T1 = S2*(T2*T2)S2`. Since S2 is unitary operator, S2 is invertible and equal to adjoint, take any eigenvalue of $T_2^*T_2y = s_{k}y$ and `y = S2x`. $S_{2}^*(T_2^*T_2)S_2x=S_2^*(T_2^*T_2)y=s_kS_2^*y=kx$, doing this in converse, we find T1, T2 has same singular values. b) let T1, T2 have same singular values, use matrix version of SVD to arrive at the result.
+	- 14. write ||Tv|| in terms of s_k. Create lower bound inequality by taking all s_k equal to s_n, and arrive at the result.
+	- 15. do above inequality for s_1 and arrive at upper bound.
+- **7F**
+- Norm of linear map: ||T||
+- Alternative form of ||T||
+- Linear map approximation with smaller dimensional map
+- Polar decomposition
+- Definition: Box, Ellipsoid, Parallelpiped, Box
+- Volume via singular boxes
+- Ex 7F
+- 1. Take the definition of ||T-S||. There exists v such that ||T-S|| = ||(T-S)v|| = ||Tv-Sv|| >= ||Tv|| - ||Sv|| >= ||T|| - ||S||.
+- 3. ||Tv||=||T|| ||v|| implies v is along the most stretched dimension. Thus, taking ||T|| = s1, `T*Tv = s1^2 v=||T||^2 v`.
+- 8. a) The meaning of the question is if T is arbitrarily close to I (another invertible operator), then T must be invertible as well. To prove T in invertible, it's enough to prove that T is injective. Take any v in null T => Tv = 0. `||(I-T)v|| <= ||I-T|| ||v|| => ||v|| <= ||I-T|| ||v||. Since ||I-T|| < 1 => ||v|| < ||v|| => ||v|| = 0`. b) Use the above relation, and the fact that PQ is invertible implies P, Q are both invertible.
+- 9. When T is invertible, taking T=S, proves that k > ||T-S|| > 0. When T is not invertible, Take S with singular values (s1, .., sk, c, c, ..), and dim range T = k, i.e. singular values of T = (s1, ..., sk). We know that ||T-Tk|| = s_{k+1}, So ||S-T|| = c < k. 
+	- **Show why this proof is invalid**. `||(T-S)v|| <= ||T-S|| ||v||`. Using reverse triangle inequality `||Tv|| - ||Sv|| <= ||T-S|| ||v|| < k ||v|| => ||Sv|| > ||T|| ||v|| - k||v||`. Since `||Tv|| <= c ||v|| => ||S|| ||v|| > (c-k) ||v||. ||S||` = s_{min} > (c-k).
+- 10. 
+- 11.
+- 12.
+- 14. Take two cases, a) when $U \cap V = \{0\}$
+- 17. Use the identity that `|<v,u>|^2 = ||v||^2 ||u||^2 cos^2(t)`.
+- 18. a) Keep in mind to prove this for arbitrary basis and not singular basis. For upper bound on ||T||, take the max of Tek, and apply Norm's definition. For lower bound, use cauchy schwarz on ||Tv|| and max of that = ||T||.
+- 20. Use induction and 19. to prove this. Take base case of k = 2, and prove for any arbitrary k+1.
+- 21. For intuition, Geometrically operator norm and inner product space on L(V, W) mean different thing. Take any example with different singular values, let's say s1=1, s2...sn=0, ||T||=1, 
+- 24.
+- 25. Use polar decomposition, and assume Su = ||u||/||x|| x, then calculate `S*x=||x||/||u||u`. Prove S is unitary, then $\sqrt{ T^{*}T }v$ is as desired. Alternatively, you can also calculate `T*`, then `T*T`, and sqrt of that.
+- 27. a) trivial to show by subtraction, and calculating operator norm by defintion. b) calculate ||(T-E)v|| = ||((T-S) + (S-E))v|| = ||(T-S)v|| + ||(S-E)v|| >= ||T-S|| due to reverse triangle inequality on ||S-E||.
+- 31. Use spectral theorem to prove `sqrt(T*T)` can be a diagonal operator. and since S is unitary, S is normal too. Now prove that both commute, because commuting normal operators have a common orthonormal basis.
+
+## Operators on Complex VS
+- START: 15-12
+- **8A**
+- Generalised eigenvector
+- Nilpotent operator
+- Ex 8A
+- 2. For v, Tv, ... to be LI, for any a1,...,an such that linear combination is zero. Apply T repeatedly to combination, and prove each individual a_i is zero.
+- 3. if null T and range T is direct sum, then null T ∩ range T = {0}. To prove null T^2 ⊆ null T, take any v such that T^2v=0 but Tv=w, then T.w=0, but then w is in both range T and null T, reaching contradiction, hence null T^2 = null T. The other direction can be proven similarly, using the identity that null T isn't growing.
+- 9. 
+- 11.
+- 15. a) T diagonalisable implies (T-λI)^n=0 implies each individual diagonal values raised to the power equal 0. Thus, each diagonal value of λₘ-λI must be 0. Hence, every generalised eigenvector is eigenvector of T. b) F = C implies generalised eigenvector form a basis of V, this basis is also the basis of eigenvector of T, which implies T is diagonalisable.
+- 18. Suppose T^m = 0. Prove that m ≤ 1 + dim range T. Use the inequality that dim null T^k keeps rising, and increases by atleast 1 dimension on each increase of power.
+- 19.
+- **8B**
+- Generalised eigenspaces
+- Generalised eigenspace decomposition
+- multiplicity
+- characteristic polynomial
+- Cayley-hamilton theorem
+- Multiplicity of eigenvalue equals number of times on diagonal
+- Block diagonal matrix
+- Ex 8B
+- 2. 
+- 3.
+- 13.
+- 16.
+- 18.
+- 20. Since V_k is invariant under T, and , To show that p1...pm = q, we only need to show that (p1...pm)v=0 for all v in V. Since V_1...V_m is a direct sum, showing that (p1...pm)|V_k = 0 since p1...pm commute and we can bring p_k to the front as the first polynomial on v.
+- 23. a) (T-λₖI)^k(u+iv) = 0. Since 
+- **8C**
+- Prove if F=C and T ∈ ℒ(V) is invertible, then T has kth root for every positive integer k.
+- Jordan basis.
+- Every nilpotent operator has a jordan basis.
+- Every operator in F=C has a jordan basis.
+- **8D**
+- Trace. tr(TS) = tr(ST)
+
+## Multilinear Algebra and Determinants
+- START: 22-12
+- **9A**
+- Bilinear form (bilinear functional)
+- examples of bilinear form
+- $\dim V^{(2)}=( \dim V)^{2}$
+- $\mathcal{M}(\beta)_{i,j}=\beta(e_{i},e_{j})$
+- Bilinear form and operator. $\alpha(u,v)=\beta(u,Tv)$, $\mathcal{M}(\alpha)=\mathcal{M}(\beta)\mathcal{M}(T)$ and $\rho(u,v)=\beta(Tu,v)$, $\mathcal{M}(\rho)=\mathcal{M}(T)^{t}\mathcal{M}(\beta)$.
+- Change of basis
+- Symmetric bilinear form
+- Symmetric and diagonal matrix of bilinear form
+- Prove that when F=R, there exists diagonal matrix for some orthonormal basis of V for $\beta\in V_{\text{sym}}^{(2)}$.
+- alternating bilinear form
+- quadratic form.
+- Ex 9A
+- 2. 
+- 4. 
+- 6. Counterexample: Consider symmetric bilinear form: β((x1,x2),(y1,y2)) = x1y1 - x2y2. u = (1, 1) and w = (1, -1) are both such that β(u, u) and β(w, w) = 0. But β(u+w, u+w) is not in the subspace.
+- 8. Calculate dimension of symmetric matrices for nxn, and then (dim V)^2 - (dim sym).
+- **9B**
+- Multilinear form. set of multilinear forms: $V^{(m)}$.
+- alternating multilinear form
+- permutation, sign of permutation
+- formula for dim-V linear alternating forms
+- dimension of alternating multilinear form = 1
+- **9C**
+- determinant of an operator, determinant of matrix
+- determinant as alternating multilinear form
+- formula for determinant of matrix
+- determinant of operator = determinant of operator's matrix
+- characteristic polynomial when F=C/R.
+- Hadamard's inequality
+- Vandermonde matrix
+- Ex 9C
+- 7. 
+- 12.
+- 18.
+- 19.
+- 21.
+- **9D**
+- Bilinear functional. dimension of $\mathcal{B}(V,W)$
+- tensor product: $V\otimes W$. element of a tensor product: $v\otimes w$.
+- basis of tensor product
+- Bilinear map
+- Question: Connect and compare between linear map vs functional and bilinear variant.
+- Converting bilinear maps to linear maps
+- Tensor product on Inner Product spaces
+- m-linear maps
+- Ex 9D
+- 
+
+## Examples and Computational methods
+- T in R^2 such that dim null T^2 > dim null T.
+- T \in R^3 such that T is normal but not self-adjoint.
+- What are the main results that work for infinite dimensional VS as well?
+- Given T, find eigenvalues, eigenvectors. minimal polynomial. characteristic polynomial. generalised eigenvectors.
+- nilpotent operator.
+- Given T. Find Jordan basis. $Tv_{1}^{n_{1}},\dots,v_{1},Tv_{2}^{n_{2}},\dots,v_{2},\dots,Tv_{m}^{n_{m}},\dots,v_{m}$.
+- T in C^3 such that minimal polynomial and characteristic polynomial differ by 2 degrees.
+- Examples of Bilinear form.

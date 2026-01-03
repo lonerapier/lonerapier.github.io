@@ -32,7 +32,7 @@ This post highlights my read of the year, probably too late in 2023, but better 
 - [In search of Schröndinger's Cat by John Gribbin]()
 - The Art of Learning - Josh Waitzkin 
 	- [the-art-of-learning-waitzkin](https://maxfrenzel.com/books/the-art-of-learning-waitzkin)
-- [[art-of-discovery]]
+- art-of-discovery
 - [The art of doing science and Engineering by Richard Hamming](https://www.goodreads.com/book/show/530415.The_Art_of_Doing_Science_and_Engineering)
 - [The Unreasonable effectiveness of mathematics](https://web.njit.edu/~akansu/PAPERS/The%20Unreasonable%20Effectiveness%20of%20Mathematics%20(RW%20Hamming).pdf)
 - The myth of freedom - Chogyam Trunpa Rinpoche 

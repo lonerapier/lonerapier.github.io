@@ -7,6 +7,11 @@ tags:
 - evergreen
 ---
 
+## Nov '25
+- [Myths Programmers Believe about CPU Caches – Software the Hard way](https://software.rajivprab.com/2018/04/29/myths-programmers-believe-about-cpu-caches/)
+	- I also want to read "What every programmer should know about Memory". But this is a good short read.
+- ["Inside Rust's std and parking\_lot mutexes - who wins?", Cuong Lee](https://blog.cuongle.dev/p/inside-rusts-std-and-parking-lot-mutexes-who-win)
+
 ## Oct '25
 - [Why is everything so scalable? - Stavros' Stuff](https://www.stavros.io/posts/why-is-everything-so-scalable/)
 	- [Not Just Scale - Marc's Blog](https://brooker.co.za/blog/2024/06/04/scale.html): Kind of a rebuttal to above post.

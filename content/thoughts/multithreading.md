@@ -39,7 +39,7 @@ Async/Await:
 - [Rust's asynchronous book](https://rust-lang.github.io/async-book/)
 - [async-std book](https://book.async.rs/introduction)
 - [async, concurrent or parallel](https://blog.dtornow.com/asynchronous-concurrent-or-parallel/)
-- [Rust: atomics and Locks]()
+- [Rust: atomics and Locks](https://marabos.nl/atomics/)
 - [asynchronous programming with rust]
 - [Thorsten's tweet asking for resources](https://x.com/thorstenball/status/1771051150558588963)
 - [KAIST CS431: Concurrent Programming](https://www.youtube.com/playlist?list=PL5aMzERQ_OZ9j40DJNlsem2qAGoFbfwb4)

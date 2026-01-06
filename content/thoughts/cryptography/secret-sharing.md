@@ -72,9 +72,9 @@ I am going to explain again the hiding property of SSS, but has a more formal de
 ## References
 
 - [Adi Shamir: How to share a Secret](https://web.mit.edu/6.857/OldStuff/Fall03/ref/Shamir-HowToShareASecret.pdf)
-- [Introduction to Modern Cryptography by Jonathan Katz and Yehua Lindell: Section 15.3]()
-- [Joy Of Cryptography: Chapter 3]()
-- [A graduate course in applied cryptography by Dan Boneh and Victor Shoup: Chapter 22]()
+- [Introduction to Modern Cryptography by Jonathan Katz and Yehua Lindell: Section 15.3](https://www.cs.umd.edu/~jkatz/imc.html)
+- [Joy Of Cryptography: Chapter 3](https://joyofcryptography.com/)
+- [A graduate course in applied cryptography by Dan Boneh and Victor Shoup: Chapter 22](https://toc.cryptobook.us/)
 - [Polynomial Secret Sharing and the Lagrange Basis](https://decentralizedthoughts.github.io/2020-07-17-polynomial-secret-sharing-and-the-lagrange-basis/)
 - [zkDocs: SSS](https://www.zkdocs.com/docs/zkdocs/protocol-primitives/shamir/)
 - ["Function Secret Sharing and Homomorphic Secret Sharing", Geoffroy Couteau](https://geoffroycouteau.github.io/assets/pdf/HSS_FSS.pdf)

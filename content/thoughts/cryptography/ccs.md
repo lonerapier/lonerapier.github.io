@@ -25,7 +25,7 @@ SNARKs for CCS:
 - SNARKS for R1CS (Marlin, Spartan) can be easily extended to CCS without overheads.
 - SNARKs for Plonkish (PLONK, HyperPlonk) can't be extended without asymptotic overheads.
 - Introduces SuperSpartan and SuperMarlin, generalised variants of corresponding proof systems: Marlin and Spartan.
--  In contrast, 2 both Spartan and Marlin have machinery (via a so-called sparse polynomial commitment scheme, see, e.g., [ Tha20, Sections 10.3.2 and 16.2]() for an exposition) to handle general linear constraints.
+-  In contrast, 2 both Spartan and Marlin have machinery (via a so-called sparse polynomial commitment scheme, see, e.g., [ Tha20, Sections 10.3.2 and 16.2](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf) for an exposition) to handle general linear constraints.
 - SuperSpartan provides *free addition gates* when applied to uniform instances of CCS.
 
 > [!question] define uniform instances of CCS?
@@ -71,7 +71,7 @@ $$
 \end{equation}
 $$
 
-Refer: [CPerez's CCS article]()
+Refer: [CPerez's CCS article](https://hackmd.io/@CPerezz/BkKWMagS2)
 
 ### 2.1 R1CS
 
@@ -161,4 +161,4 @@ Can make use of any multilinear commitment scheme to create a SNARK with IOP def
 | Brakedown   |     |
 | Orion       |     |
 | Hyrax       |     |
-| Zeromorph   |     |           
+| Zeromorph   |     |

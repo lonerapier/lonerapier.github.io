@@ -1,3 +1,10 @@
+---
+title: "Elliptic Curve Arithmetic"
+date: 2024-02-10
+tags:
+- cryptography
+- elliptic-curves
+---
 
 Elliptic curve representations:
 - Short Weierstrass: $E: y^{2}-x^3-Ax-B=0$
@@ -87,10 +94,9 @@ montgomery curves
 - [dalek-cryptography's ed25519](https://github.com/dalek-cryptography/curve25519-dalek)
 - [martin klepmann's paper](https://martin.kleppmann.com/papers/curve25519.pdf)
 - [lamdaworks' ec module](https://github.com/lambdaclass/lambdaworks/tree/main/math/src/elliptic_curve)
-- [arkworks' ec module]()<https://github.com/arkworks-rs/algebra/tree/master/ec>
+- [arkworks' ec module](https://github.com/arkworks-rs/algebra/tree/master/ec)
 - [twisted edwards curve](https://eprint.iacr.org/2008/013)
 - [twisted edwards curve revisted](https://eprint.iacr.org/2008/522)
-- [montgomery ladder]()
 - [pairing friendly ec curves of prime order](https://eprint.iacr.org/2005/133.pdf)
 - [Hyperelliptic database](https://hyperelliptic.org/EFD/)
 - [ristretto group](https://ristretto.group/)

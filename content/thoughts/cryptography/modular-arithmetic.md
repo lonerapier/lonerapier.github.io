@@ -6,7 +6,7 @@ tags:
 - cryptography
 ---
 
-## Modular multiplication
+## Modular Multiplication
 
 Problem: $a,b\in \mathbb{Z}_{N}$, calculate $a.b\mod{N}$
 
@@ -51,12 +51,12 @@ c
 \end{equation}
 $$
 
-#### Multi precision, radix $r$
+#### Multi Precision, Radix $r$
 
 Choose: $R:2^{nr}$, and $b=2^r$
 
 $$
-\begin{array}{c}
+\begin{array}{rcl}
 A &: a_{0}+a_{1}b+\ldots+a_{n-1}b^{n-1}&=\sum^{n-1}_{0}a_{i}b^{i} \\
 c &: \bar{a}\bar{b}R^{-1} &= \sum^{r-1}_{i=0}x_{i}y2^{ir}2^{-nr}
 \end{array}
@@ -104,10 +104,8 @@ Instead of updating $t$ every loop, we'll split and update $t_{i}$ and shift $t$
 - [Montgomery modular multiplication](https://hackmd.io/@chaosma/H1uSK1C35)
 - [cliff's personal blog: montgomery multiplication](https://cliff0412.github.io/2023/12/07/arithmatic/montgomery-multiplication/)
 - [montgomery: Fast MSM in WebAssembly](https://github.com/mitschabaude/montgomery)
-- [](https://digitalassets.lib.berkeley.edu/techreports/ucb/incoming/EECS-2022-252.pdf)
 - [EdMSM](https://eprint.iacr.org/2022/1400)
 - [HPC: Montgomery](https://en.algorithmica.org/hpc/number-theory/montgomery/)
 - [Ingonyama: modular multiplication](https://github.com/ingonyama-zk/papers/blob/main/modular_multiplication.pdf)
 - [montgomery-reduction algorithm](https://www.nayuki.io/page/montgomery-reduction-algorithm)
 - [Barret reduction](https://en.wikipedia.org/wiki/Barrett_reduction)
--

@@ -37,7 +37,7 @@ Now, binary fields are an interesting area of research in implementation phase b
 [[finite-fields|field]] $\mathbb{F}_{2}$:
 - addition: XOR
 - multiplication: for $\mathbb{F}_{2}$, it's just repeated xor. 
-	- for extension fields, can be done efficiently using an algorithm similar to [[karatsuba-multiplication]]
+	- for extension fields, can be done efficiently using an algorithm similar to karatsuba multiplication
 
 Two ways of representing $\textsf{GF}(2^{k})$:
 
@@ -75,7 +75,7 @@ For example: take $\iota=3$, $v$ represents all the basis vector for monomials i
 
 Main advantage of Binary field extensions:
 - efficient embeddings
-- small-to-large multiplication: multiplying a $\mathcal{T}_{\iota}$ with $\mathcal{T_{\iota+k}}$ takes only $2^{k}\Uptheta(2^{\log 3\cdot \iota})$
+- small-to-large multiplication: multiplying a $\mathcal{T}_{\iota}$ with $\mathcal{T_{\iota+k}}$ takes only $2^{k}\Theta(2^{\log 3\cdot \iota})$
 
 Now, we have a field, using that we can derive polynomials in multilinear basis, let's understand PCS needed to commit to these polynomials:
 
@@ -119,7 +119,7 @@ define Polynomial oracle:
 - $\textsf{submit}(\boldsymbol{\iota},l,t)$: $\mathcal{P}$ submit a multilinear polynomial $t\in\mathcal{T}_{\iota}[X_{0},\dots,X_{l-1}]^{\leq 1}$, outputs $(\textsf{receipt},\iota,l,[t])$ to $\mathcal{P,V}$, where $[t]$ is a unique handle/identifier for polynomial $t$.
 - $\textsf{query}([t],r)$: from $\mathcal{V}$, $r\in \mathcal{T}_{\iota}$, outputs $\textsf{evaluate}(t(r_{0},r_{1},\dots,r_{l-1}))$
 
-define polynomial predicate as boolean valued function for a $\mu-$ary $l-$variate polynomial over $\mathcal{T}_{\iota}$: $\Upphi_{\iota,l}:\mathcal{T}_{\iota}[X_{0},X_{1},\dots,X_{l-1}]^{\mu}\to \{ 0,1 \}$
+define polynomial predicate as boolean valued function for a $\mu-$ary $l-$variate polynomial over $\mathcal{T}_{\iota}$: $\Phi_{\iota,l}:\mathcal{T}_{\iota}[X_{0},X_{1},\dots,X_{l-1}]^{\mu}\to \{ 0,1 \}$
 
 Uses hyperplonk's polynomial predicates as:
 - $\textsf{Query}(\iota,l \in N,s \in \mathcal{T}_{\tau},r \in \mathcal{T}_{\tau}^{l}):T\mapsto T(r_{0},r_{1},\dots r_{l-1})=s$
@@ -150,24 +150,19 @@ t1--X_2^2-->t2
 t2-->out(out=X_0*X_1+X_2^2-X_2)
 ```
 
-**Polynomial protocol**: takes list of virtual polynomials $[T_{0}],\dots,[T_{\mu-1}]$, and a $\mu-$ary predicate $\Upphi_{\iota,l}$
+**Polynomial protocol**: takes list of virtual polynomials $[T_{0}],\dots,[T_{\mu-1}]$, and a $\mu-$ary predicate $\Phi_{\iota,l}$
 
-- evaluation protocol: $\Upphi$ as $\mathsf{Query}_{\iota,l}(r,s)$
-- composition polynomial: take list of $l-$variate handles $[t_{0}],\dots,[t_{\mu-1}]$, and a $\mu$-variate composition polynomial $g\in\mathcal{T_{\iota}}[X_{0},\dots,X_{\mu-1}]$ such that $T:=g(t_{0}(X_{0},\dots,X_{l-1},\dots,t_{\mu-1}(X_{0},\dots,X_{l-1}))$.
-
-
-
+- evaluation protocol: $\Phi$ as $\mathsf{Query}_{\iota,l}(r,s)$
+- composition polynomial: take list of $l-$variate handles $[t_{0}],\dots,[t_{\mu-1}]$, and a $\mu$-variate composition polynomial $g\in\mathcal{T_{\iota}}[X_{0},\dots,X_{\mu-1}]$ such that $T:=g(t_{0}(X_{0},\dots,X_{l-1},\dots,t_{\mu-1}(X_{0},\dots,X_{l-1})))$.
 
 ## References
 
 - [FRI](https://drops.dagstuhl.de/storage/00lipics/lipics-vol107-icalp2018/LIPIcs.ICALP.2018.14/LIPIcs.ICALP.2018.14.pdf)
 - [STARKs](https://eprint.iacr.org/2018/046)
-- [Binary extension fields]()
+- Binary extension fields
 	- [Multiplication in Binary Fields](https://core.ac.uk/download/pdf/79110972.pdf)
 	- [Bit-Serial and Bit-Parallel Montgomery Multiplication and Squaring over $GF(2^m)$](https://www.eng.uwo.ca/electrical/faculty/reyhani_a/docs/publications/HRM-TC-10-09.pdf)
-	- 
 - [Brakedown](https://eprint.iacr.org/2021/1043)
-- [Linear codes]()
 - [Hyperplonk](https://eprint.iacr.org/2022/1355)
 - [Binius](https://eprint.iacr.org/2023/1784)
-- [Vitalik's binius post](https://vitalik.eth.limo/general/2024/04/29/binius.html) and [implementation]()
+- [Vitalik's binius post](https://vitalik.eth.limo/general/2024/04/29/binius.html)

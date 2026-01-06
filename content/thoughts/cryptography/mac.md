@@ -155,5 +155,4 @@ HMAC: $\text{Mac(m)}:t\leftarrow H^{s}((k \oplus \textsf{opad})\lVert H^{s}((k \
 
 - [Intro to Modern Cryptography: Chapter 4](https://www.cs.umd.edu/~jkatz/imc.html)
 - [A graduate course in applied cryptography by Dan Boneh, Victor Shoup: Chapter 6](https://toc.cryptobook.us/)
-- [Understanding Cryptography: Chapter 12]()
 - [Joy of Cryptography: Chapter 10](https://joyofcryptography.com)

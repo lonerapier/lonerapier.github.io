@@ -29,7 +29,7 @@ $$\forall i \in [0,T-2] \cdot \forall j \in [0,r-1] \cdot p_{j}(W_{[i,0]},\ldots
 
 these can be used to convert any high degree state transition poly to low degree state transition verification poly. In below example: state transition poly is represented as $f(x) = x^{p-2}$ but state verification poly can be represented as $p(x,y)=(x(xy-1),y(xy-1))$ which is of degree 2 only.
 
-$$ x \mapsto \left\lbrace \begin{array}{l}x^{-1} & \Leftarrow x \neq 0 \\0 & \Leftarrow x = 0 \end{array} \right.$$
+$$ x \mapsto \left\lbrace \begin{array}{cl}x^{-1} & \Leftarrow x \neq 0 \\0 & \Leftarrow x = 0 \end{array} \right.$$
 
 ### Interpolation
 

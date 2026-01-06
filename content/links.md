@@ -262,7 +262,7 @@ Other links:
 	- I can't help but ask this question: **"Can we design diseases?"**. There might be million more diseases that we haven't even found, not just for humans but for the entire nature itself.
 	- Is the drug design explosion happening for other species? If yes, who is doing it and how? If not, why?
 	- What's happening at biochemistry, drug design, is trying to sample whole of protein space, which is a huge undertaking. What's also needed is our ability to design, test, develop, manufacture drugs in days and not months to fight Cov19 like diseases in future.
-- [How we built our multi-agent research system \\ Anthropic](https://www.anthropic.com/engineering/built-multi-agent-research-system)
+- [How we built our multi-agent research system | Anthropic](https://www.anthropic.com/engineering/built-multi-agent-research-system)
 	- Classic architecture of master + worker agents doing work parallelly across different tasks identified and planned by the main agent.
 		- worker agents is assigned a singular task, and returns back with the results, that is accumulated, cleaned and embellished by the master.
 	- How did they enforce idempotency for single-purpose agents? Is main research agent responsible for tracking that new agents don't duplicate work?

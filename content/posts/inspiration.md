@@ -8,7 +8,7 @@ tags:
 
 There are amazing people that have lived on the face of Earth, and literally every one of those passionate minds inspire me to do something valuable for myself. Don't want to segregate these people into their primary interests like mathematics or physics, it'll be a gross injustice to their contributions. I'll attach whatever resource that have helped me to develop a great deal of respect for these people.
 
-- [John V. Neumann]()
+- John V. Neumann
 - [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon)
 	- [biography](https://math.berkeley.edu/~berlek/pubs/shannon.pdf)
 	- [Creative Thinking](http://www1.ece.neu.edu/~naderi/Claude%20Shannon.html)
@@ -17,12 +17,11 @@ There are amazing people that have lived on the face of Earth, and literally eve
 	- [complete fun to imagine](https://www.youtube.com/watch?v=P1ww1IXRfTA)
 	- [Pleasure of finding things out](https://vimeo.com/340695809)
 	- [Letter on what problems to solve](https://fs.blog/richard-feynman-what-problems-to-solve)
-- [Alexander Grothendïeck]()
+- [Alexander Grothendïeck](https://www.britannica.com/biography/Alexandre-Grothendieck)
 - [Jim Simons](https://en.wikipedia.org/wiki/Jim_Simons)
 	- [Abel Prize lecture](https://www.youtube.com/watch?v=CTQcLi6SpX8)
 	- [Numberphile interview](https://www.youtube.com/watch?v=QNznD9hMEh0)
-- [Kurt Kobain]()
-- [Donald Knuth]()
+- Donald Knuth
 - [George Hotz](https://geohot.github.io/blog/)
 - [Grant Sanderson](https://www.youtube.com/@3blue1brown)
 	- [3blue1brown](https://www.3blue1brown.com/)

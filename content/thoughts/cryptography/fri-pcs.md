@@ -91,7 +91,7 @@ Total proof length and $\mathcal{V}$ time: $\lambda/\log (\rho^{-1}) \cdot \log^
 
 - Difference between PC based on linear correcting codes and FRI?
 	- both are based on error correcting codes
-		- linear codes: [Brakedown](), [Ligero](), [Orion]()
+		- linear codes: [Brakedown](https://eprint.iacr.org/2021/1043), [Ligero](https://eprint.iacr.org/2022/1608)
 		- RS codes: FRI
 	- used cryptographic procedure is merkle hashing + fiat-shamir (non-interactivity)
 	- In linear codes one big folding for poly of degree $d$ is done to reduce proof size to $\sqrt{d}$ and thus are field agnostic while In FRI, proofs are recursively reduced in half logarithmically.

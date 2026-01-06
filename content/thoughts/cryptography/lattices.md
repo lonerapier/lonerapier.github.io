@@ -174,7 +174,7 @@ Orthonormal Bases:
 - Then $v_1…v_n$ are orthogonal if $\langle v_i, v_j \rangle = 0, i \neq j$
 - And orthonormal basis if $|v_j| = 1$
 - Orthogonal Projection: Let $v_1',…,v_n'$ be orthonormal basis of $V' \subseteq V$, then: $P_{V'}(x) = \sum_i \langle v_i', x \rangle v_i'$
-- Orthogonal Complement: If $V' \subseteq V$, $V'^⊥ = {x \in V | \forall v' \in V', \langle x,v' \rangle = 0}$ Property: $V = V' \oplus V'^⊥$ $\forall x \in V$ and $x = P_{V'}(x) + P_{V'^⊥}(x)$
+- Orthogonal Complement: If $V' \subseteq V$, $V'^\perp = {x \in V | \forall v' \in V', \langle x,v' \rangle = 0}$ Property: $V = V' \oplus V'^\perp$ $\forall x \in V$ and $x = P_{V'}(x) + P_{V'^\perp}(x)$
 
 ## Gram-Schmidt Process:
 
@@ -185,15 +185,24 @@ Process: Let $(v_i')_{i \leq k}$ be orthonormal basis of $V_k = \text{span}(v_1,
 Formulas:
 $$\begin{align}
 v_1' &= \frac{v_{1}}{|v_{1}|}\\
-v_2' &= \frac{P_{V_1^⊥}(v_2)}{|P_{V_1^⊥}(v_2)|}\\
+v_2' &= \frac{P_{V_1^\perp}(v_2)}{|P_{V_1^\perp}(v_2)|}\\
 v_{k+1}' &= \frac{v_{k+1} - P_{V_k}(v_{k+1})}{|v_{k+1} - P_{V_k}(v_{k+1})|}\\
 \end{align}$$
 
 ## Gram-Schmidt in Matrix Form
 
-$B = \begin{pmatrix} \bigg{|} & \bigg{|} & & \bigg{|} \\ b_1 & b_2 & \cdots & b_n \\ \bigg{|} & \bigg{|} & & \bigg{|} \end{pmatrix}$, and $\tilde{b_j} = b_j - \sum_{i<j} \mu_{i,j} \cdot \tilde{b_i}$ where $\mu_{i,j} = \frac{\langle b_j, \tilde{b_i}\rangle}{\langle \tilde{b_i}, \tilde{b_i}\rangle}$. Thus, $B$ can be written as:
+$$
+B = 
+\begin{pmatrix} 
+	\bigg | & \bigg | & & \bigg | \\ 
+	b_1 & b_2 & \cdots & b_n \\ 
+	\bigg | & \bigg | & & \bigg | 
+\end{pmatrix}
+$$
 
-$$B = \underbrace{\begin{pmatrix} \bigg{|} & \bigg{|} & & \bigg{|} \\ \tilde{b}_1 & \tilde{b}_2 & \cdots & \tilde{b}_n \\ \bigg{|} & \bigg{|} & & \bigg{|} \end{pmatrix}}_{\tilde{B}} \cdot \underbrace{\begin{pmatrix} 1 & \mu_{1,2} & \cdots & \mu_{1,n} \\ & 1 & \cdots & \mu_{2,n} \\ & & \ddots & \vdots \\ & & & 1 \end{pmatrix}}_{U}$$
+and $\tilde{b_j} = b_j - \sum_{i<j} \mu_{i,j} \cdot \tilde{b_i}$ where $\mu_{i,j} = \frac{\langle b_j, \tilde{b_i}\rangle}{\langle \tilde{b_i}, \tilde{b_i}\rangle}$. Thus, $B$ can be written as:
+
+$$B = \underbrace{\begin{pmatrix} \bigg | & \bigg | & & \bigg | \\ \tilde{b}_1 & \tilde{b}_2 & \cdots & \tilde{b}_n \\ \bigg | & \bigg | & & \bigg | \end{pmatrix}}_{\tilde{B}} \cdot \underbrace{\begin{pmatrix} 1 & \mu_{1,2} & \cdots & \mu_{1,n} \\ & 1 & \cdots & \mu_{2,n} \\ & & \ddots & \vdots \\ & & & 1 \end{pmatrix}}_{U}$$
 
 $\tilde{B}$ not a basis because $U$ is not unimodular. Take $|\tilde{b}_{i}|$ out as common factor. $B = Q \cdot D \cdot U$, where Q is orthogonal matrix ($Q^TQ = I$)
 
@@ -550,4 +559,4 @@ Let's build a encryption based on the trapdoor function with NTRU:
 - [Ajtai, Miklós. "Generating hard instances of lattice problems." Proceedings of the twenty-eighth annual ACM symposium on Theory of computing. 1996.](https://dl.acm.org/doi/pdf/10.1145/237814.237838)
 - [Jeffrey Hoffstein, Jill Pipher, and Joseph H. Silverman. NTRU: A ring-based public key cryptosystem](https://www.ntru.org/f/hps98.pdf)
 - ["On lattices, learning with errors, random linear codes, and cryptography", Oded Regev](https://dl.acm.org/doi/abs/10.1145/1568318.1568324)
-- ["Trapdoors for hard lattices and new cryptographic constructions", C. Gentry, C. Peikert, and V. Vaikuntanathan.]()
+- ["Trapdoors for hard lattices and new cryptographic constructions", C. Gentry, C. Peikert, and V. Vaikuntanathan.](https://eprint.iacr.org/2007/432)

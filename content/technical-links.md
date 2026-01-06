@@ -44,7 +44,7 @@ tags:
 - ["websockets RFC"](https://datatracker.ietf.org/doc/html/rfc6455)
 - ["axum docs"](docs.rs/axum)
 - ["Decrusted: Axum"](https://youtu.be/Wnb_n5YktO8?si=HDecnRHr5dRMcxzE)
-- ["Crust Of Rust: async/await", jonhoo]()
+- ["Crust Of Rust: async/await", jonhoo](https://www.youtube.com/watch?v=ThjvMReOXYM)
 - ["The telemetry data platform: Breaking Down Operational Silos"](https://www.youtube.com/watch?v=HW_kit5A_Gc): Good review about current telemetry stack of enterprises, and the new needs with agents.
 
 

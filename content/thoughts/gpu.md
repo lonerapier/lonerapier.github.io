@@ -1,6 +1,6 @@
 ---
 title: GPU
-date: 2026-12-10
+date: 2025-12-10
 tags:
 - gpu
 ---

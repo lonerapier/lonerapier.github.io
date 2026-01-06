@@ -95,7 +95,7 @@ BN & & & \\
 B^2N & & & \\
 \vdots & & & \\
 B^{d-1}N & & & \\
-& B^d & &
+B^d & & &
 \end{pmatrix}
 $$
 

@@ -164,7 +164,6 @@ $$
 - [The animated elliptic curves](https://curves.xargs.org/)
 - [Elliptic Curve Cryptography: a gentle introduction](https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/ "Elliptic Curve Cryptography: a gentle introduction")
 - [An introduction to elliptic curves](https://people.reed.edu/~jerry/311/ecintro.pdf)
--
 
 [^1]: [Pairings For Beginners](https://static1.squarespace.com/static/5fdbb09f31d71c1227082339/t/5ff394720493bd28278889c6/1609798774687/PairingsForBeginners.pdf) Page 14
 [^2]: [Birationally equivalent](https://crypto.stackexchange.com/questions/43013/what-does-birational-equivalence-mean-in-a-cryptographic-context) just means that a map exists between two objects and is invertible.

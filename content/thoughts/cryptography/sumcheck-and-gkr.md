@@ -7,12 +7,12 @@ tags:
 - zk
 ---
 
-Prerequisite: 
+Prerequisite:
 
 - multilinear polynomials
 - low degree extension
 
-## Multilinear extensions
+## Multilinear Extensions
 
 A multivariate polynomial $g$ is multilinear if the degree of the polynomial in each variable is at most one.
 
@@ -26,7 +26,7 @@ Using SZ lemma, verifier gains power over prover as if two functions $f,f'$ diff
 > Prove that a function $f:\left\{0,1\right\}^v\to \mathbb{F}$ has a unique multilinear extension $\widetilde{f}$ over $\mathbb{F}$.
 > a
 
-### Lagrange interpolation
+### Lagrange Interpolation
 
 $$
 \begin{equation}
@@ -40,7 +40,7 @@ $$
 \widetilde{eq}(x_{1},\dots,x_{v})=\prod_{i=1}^{v}(x_{i}w_{i}+(1-x_{i})(1-w_{i}))
 $$
 
-## Sumcheck protocol
+## Sumcheck Protocol
 
 To Prove: $\sum_{i=0}^{n} f = c$
 
@@ -55,11 +55,11 @@ $$
 Let's see how the protocol behaves:
 
 - $\mathcal{P}\to \mathcal{V}:C$ claiming $C$ to equal to $H$
-- round 1: $\mathcal{P}$ sends a univariate polynomial: 
+- round 1: $\mathcal{P}$ sends a univariate polynomial:
 $$g_{1}(X_{1})=\sum_{x_{2},\dots,x_{v}\in\left\{0,1\right\}^{v-1}}g(X_{1},x_{2},\dots,x_{v})$$
 - $\mathcal{V}$ checks that $C_{1}=g_{1}(0)+g_{1}(1)$, and $\deg_{1}(g)\leq \deg(X_{1})$
 - $r\in\mathbb{F}\leftarrow\mathcal{V}$, and sends to $\mathcal{P}$
-- round i: 
+- round i:
 	- $\mathcal{P}\to \mathcal{V}: g_{j}(X_{j})=\sum_{x_{j+1},\dots,x_{v}\in\left\{0,1\right\}^{v-i} }g(r_{1},\dots,r_{i-1},X_{j},x_{j+1},\dots,x_{v})\forall\space i\in[2,v-1]$
 	- $\mathcal{V}$ checks $g_{j}(0)+g_{j}(1)=g_{j-1}(r_{j-1})$ and sends $r_{j}\in\mathbb{F}$ to $\mathcal{P}$
 - last round: $\mathcal{P}\to \mathcal{V}:g_{v}(X_{v})=g(r_{1},\dots,r_{v-1},X_{v})$
@@ -69,7 +69,7 @@ $$g_{1}(X_{1})=\sum_{x_{2},\dots,x_{v}\in\left\{0,1\right\}^{v-1}}g(X_{1},x_{2},
 Efficiency:
 - $P$: for each round i: $\mathcal{O}(1+\deg_{i}(g))\cdot 2^{v-j}$ terms are sent
 
-### Univariate sumcheck
+### Univariate Sumcheck
 
 Introduced in [Aurora](https://eprint.iacr.org/2018/828) Paper, univariate sumcheck proves relation for a univariate polynomial $f(x)$ of degree $d$ and subset $H\subseteq \mathbb{F}$:
 
@@ -85,7 +85,7 @@ Properties of protocol:
 4. prover operations: $\mathcal{O}(d\log|H|)$
 5. verifier operations: $\mathcal{O}(\log d+\log^2|H|)$
 
-Uses theorem stated by Byott and Chapman [BC99]() that $\sum_{a\in H}f(a) = 0$ iff $f$ has degree less than $|H|-1$. Prove this using [[fri-pcs|FRI]] protocol by [BBHR18b]() which has proof complexity $\mathcal{O}(\log d)$ and proof length $\mathcal{O}(d)$. For case when degree $d>|H|-1$: we observe that we can split any polynomial $f$ into two polynomials $g$ and $h$ such that
+$\sum_{a\in H}f(a) = 0$ iff $f$ has degree less than $|H|-1$. Prove this using [[fri-pcs|FRI]] protocol by [BBHR18b](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2018.14) which has proof complexity $\mathcal{O}(\log d)$ and proof length $\mathcal{O}(d)$. For case when degree $d>|H|-1$: we observe that we can split any polynomial $f$ into two polynomials $g$ and $h$ such that
 $f(x) \equiv g(x) + \prod_{\alpha\in H}(x − \alpha) \cdot h(x)$ with $deg(g) < |H|$ and $deg(h) < d − |H|$; in particular, $f$ and $g$ agree on $H$, and thus so do their sums on $H$.
 
 $$
@@ -95,9 +95,6 @@ $$
 \end{align}
 $$
 
-- <https://hackmd.io/>@kIJ38IbETaGkxGkcxhrNVg/HycoeJUJh?utm_source=preview-mode&utm_medium=rec
-- 
-
 ## GKR
 
 $\mathcal{P}$ and $\mathcal{V}$ agrees to a circuit.
@@ -105,7 +102,7 @@ $\mathcal{P}$ proves $\mathcal{V}$, the output of the circuit.
 
 Taken from jolt repo:
 
-GKR is a SNARK protocol for binary trees of multiplication / addition gates. The standard form allows combinations of both using a wiring predicate $\tilde{V}_i$, and two additional MLEs $\tilde{add}_i$ and $\tilde{mult}_i$. 
+GKR is a SNARK protocol for binary trees of multiplication / addition gates. The standard form allows combinations of both using a wiring predicate $\tilde{V}_i$, and two additional MLEs $\tilde{add}_i$ and $\tilde{mult}_i$.
 
 $\widetilde{V}_i(j)$ evaluates to the value of he circuit at the $i$-th layer in the $j$-th gate. For example $\tilde{V}_1(0)$ corresponds to the output gate.
 
@@ -138,7 +135,7 @@ where
 $$
 g^{(i)}_z(p) = \beta_{s_i}(z, p) \cdot \tilde{V}_{i+1}(p,0) \cdot \tilde{V}_{i+1}(p,1)
 $$
-GKR is utilized in [memory-checking](./memory-checking.html) for the multi-set permutation check.
+GKR is utilized in memory-checking for the multi-set permutation check.
 
 ## Resources
 
@@ -155,3 +152,4 @@ GKR is utilized in [memory-checking](./memory-checking.html) for the multi-set p
 - [sumcheck arguments and their application](https://eprint.iacr.org/2021/333.pdf)
 - [CPerez's post about sumcheck](https://hackmd.io/@CPerezz/BJXq7U9Bn)
 - [CPerez's ideas about GKR](https://hackmd.io/@CPerezz/SkzDZmngT)
+- [Database of Theorems, Lemmas and Proofs - HackMD](https://hackmd.io/@kIJ38IbETaGkxGkcxhrNVg/HycoeJUJh)

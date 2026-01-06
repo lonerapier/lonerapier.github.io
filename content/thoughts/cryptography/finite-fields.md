@@ -159,7 +159,6 @@ Cons:
 
 - [Learning Cryptography, Part 1: Finite Fields](https://medium.loopring.io/learning-cryptography-finite-fields-ced3574a53fe)
 - [Finite Fields: Theory and Application](https://www.cantorsparadise.com/the-theory-and-applications-of-finite-fields-e78844896eaa)
-- [Finite Fields - Wikipedia]()
 - [Primitive nth root of unity](https://www.csd.uwo.ca/~mmorenom/CS874/Lectures/Newton2Hensel.html/node9.html)
 - [Introduction to Finite Fields](https://web.stanford.edu/~marykw/classes/CS250_W19/readings/Forney_Introduction_to_Finite_Fields.pdf)
 - [Finite field arithmetic](https://cryptojedi.org/peter/data/eccss-20130911a.pdf)

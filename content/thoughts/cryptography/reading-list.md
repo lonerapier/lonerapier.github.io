@@ -151,7 +151,6 @@ tags:
 - [ ] lamport signatures
 - Ring signatures
 - Threshold signatures
-- 
 
 ---
 
@@ -160,19 +159,14 @@ tags:
     - password based key derivation
 - [ ] public key cryptosystem
     - [ ] micali-goldwasser
-- [ ] OWF
 - TLSN
 - MPC
-    - [ ] OT
-        - [ ] 1-n
-        - [ ] k-n
-    - MPZ
-    - SFE
-    - Threshold cryptography
-    - BMR protocol
-    - [ ] Yao’s GC
-    - BGW SFE
-    - 2pc ecdsa
+  - MPZ
+  - SFE
+  - Threshold cryptography
+  - BMR protocol
+  - BGW SFE
+  - 2pc ecdsa
 - LPN problem
 - more secure random number generator
 - prime number generator
@@ -180,9 +174,8 @@ tags:
 
 ## Books/Courses
 
-- [PAZK]()
+- [PAZK](https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf)
 - ["Building Cryptographic Proofs from Hash Functions"](https://snargsbook.org/), [Alessandro Chiesa](https://ic-people.epfl.ch/~achiesa/) and [Eylon Yogev](https://eylonyogev.github.io/)
 - [Summer School: Foundations and Frontiers of Probabilistic Proofs (Course A)](https://www.youtube.com/playlist?list=PLGkwtcB-DfpyjJfxPUdwWpg_ygk2OIp9-)
 - [Summer School: Foundations and Frontiers of Probabilistic Proofs (Course B)](https://www.youtube.com/playlist?list=PLGkwtcB-Dfpyqf_fV6S8PiwVdRN695yh4)
 - [Spring 2019 - Probabilistically Checkable and Interactive Proof Systems (Alessandro Chiesa)](https://www.youtube.com/playlist?list=PLkFD6_40KJIyWWtxCPBHwGsrutjvwM5_U)
-- 

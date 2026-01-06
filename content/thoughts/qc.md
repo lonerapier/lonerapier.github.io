@@ -15,7 +15,7 @@ PoA:
 - [ ] Should I learn basics of Quantum mechanics back?
 	- [Physics 243](https://homes.psd.uchicago.edu/~sethi/Teaching/P243-W2020/classes243.html)
 - [PHY 265 Quantum Computing and Quantum Information](https://astro.pas.rochester.edu/~aquillen/phy265/)
--  
+- 
 
 - Basics
 	- [An Interactive Introduction To Quantum Computing](https://davidbkemp.github.io/QuantumComputingArticle/)

@@ -22,7 +22,7 @@ tags:
 - ["Accurate mental model for Rust’s reference types", dtolnay](https://docs.rs/dtolnay/latest/dtolnay/macro._02__reference_types.html)
 - [Switching from Docker to Podman](https://codesmash.dev/why-i-ditched-docker-for-podman-and-you-should-too)
 - [My Own DNS Server At Home - Part 1: IPv4 - Jan Wildeboer’s Blog](https://jan.wildeboer.net/2025/08/My-DNS-Part-1/)
-- [Hashed sorting is typically faster than hash tables](https://reiner.org/hashed-sorting): this is the bitter lesson of all of software. Hybrid algorithms, like the one explained in this blog, works surprisingly well. 
+- [Hashed sorting is typically faster than hash tables](https://reiner.org/hashed-sorting): this is the bitter lesson of all of software. Hybrid algorithms, like the one explained in this blog, works surprisingly well.
 	- Memory is the bottleneck, that means fetching values from memory takes significantly more time than computing on the value, branchless code allows the compiler to add optimisations easily, simd is underrated.
 
 ## Aug '25
@@ -34,7 +34,7 @@ tags:
 
 ## May '25
 - [Ghostty Devlog 006 – Mitchell Hashimoto](https://mitchellh.com/writing/ghostty-devlog-006): Incredible introduction to SIMD, and how to actually benchmark a terminal emulator
-- [LLVM is Smarter Than Me](https://blog.sulami.xyz/posts/llvm-is-smarter-than-me/): this blew my mind. What if there can be much more of these 
+- [LLVM is Smarter Than Me](https://blog.sulami.xyz/posts/llvm-is-smarter-than-me/): this blew my mind. What if there can be much more of these
 
 ## Apr '25
 - ["Let’s talk about AI and end-to-end encryption", Matthew Green](https://blog.cryptographyengineering.com/2025/01/17/lets-talk-about-ai-and-end-to-end-encryption/)

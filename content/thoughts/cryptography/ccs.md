@@ -5,7 +5,7 @@ tags:
 - cryptography
 ---
 
-CCS generalises popular constraint systems designed for arithmetic circuit satisfiability like [[r1cs|R1CS]], [[PLONK|Plonkish]] and AIR incurring no overheads. Combining with [[spartan-notes|Spartan]], CCS creates a family of SNARKs referring as SuperSpartan. Supports high degree constraints which doesn't scale prover cost with degree of constraints. Also provides faster prover for AIR constraints than current STARKs.
+CCS generalises popular constraint systems designed for arithmetic circuit satisfiability like [[r1cs|R1CS]], [[snark|Plonkish]] and AIR incurring no overheads. Combining with [[spartan-notes|Spartan]], CCS creates a family of SNARKs referring as SuperSpartan. Supports high degree constraints which doesn't scale prover cost with degree of constraints. Also provides faster prover for AIR constraints than current STARKs.
 
 ## Section 1: Introduction
 

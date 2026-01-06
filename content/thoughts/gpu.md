@@ -1,3 +1,10 @@
+---
+title: GPU
+date: 2026-12-10
+tags:
+- gpu
+---
+
 
 - Latency vs Throughput oriented design
 - 

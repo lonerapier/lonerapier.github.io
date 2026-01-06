@@ -109,7 +109,7 @@ Wire up the power: Connect the external 5V battery or supply to the servo driver
 
 - Hip servos: legs are vertical under the body (or at a slight angle outward for stability).
     
-- Knee servos: legs are straight (90°) relative to the upper leg segment.  
+- Knee servos: legs are straight (90°) relative to the upper leg segment.
     This neutral pose might have the robot standing somewhat crouched. The idea is to have a symmetric starting stance where all legs are on the ground and the robot is roughly level.
     
 
@@ -239,7 +239,7 @@ In summary, you’ll be combining **mechanical engineering**, **electronics**, a
 
 Plant monitoring robots represent the perfect intersection of agriculture, AI, and automation - and with India's growing tech ecosystem, building one has never been more accessible. Based on comprehensive research of current hardware availability, software frameworks, and pricing across Indian suppliers, this roadmap provides everything needed to create an intelligent plant care system that can navigate your home, assess plant health, and communicate findings.
 
-## Two implementation paths for different skill levels
+## Two Implementation Paths for Different Skill Levels
 
 **Wheeled Approach** offers the most practical entry point for beginners, providing reliable indoor navigation with proven differential drive mechanics. This path prioritizes learning fundamentals while delivering immediate functionality for plant monitoring throughout your house.
 
@@ -247,7 +247,7 @@ Plant monitoring robots represent the perfect intersection of agriculture, AI, a
 
 The optimal strategy involves starting with the wheeled foundation and potentially expanding to legged locomotion once core systems are proven and operational.
 
-## Core system architecture and capabilities
+## Core System Architecture and Capabilities
 
 Modern plant monitoring requires sophisticated sensor fusion combining visual assessment, environmental monitoring, and intelligent decision-making. The proposed system integrates Raspberry Pi 5's computational power with Arduino's real-time sensor control, creating a hybrid architecture that balances processing capability with reliable hardware control.
 
@@ -255,13 +255,13 @@ Modern plant monitoring requires sophisticated sensor fusion combining visual as
 
 **Environmental sensing** employs a comprehensive sensor suite measuring soil moisture, temperature, humidity, and light levels. The DFRobot 4-in-1 soil sensor provides professional-grade monitoring of moisture, temperature, pH, and conductivity through a single RS485 interface, while infrared temperature sensors enable non-contact plant stress detection.
 
-## Component sourcing and pricing strategy
+## Component Sourcing and Pricing Strategy
 
 India's robotics supply chain has matured significantly, with multiple reliable suppliers offering competitive pricing. **Robu.in** serves as the official Raspberry Pi distributor with strong warranty support, while **Robokits.co.in** provides competitive pricing and same-day shipping for most components. **Robocraze.com** offers excellent value on motors and mechanical components.
 
 Based on current 2025 pricing, a complete wheeled system requires ₹26,000-39,000, leaving substantial budget for advanced sensors, speech capabilities, and future expansion hardware. This pricing includes shipping costs and provides buffer for component failures during development.
 
-## Detailed component specifications and pricing
+## Detailed Component Specifications and Pricing
 
 ### Wheeled Version (Beginner-Friendly) - Total Cost: ₹32,500
 
@@ -276,7 +276,7 @@ Based on current 2025 pricing, a complete wheeled system requires ₹26,000-39,0
 |**Control Electronics**|Arduino Nano + L298N motor driver + breadboards + jumper wires|Robokits|₹2,500|
 |**Structure & Tools**|3D printing filament (PLA+) + hardware + basic tools + mounting brackets|Various|₹3,500|
 
-### Advanced Sensor Package (+₹12,000 for premium monitoring)
+### Advanced Sensor Package (+₹12,000 for Premium monitoring)
 
 |Enhanced Component|Specification|Price (INR)|
 |---|---|---|
@@ -289,9 +289,9 @@ Based on current 2025 pricing, a complete wheeled system requires ₹26,000-39,0
 
 The legged variant requires 8-12 high-torque servo motors (₹1,500-2,500 each), advanced servo control boards, precision-machined frames, and significantly more complex software. While technically impressive, this approach demands expert-level programming in inverse kinematics and dynamic balance control.
 
-## Week-by-week development roadmap
+## Week-by-week Development Roadmap
 
-### Week 1: Foundation setup and basic mobility
+### Week 1: Foundation Setup and Basic Mobility
 
 **Objective**: Establish core hardware and achieve controlled movement
 
@@ -322,7 +322,7 @@ pip install gpiozero adafruit-circuitpython-motor RPi.GPIO
 - Live camera preview with 1080p30 capture capability
 - Basic encoder-based distance measurement and speed control
 
-### Week 2: Environmental sensing and autonomous navigation
+### Week 2: Environmental Sensing and Autonomous Navigation
 
 **Objective**: Integrate sensor suite and enable autonomous movement
 
@@ -358,7 +358,7 @@ class PlantMonitorRobot:
 - Motor encoder calibration for accurate distance measurement
 - Camera color calibration using standardized color charts
 
-### Week 3: Computer vision and plant health assessment
+### Week 3: Computer Vision and Plant Health Assessment
 
 **Objective**: Deploy AI-powered plant analysis capabilities
 
@@ -390,7 +390,7 @@ class PlantMonitorRobot:
 - Use multi-threading for parallel sensor reading and image processing
 - Create efficient image preprocessing pipeline with automatic lighting compensation
 
-### Week 4: Speech interaction and user interface
+### Week 4: Speech Interaction and User Interface
 
 **Objective**: Enable natural language interaction and remote monitoring
 
@@ -424,7 +424,7 @@ class PlantMonitorRobot:
 - **Alert Notifications**: Spoken warnings for urgent plant care needs
 - **Multilingual Support**: Hindi and English language switching
 
-### Week 5-6: Advanced features and manipulation preparation
+### Week 5-6: Advanced Features and Manipulation Preparation
 
 **Objective**: System optimization and future expansion capabilities
 
@@ -457,7 +457,7 @@ class PlantMonitorRobot:
 - **Battery Life**: 6-8 hours continuous operation, 24+ hours standby
 - **Response Time**: \u003c2 second voice command processing and execution
 
-## Software architecture and development frameworks
+## Software Architecture and Development Frameworks
 
 The system employs a **modular microservices architecture** enabling gradual capability expansion and independent component development. **ROS 2 Humble** provides standardized communication between sensors, actuators, and processing nodes, while **Docker containerization** ensures consistent deployment across different hardware configurations.
 
@@ -485,7 +485,7 @@ class PlantMonitoringSystem:
         self.manipulation_planner = ManipulationPlanner()  # Future arm control
 ```
 
-## Advanced sensor capabilities and accuracy specifications
+## Advanced Sensor Capabilities and Accuracy Specifications
 
 Professional plant monitoring requires laboratory-grade environmental measurement precision. The **DFRobot 4-in-1 sensor (SEN0604)** provides research-quality accuracy through RS485 MODBUS protocol:
 
@@ -513,7 +513,7 @@ Professional plant monitoring requires laboratory-grade environmental measuremen
 
 The system compensates for varying lighting conditions through **automated exposure control**, **white balance calibration**, and **histogram equalization** preprocessing.
 
-## Indian supplier ecosystem and procurement strategy
+## Indian Supplier Ecosystem and Procurement Strategy
 
 India's electronics supply chain has achieved remarkable maturity, offering competitive pricing and reliable delivery nationwide. **Strategic supplier selection** ensures optimal cost-performance balance while maintaining component quality and warranty support.
 
@@ -551,7 +551,7 @@ India's electronics supply chain has achieved remarkable maturity, offering comp
 - **Avoid**: October-December (festive season premium pricing)
 - **Flash Sales**: Monitor supplier websites for limited-time component discounts
 
-## Future expansion and manipulation integration
+## Future Expansion and Manipulation Integration
 
 The wheeled base provides exceptional **stability and payload capacity** (tested up to 15kg) for robotic arm integration. Mechanical design includes standardized mounting points compatible with common 6-DOF arm configurations.
 
@@ -578,7 +578,7 @@ class ManipulationPlanner:
 
 **Integration Timeline**: Arm addition requires 2-3 weeks additional development after completing base robot, focusing on safety systems, precision control, and task-specific programming.
 
-## Implementation timeline and learning progression
+## Implementation Timeline and Learning Progression
 
 This **progressive development approach** ensures continuous learning while building practical functionality. Each week delivers working capabilities while preparing foundations for subsequent enhancements.
 

@@ -60,11 +60,11 @@ scalar multiplication for elliptic curve refers to multiplication of a scalar va
 - **Variable base**: where the point can be different
 - **Double base**: multiple points with multiple scalars
 
-## Montgomery curve formulae
+## Montgomery Curve Formulae
 
 montgomery curves
 
-## List of things and resources to learn
+## List of Things and Resources to Learn
 
 - all different point representations and their advantages/disadvantages.
 	- affine
@@ -80,7 +80,7 @@ montgomery curves
 - constant time operations
 - pairings
 
-### resources
+### Resources
 
 - [axioms' halo2curves](https://github.com/axiom-crypto/halo2curves)
 - [pse's halo2curves](https://github.com/axiom-crypto/halo2curves)

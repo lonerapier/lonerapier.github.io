@@ -29,7 +29,7 @@ For doing $m$ lookups in a table of size $N$. Assuming, commitments are multi-ex
 
 ## [Plookup](https://eprint.iacr.org/2020/315)
 
-builds a permutation argument similar to [[PLONK|plonk’s]] permutation argument to prove that witness values $f_i:i\in [n]$ exist in lookup table $t_i:i\in [d]$ in the same order, i.e. these two sequences are permutation of $s$ of length $n+d$.
+builds a permutation argument similar to [[snark|plonk’s]] permutation argument to prove that witness values $f_i:i\in [n]$ exist in lookup table $t_i:i\in [d]$ in the same order, i.e. these two sequences are permutation of $s$ of length $n+d$.
 
 > Note: $f \subset s$ means $f$ is sorted by $s$, i.e. value of $f$ appear in **same order** as $s$. So, plookup is basically just another permutation argument on **neighbouring values**.
 

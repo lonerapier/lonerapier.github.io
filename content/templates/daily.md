@@ -7,7 +7,7 @@ tags:
 - daily
 - 
 ---
-<%* 
+<%*
 let prevDay = tp.date.now("YYYY-MM-DD", -1, tp.file.title, "YYYY-MM-DD");
 let nextDay = tp.date.now("YYYY-MM-DD", 1, tp.file.title, "YYYY-MM-DD");
 %>

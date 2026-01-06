@@ -9,7 +9,8 @@ Other links:
 - [[technical-links]]
 
 ## Jan '26
-
+- [CONWAY'S GAME OF LIFE](https://nonzerosum.games/conwaysgame.html): The whole website is meticulously crafted, tenderly sculpted, beautiful work of art. It made me ponder on a number of different things at the intersection of art, creativity, thermodynamics, philosophy.
+- 
 
 ## Dec '25
 - [LoganThrasherCollins.com](https://logancollinsblog.com/): What an awesome person to follow. I'll surely be checking out his guide to biology.
@@ -40,7 +41,7 @@ Other links:
 
 - [On AI Infrastructure in Biology - by Elliot Hershberg](https://centuryofbio.com/p/infra)
 	- What technology led to large-scale changes in biology:
-		- NGS: unlocked functional genomics, 
+		- NGS: unlocked functional genomics,
 - [The Dropout Curriculum](https://engineeringx.substack.com/p/the-dropout-curriculum)
 	- Maths, Physics, Computing and Chemistry seems to be the bare-minimum. Still before tackling a problem, understanding the fundamentals will make you stronger.
 
@@ -53,7 +54,7 @@ Other links:
 	- What are the experiments that are already standardised? and what are the ones that need to be?
 	- Being a beginner in biology, does that mean the scientific papers are required to provide sufficient experimental evidence and steps to reproduce the result?
 	- What were the defining moments that made software reproducible and verifiable? Git, compilers, cryptography, virtualization.
-- ["Hilbert's Power"](https://fi-le.net/hilbert), [The Fiefdom of Files](https://fi-le.net/): It's wild to understand how each of hilbert's list of [unsolved problems](https://www.simonsfoundation.org/2020/05/06/hilberts-problems-23-and-math/) led to a different branch of mathematics. It's equivalent of *nerdsnipes* of today. 
+- ["Hilbert's Power"](https://fi-le.net/hilbert), [The Fiefdom of Files](https://fi-le.net/): It's wild to understand how each of hilbert's list of [unsolved problems](https://www.simonsfoundation.org/2020/05/06/hilberts-problems-23-and-math/) led to a different branch of mathematics. It's equivalent of *nerdsnipes* of today.
 	- [*Entscheidungsproblem*](https://en.wikipedia.org/wiki/Entscheidungsproblem) led to turing discovering lambda calculus, and computation which underpins the computer science of today.
 	- Hilbert's second problems led Gödel to his [[undecidability|Incompleteness]] theorems.
 - ["Why Today’s Humanoids Won’t Learn Dexterity", Rodney Brooks](https://rodneybrooks.com/why-todays-humanoids-wont-learn-dexterity/)
@@ -65,7 +66,7 @@ Other links:
 		- Compressors: bzip2, gzip, zstd. Remove redundant data from a file to reduce storage size.
 	- Compression:
 		- Lossy: JPEG, WebP, AVIF, MPEG, H264, AAC, log compression, downsampling, model quantization
-		- Lossless: encoder/decoders, statistical, dictionary, run-length, predictive, BWT (Burrows-Wheeler Transform), delta, Huffman. Used in zstd, zip, FLAC, 
+		- Lossless: encoder/decoders, statistical, dictionary, run-length, predictive, BWT (Burrows-Wheeler Transform), delta, Huffman. Used in zstd, zip, FLAC,
 	- Lossless compression encoders
 		- RLE: Run-length encoding. Compresses "HELLO HELLO HELLO" to "HELLO 3".
 		- Length-distance pair: store reference to previous values. "HELLOMISTERGOBACK HELLOMISTER GOBACK MISTER" becomes "HELLOMISTERGOBACK B18R11 B19R6 B32R6", reduces 46 bytes to 26 bytes.
@@ -90,7 +91,7 @@ Other links:
 	- But there's so many ways of enhancing your experience with problems that I haven't even started exploring.
 	- Questions that I'm not asking, multiple ways of expressing the problem and its solution, generalising the theorem even more.
 	- Pre-written problems and textbooks and courses equip you with tools, but open-ended exploration is still needed to create those abstractions and new connections.
-	- Learning mathematics imho teaches you to ask the right questions, questions that scratches your creativity with abstract concepts, questions that beget insights, insights that promise to take you the end, but instead abandons you at another unknown. Many of these lead to nowhere, or are just incomplete, or are plain incorrect. But that's part of what makes learning maths beautiful. 
+	- Learning mathematics imho teaches you to ask the right questions, questions that scratches your creativity with abstract concepts, questions that beget insights, insights that promise to take you the end, but instead abandons you at another unknown. Many of these lead to nowhere, or are just incomplete, or are plain incorrect. But that's part of what makes learning maths beautiful.
 - ["The Multidisciplinary Approach to Thinking", Peter Kaufman](https://fs.blog/great-talks/multidisciplinary-approach-thinking-peter-kaufman/)
 	- Trying to combine a new field with something that you're expert at, is the easiest way to understand any new hard thing.
 	- You're going to ask question no one is asking, and seeing through a lens only a little few has access to.
@@ -107,7 +108,7 @@ Other links:
 	- how does methylation work?
 	- somatic cells?
 - [What does AI progress mean for medical progress?](https://blog.jacobtrefethen.com/ai-progress-medical-progress/)
-	- we'll soon understand human biology 
+	- we'll soon understand human biology
 - [OneZoom Tree of Life Explorer](https://www.onezoom.org/): What an awesome resource to sneak peek into the wonderful circus that the life on earth is.
 - [All Roads Lead to Rome: The Machine Learning Job Market in 2022 \| Eric Jang](https://evjang.com/2022/04/25/rome.html)
 	- Some timeless advice in there.
@@ -138,7 +139,7 @@ Other links:
 		- Most L2 currently uses AprilTags, QR codes, visual cues across the environment to guide the robot.
 		- What's SOTA in scene analysis and understanding currently?
 		- Foundational models (multimodal capabilities) unlocked L2 and L3's path to production. What's current challenges?
-			- AllenAi's MolmoAct, Deepmind's [], Nvidia [], 
+			- AllenAi's MolmoAct, Deepmind's [], Nvidia [],
 		- Simulators like Nvidia Issac Sim is an interesting way to train foundational models and generate synthetic training data.
 	- What's the bottleneck to gain 10x speed? Some tasks (like cooking) are limited by time, but we're still seeing more than 20x difference in expert human and robot timings for task completion. Is it hardware, software, training data, physics?
 	- What are the hardware boosts needed to make efficiency 10x better? Can we design more efficient Cameras, Sensors, LiDAR, Batteries, Actuators?
@@ -149,7 +150,7 @@ Other links:
 	- Is [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) really true for all kind of AI based architecture? Is scaling and massive computation all we need to unlock new general solutions from these models?
 	- Can you create a BERT-like model by using something other than a transformer?
 	- Is it mostly data problem, where new solutions can only be found when we have ample data points about a problem, like simulating a virtual cell?
-	- Is video learning through youtube the next big thing in robotics?  
+	- Is video learning through youtube the next big thing in robotics?
 - [Superintelligence from first principles - Jack Morris](https://blog.jxmo.io/p/superintelligence-from-first-principles)
 	- AI playing Games
 	- AGI is performing any human tasks accurately.
@@ -159,7 +160,7 @@ Other links:
 - [N-Back Test - Free Online Working Memory Training \| N-Back.net](https://n-back.net/): Who doesn't love short fun games
 	- 1-back: 100%
 	- 2-back: 95%
-	- 3-back: 80% 
+	- 3-back: 80%
 	- dual-N-back: 50%
 - ["our universe is pretty rare in configuration space", rpoo](https://x.com/rpoo/status/1941359358258053411)
 	- [An anthropic universe? - BRETT HALL](https://www.bretthall.org/an-anthropic-universe.html)
@@ -203,7 +204,7 @@ Other links:
 	- [Verifiability is the Limit](https://alperenkeles.com/posts/verifiability-is-the-limit/)
 	- Agents will be bottlenecked by their environments verifiability.
 	- GUI, Coding, Physical tasks are top of the chart on verifiable tasks, while Art, Literature isn't.
-	- It's really hard to determine 
+	- It's really hard to determine
 - ["The “Energularity”, José Luis Cordeiro](https://cesd.az/new/wp-content/uploads/2013/05/CordeiroEnergularity2013_Paper.pdf)
 - [LLM Engineer's Almanac - Advisor \| Modal](https://modal.com/llm-almanac/advisor)
 	- How to benchmark different open source LLM engines to run open source LLMs on "light-speed".
@@ -291,7 +292,7 @@ Other links:
 	- Half-life of a radio isotope remains constant because its decay is independent of what has happened till now, and that's primarily because drastic change in the environment is rare. Agent's success rate depends upon many other factors (complexity, environment, context, task clarity).
 - [The Industrial Explosion \| Forethought](https://www.forethought.org/research/the-industrial-explosion)
 	- The problem that I have with all of these estimates is that they never account for a complete ecosystem bottlenecks.
-	- For example, the research here says that 
+	- For example, the research here says that
 		> [!quote] We’re uncertain about how large these uplifts might be, but it looks like – combining the gains from more productive individual workers, more productive firms, and more total human workers – the overall increase in physical output here might be about 10X.
 		- This paragraph has more *maybe*, *might*, *uncertainty* than my own future.
 		- How does the raw material gets sourced for this "Industrial explosion"?

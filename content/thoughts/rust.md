@@ -6,7 +6,7 @@ tags:
 - rust
 ---
 
-## principles
+## Principles
 
 > Understand the difference between **aliasing** and **mutability**.
 
@@ -15,9 +15,9 @@ Aliasing refers to having several immutable references to `T`. Mutability refers
 - [Rust design axioms](https://smallcultfollowing.com/babysteps/blog/2023/12/07/rust-design-axioms/)
 - 
 
-## primitives
+## Primitives
 
-`coercion`: coercion refers to changing types on run time to a related type. for example: converting from i16 to u16. but not from sttring to int. 
+`coercion`: coercion refers to changing types on run time to a related type. for example: converting from i16 to u16. but not from sttring to int.
 
 Question: how rust defines the relation about conversion from one type to another?
 
@@ -56,8 +56,8 @@ Question: how rust defines the relation about conversion from one type to anothe
 
 - `.into()` : converts custom to primitive type, reverse of `From`
 
-- Every type whether primitive or custom have `traits` implemented. Each trait have different functions that the type uses. Example: `println!` utilises `Display` trait for types like `i32` or `String`. 
-	- Thus, these types need to implement the following traits in order to use `println!` like functions. 
+- Every type whether primitive or custom have `traits` implemented. Each trait have different functions that the type uses. Example: `println!` utilises `Display` trait for types like `i32` or `String`.
+	- Thus, these types need to implement the following traits in order to use `println!` like functions.
 	- `Debug` trait implements `{:?}` functionality. So, whenever you implement a function for a generic type,
 
 - `usize` : used as unsigned size type, basically `ui32`
@@ -99,7 +99,7 @@ fn main() {
 }
 ```
 
-### Functions and traits
+### Functions and Traits
 
 `fn` type refers to any function type which also include closures.
 
@@ -126,14 +126,14 @@ fn main() {
 ```
 
 > [!question] Use of traits is advised as it compiled to direct function call which is [better](https://stackoverflow.com/a/64446465) than function pointer. How?
-> 
+>
 > This means that when you call `func_of_func` with a function item such as `func`, `callback` will be compiled to a direct function call instead of a function pointer, which is easier for the compiler to optimize.
-> 
+>
 > Function pointers have to be [dereferenced](https://stackoverflow.com/a/64298764) to be called while a function call is directly called from stack.
 
 When passing function items as args in function calls, it can't accept closures as closures doesn't implement `FnMut` trait.
 
-#### fn item types vs fn pointer type
+#### Fn Item Types Vs Fn Pointer Type
 
 - item type: function types that are assignable at compile time.
 - pointer type: assignable at run time
@@ -158,7 +158,7 @@ struct __SomeName {
     }
 ```
 
-#### Trait objects and Fat pointers
+#### Trait Objects and Fat Pointers
 
 rustc want everything to be done at compile time. It forces you to write things in such a way that less and less things are left to be done dynamically or at runtime.
 
@@ -166,7 +166,7 @@ rustc want everything to be done at compile time. It forces you to write things 
 
 That's why rust's way of handling generics is quite simple and straightforward. Let's say you take a function `F` and supplies it's arguments with generic parameters `<T>`. Now, since rust doesn't know it's concrete types but it does know what other type implement this trait, and it just copies the function with all the concrete types so that at runtime, it just becomes a function call and no additional overhead is implied due to generics.
 
-Now, you can do other thing as well, and that is, [impl trait](https://doc.rust-lang.org/rust-by-example/trait/impl_trait.html) objects in [return type](https://doc.rust-lang.org/book/ch10-02-traits.html#returning-types-that-implement-traits) of the [function](https://www.ncameron.org/blog/dyn-trait-and-impl-trait-in-rust). In usual generic argument function `fn f<T: Bar>(…)->T`, caller determines the concrete type of the function, but in case of impl Trait `fn f(…) -> impl Bar`, callee determine what function type to return so the caller only has an object of that trait type and doesn't know what concrete type it belongs to. But note that, impl trait only works when all return type is of one concrete type. So, in the example show below, function `rands(x: bool) -> impl Bar` doesn't work because it returns two different types, `Foo` and `Baz`. So, rustc throws an error that first match expression returns a `Foo` and expects second to be `Foo` as well. 
+Now, you can do other thing as well, and that is, [impl trait](https://doc.rust-lang.org/rust-by-example/trait/impl_trait.html) objects in [return type](https://doc.rust-lang.org/book/ch10-02-traits.html#returning-types-that-implement-traits) of the [function](https://www.ncameron.org/blog/dyn-trait-and-impl-trait-in-rust). In usual generic argument function `fn f<T: Bar>(…)->T`, caller determines the concrete type of the function, but in case of impl Trait `fn f(…) -> impl Bar`, callee determine what function type to return so the caller only has an object of that trait type and doesn't know what concrete type it belongs to. But note that, impl trait only works when all return type is of one concrete type. So, in the example show below, function `rands(x: bool) -> impl Bar` doesn't work because it returns two different types, `Foo` and `Baz`. So, rustc throws an error that first match expression returns a `Foo` and expects second to be `Foo` as well.
 
 Below example doesn't work, because of how trait objects are implemented in Rust. Every [trait objects](https://stackoverflow.com/questions/67767207/why-are-trait-methods-with-generic-type-parameters-object-unsafe) is associated with a [vtable](https://users.rust-lang.org/t/v-tables-differences-between-rust-and-c/92445). That's how [fat pointers](https://stackoverflow.com/questions/57754901/what-is-a-fat-pointer?) work in rust, they generally have extra data as compared to normal pointers. In case of trait objects, it contains a vptr to trait's vtable. So, when the function is called, vptr references the vtable with an offset which calls the required function implemented by that concrete type.
 
@@ -208,7 +208,7 @@ fn main() {
 }
 ```
 
-Adding a `&self` to trait function makes this work, because now rust has a concrete object whose function will be determined using vtable.  Rust creates a vtable containing function pointers to each implementor class of the trait. So, when you call `rands()`, it returns a concrete type that implements `Bar`, and then when you call `.bar()`, 
+Adding a `&self` to trait function makes this work, because now rust has a concrete object whose function will be determined using vtable.  Rust creates a vtable containing function pointers to each implementor class of the trait. So, when you call `rands()`, it returns a concrete type that implements `Bar`, and then when you call `.bar()`,
 
 ```rust
 trait_object.vtable.echo(trait_object.obj, "hello")
@@ -443,7 +443,7 @@ macro_rules! generate_getters {
 }
 ```
 
-#### Macro for implementing default trait
+#### Macro for Implementing Default Trait
 
 ```rust
 pub enum Help {
@@ -464,7 +464,7 @@ macro_rules! impl_default_elf {
 impl_default_elf!(Elf, Help::SoS);
 ```
 
-#### Macro for enum parsing
+#### Macro for Enum Parsing
 
 [Resource](https://palant.info/2023/04/17/processing-a-complex-syntax-with-rusts-declarative-macros/)
 
@@ -692,7 +692,7 @@ let a = || {
 
 ### [[rust-multithreading|Interior mutability]]
 ### [[rust-multithreading|async]]
-### ffi
+### Ffi
 - `extern` blocks: mark functions or statics as external items not defined in the current crate.
 ```rust
 use libc::size_t;
@@ -747,9 +747,9 @@ enum VectorSpace {
 - `#[link(name = "library_name", kind = "static|dylib|framework", modifiers = "+whole-archive,-xyz")]`: tells compiler to link to which native library
 	- How does the compiler know where to find the library?
 	- how can i link to custom library?
-- bindgen: generating rust bindings for c/cpp libraries, i.e. rust -> c/cpp 
+- bindgen: generating rust bindings for c/cpp libraries, i.e. rust -> c/cpp
 - cbindgen: generating c header files for rust libraries, i.e. c -> rust
-- cxx: 
+- cxx:
 - [FFI - The Rustonomicon](https://doc.rust-lang.org/nomicon/ffi.html)
 
 ## Advanced Topics
@@ -766,13 +766,13 @@ enum VectorSpace {
 - [rust custom allocators](https://nical.github.io/posts/rust-custom-allocators.html)
 - [tsoding malloc impl](https://www.youtube.com/watch?v=sZ8GJ1TiMdk)
 
-#### Things that i'm missing with Rust
+#### Things that I'm Missing with Rust
 - raw pointers
-- Box, Rc, Arc, Mutex, Cell, Refcell, Borrow, Cow, 
-- Async rust: Future, 
-- How ownership is being handled? where copy and clones are happening? how can i use more pointers? 
+- Box, Rc, Arc, Mutex, Cell, Refcell, Borrow, Cow,
+- Async rust: Future,
+- How ownership is being handled? where copy and clones are happening? how can i use more pointers?
 
-## Unstable features
+## Unstable Features
 ### Specialisation
 Extends rust trait's functionality to have overloading like feature using [specialisations](https://rust-lang.github.io/rfcs/1210-impl-specialization.html).
 
@@ -780,7 +780,7 @@ Extends rust trait's functionality to have overloading like feature using [speci
 > what's the meaning of static dispatch?
 
 
-## std crates
+## Std Crates
 - [std](https://doc.rust-lang.org/nightly/std/index.html)
 - [arch](https://doc.rust-lang.org/nightly/core/arch/index.html)
 - [alloc](https://doc.rust-lang.org/nightly/alloc/index.html)

@@ -6,7 +6,7 @@ tags:
 - engineering
 ---
 
-- understand the difference between complex and complicated. Complex system can be elegant and beautiful, it might need more time to understand completely, but you can reason your way through a complex system with minimal external help.
+- Understand the difference between complex and complicated [^1]. Complex system can be elegant and beautiful, it might need more time to understand completely, but you can reason your way through a complex system with minimal external help.
 - But a complicated system is a monster in disguise. I consider a system complicated when I can’t intuitively understand it’s components and communication between them. Even if you don’t know the answer to those questions at first try, it should be immediately clear when you do get the answer.
 - Extending a complex system is natural, my meaning by that sentence is adding new capabilities to a complex system doesn’t decrease it’s elegance, and are obvious.
 
@@ -33,3 +33,6 @@ Solutions:
 	- At any moment, if the scale grows, or major goal changes. System should be rewritten.
 - Complexity is inevitable, and software systems can't ever be simple for perpetuity. You have to push the homeostasis point of the team overtime.
 - 
+# Footnotes
+
+[^1]: [Non-Zero sum games: CONWAY'S GAME OF LIFE](https://nonzerosum.games/conwaysgame.html)

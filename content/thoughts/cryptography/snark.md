@@ -1,10 +1,10 @@
 ---
-title: "SNARKs"
+title: SNARKs
 date: 2023-05-02T00:00:00Z
 tags:
-- cryptography
-- math
-- seed
+  - cryptography
+  - math
+  - seed
 ---
 
 Properties that any zero knowledge based proving system needs to entertain:
@@ -400,3 +400,4 @@ Explanation of prover and verifier's algorithm with reasoning of each step can b
 - [Plonk Arithmetization](https://hackmd.io/@jake/plonk-arithmetization)
 - [Gnark's Plonk](https://hackmd.io/@gnark/plonk)
 - [Zac: Adding zk to PLONK](https://hackmd.io/@zacwilliamson/r1dm8Rj7D#The-problem-with-this-approach)
+

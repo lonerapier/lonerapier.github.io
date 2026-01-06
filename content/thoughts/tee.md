@@ -23,6 +23,7 @@ tags:
 	- [ ] [dstack](https://github.com/Dstack-TEE/dstack)
 	- [ ] yocto
 	- [ ]
+
 	- [x] microvm: firecracker
 
 ## Why?
@@ -73,7 +74,7 @@ SGX has two calls used to communicate between the two parts:
 > [!hint]
 > what if we need secrets of our applications between successive builds of our enclave, generating the secrets every time would be a waste of the resources. That's why we need a way to securely transfer secrets between enclaves. This is done using **Data sealing**.
 
-### Data sealing
+### Data Sealing
 
 The main aim of SGX is to not let raw secrets spill out of the enclave, and many misunderstand enclaves to be blackboxes where nothing is accessible. Rather, it's possible to encrypt data in the enclave using the encryption keys with one of the two policies defined in SGX:
 
@@ -83,7 +84,7 @@ The main aim of SGX is to not let raw secrets spill out of the enclave, and many
 > [!hint]
 > how I as a user can be sure that there is no adversary manipulating the untrusted system and data integrity is intact. Attestation helps any entity to verify the integrity of the enclave and untrusted party to gain trusted party's trust.
 
-### Remote attestation
+### Remote Attestation
 
 Remote attestation is an independent and untrustworthy party, namely prover(enclave) verifying to a trusted entity, namely verifier, the current state of the enclave to gain the relying party's trust. Can be done in two ways, Hardware-based and Software-based. A simple software-based example could include, prover sending memory hash after the execution of an application and the verifier verifying that the execution has indeed happened correctly and that no tampering has been done with the data.[^2]
 

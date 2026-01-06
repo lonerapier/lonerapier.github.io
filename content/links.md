@@ -1,5 +1,5 @@
 ---
-title: "Things on Internet that I don't want to forget"
+title: "Links"
 tags:
 - exploring
 - seed
@@ -208,15 +208,12 @@ Other links:
 - ["The “Energularity”, José Luis Cordeiro](https://cesd.az/new/wp-content/uploads/2013/05/CordeiroEnergularity2013_Paper.pdf)
 - [LLM Engineer's Almanac - Advisor \| Modal](https://modal.com/llm-almanac/advisor)
 	- How to benchmark different open source LLM engines to run open source LLMs on "light-speed".
-- ["Reward is enough", David Silver, Satinder Singh, Doina Precup, Richard S. Sutton](https://www.sciencedirect.com/science/article/pii/S0004370221000862?via%3Dihub#:~:text=https%3A//doi.org/10.1016/j.artint.2021.103535)
-	- 
+- ["Reward is enough", David Silver, Satinder Singh, Doina Precup, Richard S. Sutton](https://www.sciencedirect.com/science/article/pii/S0004370221000862)
 - [How to scale RL to 10^26 FLOPs - by Jack Morris](https://blog.jxmo.io/p/how-to-scale-rl-to-1026-flops): Jack's essays lays out the recent ideas in AI perfectly. Highly recommended read to anyone trying to understand what's going on.
-	- 
 - [Superintelligence from first principles - by Jack Morris](https://blog.jxmo.io/p/superintelligence-from-first-principles)
 	- Will the underlying architecture use transformers?
 	- Is the reward function going to be optimised using RL? is it going to be self-supervised learning?
 	- Is it going to be trained on text or multimodal?
-	- 
 
 ## Jun '25
 - ["The Grugbrained CEO", Sam Rodriques](https://www.sam-rodriques.com/post/the-grugbrained-ceo)

@@ -10,16 +10,26 @@ const cssVars = [
   "--codeFont",
 ] as const
 
-let plotlyImport: any = undefined
-
 document.addEventListener("nav", async () => {
   const center = document.querySelector(".center") as HTMLElement
   const nodes = center.querySelectorAll("code.plotly") as NodeListOf<HTMLElement>
   if (nodes.length === 0) return
 
-  // @ts-ignore
-  plotlyImport ||= await import("https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/+esm")
-  const Plotly = plotlyImport.default
+  // Load Plotly from CDN if not already loaded
+  if (!(window as any).Plotly) {
+    const script = document.createElement("script")
+    script.src = "https://cdn.jsdelivr.net/npm/plotly.js-dist-min@3.3.1/plotly.min.js"
+    script.async = true
+    document.head.appendChild(script)
+
+    // Wait for it to load
+    await new Promise((resolve, reject) => {
+      script.onload = resolve
+      script.onerror = reject
+    })
+  }
+
+  const Plotly = (window as any).Plotly
 
   const textMapping: WeakMap<HTMLElement, string> = new WeakMap()
   for (const node of nodes) {

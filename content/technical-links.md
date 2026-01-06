@@ -1,5 +1,5 @@
 ---
-title: "Technical links on Internet that I don't want to forget"
+title: "Technical Links"
 date: 2025-01-01
 tags:
 - links

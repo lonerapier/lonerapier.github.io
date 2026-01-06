@@ -15,5 +15,5 @@ My curiosity generally takes me to some unseen and uninviting places. Currently,
 Some things you might like to start from:
 
 - [[me]]
-- [[thoughts/links|links]]
+- [[links]]
 - [[cryptography]]

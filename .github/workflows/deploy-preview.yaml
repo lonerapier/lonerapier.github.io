@@ -33,6 +33,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           projectName: quartz
-          deploymentName: v5 Branch Preview
-          branch: v5
+          deploymentName: Branch Preview
           directory: ${{ steps.preview-build-artifact.outputs.download-path }}

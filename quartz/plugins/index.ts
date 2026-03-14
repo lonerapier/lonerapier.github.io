@@ -71,14 +71,24 @@ declare module "vfile" {
     htmlAst: HtmlRoot
     hasMermaidDiagram: boolean | undefined
     // from frontmatter transformer (e.g. note-properties)
-    frontmatter: {
+    frontmatter: { [key: string]: unknown } & {
       title: string
-      tags: string[]
-      description?: string
-      socialDescription?: string
-      lang?: string
-      [key: string]: unknown
-    }
+    } & Partial<{
+        tags: string[]
+        aliases: string[]
+        modified: string
+        created: string
+        published: string
+        description: string
+        socialDescription: string
+        publish: boolean | string
+        draft: boolean | string
+        lang: string
+        enableToc: string
+        cssclasses: string[]
+        socialImage: string
+        comments: boolean | string
+      }>
     // from created-modified-date transformer
     dates: {
       created: Date

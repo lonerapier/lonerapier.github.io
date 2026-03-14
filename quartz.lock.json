@@ -94,8 +94,8 @@
     "description": {
       "source": "github:quartz-community/description",
       "resolved": "https://github.com/quartz-community/description.git",
-      "commit": "dc5ab1db584d16e3914332a5bf1cbcbff36d7c5b",
-      "installedAt": "2026-03-14T21:47:06.025Z"
+      "commit": "84a4e4da48a0a2dd5c98f1f9ee9880f58b30e5bb",
+      "installedAt": "2026-03-14T22:03:01.474Z"
     },
     "encrypted-pages": {
       "source": "github:quartz-community/encrypted-pages",

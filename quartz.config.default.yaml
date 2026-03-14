@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: quartz.jzhao.xyz
+  baseUrl: v5.quartz-1h4.pages.dev
   ignorePatterns:
     - private
     - templates

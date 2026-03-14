@@ -28,8 +28,9 @@ function buildPlugin(pluginDir, name) {
     // presence can cause duplicate-singleton issues when a plugin ships its own
     // copy of a shared dependency (e.g. bases-page's ViewRegistry).
     execSync("npm prune --omit=dev", { cwd: pluginDir, stdio: "ignore" })
-    // Symlink any peerDependencies that are co-installed Quartz plugins so that
-    // Node's module resolution finds the host copy instead of a stale nested one.
+    // Symlink peerDependencies: @quartz-community/* peers resolve to sibling
+    // plugins, all other peers resolve to the host Quartz node_modules so that
+    // plugins share a single copy of packages like unified, vfile, etc.
     linkPeerPlugins(pluginDir)
     return true
   } catch (error) {
@@ -44,10 +45,12 @@ function needsBuild(pluginDir) {
 }
 
 /**
- * After pruning devDependencies, peerDependencies that reference other Quartz
- * plugins (e.g. @quartz-community/bases-page) won't be installed as npm
- * packages — they're loaded by v5 as sibling plugins. To make Node's module
- * resolution work, we symlink those peers to the co-installed plugin directory.
+ * After pruning devDependencies, peerDependencies may no longer be installed
+ * in the plugin's own node_modules. This function resolves them:
+ *
+ *  1. @quartz-community/* peers → symlink to the co-installed sibling plugin
+ *  2. All other peers → symlink to the host Quartz node_modules so plugins
+ *     share a single copy of packages like unified, vfile, rehype-raw, etc.
  */
 function linkPeerPlugins(pluginDir) {
   const pkgPath = path.join(pluginDir, "package.json")
@@ -56,24 +59,42 @@ function linkPeerPlugins(pluginDir) {
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
   const peers = pkg.peerDependencies ?? {}
 
-  for (const peerName of Object.keys(peers)) {
-    // Only handle @quartz-community scoped packages — those are Quartz plugins
-    if (!peerName.startsWith("@quartz-community/")) continue
+  // Locate the host Quartz node_modules (two levels up from .quartz/plugins/<name>)
+  const quartzRoot = path.resolve(pluginDir, "..", "..", "..")
+  const hostNodeModules = path.join(quartzRoot, "node_modules")
 
+  for (const peerName of Object.keys(peers)) {
     // Check if this peer is already satisfied (e.g. installed as a regular dep)
     const peerNodeModulesPath = path.join(pluginDir, "node_modules", ...peerName.split("/"))
     if (fs.existsSync(peerNodeModulesPath)) continue
 
-    // Find the sibling plugin by its npm package name
-    const siblingPlugin = findPluginByPackageName(peerName)
-    if (!siblingPlugin) continue
+    // Case 1: @quartz-community scoped packages → sibling plugin symlink
+    if (peerName.startsWith("@quartz-community/")) {
+      const siblingPlugin = findPluginByPackageName(peerName)
+      if (!siblingPlugin) continue
 
-    // Create the scoped directory if needed
-    const scopeDir = path.join(pluginDir, "node_modules", peerName.split("/")[0])
-    fs.mkdirSync(scopeDir, { recursive: true })
+      const scopeDir = path.join(pluginDir, "node_modules", peerName.split("/")[0])
+      fs.mkdirSync(scopeDir, { recursive: true })
 
-    // Create a relative symlink to the sibling plugin
-    const target = path.relative(scopeDir, siblingPlugin)
+      const target = path.relative(scopeDir, siblingPlugin)
+      fs.symlinkSync(target, peerNodeModulesPath, "dir")
+      continue
+    }
+
+    // Case 2: Other peers → resolve from host Quartz node_modules
+    const hostPeerPath = path.join(hostNodeModules, ...peerName.split("/"))
+    if (!fs.existsSync(hostPeerPath)) continue
+
+    // Ensure parent directory exists (for scoped packages like @napi-rs/simple-git)
+    const parts = peerName.split("/")
+    if (parts.length > 1) {
+      const scopeDir = path.join(pluginDir, "node_modules", parts[0])
+      fs.mkdirSync(scopeDir, { recursive: true })
+    } else {
+      fs.mkdirSync(path.join(pluginDir, "node_modules"), { recursive: true })
+    }
+
+    const target = path.relative(path.dirname(peerNodeModulesPath), hostPeerPath)
     fs.symlinkSync(target, peerNodeModulesPath, "dir")
   }
 }

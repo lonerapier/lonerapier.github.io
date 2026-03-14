@@ -1,7 +1,8 @@
 import fs from "fs"
 import path from "path"
-import { execSync } from "child_process"
-import { styleText } from "util"
+import os from "os"
+import { execSync, exec as execCb } from "child_process"
+import { styleText, promisify } from "util"
 import {
   readPluginsJson,
   writePluginsJson,
@@ -18,12 +19,17 @@ import {
 
 const INTERNAL_EXPORTS = new Set(["manifest", "default"])
 
+const execAsync = promisify(execCb)
+
 function buildPlugin(pluginDir, name) {
   try {
+    const skipBuild = !needsBuild(pluginDir)
     console.log(styleText("cyan", `  → ${name}: installing dependencies...`))
-    execSync("npm install", { cwd: pluginDir, stdio: "ignore" })
-    console.log(styleText("cyan", `  → ${name}: building...`))
-    execSync("npm run build", { cwd: pluginDir, stdio: "ignore" })
+    execSync("npm install --ignore-scripts", { cwd: pluginDir, stdio: "ignore" })
+    if (!skipBuild) {
+      console.log(styleText("cyan", `  → ${name}: building...`))
+      execSync("npm run build", { cwd: pluginDir, stdio: "ignore" })
+    }
     // Remove devDependencies after build — they are no longer needed and their
     // presence can cause duplicate-singleton issues when a plugin ships its own
     // copy of a shared dependency (e.g. bases-page's ViewRegistry).
@@ -37,6 +43,47 @@ function buildPlugin(pluginDir, name) {
     console.log(styleText("red", `  ✗ ${name}: build failed`))
     return false
   }
+}
+
+async function buildPluginAsync(pluginDir, name) {
+  try {
+    const skipBuild = !needsBuild(pluginDir)
+    console.log(styleText("cyan", `  → ${name}: installing dependencies...`))
+    await execAsync("npm install --ignore-scripts", { cwd: pluginDir })
+    if (!skipBuild) {
+      console.log(styleText("cyan", `  → ${name}: building...`))
+      await execAsync("npm run build", { cwd: pluginDir })
+    }
+    await execAsync("npm prune --omit=dev", { cwd: pluginDir })
+    linkPeerPlugins(pluginDir)
+    return true
+  } catch (error) {
+    console.log(styleText("red", `  ✗ ${name}: build failed`))
+    return false
+  }
+}
+
+/**
+ * Run async tasks with bounded concurrency.
+ * @param {Array} items - Items to process
+ * @param {number} concurrency - Max parallel tasks
+ * @param {Function} fn - Async function to run per item
+ * @returns {Promise<Array>} Results in order
+ */
+async function runParallel(items, concurrency, fn) {
+  const results = new Array(items.length)
+  let nextIndex = 0
+
+  async function worker() {
+    while (nextIndex < items.length) {
+      const i = nextIndex++
+      results[i] = await fn(items[i], i)
+    }
+  }
+
+  const workers = Array.from({ length: Math.min(concurrency, items.length) }, () => worker())
+  await Promise.all(workers)
+  return results
 }
 
 function needsBuild(pluginDir) {
@@ -289,13 +336,14 @@ export async function handlePluginInstall() {
   if (pluginsToBuild.length > 0) {
     console.log()
     console.log(styleText("cyan", "→ Building plugins..."))
-    for (const { name, pluginDir } of pluginsToBuild) {
-      if (!buildPlugin(pluginDir, name)) {
-        failed++
-        installed--
-      } else {
-        console.log(styleText("green", `  ✓ ${name} built`))
-      }
+    const concurrency = Math.max(1, os.cpus().length)
+    const results = await runParallel(pluginsToBuild, concurrency, async ({ name, pluginDir }) => {
+      const ok = await buildPluginAsync(pluginDir, name)
+      if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+      return ok
+    })
+    for (const ok of results) {
+      if (!ok) { failed++; installed-- }
     }
   }
 
@@ -378,11 +426,12 @@ export async function handlePluginAdd(sources) {
   if (addedPlugins.length > 0) {
     console.log()
     console.log(styleText("cyan", "→ Building plugins..."))
-    for (const { name, pluginDir } of addedPlugins) {
-      if (buildPlugin(pluginDir, name)) {
-        console.log(styleText("green", `  ✓ ${name} built`))
-      }
-    }
+    const concurrency = Math.max(1, os.cpus().length)
+    await runParallel(addedPlugins, concurrency, async ({ name, pluginDir }) => {
+      const ok = await buildPluginAsync(pluginDir, name)
+      if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+      return ok
+    })
     await regeneratePluginIndex()
   }
 
@@ -693,11 +742,12 @@ export async function handlePluginUpdate(names) {
   if (updatedPlugins.length > 0) {
     console.log()
     console.log(styleText("cyan", "→ Rebuilding updated plugins..."))
-    for (const { name, pluginDir } of updatedPlugins) {
-      if (buildPlugin(pluginDir, name)) {
-        console.log(styleText("green", `  ✓ ${name} rebuilt`))
-      }
-    }
+    const concurrency = Math.max(1, os.cpus().length)
+    await runParallel(updatedPlugins, concurrency, async ({ name, pluginDir }) => {
+      const ok = await buildPluginAsync(pluginDir, name)
+      if (ok) console.log(styleText("green", `  ✓ ${name} rebuilt`))
+      return ok
+    })
     await regeneratePluginIndex()
   }
 
@@ -824,13 +874,14 @@ export async function handlePluginRestore() {
   if (restoredPlugins.length > 0) {
     console.log()
     console.log(styleText("cyan", "→ Building restored plugins..."))
-    for (const { name, pluginDir } of restoredPlugins) {
-      if (!buildPlugin(pluginDir, name)) {
-        failed++
-        installed--
-      } else {
-        console.log(styleText("green", `  ✓ ${name} built`))
-      }
+    const concurrency = Math.max(1, os.cpus().length)
+    const results = await runParallel(restoredPlugins, concurrency, async ({ name, pluginDir }) => {
+      const ok = await buildPluginAsync(pluginDir, name)
+      if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+      return ok
+    })
+    for (const ok of results) {
+      if (!ok) { failed++; installed-- }
     }
     await regeneratePluginIndex()
   }
@@ -1029,12 +1080,14 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
   if (installed.length > 0) {
     console.log()
     console.log(styleText("cyan", "→ Building plugins..."))
-    for (const { name, pluginDir } of installed) {
-      if (!buildPlugin(pluginDir, name)) {
-        failed++
-      } else {
-        console.log(styleText("green", `  ✓ ${name} built`))
-      }
+    const concurrency = Math.max(1, os.cpus().length)
+    const results = await runParallel(installed, concurrency, async ({ name, pluginDir }) => {
+      const ok = await buildPluginAsync(pluginDir, name)
+      if (ok) console.log(styleText("green", `  ✓ ${name} built`))
+      return ok
+    })
+    for (const ok of results) {
+      if (!ok) failed++
     }
     await regeneratePluginIndex()
   }

@@ -256,10 +256,7 @@ export async function handlePluginInstall() {
 
   if (!lockfile) {
     console.log(
-      styleText(
-        "yellow",
-        "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first.",
-      ),
+      styleText("yellow", "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first."),
     )
     return
   }

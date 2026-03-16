@@ -36,6 +36,7 @@ import {
   writePluginsJson,
   extractPluginName,
   updateGlobalConfig,
+  LOCKFILE_PATH,
 } from "./plugin-data.js"
 import {
   UPSTREAM_NAME,
@@ -583,16 +584,50 @@ export async function handleUpgrade(argv) {
   console.log("Backing up your content")
   execSync(`git remote show upstream || git remote add upstream ${QUARTZ_SOURCE_REPO}`)
   await stashContentFolder(contentFolder)
+
+  const lockfileBackup = LOCKFILE_PATH + ".bak"
+  const hasLockfile = fs.existsSync(LOCKFILE_PATH)
+  if (hasLockfile) {
+    fs.copyFileSync(LOCKFILE_PATH, lockfileBackup)
+  }
+
   console.log(
     "Pulling updates... you may need to resolve some `git` conflicts if you've made changes to components or plugins.",
   )
 
+  let pullOk = false
   try {
     gitPull(UPSTREAM_NAME, QUARTZ_SOURCE_BRANCH)
+    pullOk = true
   } catch {
-    console.log(styleText("red", "An error occurred above while pulling updates."))
-    await popContentFolder(contentFolder)
-    return
+    if (hasLockfile) {
+      try {
+        fs.copyFileSync(lockfileBackup, LOCKFILE_PATH)
+        execSync(`git add ${LOCKFILE_PATH}`)
+        const remaining = execSync("git diff --name-only --diff-filter=U", {
+          encoding: "utf-8",
+        }).trim()
+        if (remaining.length === 0) {
+          execSync("git commit --no-edit")
+          pullOk = true
+          console.log(styleText("cyan", "Resolved quartz.lock.json merge conflict automatically."))
+        }
+      } catch {
+        // Could not auto-resolve, fall through to manual resolution
+      }
+    }
+
+    if (!pullOk) {
+      console.log(styleText("red", "An error occurred above while pulling updates."))
+      await popContentFolder(contentFolder)
+      if (fs.existsSync(lockfileBackup)) fs.unlinkSync(lockfileBackup)
+      return
+    }
+  }
+
+  if (hasLockfile && fs.existsSync(lockfileBackup)) {
+    fs.copyFileSync(lockfileBackup, LOCKFILE_PATH)
+    fs.unlinkSync(lockfileBackup)
   }
 
   await popContentFolder(contentFolder)

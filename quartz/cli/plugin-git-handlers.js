@@ -880,7 +880,9 @@ export async function handlePluginRestore() {
         styleText("cyan", `→ ${name}: cloning ${entry.resolved}@${entry.commit.slice(0, 7)}...`),
       )
       const branchArg = entry.ref ? ` --branch ${entry.ref}` : ""
-      execSync(`git clone${branchArg} ${entry.resolved} ${pluginDir}`, { stdio: "ignore" })
+      execSync(`git clone --depth 1${branchArg} ${entry.resolved} ${pluginDir}`, {
+        stdio: "ignore",
+      })
       execSync(`git checkout ${entry.commit}`, { cwd: pluginDir, stdio: "ignore" })
       console.log(styleText("green", `✓ ${name} restored`))
       restoredPlugins.push({ name, pluginDir })

@@ -252,8 +252,8 @@ plugins:
   - source: github:saberzero1/quartz-themes
     enabled: true
     options:
-      theme: "its-theme"
-      variation: "ttrpg-dnd"
+      theme: its-theme
+      variation: ttrpg-dnd
 layout:
   groups:
     toolbar:

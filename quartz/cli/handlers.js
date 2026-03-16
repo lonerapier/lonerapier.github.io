@@ -27,6 +27,7 @@ import {
   handlePluginRestore,
   handlePluginCheck,
   handlePluginUpdate,
+  handlePluginResolve,
 } from "./plugin-git-handlers.js"
 import {
   configExists,
@@ -274,15 +275,12 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
   // Strip protocol prefix if user included it
   baseUrl = baseUrl.replace(/^https?:\/\//, "").replace(/\/+$/, "")
 
-  // Create config if it doesn't exist
-  if (!configExists()) {
-    if (template && template !== "default") {
-      createConfigFromTemplate(template)
-      console.log(styleText("green", `Created quartz.config.yaml from '${template}' template`))
-    } else {
-      createConfigFromTemplate("default")
-      console.log(styleText("green", "Created quartz.config.yaml from defaults"))
-    }
+  if (template && template !== "default") {
+    createConfigFromTemplate(template)
+    console.log(styleText("green", `Created quartz.config.yaml from '${template}' template`))
+  } else {
+    createConfigFromTemplate("default")
+    console.log(styleText("green", "Created quartz.config.yaml from defaults"))
   }
 
   // Update markdownLinkResolution in the crawl-links plugin options via YAML config
@@ -302,6 +300,9 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
 
   // Update baseUrl in configuration
   updateGlobalConfig({ baseUrl })
+
+  // install plugins referenced in the template config
+  await handlePluginResolve()
 
   // setup remote
   execSync(`git remote show upstream || git remote add upstream ${QUARTZ_SOURCE_REPO}`, {

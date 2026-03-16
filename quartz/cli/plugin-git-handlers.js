@@ -993,7 +993,8 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
   // Find config entries whose source is a git/local-resolvable URL and not yet in lockfile
   const missing = pluginsJson.plugins.filter((entry) => {
     const name = extractPluginName(entry.source)
-    if (lockfile.plugins[name]) return false
+    const pluginDir = path.join(PLUGINS_DIR, name)
+    if (lockfile.plugins[name] && fs.existsSync(pluginDir)) return false
     // Only attempt sources that parseGitSource can handle (git URLs + local paths)
     const src = entry.source
     return (
@@ -1113,6 +1114,21 @@ export async function handlePluginResolve({ dryRun = false } = {}) {
     })
     for (const ok of results) {
       if (!ok) failed++
+    }
+    await regeneratePluginIndex()
+  }
+
+  const configNames = new Set(pluginsJson.plugins.map((entry) => extractPluginName(entry.source)))
+  const orphans = Object.keys(lockfile.plugins).filter((name) => !configNames.has(name))
+  if (orphans.length > 0) {
+    console.log()
+    for (const name of orphans) {
+      const pluginDir = path.join(PLUGINS_DIR, name)
+      if (fs.existsSync(pluginDir)) {
+        fs.rmSync(pluginDir, { recursive: true })
+      }
+      delete lockfile.plugins[name]
+      console.log(styleText("yellow", `✗ Removed ${name} (not in config)`))
     }
     await regeneratePluginIndex()
   }

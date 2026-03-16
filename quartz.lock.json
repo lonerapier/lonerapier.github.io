@@ -115,12 +115,6 @@
       "commit": "2eb43a9a8c8ae7c56602d38efec8a13a643ee29f",
       "installedAt": "2026-03-14T21:47:06.025Z"
     },
-    "external-quartz-leaflet-map-plugin": {
-      "source": "github:quartz-community/external-quartz-leaflet-map-plugin",
-      "resolved": "https://github.com/quartz-community/external-quartz-leaflet-map-plugin.git",
-      "commit": "07954bc239e9ad8c9f19e74ae44cd347ba8f50fd",
-      "installedAt": "2026-03-16T00:47:31.785Z"
-    },
     "favicon": {
       "source": "github:quartz-community/favicon",
       "resolved": "https://github.com/quartz-community/favicon.git",
@@ -192,6 +186,12 @@
       "resolved": "https://github.com/quartz-community/page-title.git",
       "commit": "5824268158a76301d4b6ec77d1f224d6983ac5cc",
       "installedAt": "2026-03-14T21:47:06.025Z"
+    },
+    "quartz-leaflet-map-plugin": {
+      "source": "github:Requiae/quartz-leaflet-map-plugin",
+      "resolved": "https://github.com/Requiae/quartz-leaflet-map-plugin.git",
+      "commit": "a3dbbc2354d01ddc4c998039f0005c735f79219f",
+      "installedAt": "2026-03-16T11:06:13.307Z"
     },
     "quartz-themes": {
       "source": "github:saberzero1/quartz-themes",

@@ -16,6 +16,7 @@ import {
 import {
   parsePluginSource,
   installPlugin,
+  installNativeDeps,
   getPluginEntryPoint,
   toFileUrl,
   isLocalSource,
@@ -236,12 +237,31 @@ export async function loadQuartzConfig(
   const enabledEntries = json.plugins.filter((e) => e.enabled)
   const manifests = new Map<string, PluginManifest>()
 
-  // Ensure all plugins are installed and collect manifests
+  // Ensure all plugins are installed and collect native deps
+  const allNativeDeps = new Map<string, Map<string, string>>()
   for (const entry of enabledEntries) {
     try {
       const gitSpec = parsePluginSource(entry.source)
-      await installPlugin(gitSpec, { verbose: false })
+      const result = await installPlugin(gitSpec, { verbose: false })
+      if (result.nativeDeps.size > 0) {
+        allNativeDeps.set(gitSpec.name, result.nativeDeps)
+      }
+    } catch (err) {
+      console.error(
+        styleText("red", `✗`) +
+          ` Failed to install plugin: ${styleText("yellow", entry.source)}\n` +
+          `  ${err instanceof Error ? err.message : String(err)}`,
+      )
+    }
+  }
 
+  if (allNativeDeps.size > 0) {
+    installNativeDeps(allNativeDeps, { verbose: false })
+  }
+
+  // Collect manifests (requires native deps to be installed first)
+  for (const entry of enabledEntries) {
+    try {
       const manifest = await getManifest(entry.source)
       if (manifest) {
         manifests.set(entry.source, manifest)
@@ -249,7 +269,7 @@ export async function loadQuartzConfig(
     } catch (err) {
       console.error(
         styleText("red", `✗`) +
-          ` Failed to install plugin: ${styleText("yellow", entry.source)}\n` +
+          ` Failed to load manifest: ${styleText("yellow", entry.source)}\n` +
           `  ${err instanceof Error ? err.message : String(err)}`,
       )
     }

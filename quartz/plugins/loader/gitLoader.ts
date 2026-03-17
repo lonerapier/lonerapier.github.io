@@ -118,43 +118,130 @@ function extractRepoName(url: string): string {
   return match ? match[1] : "unknown"
 }
 
-async function installPluginDepsIfNeeded(
-  pluginDir: string,
-  pluginName: string,
-  options: { verbose?: boolean },
-): Promise<void> {
+/**
+ * Collect native (peer) dependencies from a plugin that declares requiresInstall.
+ */
+function collectNativeDeps(pluginDir: string): Map<string, string> {
+  const result = new Map<string, string>()
   const pkgPath = path.join(pluginDir, "package.json")
-  if (!fs.existsSync(pkgPath)) return
+  if (!fs.existsSync(pkgPath)) return result
 
   try {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
     const manifest = pkg.quartz ?? pkg.manifest ?? {}
-    if (!manifest.requiresInstall) return
+    if (!manifest.requiresInstall) return result
+
+    const peerDeps: Record<string, string> = pkg.peerDependencies ?? {}
+    for (const [name, range] of Object.entries(peerDeps)) {
+      // Skip shared externals that Quartz already provides
+      if (SHARED_EXTERNALS.some((prefix) => name.startsWith(prefix)) || name === "vfile") {
+        continue
+      }
+      result.set(name, range)
+    }
+  } catch {
+    // ignore parse errors
+  }
+
+  return result
+}
+
+/**
+ * Install all collected native dependencies into the Quartz root with a single
+ * `npm install --no-save`. Lets npm resolve compatible versions across plugins.
+ */
+export function installNativeDeps(
+  nativeDeps: Map<string, Map<string, string>>,
+  options: { verbose?: boolean },
+): void {
+  const merged = new Map<string, Map<string, string>>()
+  for (const [pluginName, deps] of nativeDeps) {
+    for (const [pkg, range] of deps) {
+      if (!merged.has(pkg)) {
+        merged.set(pkg, new Map())
+      }
+      merged.get(pkg)!.set(pluginName, range)
+    }
+  }
+
+  if (merged.size === 0) return
+
+  const installArgs: string[] = []
+  for (const [pkg, pluginRanges] of merged) {
+    const ranges = [...pluginRanges.values()]
+    const uniqueRanges = [...new Set(ranges)]
 
     if (options.verbose) {
-      console.log(styleText("cyan", `→`), `Installing native dependencies for ${pluginName}...`)
+      const sources = [...pluginRanges.entries()]
+        .map(([plugin, range]) => `${plugin} (${range})`)
+        .join(", ")
+      console.log(
+        styleText("cyan", `→`),
+        `Native dep ${styleText("bold", pkg)} required by: ${sources}`,
+      )
     }
 
-    execSync("npm install --omit=dev --ignore-scripts=false", {
-      cwd: pluginDir,
-      stdio: options.verbose ? "inherit" : "pipe",
-      timeout: 60_000,
-    })
-  } catch {
-    console.warn(
-      styleText("yellow", `⚠`),
-      `Failed to install dependencies for ${pluginName}. Native features may not work.`,
+    if (uniqueRanges.length === 1) {
+      installArgs.push(`${pkg}@${JSON.stringify(uniqueRanges[0])}`)
+    } else {
+      if (options.verbose) {
+        console.warn(
+          styleText("yellow", `⚠`),
+          `Multiple version ranges for ${pkg}: ${uniqueRanges.join(", ")}. npm will attempt to resolve a compatible version.`,
+        )
+      }
+      // Use first range; npm will fail if truly incompatible
+      installArgs.push(`${pkg}@${JSON.stringify(uniqueRanges[0])}`)
+    }
+  }
+
+  if (installArgs.length === 0) return
+
+  if (options.verbose) {
+    console.log(
+      styleText("cyan", `→`),
+      `Installing ${installArgs.length} native package(s) into Quartz root...`,
     )
   }
+
+  try {
+    execSync(`npm install --no-save ${installArgs.join(" ")}`, {
+      cwd: process.cwd(),
+      stdio: options.verbose ? "inherit" : "pipe",
+      timeout: 120_000,
+    })
+
+    if (options.verbose) {
+      console.log(
+        styleText("green", `✓`),
+        `Installed native dependencies: ${[...merged.keys()].join(", ")}`,
+      )
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    console.error(
+      styleText("red", `✗`),
+      `Failed to install native dependencies. This may indicate incompatible version ranges across plugins.\n` +
+        `  Packages: ${[...merged.keys()].join(", ")}\n` +
+        `  Error: ${message}`,
+    )
+    throw new Error(`Native dependency installation failed: ${message}`)
+  }
+}
+
+interface PluginInstallResult {
+  pluginDir: string
+  nativeDeps: Map<string, string>
 }
 
 /**
  * Install a plugin from a Git repository, or symlink a local plugin.
+ * Returns the plugin directory and any native dependencies it requires.
  */
 export async function installPlugin(
   spec: GitPluginSpec,
   options: { verbose?: boolean; force?: boolean } = {},
-): Promise<string> {
+): Promise<PluginInstallResult> {
   const pluginDir = path.join(PLUGINS_CACHE_DIR, spec.name)
 
   // Local source: symlink instead of clone
@@ -171,7 +258,7 @@ export async function installPlugin(
           if (options.verbose) {
             console.log(styleText("cyan", `→`), `Plugin ${spec.name} already linked`)
           }
-          return pluginDir
+          return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
         }
       } catch {
         // stat failed, recreate
@@ -204,7 +291,7 @@ export async function installPlugin(
       console.log(styleText("green", `✓`), `Linked ${spec.name}`)
     }
 
-    return pluginDir
+    return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
   }
 
   // Git source: clone
@@ -216,7 +303,7 @@ export async function installPlugin(
       if (options.verbose) {
         console.log(styleText("cyan", `→`), `Plugin ${spec.name} already installed`)
       }
-      return pluginDir
+      return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
     } catch {
       // If git operations fail, re-clone
     }
@@ -244,13 +331,11 @@ export async function installPlugin(
     noCheckout: false,
   })
 
-  await installPluginDepsIfNeeded(pluginDir, spec.name, options)
-
   if (options.verbose) {
     console.log(styleText("green", `✓`), `Installed ${spec.name}`)
   }
 
-  return pluginDir
+  return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
 }
 
 /**
@@ -261,16 +346,24 @@ export async function installPlugins(
   options: { verbose?: boolean; force?: boolean } = {},
 ): Promise<Map<string, string>> {
   const installed = new Map<string, string>()
+  const allNativeDeps = new Map<string, Map<string, string>>()
 
   for (const source of sources) {
     try {
       const spec = typeof source === "string" ? parsePluginSource(source) : source
-      const pluginDir = await installPlugin(spec, options)
-      installed.set(spec.name, pluginDir)
+      const result = await installPlugin(spec, options)
+      installed.set(spec.name, result.pluginDir)
+      if (result.nativeDeps.size > 0) {
+        allNativeDeps.set(spec.name, result.nativeDeps)
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       console.error(styleText("red", `✗`), `Failed to install plugin: ${message}`)
     }
+  }
+
+  if (allNativeDeps.size > 0) {
+    installNativeDeps(allNativeDeps, options)
   }
 
   await regeneratePluginIndex(options)

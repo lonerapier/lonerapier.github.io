@@ -341,6 +341,11 @@ export async function handleBuild(argv) {
     metafile: true,
     sourcemap: true,
     sourcesContent: false,
+    logOverride: {
+      "direct-eval": "silent",
+      "equals-negative-zero": "silent",
+      "duplicate-object-key": "silent",
+    },
     plugins: [
       sassPlugin({
         type: "css-text",

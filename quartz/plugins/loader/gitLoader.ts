@@ -1,5 +1,6 @@
 import fs from "fs"
 import path from "path"
+import { execSync } from "child_process"
 import git from "isomorphic-git"
 import http from "isomorphic-git/http/node"
 import { styleText } from "util"
@@ -117,6 +118,36 @@ function extractRepoName(url: string): string {
   return match ? match[1] : "unknown"
 }
 
+async function installPluginDepsIfNeeded(
+  pluginDir: string,
+  pluginName: string,
+  options: { verbose?: boolean },
+): Promise<void> {
+  const pkgPath = path.join(pluginDir, "package.json")
+  if (!fs.existsSync(pkgPath)) return
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+    const manifest = pkg.quartz ?? pkg.manifest ?? {}
+    if (!manifest.requiresInstall) return
+
+    if (options.verbose) {
+      console.log(styleText("cyan", `→`), `Installing native dependencies for ${pluginName}...`)
+    }
+
+    execSync("npm install --omit=dev --ignore-scripts=false", {
+      cwd: pluginDir,
+      stdio: options.verbose ? "inherit" : "pipe",
+      timeout: 60_000,
+    })
+  } catch {
+    console.warn(
+      styleText("yellow", `⚠`),
+      `Failed to install dependencies for ${pluginName}. Native features may not work.`,
+    )
+  }
+}
+
 /**
  * Install a plugin from a Git repository, or symlink a local plugin.
  */
@@ -212,6 +243,8 @@ export async function installPlugin(
     depth: 1,
     noCheckout: false,
   })
+
+  await installPluginDepsIfNeeded(pluginDir, spec.name, options)
 
   if (options.verbose) {
     console.log(styleText("green", `✓`), `Installed ${spec.name}`)
@@ -412,6 +445,114 @@ export function cleanPlugins(): void {
   if (fs.existsSync(PLUGINS_CACHE_DIR)) {
     fs.rmSync(PLUGINS_CACHE_DIR, { recursive: true })
     console.log(styleText("green", `✓`), "Cleaned all plugins")
+  }
+}
+
+const NODE_BUILTINS = new Set([
+  "assert",
+  "buffer",
+  "child_process",
+  "cluster",
+  "console",
+  "constants",
+  "crypto",
+  "dgram",
+  "dns",
+  "domain",
+  "events",
+  "fs",
+  "http",
+  "http2",
+  "https",
+  "inspector",
+  "module",
+  "net",
+  "os",
+  "path",
+  "perf_hooks",
+  "process",
+  "punycode",
+  "querystring",
+  "readline",
+  "repl",
+  "stream",
+  "string_decoder",
+  "sys",
+  "timers",
+  "tls",
+  "trace_events",
+  "tty",
+  "url",
+  "util",
+  "v8",
+  "vm",
+  "wasi",
+  "worker_threads",
+  "zlib",
+])
+
+const SHARED_EXTERNALS = ["@quartz-community/", "preact", "@jackyzha0/quartz", "vfile"]
+
+function isAllowedExternal(specifier: string, pluginPeerDeps: string[]): boolean {
+  if (specifier.startsWith("node:")) return true
+
+  const bare = specifier.split("/")[0]
+  if (NODE_BUILTINS.has(bare)) return true
+
+  if (SHARED_EXTERNALS.some((prefix) => specifier.startsWith(prefix))) return true
+
+  if (pluginPeerDeps.some((dep) => specifier === dep || specifier.startsWith(dep + "/"))) {
+    return true
+  }
+
+  return false
+}
+
+export function validatePluginExternals(
+  pluginName: string,
+  entryPoint: string,
+  options?: { verbose?: boolean },
+): string[] {
+  try {
+    const content = fs.readFileSync(entryPoint, "utf-8")
+
+    let peerDeps: string[] = []
+    const pluginDir = path.dirname(entryPoint).replace(/\/dist$/, "")
+    const pkgPath = path.join(pluginDir, "package.json")
+    if (fs.existsSync(pkgPath)) {
+      try {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+        peerDeps = Object.keys(pkg.peerDependencies ?? {})
+      } catch {
+        // ignore parse errors
+      }
+    }
+
+    const importPattern =
+      /^\s*(?:import\s+.*\s+from|export\s+.*\s+from)\s+["']([^"'./][^"']*)["']/gm
+    const unexpected: string[] = []
+
+    for (const match of content.matchAll(importPattern)) {
+      const specifier = match[1]
+      if (!isAllowedExternal(specifier, peerDeps)) {
+        unexpected.push(specifier)
+      }
+    }
+
+    const unique = [...new Set(unexpected)]
+
+    if (unique.length > 0 && options?.verbose) {
+      console.warn(
+        styleText("yellow", `⚠`) +
+          ` Plugin ${styleText("cyan", pluginName)} has unbundled external imports that may fail at runtime:\n` +
+          unique.map((s) => `  - ${s}`).join("\n") +
+          `\n  These packages are not provided by Quartz. The plugin should bundle them into dist/.`,
+      )
+    }
+
+    return unique
+  } catch {
+    return []
   }
 }
 

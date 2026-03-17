@@ -65,6 +65,8 @@ export interface PluginManifest {
   components?: Record<string, ComponentManifest & ComponentLayoutDefaults>
   /** Page frames provided by this plugin, keyed by export name. Each entry maps to a PageFrame object. */
   frames?: Record<string, { exportName: string }>
+  /** Whether the plugin requires `npm install` after cloning (e.g. for native dependencies like sharp). */
+  requiresInstall?: boolean
 }
 
 /**

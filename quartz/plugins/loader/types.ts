@@ -141,9 +141,20 @@ export interface PluginLayoutDeclaration {
   }
 }
 
+/** Object form of a plugin source (for monorepo / advanced config) */
+export interface PluginSourceObject {
+  repo: string
+  subdir?: string
+  ref?: string
+  name?: string
+}
+
+/** A plugin source can be a string shorthand or an object with additional fields */
+export type PluginSource = string | PluginSourceObject
+
 /** A single plugin entry in quartz.config.yaml */
 export interface PluginJsonEntry {
-  source: string
+  source: PluginSource
   enabled: boolean
   options?: Record<string, unknown>
   order?: number

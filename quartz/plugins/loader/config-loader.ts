@@ -8,6 +8,7 @@ import { PluginTypes } from "../types"
 import {
   PluginManifest,
   PluginJsonEntry,
+  PluginSource,
   QuartzPluginsJson,
   LayoutConfig,
   PluginLayoutDeclaration,
@@ -50,8 +51,12 @@ function readPluginsJson(): QuartzPluginsJson | null {
   return JSON.parse(raw) as QuartzPluginsJson
 }
 
-function extractPluginName(source: string): string {
-  // Local file paths: use directory basename
+function extractPluginName(source: PluginSource): string {
+  if (typeof source === "object" && source !== null) {
+    if (source.name) return source.name
+    return extractPluginName(source.repo)
+  }
+
   if (isLocalSource(source)) {
     return path.basename(source.replace(/[\/]+$/, ""))
   }
@@ -69,6 +74,19 @@ function extractPluginName(source: string): string {
   return source
 }
 
+function formatSourceDisplay(source: PluginSource): string {
+  if (typeof source === "string") return source
+  const parts = [source.repo]
+  if (source.subdir) parts.push(`(subdir: ${source.subdir})`)
+  if (source.ref) parts.push(`(ref: ${source.ref})`)
+  return parts.join(" ")
+}
+
+function sourceKey(source: PluginSource): string {
+  if (typeof source === "string") return source
+  return JSON.stringify(source)
+}
+
 interface DependencyValidationResult {
   errors: string[]
   warnings: string[]
@@ -84,13 +102,13 @@ function validateDependencies(
   const sourceToEntry = new Map<string, PluginJsonEntry>()
   const nameToSource = new Map<string, string>()
   for (const entry of entries) {
-    sourceToEntry.set(entry.source, entry)
-    nameToSource.set(extractPluginName(entry.source), entry.source)
+    sourceToEntry.set(sourceKey(entry.source), entry)
+    nameToSource.set(extractPluginName(entry.source), sourceKey(entry.source))
   }
 
   for (const entry of entries) {
     if (!entry.enabled) continue
-    const manifest = manifests.get(entry.source)
+    const manifest = manifests.get(sourceKey(entry.source))
     if (!manifest?.dependencies?.length) continue
 
     const pluginName = manifest.displayName || extractPluginName(entry.source)
@@ -126,12 +144,11 @@ function validateDependencies(
     }
   }
 
-  // Circular dependency detection
   const graph = new Map<string, string[]>()
   for (const entry of entries) {
-    const manifest = manifests.get(entry.source)
+    const manifest = manifests.get(sourceKey(entry.source))
     if (manifest?.dependencies?.length) {
-      graph.set(entry.source, manifest.dependencies)
+      graph.set(sourceKey(entry.source), manifest.dependencies)
     }
   }
 
@@ -169,7 +186,7 @@ function validateDependencies(
   return { errors, warnings }
 }
 
-async function resolvePluginManifest(source: string): Promise<PluginManifest | null> {
+async function resolvePluginManifest(source: PluginSource): Promise<PluginManifest | null> {
   try {
     const gitSpec = parsePluginSource(source)
     const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
@@ -180,7 +197,7 @@ async function resolvePluginManifest(source: string): Promise<PluginManifest | n
   }
 }
 
-async function readManifestFromPackageJson(source: string): Promise<PluginManifest | null> {
+async function readManifestFromPackageJson(source: PluginSource): Promise<PluginManifest | null> {
   try {
     const gitSpec = parsePluginSource(source)
     const pluginDir = path.join(process.cwd(), ".quartz", "plugins", gitSpec.name)
@@ -213,7 +230,7 @@ async function readManifestFromPackageJson(source: string): Promise<PluginManife
   }
 }
 
-async function getManifest(source: string): Promise<PluginManifest | null> {
+async function getManifest(source: PluginSource): Promise<PluginManifest | null> {
   // Try package.json quartz field first (preferred), then fall back to manifest.ts export
   return (await readManifestFromPackageJson(source)) ?? (await resolvePluginManifest(source))
 }
@@ -249,7 +266,7 @@ export async function loadQuartzConfig(
     } catch (err) {
       console.error(
         styleText("red", `✗`) +
-          ` Failed to install plugin: ${styleText("yellow", entry.source)}\n` +
+          ` Failed to install plugin: ${styleText("yellow", formatSourceDisplay(entry.source))}\n` +
           `  ${err instanceof Error ? err.message : String(err)}`,
       )
     }
@@ -264,12 +281,12 @@ export async function loadQuartzConfig(
     try {
       const manifest = await getManifest(entry.source)
       if (manifest) {
-        manifests.set(entry.source, manifest)
+        manifests.set(sourceKey(entry.source), manifest)
       }
     } catch (err) {
       console.error(
         styleText("red", `✗`) +
-          ` Failed to load manifest: ${styleText("yellow", entry.source)}\n` +
+          ` Failed to load manifest: ${styleText("yellow", formatSourceDisplay(entry.source))}\n` +
           `  ${err instanceof Error ? err.message : String(err)}`,
       )
     }
@@ -296,7 +313,7 @@ export async function loadQuartzConfig(
   const pageTypes: { entry: PluginJsonEntry; manifest: PluginManifest | undefined }[] = []
 
   for (const entry of enabledEntries) {
-    const manifest = manifests.get(entry.source)
+    const manifest = manifests.get(sourceKey(entry.source))
     const category = manifest?.category
     // Resolve processing categories: for array categories (e.g. ["transformer", "pageType", "component"]),
     // push the plugin into ALL matching processing category buckets.
@@ -683,7 +700,8 @@ function buildLayoutForEntries(
 
     // Look up component from registry
     const registered =
-      componentRegistry.get(name) ?? componentRegistry.get(`${entry.source}/${name}`)
+      componentRegistry.get(name) ??
+      componentRegistry.get(`${formatSourceDisplay(entry.source)}/${name}`)
     if (!registered) {
       // Try common naming patterns
       const pascalName = name

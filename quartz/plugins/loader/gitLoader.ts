@@ -5,6 +5,7 @@ import git from "isomorphic-git"
 import http from "isomorphic-git/http/node"
 import { styleText } from "util"
 import { pathToFileURL } from "url"
+import { PluginSource } from "./types"
 
 /**
  * Convert an absolute filesystem path to a file:// URL string for use with dynamic import().
@@ -40,7 +41,10 @@ const PLUGINS_CACHE_DIR = path.join(process.cwd(), ".quartz", "plugins")
  * Check if a source string refers to a local file path.
  * Local sources start with ./, ../, / or a Windows drive letter (e.g. C:\).
  */
-export function isLocalSource(source: string): boolean {
+export function isLocalSource(source: PluginSource): boolean {
+  if (typeof source === "object") {
+    return isLocalSource(source.repo)
+  }
   if (source.startsWith("./") || source.startsWith("../") || source.startsWith("/")) {
     return true
   }
@@ -60,7 +64,22 @@ export function isLocalSource(source: string): boolean {
  * - "git+https://..." -> direct git URL
  * - "https://github.com/..." -> direct https URL
  */
-export function parsePluginSource(source: string): GitPluginSpec {
+export function parsePluginSource(source: PluginSource): GitPluginSpec {
+  if (typeof source === "object" && source !== null) {
+    const url = source.repo
+    const subdir = source.subdir
+    const ref = source.ref
+
+    if (isLocalSource(url)) {
+      const resolved = path.resolve(url)
+      const name = source.name ?? path.basename(resolved)
+      return { name, repo: resolved, local: true, subdir }
+    }
+
+    const name = source.name ?? extractRepoName(url)
+    return { name, repo: url, ref: ref || undefined, subdir }
+  }
+
   // Handle local paths
   if (isLocalSource(source)) {
     const resolved = path.resolve(source)

@@ -189,7 +189,7 @@ function validateDependencies(
 async function resolvePluginManifest(source: PluginSource): Promise<PluginManifest | null> {
   try {
     const gitSpec = parsePluginSource(source)
-    const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+    const entryPoint = getPluginEntryPoint(gitSpec.name)
     const module = await import(toFileUrl(entryPoint))
     return module.manifest ?? null
   } catch {
@@ -343,7 +343,7 @@ export async function loadQuartzConfig(
         // Always import the main entry point for component-only plugins.
         // Some plugins (e.g. Bases view registrations) rely on side effects
         // in their index module to register functionality.
-        const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+        const entryPoint = getPluginEntryPoint(gitSpec.name)
         try {
           const module = await import(toFileUrl(entryPoint))
           // If the module exports an init() function, call it with merged options
@@ -356,22 +356,22 @@ export async function loadQuartzConfig(
           // Side-effect import failed — continue with manifest-based loading
         }
         if (manifest?.components && Object.keys(manifest.components).length > 0) {
-          await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          await loadComponentsFromPackage(gitSpec.name, manifest)
         }
         if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
-          await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          await loadFramesFromPackage(gitSpec.name, manifest)
         }
       } else {
-        const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+        const entryPoint = getPluginEntryPoint(gitSpec.name)
         try {
           const module = await import(toFileUrl(entryPoint))
           const detected = detectCategoryFromModule(module)
           if (detected) {
             categoryMap[detected].push({ entry, manifest })
           } else if (manifest?.components && Object.keys(manifest.components).length > 0) {
-            await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+            await loadComponentsFromPackage(gitSpec.name, manifest)
             if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
-              await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+              await loadFramesFromPackage(gitSpec.name, manifest)
             }
           } else {
             console.warn(
@@ -383,10 +383,10 @@ export async function loadQuartzConfig(
           const hasComponents = manifest?.components && Object.keys(manifest.components).length > 0
           const hasFrames = manifest?.frames && Object.keys(manifest.frames).length > 0
           if (hasComponents) {
-            await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+            await loadComponentsFromPackage(gitSpec.name, manifest)
           }
           if (hasFrames) {
-            await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+            await loadFramesFromPackage(gitSpec.name, manifest)
           }
           if (!hasComponents && !hasFrames) {
             console.warn(
@@ -423,13 +423,13 @@ export async function loadQuartzConfig(
     for (const { entry, manifest } of items) {
       try {
         const gitSpec = parsePluginSource(entry.source)
-        const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+        const entryPoint = getPluginEntryPoint(gitSpec.name)
         const module = await import(toFileUrl(entryPoint))
         if (manifest?.components && Object.keys(manifest.components).length > 0) {
-          await loadComponentsFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          await loadComponentsFromPackage(gitSpec.name, manifest)
         }
         if (manifest?.frames && Object.keys(manifest.frames).length > 0) {
-          await loadFramesFromPackage(gitSpec.name, manifest, gitSpec.subdir)
+          await loadFramesFromPackage(gitSpec.name, manifest)
         }
 
         const factory = findFactory(module, expectedCategory)

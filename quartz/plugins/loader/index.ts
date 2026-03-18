@@ -186,7 +186,7 @@ async function resolveSinglePlugin(
     try {
       const gitSpec = parsePluginSource(packageName)
       await installPlugin(gitSpec, { verbose: options.verbose })
-      const entryPoint = getPluginEntryPoint(gitSpec.name, gitSpec.subdir)
+      const entryPoint = getPluginEntryPoint(gitSpec.name)
 
       // Import the plugin
       const module = await import(toFileUrl(entryPoint))

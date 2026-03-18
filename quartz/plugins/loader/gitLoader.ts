@@ -76,8 +76,18 @@ export function parsePluginSource(source: PluginSource): GitPluginSpec {
       return { name, repo: resolved, local: true, subdir }
     }
 
-    const name = source.name ?? extractRepoName(url)
-    return { name, repo: url, ref: ref || undefined, subdir }
+    // Expand shorthand formats in the repo field (e.g. "github:user/repo")
+    // by recursing through the string-based parsing path, then overlay
+    // the object-level fields (subdir, ref, name) on top.
+    const expanded = parsePluginSource(url)
+    const name = source.name ?? expanded.name
+    return {
+      name,
+      repo: expanded.repo,
+      ref: ref || expanded.ref || undefined,
+      subdir,
+      local: expanded.local,
+    }
   }
 
   // Handle local paths
@@ -248,6 +258,129 @@ export function installNativeDeps(
   }
 }
 
+function isDistGitignored(pluginDir: string): boolean {
+  const gitignorePath = path.join(pluginDir, ".gitignore")
+  if (!fs.existsSync(gitignorePath)) return false
+
+  const lines = fs.readFileSync(gitignorePath, "utf-8").split("\n")
+  return lines.some((line) => {
+    const trimmed = line.trim()
+    return trimmed === "dist" || trimmed === "dist/" || trimmed === "/dist" || trimmed === "/dist/"
+  })
+}
+
+function needsBuild(pluginDir: string): boolean {
+  if (isDistGitignored(pluginDir)) return true
+  const distDir = path.join(pluginDir, "dist")
+  return !fs.existsSync(distDir)
+}
+
+function findPluginByPackageName(packageName: string): string | null {
+  if (!fs.existsSync(PLUGINS_CACHE_DIR)) return null
+
+  const plugins = fs.readdirSync(PLUGINS_CACHE_DIR).filter((entry) => {
+    const entryPath = path.join(PLUGINS_CACHE_DIR, entry)
+    return fs.statSync(entryPath).isDirectory()
+  })
+
+  for (const pluginDirName of plugins) {
+    const pkgPath = path.join(PLUGINS_CACHE_DIR, pluginDirName, "package.json")
+    if (!fs.existsSync(pkgPath)) continue
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+      if (pkg.name === packageName) {
+        return path.join(PLUGINS_CACHE_DIR, pluginDirName)
+      }
+    } catch {}
+  }
+  return null
+}
+
+/**
+ * Symlink peer dependencies to the host Quartz node_modules so plugins
+ * share a single copy of packages like unified, vfile, preact, etc.
+ * @quartz-community/* peers resolve to co-installed sibling plugins instead.
+ */
+function linkPeerDependencies(pluginDir: string): void {
+  const pkgPath = path.join(pluginDir, "package.json")
+  if (!fs.existsSync(pkgPath)) return
+
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"))
+  const peers: Record<string, string> = pkg.peerDependencies ?? {}
+
+  const quartzRoot = path.resolve(pluginDir, "..", "..", "..")
+  const hostNodeModules = path.join(quartzRoot, "node_modules")
+
+  for (const peerName of Object.keys(peers)) {
+    const peerNodeModulesPath = path.join(pluginDir, "node_modules", ...peerName.split("/"))
+    if (fs.existsSync(peerNodeModulesPath)) continue
+
+    if (peerName.startsWith("@quartz-community/")) {
+      const siblingPlugin = findPluginByPackageName(peerName)
+      if (!siblingPlugin) continue
+
+      const scopeDir = path.join(pluginDir, "node_modules", peerName.split("/")[0])
+      fs.mkdirSync(scopeDir, { recursive: true })
+
+      const target = path.relative(scopeDir, siblingPlugin)
+      fs.symlinkSync(target, peerNodeModulesPath, "dir")
+      continue
+    }
+
+    const hostPeerPath = path.join(hostNodeModules, ...peerName.split("/"))
+    if (!fs.existsSync(hostPeerPath)) continue
+
+    const parts = peerName.split("/")
+    if (parts.length > 1) {
+      const scopeDir = path.join(pluginDir, "node_modules", parts[0])
+      fs.mkdirSync(scopeDir, { recursive: true })
+    } else {
+      fs.mkdirSync(path.join(pluginDir, "node_modules"), { recursive: true })
+    }
+
+    const target = path.relative(path.dirname(peerNodeModulesPath), hostPeerPath)
+    fs.symlinkSync(target, peerNodeModulesPath, "dir")
+  }
+}
+
+function buildInstalledPlugin(pluginDir: string, name: string, verbose?: boolean): void {
+  try {
+    const shouldBuild = needsBuild(pluginDir)
+
+    if (verbose) {
+      console.log(styleText("cyan", `→`), `${name}: installing dependencies...`)
+    }
+    execSync("npm install --ignore-scripts", {
+      cwd: pluginDir,
+      stdio: verbose ? "inherit" : "pipe",
+      timeout: 120_000,
+    })
+
+    if (shouldBuild) {
+      if (verbose) {
+        console.log(styleText("cyan", `→`), `${name}: building...`)
+      }
+      execSync("npm run build", {
+        cwd: pluginDir,
+        stdio: verbose ? "inherit" : "pipe",
+        timeout: 120_000,
+      })
+    }
+
+    execSync("npm prune --omit=dev", {
+      cwd: pluginDir,
+      stdio: verbose ? "inherit" : "pipe",
+      timeout: 60_000,
+    })
+
+    linkPeerDependencies(pluginDir)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    console.error(styleText("red", `✗`), `${name}: post-install build failed: ${message}`)
+    throw new Error(`Failed to build plugin ${name}: ${message}`)
+  }
+}
+
 interface PluginInstallResult {
   pluginDir: string
   nativeDeps: Map<string, string>
@@ -316,39 +449,66 @@ export async function installPlugin(
   // Git source: clone
   // Check if already installed
   if (!options.force && fs.existsSync(pluginDir)) {
-    // Check if it's a git repo by trying to resolve HEAD
-    try {
-      await git.resolveRef({ fs, dir: pluginDir, ref: "HEAD" })
-      if (options.verbose) {
-        console.log(styleText("cyan", `→`), `Plugin ${spec.name} already installed`)
+    // For subdir installs, the .git directory is removed after extraction,
+    // so check for package.json instead. For full-repo installs, check git HEAD.
+    if (spec.subdir) {
+      const pkgPath = path.join(pluginDir, "package.json")
+      if (fs.existsSync(pkgPath)) {
+        if (options.verbose) {
+          console.log(styleText("cyan", `→`), `Plugin ${spec.name} already installed`)
+        }
+        return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
       }
-      return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
-    } catch {
-      // If git operations fail, re-clone
+    } else {
+      try {
+        await git.resolveRef({ fs, dir: pluginDir, ref: "HEAD" })
+        if (options.verbose) {
+          console.log(styleText("cyan", `→`), `Plugin ${spec.name} already installed`)
+        }
+        return { pluginDir, nativeDeps: collectNativeDeps(pluginDir) }
+      } catch {
+        // If git operations fail, re-clone
+      }
     }
   }
 
-  // Clean up if force reinstall
-  if (options.force && fs.existsSync(pluginDir)) {
+  // Clean up if force reinstall or stale install
+  if (fs.existsSync(pluginDir)) {
     fs.rmSync(pluginDir, { recursive: true })
   }
 
   if (options.verbose) {
     const refSuffix = spec.ref ? `#${spec.ref}` : ""
-    console.log(styleText("cyan", `→`), `Cloning ${spec.name} from ${spec.repo}${refSuffix}...`)
+    const subdirSuffix = spec.subdir ? ` (subdir: ${spec.subdir})` : ""
+    console.log(
+      styleText("cyan", `→`),
+      `Cloning ${spec.name} from ${spec.repo}${refSuffix}${subdirSuffix}...`,
+    )
   }
 
-  // Clone the repository
-  await git.clone({
-    fs,
-    http,
-    dir: pluginDir,
-    url: spec.repo,
-    ref: spec.ref,
-    singleBranch: true,
-    depth: 1,
-    noCheckout: false,
-  })
+  if (spec.subdir) {
+    const tmpDir = pluginDir + ".__tmp__"
+    if (fs.existsSync(tmpDir)) {
+      fs.rmSync(tmpDir, { recursive: true })
+    }
+
+    const branchArg = spec.ref ? ` --branch ${spec.ref}` : ""
+    execSync(`git clone --depth 1${branchArg} "${spec.repo}" "${tmpDir}"`, { stdio: "pipe" })
+
+    const subdirPath = path.join(tmpDir, spec.subdir)
+    if (!fs.existsSync(subdirPath)) {
+      fs.rmSync(tmpDir, { recursive: true })
+      throw new Error(`Subdirectory "${spec.subdir}" not found in repository ${spec.repo}`)
+    }
+
+    fs.renameSync(subdirPath, pluginDir)
+    fs.rmSync(tmpDir, { recursive: true })
+  } else {
+    const branchArg = spec.ref ? ` --branch ${spec.ref}` : ""
+    execSync(`git clone --depth 1${branchArg} "${spec.repo}" "${pluginDir}"`, { stdio: "pipe" })
+  }
+
+  buildInstalledPlugin(pluginDir, spec.name, options.verbose)
 
   if (options.verbose) {
     console.log(styleText("green", `✓`), `Installed ${spec.name}`)
@@ -408,9 +568,9 @@ export function isPluginInstalled(name: string): boolean {
  * Get the entry point for a plugin.
  * Prefers compiled dist/ output over raw src/ to avoid ESM resolution issues.
  */
-export function getPluginEntryPoint(name: string, subdir?: string): string {
+export function getPluginEntryPoint(name: string): string {
   const pluginDir = getPluginDir(name)
-  const searchDir = subdir ? path.join(pluginDir, subdir) : pluginDir
+  const searchDir = pluginDir
   // Check package.json exports first (most reliable)
   const pkgJsonPath = path.join(searchDir, "package.json")
   if (fs.existsSync(pkgJsonPath)) {
@@ -459,13 +619,9 @@ export function getPluginEntryPoint(name: string, subdir?: string): string {
  * Resolve a subpath export for a plugin (e.g. "./components").
  * Uses package.json exports map, then falls back to dist/ directory structure.
  */
-export function getPluginSubpathEntry(
-  name: string,
-  subpath: string,
-  subdir?: string,
-): string | null {
+export function getPluginSubpathEntry(name: string, subpath: string): string | null {
   const pluginDir = getPluginDir(name)
-  const searchDir = subdir ? path.join(pluginDir, subdir) : pluginDir
+  const searchDir = pluginDir
 
   // Check package.json exports map
   const pkgJsonPath = path.join(searchDir, "package.json")

@@ -1,7 +1,8 @@
 ---
-title: "CreatedModifiedDate"
+title: CreatedModifiedDate
 tags:
   - plugin/transformer
+image:
 ---
 
 This plugin determines the created, modified, and published dates for a document using three potential data sources: frontmatter metadata, Git history, and the filesystem. See [[authoring content#Syntax]] for more information.

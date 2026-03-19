@@ -2,6 +2,7 @@
 title: TableOfContents
 tags:
   - plugin/transformer
+image: https://images.unsplash.com/photo-1768527338896-3765921e992d
 ---
 
 This plugin generates a table of contents (TOC) for Markdown documents. See [[table of contents]] for more information.

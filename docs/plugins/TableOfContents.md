@@ -2,6 +2,7 @@
 title: TableOfContents
 tags:
   - plugin/transformer
+  - plugin/component
 image: https://images.unsplash.com/photo-1768527338896-3765921e992d
 ---
 
@@ -22,7 +23,7 @@ This plugin accepts the following configuration options:
 
 ## API
 
-- Category: Transformer
+- Category: Transformer, Component
 - Function name: `ExternalPlugin.TableOfContentsTransformer()`.
 - Source: [`quartz-community/table-of-contents`](https://github.com/quartz-community/table-of-contents)
 - Install: `npx quartz plugin add github:quartz-community/table-of-contents`

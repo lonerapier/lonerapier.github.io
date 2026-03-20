@@ -17,7 +17,7 @@ This plugin accepts the following configuration options:
 When loading the frontmatter, the value of [[Frontmatter#List]] is used.
 
 > [!warning]
-> If you rely on `git` for dates, make sure `defaultDateType` is set to `modified` in `quartz.config.yaml`.
+> If you rely on `git` for dates, make sure `defaultDateType` is set to `modified` in the plugin's options.
 >
 > Depending on how you [[hosting|host]] your Quartz, the `filesystem` dates of your local files may not match the final dates. In these cases, it may be better to use `git` or `frontmatter` to guarantee correct dates.
 

@@ -847,10 +847,12 @@ export async function handlePluginUpdate(names) {
           subdir: entry.subdir,
           pluginDir,
         })
+        if (needsBuild(pluginDir)) {
+          updatedPlugins.push({ name, pluginDir })
+        }
         if (newCommit !== entry.commit) {
           entry.commit = newCommit
           entry.installedAt = new Date().toISOString()
-          updatedPlugins.push({ name, pluginDir })
           console.log(
             styleText(
               "green",
@@ -858,7 +860,7 @@ export async function handlePluginUpdate(names) {
             ),
           )
         } else {
-          console.log(styleText("gray", `✓ ${name} already up to date`))
+          console.log(styleText("gray", `✓ ${name} rebuilt (subdir: ${entry.subdir})`))
         }
       } else {
         const fetchRef = entry.ref || ""

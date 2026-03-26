@@ -124,8 +124,8 @@
     "folder-page": {
       "source": "github:quartz-community/folder-page",
       "resolved": "https://github.com/quartz-community/folder-page.git",
-      "commit": "c7fe67ccb1944e895aba10d8315aa7fba58f2bb5",
-      "installedAt": "2026-03-25T23:34:43.949Z"
+      "commit": "6e740ccef9112512f2a9ba442ca23882710a2cb9",
+      "installedAt": "2026-03-26T12:22:14.485Z"
     },
     "footer": {
       "source": "github:quartz-community/footer",

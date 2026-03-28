@@ -34,8 +34,8 @@
     "canvas-page": {
       "source": "github:quartz-community/canvas-page",
       "resolved": "https://github.com/quartz-community/canvas-page.git",
-      "commit": "025b498d7e7008d65a7740535b2a2de1aef1dcf3",
-      "installedAt": "2026-03-25T23:34:40.634Z"
+      "commit": "916575bf9937ff37c738891ec417b449e8448e39",
+      "installedAt": "2026-03-28T23:51:10.503Z"
     },
     "citations": {
       "source": "github:quartz-community/citations",
@@ -194,9 +194,9 @@
         "subdir": "plugin"
       },
       "resolved": "https://github.com/saberzero1/quartz-themes.git",
-      "commit": "2d315b71490655fe9e6434c0604dcb2292af91d2",
+      "commit": "a3c0a5b5cab28b1f97e82ccee781bf7468ad1028",
       "subdir": "plugin",
-      "installedAt": "2026-03-27T14:57:08.957Z"
+      "installedAt": "2026-03-27T23:08:48.545Z"
     },
     "reader-mode": {
       "source": "github:quartz-community/reader-mode",

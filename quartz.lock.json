@@ -225,8 +225,8 @@
     "search": {
       "source": "github:quartz-community/search",
       "resolved": "https://github.com/quartz-community/search.git",
-      "commit": "4cfc4b2110bc232f772b07f276fd2e72895c5af3",
-      "installedAt": "2026-03-29T13:46:30.523Z"
+      "commit": "fa489e37d62ad057297d9cb836c14e8f2e732bb2",
+      "installedAt": "2026-03-29T22:37:52.827Z"
     },
     "spacer": {
       "source": "github:quartz-community/spacer",

@@ -238,10 +238,12 @@ See [[configuration#Advanced Source Options|Advanced Source Options]] for the fu
 
 The old commands still work as hidden aliases but will print a deprecation warning.
 
-## Interactive Mode
+## Plugin Status
 
-Running the plugin command without any subcommand will launch the [[cli/tui|TUI]], which provides a visual interface for all these operations.
+Running the plugin command without any subcommand shows a status dashboard of all installed plugins, including whether updates are available:
 
 ```shell
 npx quartz plugin
 ```
+
+This displays each plugin with its source, commit, enabled/disabled status, and checks for available updates in parallel. For the full interactive management interface, use [[cli/tui|npx quartz tui]] instead.

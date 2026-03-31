@@ -14,6 +14,7 @@ import {
   handlePluginAdd,
   handlePluginRemove,
   handlePluginList,
+  handlePluginStatus,
   handlePluginEnable,
   handlePluginDisable,
   handlePluginConfig,
@@ -70,9 +71,14 @@ yargs(hideBin(process.argv))
   .command("create", "Initialize Quartz", CreateArgv, async (argv) => {
     await handleCreate(argv)
   })
-  .command("upgrade", "Upgrade Quartz to the latest version", CommonArgv, async (argv) => {
-    await handleUpgrade(argv)
-  })
+  .command(
+    ["upgrade", "update"],
+    "Upgrade Quartz to the latest version",
+    CommonArgv,
+    async (argv) => {
+      await handleUpgrade(argv)
+    },
+  )
   .command(
     "restore",
     "Try to restore your content folder from the cache",
@@ -256,7 +262,7 @@ yargs(hideBin(process.argv))
     },
     async (argv) => {
       if (!argv._.includes("plugin") || argv._.length > 1) return
-      await launchTui()
+      await handlePluginStatus()
     },
   )
   .showHelpOnFail(false)

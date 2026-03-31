@@ -314,66 +314,99 @@ export async function handlePluginInstallUnified({
 
     const nameOverrides = getNameOverrides(lockfile, pluginsJson)
 
-    console.log(styleText("bold", "Checking for plugin updates...\n"))
+    const rows = Object.entries(lockfile.plugins)
+      .filter(([name]) => !nameFilter || nameFilter.has(name))
+      .map(([name, entry]) => ({
+        name,
+        entry,
+        displayName: nameOverrides.get(name) ?? name,
+      }))
 
-    const results = []
-    for (const [name, entry] of Object.entries(lockfile.plugins)) {
-      if (nameFilter && !nameFilter.has(name)) continue
-      const displayName = nameOverrides.get(name) ?? name
+    const isTTY = process.stdout.isTTY
+    const nameWidth = Math.max(6, ...rows.map((row) => row.displayName.length)) + 2
+    const header = `${"Plugin".padEnd(nameWidth)}${"Installed".padEnd(12)}${"Latest".padEnd(12)}Status`
 
-      if (entry.commit === "local") {
-        results.push({
-          name: displayName,
+    const renderRow = ({ displayName }, installed, latest, statusLabel) =>
+      `${displayName.padEnd(nameWidth)}${installed.padEnd(12)}${latest.padEnd(12)}${statusLabel}`
+
+    const updateRow = (index, installed, latest, statusLabel) => {
+      if (!isTTY) return
+      const offset = rows.length - index
+      process.stdout.write(
+        `\x1b[${offset}A\x1b[2K\r${renderRow(rows[index], installed, latest, statusLabel)}\x1b[${offset}B`,
+      )
+    }
+
+    if (isTTY) {
+      console.log(styleText("bold", "Checking for plugin updates...\n"))
+      console.log(styleText("bold", header))
+      console.log("─".repeat(header.length))
+      for (const row of rows) {
+        if (row.entry.commit === "local") {
+          console.log(renderRow(row, "local", "—", styleText("green", "local")))
+          continue
+        }
+        console.log(renderRow(row, row.entry.commit.slice(0, 7), "—", styleText("cyan", "⋯")))
+      }
+    }
+
+    const promises = rows.map((row, index) => {
+      if (row.entry.commit === "local") {
+        return Promise.resolve({
+          index,
           installed: "local",
           latest: "—",
           status: "local",
         })
-        continue
       }
 
-      try {
-        const lsRemoteRef = entry.ref ? `refs/heads/${entry.ref}` : "HEAD"
-        const latestCommit = execSync(`git ls-remote "${entry.resolved}" ${lsRemoteRef}`, {
-          encoding: "utf-8",
+      const lsRemoteRef = row.entry.ref ? `refs/heads/${row.entry.ref}` : "HEAD"
+      return execAsync(`git ls-remote "${row.entry.resolved}" ${lsRemoteRef}`)
+        .then(({ stdout }) => {
+          const latestCommit = stdout.split("\t")[0].trim()
+          const isCurrent = latestCommit === row.entry.commit
+          const installed = row.entry.commit.slice(0, 7)
+          const latest = latestCommit.slice(0, 7)
+          const statusLabel = isCurrent
+            ? styleText("green", "up to date")
+            : styleText("yellow", "update available")
+          updateRow(index, installed, latest, statusLabel)
+          return {
+            index,
+            installed,
+            latest,
+            status: isCurrent ? "up to date" : "update available",
+          }
         })
-          .split("\t")[0]
-          .trim()
+        .catch(() => {
+          const installed = row.entry.commit.slice(0, 7)
+          const latest = "?"
+          const statusLabel = styleText("red", "check failed")
+          updateRow(index, installed, latest, statusLabel)
+          return {
+            index,
+            installed,
+            latest,
+            status: "check failed",
+          }
+        })
+    })
 
-        const isCurrent = latestCommit === entry.commit
-        results.push({
-          name: displayName,
-          installed: entry.commit.slice(0, 7),
-          latest: latestCommit.slice(0, 7),
-          status: isCurrent ? "up to date" : "update available",
-        })
-      } catch {
-        results.push({
-          name: displayName,
-          installed: entry.commit.slice(0, 7),
-          latest: "?",
-          status: "check failed",
-        })
+    const results = await Promise.all(promises)
+
+    if (!isTTY) {
+      console.log(styleText("bold", "Checking for plugin updates...\n"))
+      console.log(styleText("bold", header))
+      console.log("─".repeat(header.length))
+      for (const { index, installed, latest, status } of results) {
+        const color =
+          status === "up to date" || status === "local"
+            ? "green"
+            : status === "check failed"
+              ? "red"
+              : "yellow"
+        console.log(renderRow(rows[index], installed, latest, styleText(color, status)))
       }
-    }
-
-    const nameWidth = Math.max(6, ...results.map((r) => r.name.length)) + 2
-    const header = `${"Plugin".padEnd(nameWidth)}${"Installed".padEnd(12)}${"Latest".padEnd(12)}Status`
-    console.log(styleText("bold", header))
-    console.log("─".repeat(header.length))
-
-    for (const r of results) {
-      const color =
-        r.status === "up to date" || r.status === "local"
-          ? "green"
-          : r.status === "check failed"
-            ? "red"
-            : "yellow"
-      console.log(
-        `${r.name.padEnd(nameWidth)}${r.installed.padEnd(12)}${r.latest.padEnd(12)}${styleText(
-          color,
-          r.status,
-        )}`,
-      )
     }
     return
   }
@@ -583,16 +616,30 @@ export async function handlePluginInstallUnified({
 
     if (orphans.length > 0) {
       console.log()
+      let removedOrphans = false
       for (const name of orphans) {
+        const entry = lockfile.plugins[name]
+        if (entry?.commit === "local") {
+          console.log(
+            styleText(
+              "yellow",
+              `⚠ ${name} is a local plugin not in config — skipping (remove manually with 'plugin remove')`,
+            ),
+          )
+          continue
+        }
         const pluginDir = path.join(PLUGINS_DIR, name)
         if (fs.existsSync(pluginDir)) {
           fs.rmSync(pluginDir, { recursive: true })
         }
         delete lockfile.plugins[name]
         lockfileChanged = true
+        removedOrphans = true
         console.log(styleText("yellow", `✗ Removed ${name} (not in config)`))
       }
-      await regeneratePluginIndex()
+      if (removedOrphans) {
+        await regeneratePluginIndex()
+      }
     }
 
     if (lockfileChanged) {
@@ -1354,6 +1401,151 @@ export async function handlePluginList() {
     }
     console.log(`    Installed: ${new Date(entry.installedAt).toLocaleDateString()}`)
     console.log()
+  }
+}
+
+export async function handlePluginStatus() {
+  const lockfile = readLockfile()
+  if (!lockfile || Object.keys(lockfile.plugins).length === 0) {
+    console.log(styleText("gray", "No plugins installed"))
+    return
+  }
+
+  const pluginsJson = readPluginsJson()
+  const nameOverrides = getNameOverrides(lockfile, pluginsJson)
+  const enabledByName = new Map(
+    (pluginsJson?.plugins ?? []).map((entry) => [
+      extractPluginName(entry.source),
+      entry.enabled !== false,
+    ]),
+  )
+
+  const rows = Object.entries(lockfile.plugins).map(([name, entry]) => {
+    const pluginDir = path.join(PLUGINS_DIR, name)
+    const exists = fs.existsSync(pluginDir)
+    const displayName = nameOverrides.get(name) ?? name
+    const sourceLabel = formatSource(entry.source)
+    const commitLabel = entry.commit === "local" ? "local" : `@${entry.commit.slice(0, 7)}`
+    const enabled = enabledByName.get(name) ?? false
+    return { name, entry, exists, displayName, sourceLabel, commitLabel, enabled }
+  })
+
+  const nameWidth = Math.max(8, ...rows.map((row) => row.displayName.length)) + 2
+  const sourceWidth = Math.max(8, ...rows.map((row) => row.sourceLabel.length)) + 2
+  const commitWidth = Math.max(6, ...rows.map((row) => row.commitLabel.length)) + 2
+  const enabledWidth = Math.max("enabled".length, "disabled".length) + 2
+  const updateWidth =
+    Math.max(
+      "— local".length,
+      "⋯".length,
+      "✓ up to date".length,
+      "↑ update available".length,
+      "✗ check failed".length,
+    ) + 2
+
+  const formatRow = (row, updateLabel, updateText) => {
+    const statusIcon = row.exists ? styleText("green", "✓") : styleText("red", "✗")
+    const enabledText = row.enabled ? "enabled" : "disabled"
+    const enabledLabel = row.enabled
+      ? styleText("green", enabledText)
+      : styleText("gray", enabledText)
+    const enabledColumn = `${enabledLabel}${" ".repeat(enabledWidth - enabledText.length)}`
+    const updateColumn = `${updateLabel}${" ".repeat(Math.max(0, updateWidth - updateText.length))}`
+    return `  ${statusIcon} ${row.displayName.padEnd(nameWidth)}${row.sourceLabel.padEnd(
+      sourceWidth,
+    )}${row.commitLabel.padEnd(commitWidth)}${enabledColumn}${updateColumn}`
+  }
+
+  const updateDisplay = (status) => {
+    switch (status) {
+      case "local":
+        return { text: "— local", label: styleText("gray", "— local") }
+      case "up_to_date":
+        return { text: "✓ up to date", label: styleText("green", "✓ up to date") }
+      case "update_available":
+        return { text: "↑ update available", label: styleText("yellow", "↑ update available") }
+      case "failed":
+        return { text: "✗ check failed", label: styleText("red", "✗ check failed") }
+      default:
+        return { text: "⋯", label: styleText("cyan", "⋯") }
+    }
+  }
+
+  const isTTY = process.stdout.isTTY
+
+  const updateLine = (index, updateLabel, updateText) => {
+    if (!isTTY) return
+    const offset = rows.length - index
+    process.stdout.write(
+      `\x1b[${offset}A\x1b[2K\r${formatRow(rows[index], updateLabel, updateText)}\x1b[${offset}B`,
+    )
+  }
+
+  if (isTTY) {
+    console.log(styleText("bold", "Installed Plugins:"))
+    console.log()
+    for (const row of rows) {
+      const display =
+        row.entry.commit === "local" ? updateDisplay("local") : updateDisplay("checking")
+      console.log(formatRow(row, display.label, display.text))
+    }
+  }
+
+  const promises = rows.map((row, index) => {
+    if (row.entry.commit === "local") {
+      return Promise.resolve({
+        index,
+        status: "local",
+        name: row.displayName,
+      })
+    }
+
+    const lsRemoteRef = row.entry.ref ? `refs/heads/${row.entry.ref}` : "HEAD"
+    return execAsync(`git ls-remote "${row.entry.resolved}" ${lsRemoteRef}`)
+      .then(({ stdout }) => {
+        const latestCommit = stdout.split("\t")[0].trim()
+        const status = latestCommit === row.entry.commit ? "up_to_date" : "update_available"
+        const display = updateDisplay(status)
+        updateLine(index, display.label, display.text)
+        return { index, status, name: row.displayName }
+      })
+      .catch(() => {
+        const display = updateDisplay("failed")
+        updateLine(index, display.label, display.text)
+        return { index, status: "failed", name: row.displayName }
+      })
+  })
+
+  const results = await Promise.all(promises)
+  const updatesAvailable = results
+    .filter((result) => result.status === "update_available")
+    .map((result) => result.name)
+  const failedChecks = results
+    .filter((result) => result.status === "failed")
+    .map((result) => result.name)
+
+  if (!isTTY) {
+    console.log(styleText("bold", "Installed Plugins:"))
+    console.log()
+    for (const result of results) {
+      const row = rows[result.index]
+      const display = updateDisplay(result.status)
+      console.log(formatRow(row, display.label, display.text))
+    }
+  }
+
+  if (updatesAvailable.length === 0 && failedChecks.length === 0) {
+    console.log(styleText("green", "\n✓ All plugins up to date"))
+    return
+  }
+
+  if (updatesAvailable.length > 0) {
+    console.log(styleText("yellow", `\nUpdates available: ${updatesAvailable.join(", ")}`))
+    console.log(styleText("gray", "Run 'npx quartz plugin install --latest' to update."))
+  }
+
+  if (failedChecks.length > 0) {
+    console.log(styleText("red", `\nChecks failed: ${failedChecks.join(", ")}`))
   }
 }
 

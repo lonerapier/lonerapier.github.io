@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import os from "os"
-import { execSync, exec as execCb } from "child_process"
+import { exec as execCb } from "child_process"
 import { styleText, promisify } from "util"
 import {
   readPluginsJson,
@@ -25,25 +25,6 @@ const INTERNAL_EXPORTS = new Set(["manifest", "default"])
 
 const execAsync = promisify(execCb)
 
-function cloneWithSubdir({ url, ref, subdir, pluginDir }) {
-  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "quartz-plugin-"))
-  try {
-    if (ref) {
-      execSync(`git clone --depth 1 --branch ${ref} "${url}" "${tmpDir}"`, { stdio: "ignore" })
-    } else {
-      execSync(`git clone --depth 1 "${url}" "${tmpDir}"`, { stdio: "ignore" })
-    }
-    const subdirPath = path.join(tmpDir, subdir)
-    if (!fs.existsSync(subdirPath)) {
-      throw new Error(`Subdirectory "${subdir}" not found in cloned repository`)
-    }
-    fs.cpSync(subdirPath, pluginDir, { recursive: true })
-    return getGitCommit(tmpDir)
-  } finally {
-    fs.rmSync(tmpDir, { recursive: true, force: true })
-  }
-}
-
 async function cloneWithSubdirAsync({ url, ref, subdir, pluginDir }) {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "quartz-plugin-"))
   try {
@@ -61,30 +42,6 @@ async function cloneWithSubdirAsync({ url, ref, subdir, pluginDir }) {
     return stdout.trim()
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true })
-  }
-}
-
-function buildPlugin(pluginDir, name) {
-  try {
-    const skipBuild = !needsBuild(pluginDir)
-    console.log(styleText("cyan", `  → ${name}: installing dependencies...`))
-    execSync("npm install --ignore-scripts", { cwd: pluginDir, stdio: "ignore" })
-    if (!skipBuild) {
-      console.log(styleText("cyan", `  → ${name}: building...`))
-      execSync("npm run build", { cwd: pluginDir, stdio: "ignore" })
-    }
-    // Remove devDependencies after build — they are no longer needed and their
-    // presence can cause duplicate-singleton issues when a plugin ships its own
-    // copy of a shared dependency (e.g. bases-page's ViewRegistry).
-    execSync("npm prune --omit=dev", { cwd: pluginDir, stdio: "ignore" })
-    // Symlink peerDependencies: @quartz-community/* peers resolve to sibling
-    // plugins, all other peers resolve to the host Quartz node_modules so that
-    // plugins share a single copy of packages like unified, vfile, etc.
-    linkPeerPlugins(pluginDir)
-    return true
-  } catch (error) {
-    console.log(styleText("red", `  ✗ ${name}: build failed`))
-    return false
   }
 }
 

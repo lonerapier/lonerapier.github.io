@@ -9,6 +9,23 @@ This guide covers migrating to Quartz 5 from previous versions. If you're alread
 
 If you're new to Quartz entirely, skip this guide and follow the [[getting-started/installation|Installation guide]] instead.
 
+## Before You Start: Save Your Content
+
+Before switching branches, make sure your content is safe. Switching to v5 will replace the files in your working directory with the v5 codebase, so your v4 content folder won't be visible until you restore it.
+
+Copy your content folder somewhere outside the repo before switching:
+
+```bash
+# macOS / Linux
+cp -r content /tmp/quartz-content
+
+# Windows (PowerShell)
+Copy-Item -Recurse content $env:TEMP\quartz-content
+```
+
+> [!note] Your old branch is preserved
+> Switching branches does **not** delete your v4 (or v3/hugo) branch. You can always switch back with `git checkout v4` to access your old content and configuration.
+
 ## Getting the v5 Branch
 
 Whether you're coming from Quartz 4 or Quartz 3, the first step is the same: get the v5 branch onto your machine and push it to your repository.
@@ -30,9 +47,6 @@ npm i
 git push -u origin v5
 ```
 
-> [!tip] Keeping your old branch
-> This does **not** delete your existing v4 (or v3/hugo) branch. You can always switch back with `git checkout v4` if you need to reference your old configuration or content.
-
 ## Setting Up Your Site
 
 Once you're on v5, run the interactive setup to configure your site and import your content:
@@ -44,13 +58,17 @@ npx quartz create
 This will prompt you for:
 
 - A **template** (`default`, `obsidian`, `ttrpg`, `blog`) — pick the one closest to your old setup. `obsidian` is recommended if you use an Obsidian vault.
-- A **content strategy** — choose "Copy" and point it to your existing content folder (e.g. your old `content/` directory from v4, or your vault folder).
+- A **content strategy** — choose "Copy" and point it to your backed-up content folder.
 
-> [!hint] Where is my old content?
-> If your content was in the `content/` folder on your v4 branch, you can either:
->
-> - Copy it somewhere outside the repo **before** switching branches: `cp -r content /tmp/quartz-content`
-> - Or reference it from the other branch after switching: the `create` command will copy files from wherever you point it.
+If you skipped the `create` wizard or need to restore your content manually:
+
+```bash
+# macOS / Linux
+cp -r /tmp/quartz-content/* content/
+
+# Windows (PowerShell)
+Copy-Item -Recurse $env:TEMP\quartz-content\* content\
+```
 
 After running `create`, install all plugins referenced in the generated config:
 

@@ -291,10 +291,7 @@ export async function handlePluginInstallUnified({
 
   if (!fromConfig && !lockfile) {
     console.log(
-      styleText(
-        "yellow",
-        "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first.",
-      ),
+      styleText("yellow", "⚠ No quartz.lock.json found. Run 'npx quartz plugin add <repo>' first."),
     )
     return
   }
@@ -655,9 +652,7 @@ export async function handlePluginInstallUnified({
       console.log(styleText("gray", "Updated quartz.lock.json"))
     } else if (failed > 0) {
       console.log()
-      console.log(
-        styleText("yellow", `⚠ Resolved ${installed.length} plugin(s), ${failed} failed`),
-      )
+      console.log(styleText("yellow", `⚠ Resolved ${installed.length} plugin(s), ${failed} failed`))
     }
 
     return

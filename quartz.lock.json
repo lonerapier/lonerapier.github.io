@@ -58,8 +58,8 @@
     "content-index": {
       "source": "github:quartz-community/content-index",
       "resolved": "https://github.com/quartz-community/content-index.git",
-      "commit": "6097663f5ce9f35ebe9c139422a06b8c73d6664b",
-      "installedAt": "2026-04-03T14:21:25.806Z"
+      "commit": "e898f5ed81623231fdd345224212b0b52eedfa58",
+      "installedAt": "2026-04-04T00:18:07.790Z"
     },
     "content-meta": {
       "source": "github:quartz-community/content-meta",
@@ -124,8 +124,8 @@
     "folder-page": {
       "source": "github:quartz-community/folder-page",
       "resolved": "https://github.com/quartz-community/folder-page.git",
-      "commit": "6090bd8babeb9f72e2d42d8be860962865a2c112",
-      "installedAt": "2026-04-03T17:27:35.352Z"
+      "commit": "d6f9567db8fb203a7cb72b53dc69e7ffe0bbe197",
+      "installedAt": "2026-04-04T00:18:07.701Z"
     },
     "footer": {
       "source": "github:quartz-community/footer",
@@ -166,8 +166,8 @@
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
       "resolved": "https://github.com/quartz-community/obsidian-flavored-markdown.git",
-      "commit": "8560e838ffed9542256447e6b3cf7389108fecca",
-      "installedAt": "2026-04-03T14:21:26.562Z"
+      "commit": "57f847913e8df3ef834daea3db9c960dad771289",
+      "installedAt": "2026-04-04T00:18:07.863Z"
     },
     "og-image": {
       "source": "github:quartz-community/og-image",
@@ -261,8 +261,8 @@
     "tag-page": {
       "source": "github:quartz-community/tag-page",
       "resolved": "https://github.com/quartz-community/tag-page.git",
-      "commit": "4baf2afcb298aa8714b209a8354dfc2daa0d99e7",
-      "installedAt": "2026-04-03T17:27:35.885Z"
+      "commit": "e43ff292645caf6a93f4a462db459f6a6eba9f8a",
+      "installedAt": "2026-04-04T00:18:07.682Z"
     }
   }
 }

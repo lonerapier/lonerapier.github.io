@@ -22,8 +22,8 @@
     "bases-page": {
       "source": "github:quartz-community/bases-page",
       "resolved": "https://github.com/quartz-community/bases-page.git",
-      "commit": "0424e7486dfed70e8c11afe4d9e2d5311f1127dc",
-      "installedAt": "2026-04-03T17:27:34.879Z"
+      "commit": "4916b47c9bf4a1897abcfb94389c86dbdb179480",
+      "installedAt": "2026-04-07T14:11:19.881Z"
     },
     "breadcrumbs": {
       "source": "github:quartz-community/breadcrumbs",
@@ -34,8 +34,8 @@
     "canvas-page": {
       "source": "github:quartz-community/canvas-page",
       "resolved": "https://github.com/quartz-community/canvas-page.git",
-      "commit": "c7ad749353687db059d6cad1b7c8361ac5d4ac78",
-      "installedAt": "2026-04-04T09:36:54.928Z"
+      "commit": "5b155beeff73d55460546af417dfd7fe79fa09fd",
+      "installedAt": "2026-04-07T14:11:20.136Z"
     },
     "citations": {
       "source": "github:quartz-community/citations",
@@ -160,14 +160,14 @@
     "note-properties": {
       "source": "github:quartz-community/note-properties",
       "resolved": "https://github.com/quartz-community/note-properties.git",
-      "commit": "0e9935791b8afb761e177688f4783c3f4116243c",
-      "installedAt": "2026-04-03T17:27:35.325Z"
+      "commit": "85d58e6e6a1684b0a78cbb16daf06f50f32b0b1a",
+      "installedAt": "2026-04-07T14:11:20.558Z"
     },
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
       "resolved": "https://github.com/quartz-community/obsidian-flavored-markdown.git",
-      "commit": "56033c230c677bbe194ad322048b8fd7640a3fd9",
-      "installedAt": "2026-04-04T00:46:53.541Z"
+      "commit": "c1a08603f3d83b77266033a53889fb4d5eb3f2a1",
+      "installedAt": "2026-04-07T14:11:20.650Z"
     },
     "og-image": {
       "source": "github:quartz-community/og-image",

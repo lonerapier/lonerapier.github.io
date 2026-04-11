@@ -226,6 +226,10 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
+  - source: github:quartz-community/unlisted-pages
+    enabled: true
+    options: {}
+    order: 45
   - source: github:quartz-community/encrypted-pages
     enabled: true
     options:

@@ -229,9 +229,10 @@ plugins:
   - source: github:quartz-community/encrypted-pages
     enabled: true
     options:
-      visibility: icon
       iterations: 600000
       passwordField: password
+      unlistWhenEncrypted: false
+      outputPath: static/encryptedContentIndex.json
     order: 900
     layout:
       position: body

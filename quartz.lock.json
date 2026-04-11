@@ -22,8 +22,8 @@
     "bases-page": {
       "source": "github:quartz-community/bases-page",
       "resolved": "https://github.com/quartz-community/bases-page.git",
-      "commit": "e12c43c93395a5f423ed366680c7c909c53c2824",
-      "installedAt": "2026-04-07T14:46:36.009Z"
+      "commit": "5bfca23c93f4f95b0f10ee0b5ae980541d3d0d60",
+      "installedAt": "2026-04-11T13:37:09.111Z"
     },
     "breadcrumbs": {
       "source": "github:quartz-community/breadcrumbs",
@@ -100,8 +100,8 @@
     "encrypted-pages": {
       "source": "github:quartz-community/encrypted-pages",
       "resolved": "https://github.com/quartz-community/encrypted-pages.git",
-      "commit": "bcd97435211fe500b829a2b7b329db67c52c3f75",
-      "installedAt": "2026-04-11T12:07:50.898Z"
+      "commit": "a4dd3a9bf78a4678dd82e7b13374d642620514cc",
+      "installedAt": "2026-04-11T13:37:09.491Z"
     },
     "explicit-publish": {
       "source": "github:quartz-community/explicit-publish",
@@ -263,6 +263,12 @@
       "resolved": "https://github.com/quartz-community/tag-page.git",
       "commit": "21bd3be04635eb3caaea040b0be42098d61700e1",
       "installedAt": "2026-04-11T11:52:03.965Z"
+    },
+    "unlisted-pages": {
+      "source": "github:quartz-community/unlisted-pages",
+      "resolved": "https://github.com/quartz-community/unlisted-pages.git",
+      "commit": "33351a77aa304f4dbec445109ca3acd558f7f000",
+      "installedAt": "2026-04-11T12:38:08.366Z"
     }
   }
 }

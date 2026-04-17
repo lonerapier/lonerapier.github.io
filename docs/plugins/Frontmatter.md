@@ -52,7 +52,7 @@ This plugin accepts the following configuration options:
 
 When enabled, this plugin renders a collapsible "Properties" panel before the page body. The panel displays selected frontmatter fields in a table with automatic type rendering:
 
-- **Strings** are shown as plain text. [[Wikilinks]] and [markdown links](https://example.com) within strings are rendered as clickable links. Wikilink targets are slugified the same way as body-content links (e.g. `[[My Note]]` resolves to `my-note`) and matching is case-insensitive to mirror Obsidian's behavior, so `[[MyNote]]`, `[[mynote]]`, and `[[MYNOTE]]` all point to the same page.
+- **Strings** are shown as plain text. [[wikilinks]] and [markdown links](https://example.com) within strings are rendered as clickable links. Wikilink targets are slugified the same way as body-content links (e.g. `[[My Note]]` resolves to `my-note`) and matching is case-insensitive to mirror Obsidian's behavior, so `[[MyNote]]`, `[[mynote]]`, and `[[MYNOTE]]` all point to the same page.
 - **Arrays** are rendered as comma-separated lists.
 - **Booleans** are rendered as disabled checkboxes.
 - **Numbers** are rendered in a monospace font.

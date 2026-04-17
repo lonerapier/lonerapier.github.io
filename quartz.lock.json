@@ -112,8 +112,8 @@
     "explorer": {
       "source": "github:quartz-community/explorer",
       "resolved": "https://github.com/quartz-community/explorer.git",
-      "commit": "583373b43caf7f09911b10dcf1303800e37d8318",
-      "installedAt": "2026-04-17T00:45:16.093Z"
+      "commit": "377297006e725a2f3f173cf5822b61424a6fefdd",
+      "installedAt": "2026-04-17T20:11:39.030Z"
     },
     "favicon": {
       "source": "github:quartz-community/favicon",

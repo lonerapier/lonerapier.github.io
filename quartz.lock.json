@@ -166,8 +166,8 @@
     "obsidian-flavored-markdown": {
       "source": "github:quartz-community/obsidian-flavored-markdown",
       "resolved": "https://github.com/quartz-community/obsidian-flavored-markdown.git",
-      "commit": "db56cfa171c4313c4413945b73220fa0cb6c12eb",
-      "installedAt": "2026-04-25T21:14:06.982Z"
+      "commit": "df241e0be74f758081684f7a2774cb0b69fbb48d",
+      "installedAt": "2026-04-26T00:27:07.929Z"
     },
     "obsidian-plugin-ttrpg-tools-maps": {
       "source": "github:quartz-community/obsidian-plugin-ttrpg-tools-maps",

@@ -306,6 +306,15 @@ function findPluginByPackageName(packageName: string): string | null {
  * share a single copy of packages like unified, vfile, preact, etc.
  * @quartz-community/* peers resolve to co-installed sibling plugins instead.
  */
+function trySymlink(target: string, linkPath: string): void {
+  try {
+    fs.symlinkSync(target, linkPath, "dir")
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException).code === "EEXIST") return
+    throw err
+  }
+}
+
 function linkPeerDependencies(pluginDir: string): void {
   const pkgPath = path.join(pluginDir, "package.json")
   if (!fs.existsSync(pkgPath)) return
@@ -328,7 +337,7 @@ function linkPeerDependencies(pluginDir: string): void {
       fs.mkdirSync(scopeDir, { recursive: true })
 
       const target = path.relative(scopeDir, siblingPlugin)
-      fs.symlinkSync(target, peerNodeModulesPath, "dir")
+      trySymlink(target, peerNodeModulesPath)
       continue
     }
 
@@ -344,7 +353,7 @@ function linkPeerDependencies(pluginDir: string): void {
     }
 
     const target = path.relative(path.dirname(peerNodeModulesPath), hostPeerPath)
-    fs.symlinkSync(target, peerNodeModulesPath, "dir")
+    trySymlink(target, peerNodeModulesPath)
   }
 }
 

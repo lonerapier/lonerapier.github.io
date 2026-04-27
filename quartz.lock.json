@@ -82,8 +82,8 @@
     "created-modified-date": {
       "source": "github:quartz-community/created-modified-date",
       "resolved": "https://github.com/quartz-community/created-modified-date.git",
-      "commit": "6aa4886a53ea2db8c44408235ab90806bfc38ca0",
-      "installedAt": "2026-04-27T19:53:50.329Z"
+      "commit": "42b5ee5561d41ab9a801a8b3acbcbaa1f5c92cbd",
+      "installedAt": "2026-04-27T20:26:56.535Z"
     },
     "darkmode": {
       "source": "github:quartz-community/darkmode",
@@ -118,8 +118,8 @@
     "favicon": {
       "source": "github:quartz-community/favicon",
       "resolved": "https://github.com/quartz-community/favicon.git",
-      "commit": "de20761a9735008deae94797139cc96e1ab6781e",
-      "installedAt": "2026-04-27T20:21:44.908Z"
+      "commit": "ff21ee9514de63eaf9d7b61bb52cca67485024e7",
+      "installedAt": "2026-04-27T20:26:56.538Z"
     },
     "folder-page": {
       "source": "github:quartz-community/folder-page",
@@ -154,8 +154,8 @@
     "latex": {
       "source": "github:quartz-community/latex",
       "resolved": "https://github.com/quartz-community/latex.git",
-      "commit": "bdac761c819c0113cacc74cb0695e57e8c5bfefd",
-      "installedAt": "2026-04-27T19:53:50.488Z"
+      "commit": "d8ae32d3d5b4365e586a54e602fab82f9b683b13",
+      "installedAt": "2026-04-27T20:26:56.691Z"
     },
     "note-properties": {
       "source": "github:quartz-community/note-properties",
@@ -178,8 +178,8 @@
     "og-image": {
       "source": "github:quartz-community/og-image",
       "resolved": "https://github.com/quartz-community/og-image.git",
-      "commit": "eb9701b77af619d73b8c3dbdaa14172f43762071",
-      "installedAt": "2026-04-27T20:21:45.028Z"
+      "commit": "c5ec88e8b067424b2d1b09c75baae9aebf13f67f",
+      "installedAt": "2026-04-27T20:26:56.647Z"
     },
     "ox-hugo": {
       "source": "github:quartz-community/ox-hugo",

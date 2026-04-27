@@ -118,8 +118,8 @@
     "favicon": {
       "source": "github:quartz-community/favicon",
       "resolved": "https://github.com/quartz-community/favicon.git",
-      "commit": "8fce59621cd246518bdaef552570d69b142adb2d",
-      "installedAt": "2026-04-27T19:56:01.938Z"
+      "commit": "de20761a9735008deae94797139cc96e1ab6781e",
+      "installedAt": "2026-04-27T20:21:44.908Z"
     },
     "folder-page": {
       "source": "github:quartz-community/folder-page",
@@ -178,8 +178,8 @@
     "og-image": {
       "source": "github:quartz-community/og-image",
       "resolved": "https://github.com/quartz-community/og-image.git",
-      "commit": "f23ca9e8a75107c620ac6577a779bc5e5cc623ea",
-      "installedAt": "2026-04-27T19:44:28.793Z"
+      "commit": "eb9701b77af619d73b8c3dbdaa14172f43762071",
+      "installedAt": "2026-04-27T20:21:45.028Z"
     },
     "ox-hugo": {
       "source": "github:quartz-community/ox-hugo",

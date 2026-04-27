@@ -46,6 +46,12 @@ async function cloneWithSubdirAsync({ url, ref, subdir, pluginDir }) {
 }
 
 async function buildPluginAsync(pluginDir, name) {
+  if (hasPrebuiltDist(pluginDir)) {
+    console.log(styleText("green", `  ✓ ${name}: using pre-built dist/`))
+    linkPeerPlugins(pluginDir)
+    return true
+  }
+
   try {
     const skipBuild = !needsBuild(pluginDir)
     console.log(styleText("cyan", `  → ${name}: installing dependencies...`))
@@ -100,6 +106,11 @@ function isDistGitignored(pluginDir) {
     const trimmed = line.trim()
     return trimmed === "dist" || trimmed === "dist/" || trimmed === "/dist" || trimmed === "/dist/"
   })
+}
+
+function hasPrebuiltDist(pluginDir) {
+  const distDir = path.join(pluginDir, "dist")
+  return fs.existsSync(distDir) && !isDistGitignored(pluginDir)
 }
 
 function needsBuild(pluginDir) {

@@ -91,9 +91,12 @@ q(\mathbf{x}_{t-1}|\mathbf{x}_{t},\mathbf{x}_{0})\propto \mathcal{N}\left( \math
 $$
 
 Our goal is to train a generative model that learns the reverse diffusion process to approximate the above distribution: $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\mathcal{N}(\mathbf{x}_{t-1}|\mu_{\theta}(\mathbf{x}_{0},\mathbf{x}_{t}),\Sigma_{\theta}(\mathbf{x}_{t},t))$. The process is defined as Markov chain with learned Gaussian parameters starting at $p(\mathbf{x}_{T})=\mathcal{N}(\mathbf{x}_{T};0,\mathbf{I})$. Joint distribution of all the generated variables is given by 
-$$\begin{equation}
+
+$$
+\begin{equation}
 p_{\theta}(\mathbf{x}_{0:T})=p(\mathbf{x}_{T})\prod_{t=1}^{T}p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})
-\end{equation}$$
+\end{equation}
+$$
 
 **Model Fitting**: We can maximise the model log likelihood: $\log p_{\theta}(\mathbf{x}_{0})$
 

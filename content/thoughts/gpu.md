@@ -5,14 +5,14 @@ tags:
 - gpu
 ---
 
-# GPU Design
+# 1 GPU Design
 
 - Latency vs Throughput oriented design
 - SIMT architecture
 
-# Part 1
+# 2 Part 1
 
-## CUDA
+## 2.1 CUDA
 
 - Kernel: functions executed on the GPU. each warp executes one kernel.
 - Grid: multidimensional array of blocks coalescing threads together.
@@ -38,7 +38,7 @@ tags:
 
 *<center>CUDA thread hierarchy [^1]</center>*
 
-### CUDA Scheduling Hierarchy
+### 2.1.1 CUDA Scheduling Hierarchy
 
 ![minimal-gpu-arch](thoughts/images/minimal-gpu-arch.png)
 *<center>Minimal GPU architecture [^1]</center>*
@@ -120,7 +120,7 @@ Next let's understand these:
 - different cores in an SM
 - occupancy
 
-## Starter Kernels
+## 2.2 Starter Kernels
 
 Let's write some kernels to understand all of the above, and go through the basics of CUDA kernel implementations. I will add a template and kernel functions later with a description of the problem.
 
@@ -142,7 +142,7 @@ Variables qualifiers:
 - `__constant__`: constant read-only memory generally stored in L1 cache per thread block in SM.
 - `__local__`
 
-### Basic Template
+### 2.2.1 Basic Template
 
 This template can be modified to be used by any other kernel by modifying the constants, data placeholders, and data handling between host and device.
 
@@ -216,7 +216,7 @@ Kernels are executed on a particular thread, and to access the data for that thr
 
 > [!note] All `__global__` and `__device__` functions have access to these variables.
 
-### Map2D
+### 2.2.2 Map2D
 
 Problem: Given input array A, compute A + 10 and write to output array B. 2D block dimension. Number of threads in a block >= array size.
 
@@ -230,7 +230,7 @@ __global__ void map2d(float* a, float* b, int width) {
 }
 ```
 
-### MatrixAdd2D
+### 2.2.3 MatrixAdd2D
 
 Problem: Given input square matrix A and B, write sum of inidividual elements to output matrix C. 2D grid dimension, 2D block dimension. Number of threads <= array size.
 ```cpp
@@ -264,7 +264,7 @@ Each block will be divided into 8 warps with each thread accessing the matrices 
 
 Note that this kernel has coalesced memory accesses. Every thread in a warp will be assigned to a cell in a row, and `3 matrices * 4 byte per float * 32 threads = 384B` data will be moved per transaction in a warp.
 
-### Matrix Transpose
+### 2.2.4 Matrix Transpose
 
 We're now going to write a more realistic kernel, one that combines our previous learnings:
 - Grid and block dimensions
@@ -351,7 +351,7 @@ Without padding, for every read from shared memory during writing to output matr
 
 > [!todo] Make the kernel generic on tile capacity and experiment with swizzling.
 
-### Prefix Scan
+### 2.2.5 Prefix Scan
 
 For an input array A, output array B such that $B[i] = \bigoplus_{k=1}^{n-1}A[k]$ (exclusive), where $\bigoplus$ is a binary associative operator (assume addition), with identity element 0.
 
@@ -693,12 +693,12 @@ __global__ void prefix_scan_warp(float *A, float *B, float *AUX, int M) {
 - Thread coarsening
 - Single pass scan (instead of segmented scan using multiple kernels
 
-### Other Intermediate Kernels
+### 2.2.6 Other Intermediate Kernels
 - Parallel Reduce
 - Find max value, index in array
 - Sorting (Merge, Radix)
 
-## Performance Regimes
+## 2.3 Performance Regimes
 
 A kernel's performance is determined by three factors:
 - Compute: Amount of time spent on doing floating point operations after the data is loaded from global memory in cache/registers.
@@ -747,7 +747,7 @@ Inference, on the other hand, is split across compute bound for prefill (context
 
 ---
 
-# Part 2
+# 3 Part 2
 
 So far, I've learned about basic thread and memory hierarchy in GPUs, and learned CUDA while writing beginner/intermediate level kernels. To go beyond, I need to understand the following:
 - GPU architecture
@@ -760,7 +760,7 @@ So far, I've learned about basic thread and memory hierarchy in GPUs, and learne
 - Asynchronous execution
 - Cooperation groups
 
-## GPU Architecture Contd.
+## 3.1 GPU Architecture Contd.
 
 <p align="center">
   <img src="h100.svg" alt="H100 SM">
@@ -820,7 +820,7 @@ Because GPU, essentially is a very simple thread handler. It intentionally, left
 
 Each EPYC core contain it's own complex branch predictor, fetch/decode units, massive L2 cache. This takes physical space, and draws more power per core. If you were to scale a CPU to the same core amount as an H100, it would require a pizza box to fit, and will draw power in MW.
 
-## Memory Hierarchy
+## 3.2 Memory Hierarchy
 
 - Hierarchical memory structure with each new layer taking significantly more cycles, but orders of magnitude more size.
 - Divided into memory spaces categorized by scope, lifetime and location from a thread perspective.[^8]
@@ -944,9 +944,9 @@ Above is a simple kernel that will let us walk through the PTX to understand the
 
 **Register Spilling**: Due to the limited physical registers, when register requirement by a thread > max count of registers, local memory assigned to each thread is used. Local memory is backed by physical global memory (L2 cached), so the latency difference is orders of magnitude higher. Occupancy of an SM is directly correlated with *register file pressure*, when a thread consumes too many registers, number of blocks scheduled on the SM reduces. Goal of an optimized kernel is to **limit register spills**.
 
-## SM Units
+## 3.3 SM Units
 
-### Warp Scheduler
+### 3.3.1 Warp Scheduler
 
 > [!quote] "The execution context (program counters, registers, and so on) for each warp processed by a multiprocessor is maintained on-chip during the entire lifetime of the warp. Therefore, switching from one execution context to another has no cost, and at every instruction issue time, a warp scheduler selects a warp that has threads ready to execute its next instruction (the [active threads](https://docs.nvidia.com/cuda/archive/12.8.0/cuda-c-programming-guide/index.html#simt-architecture-notes) of the warp) and issues the instruction to those threads." [1. Introduction — CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/archive/12.8.0/cuda-c-programming-guide/index.html#hardware-multithreading)
 
@@ -956,7 +956,7 @@ This is the main driver behind **latency hiding**, because switching to a differ
 
 Each SM block partition has a dedicated warp scheduler that's responsible for switching between different warp as soon as their next instruction's operands are available. Adding to this, is the fact that shared memory in GPUs is programmer-managed, and is organized at block level. So switching between different warps in a block leads to negligible impact on cache misses.
 
-### Cores
+### 3.3.2 Cores
 
 Let's write a simple program that demonstrates each core in a SM. I've added the generating PTX instruction corresponding to each core.
 
@@ -1024,7 +1024,7 @@ __global__ void hardware_demonstration_kernel(float* out, half* in) {
 - **Load/Store units**: Responsible for memory (load and store) operations for the entire memory hierarchy (registers, Shared memory, L2 cache, HBM). 32 LSU per SM, each issuing a coalesced memory transaction has throughput of 32 bytes/cycle/SM.
 - **Special Function units**: Compute units for special mathematical functions (sin, cos, exp, log, sqrt).
 
-### Tensor Cores and Tensor Memory Accelerator (TMA)
+### 3.3.3 Tensor Cores and Tensor Memory Accelerator (TMA)
 
 - Tensor cores were introduced in Volta architecture (for 4x4x4 matrices with FP16 quantization), and later improved to larger size and more precise types, to perform Matrix multiply and accumulate in a single instruction.
 - Throughput increased while memory latency to bring data from RAM to registers remained same.
@@ -1046,7 +1046,7 @@ Let's understand the advantage of TMA using a microbenchmark kernel. Our strateg
 > - [NVIDIA Tensor Core Evolution: From Volta To Blackwell](https://newsletter.semianalysis.com/p/nvidia-tensor-core-evolution-from-volta-to-blackwell)
 > - come back to this, when doing wgemm kernel
 
-## Clusters
+## 3.4 Clusters
 
 | GPU architecture | Year | Number of SMs |
 | ---------------- | ---- | ------------- |
@@ -1092,7 +1092,7 @@ int main()
 }
 ```
 
-### Distributed Shared Memory (DSMEM)
+### 3.4.1 Distributed Shared Memory (DSMEM)
 
 - Introduced in Hopper architecture
 - accelerates SM-to-SM communication by adding a shared memory between SMs, thereby, adding a new layer in memory hierarchy between static SMEM/L1 and L2 cache.
@@ -1114,7 +1114,7 @@ Cluster address space (generic pointers)
 
 Explaining this more, DSMEM consists of shared memory from all thread blocks in the cluster. A single block owns its shared memory, but shared memory from all other blocks becomes **addressable** in the thread's address space, i.e. one thread can use load, store, atomic operations on the shared memory from other blocks using just a **pointer**.
 
-## CUDA Toolchain
+## 3.5 CUDA Toolchain
 
 - High level source code divided into device and host code by `nvcc`.
 - Compiled separately into host machine binary code, and device machine virtual instruction set "PTX". Has format specific to compute capability, like `compute_90`
@@ -1162,13 +1162,13 @@ graph TD
     %% NoteFatbin["embed multiple PTX and Cubin targets into a single binary Fatbin"] -.-> Fatbin
 ```
 
-## Cooperative Groups
+## 3.6 Cooperative Groups
 
 - TODO
 
-## Intermediate Kernels
+## 3.7 Intermediate Kernels
 
-### Fusion
+### 3.7.1 Fusion
 
 We'll write a fused layernorm + silu activation kernel. The problem looks like:
 **Input**
@@ -1366,7 +1366,7 @@ For matrix X of dimension `10000 x 1024`, this kernel takes around 3.3ms.
 | Removing global loads          | 0.8ms  | 75%       |
 | float2 + removing global loads | 0.75ms | 78%       |
 
-### SGEMM
+### 3.7.2 SGEMM
 
 > [!tip] There are some absolutely amazing blog posts out there that are much more suited for first read than the text below. Most of the ideas are taken from these posts, and reimplemented with some more commentary. I advice the reader to follow these:
 > - [How to Optimize a CUDA Matmul Kernel for cuBLAS-like Performance: a Worklog](https://siboehm.com/articles/22/CUDA-MMM)
@@ -1391,7 +1391,7 @@ For matrix X of dimension `10000 x 1024`, this kernel takes around 3.3ms.
 > 	- Max threads per SM: 1024
 > 	- Max shared memory per SM: 48KB (can be increased to 64KB)
 
-#### cuBLAS
+#### 3.7.2.1 cuBLAS
 
 	- why warmups?
 	- why does row-major or column major mean? Why are they important?
@@ -1431,7 +1431,7 @@ Assume following dimension is any of the below example (unless stated otherwise)
 - M,N,K = 4096
 - warp size = 32
 
-#### Naïve
+#### 3.7.2.2 Naïve
 
 ```cpp
 __global__ void sgemm_naive(float *A, float *B, float *C, float alpha, float beta, int M, int N, int K) {
@@ -1472,7 +1472,7 @@ To increase AI, we'll need to do more work per byte load. Calculating for each s
 
 Here, I've skipped 1D block tiling entirely, primarily because 2D block tiling is the most optimal (as described above), and it's also a more general version of 1D, and can be used as both.
 
-#### Naive 2D Block Tiling
+#### 3.7.2.3 Naive 2D Block Tiling
 
 BM,BN,BK are the dimensions for partial blockwise matrix multiplication. Each thread computes a matrix multiplication of the whole partial block.
 
@@ -1563,7 +1563,7 @@ Bottlenecks:
 
 Next, we're going to make an individual thread do even more things, and introduce tiling at thread level too.
 
-#### 2D Block Tiling + Thread Tiling
+#### 3.7.2.4 2D Block Tiling + Thread Tiling
 
 ```cpp
 template <const int BM, const int BN, const int BK, const int TM, const int TN>
@@ -1651,7 +1651,7 @@ Improvements needed:
 - `r,c` during shared memory filling is calculated for each iteration, and is unnecessary. We already know total number of threads, and the block's row and column boundary.
 - Inner computation loop performs dot product each time which leads to shared memory access inside nested loops.
 
-#### 2D Block Tiling + Thread Tiling + Coalesced GMEM Loads
+#### 3.7.2.5 2D Block Tiling + Thread Tiling + Coalesced GMEM Loads
 
 Tweaks added to this kernel:
 - Shared memory loads are better orchestrated using row based stride, by filling the whole column with threads.
@@ -1818,7 +1818,7 @@ Bottleneck:
 - Memory stalls during each outer loop. If we can achieve asynchronous copies of memory from HBM, then the computation and memory loads can be decoupled from each other.
 - Flattened threads across a warp: We're not utilising SIMT model of execution inside a warp properly. All the threads in the warp are flattened across the rows and columns of A and B respectively leading to bank conflicts.
 
-#### 2D Block Tiling + Thread Tiling + Coalesced & Vectorised Loads
+#### 3.7.2.6 2D Block Tiling + Thread Tiling + Coalesced & Vectorised Loads
 
 To reduce number of instructions issued during GMEM->SMEM loads, we are going to use vectorised instructions (float4) to load 128-bit element at a time instead of a 32-bit element. We need to modify the position of threads in the block slightly according to the instruction length.
 
@@ -1921,7 +1921,7 @@ Next Improvements:
 - Minor improvements:
 	- Transposing A when loading from global memory. During loading from SMEM -> registers, previous kernel's threads used to travel along rows of TILE\_A, this meant the addresses were not contiguous. Transposing allows us to issue vector instructions (float4) for SMEM loads as well.
 
-#### 2D Block Tiling + Thread Tiling + Optimised Loads + Warptiling
+#### 3.7.2.7 2D Block Tiling + Thread Tiling + Optimised Loads + Warptiling
 
 > [!tip] This is directly inspired (almost copied) from Simon's Kernel 10. He has explained the approach using beautiful diagrams. Please refer them if you're going through this for the first time. [^12]
 
@@ -2072,7 +2072,7 @@ Resource usage metrics:
 | 2048      | 128x128x16 | 8x4         | 64x64     | 4.4095   | 3896.07 |
 | 4096      | 128x128x16 | 8x4         | 64x64     | 33.6725  | 4081.63 |
 
-#### 2D Block Tiling + Thread Tiling + Optimised Loads + Warptiling + Double Buffering
+#### 3.7.2.8 2D Block Tiling + Thread Tiling + Optimised Loads + Warptiling + Double Buffering
 
 Our main blocker for improvement in the past kernel is memory latency when populating smem cache from global memory on each iteration, and our goal is to decouple it with computation to increase ILP and give compiler the chance to optimise the code even more. We'll go into PTX/SASS to analyse if this change made any improvements.
 
@@ -2192,11 +2192,11 @@ As expected, shared memory per block increases by 2x. So, total number of blocks
 | 2048      | 128x128x16 | 8x4         | 64x64     | 4.2660   | 4027.12 |
 | 4096      | 128x128x16 | 8x4         | 64x64     | 30.7805  | 4465.13 |
 
-#### Conclusion
+#### 3.7.2.9 Conclusion
 
 This ends my 2 weeks long exploration of CUDA by understanding and implementing kernels, diving into the algorithms, metrics, measurement, code and everything around them. And the best part is that we're barely halfway till the end. Modern GPUs are a different beasts altogether with wings of asynchronous loads using TMA with fiery inferno of Tensor cores and massive body with respect to shared memory and registers.
 
-# Part 3 - Asynchronous Execution
+# 4 Part 3 - Asynchronous Execution
 
 > [!info] Important Numbers
 > | GPU                     | V100      | A100       | H100       |
@@ -2210,7 +2210,7 @@ This ends my 2 weeks long exploration of CUDA by understanding and implementing 
 > | FP32 cores/SM           | 64        | 64         | 128        |
 > | Shared memory size/SM   | upto 96KB | upto 164KB | upto 228KB |
 
-# Resources
+# 5 Resources
 
 - [Is Parallel Programming Hard, And, If So, What Can You Do About It?](https://mirrors.edge.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html)
 - [GitHub - NVIDIA/accelerated-computing-hub: NVIDIA curated collection of educational resources related to general purpose GPU programming.](https://github.com/NVIDIA/accelerated-computing-hub?tab=readme-ov-file)
@@ -2219,7 +2219,7 @@ This ends my 2 weeks long exploration of CUDA by understanding and implementing 
 - [Writing CPU ML Kernels with XNNPACK](https://haroldbenoit.com/blog/xnnpack_kernel/)
 - [Making GPUs Actually Fast: A Deep Dive into Training Performance - YouTube](https://youtu.be/pHqcHzxx6I8)
 
-## Todo: Further Readings
+## 5.1 Todo: Further Readings
 - [The Memory Wall: Past, Present, and Future of DRAM](https://newsletter.semianalysis.com/p/the-memory-wall)
 	- Understand how DRAM and SRAM work? How HBM is different from DRAM?
 	- How can bandwidth wall be lowered? What are the current solutions? How is putting SRAM close to compute blocks, and adding CPU level efficiency for fetch prediction, hints,
@@ -2232,24 +2232,24 @@ This ends my 2 weeks long exploration of CUDA by understanding and implementing 
 - GPU in verilog
 - TPU in verilog: [I Built a TPU from scratch – RTL, MLIR compiler, PJRT runtime, runs JAX](https://substack.com/home/post/p-186447871)
 
-## CuTe
+## 5.2 CuTe
 - [Cute-DSL – Ian’s Blog](https://ianbarber.blog/2025/07/04/cute-dsl/)
 - [An applied introduction to CuTeDSL \| simons blog](https://veitner.bearblog.dev/an-applied-introduction-to-cutedsl/)
 - [A User’s Guide to FlexAttention in FlashAttention CuTe DSL – Colfax Research](https://research.colfax-intl.com/a-users-guide-to-flexattention-in-flash-attention-cute-dsl/)
 
-## Basic
+## 5.3 Basic
 - [Introduction to CUDA Programming With GPU Puzzles](https://henryhmko.github.io/posts/cuda/cuda.html)
 - [The AI/ML Engineer's starter guide to GPU Programming](https://multimodalai.substack.com/p/the-mlai-engineers-starter-guide)
 - [README \| GPU Glossary](https://modal.com/gpu-glossary/readme): small introductory explainers on GPU terminology.
 - [Basic facts about GPUs \| Damek Davis’ Website](https://damek.github.io/random/basic-facts-about-gpus/)
 
-## Intermediate
+## 5.4 Intermediate
 - Programming Massively Parallel Processors: Ch 1-10
 - [How To Scale Your Model](https://jax-ml.github.io/scaling-book)
 - [CUDA C++ Programming Guide — CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
 - [Inside NVIDIA GPUs: Anatomy of high performance matmul kernels - Aleksa Gordić](https://www.aleksagordic.com/blog/matmul)
 
-## Advanced
+## 5.5 Advanced
 - Programming Massively Parallel Processors: Ch 11-21
 - [PTX ISA 9.1 documentation](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html)
 - [CUDA C++ Programming Guide — CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)

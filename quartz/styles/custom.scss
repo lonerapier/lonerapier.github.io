@@ -1,3 +1,13 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+body {
+  font-size: 16px !important;
+}
+
+/* ↓ Reduce the size of all KaTeX‑rendered math ↓ */
+.katex {
+  /* 0.85 rem ≈ 85 % of the surrounding text size.
+   * Adjust the factor (0.7‑0.9) to taste. */
+  font-size: 1.05rem !important;
+}

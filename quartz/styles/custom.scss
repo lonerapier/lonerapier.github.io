@@ -2,7 +2,7 @@
 
 // put your custom CSS here!
 body {
-  font-size: 16px !important;
+  font-size: 17px !important;
 }
 
 /* ↓ Reduce the size of all KaTeX‑rendered math ↓ */
@@ -10,4 +10,47 @@ body {
   /* 0.85 rem ≈ 85 % of the surrounding text size.
    * Adjust the factor (0.7‑0.9) to taste. */
   font-size: 1.05rem !important;
+}
+
+@media all and ($desktop) {
+  .page>#quartz-body>.right.sidebar:empty {
+    pointer-events: none;
+  }
+
+  article::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+
+  article .sidenote {
+    float: right;
+    clear: right;
+    box-sizing: border-box;
+    width: 15rem;
+    margin: 0.2rem calc(-15rem - 2rem) 0.75rem 2rem;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--darkgray);
+
+    p {
+      display: inline;
+      margin: 0;
+    }
+  }
+
+  article .sidenote-label {
+    color: var(--secondary);
+    font-weight: $semiBoldWeight;
+  }
+
+  article section[data-footnotes] {
+    display: none;
+  }
+}
+
+@media all and not ($desktop) {
+  article .sidenote {
+    display: none;
+  }
 }

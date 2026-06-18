@@ -1,4 +1,16 @@
-# GNN
+---
+title: Graph Neural Networks
+date: 2026-03-30
+tags:
+- machine-learning
+- representation-learning
+- graph-neural-networks
+- graph-theory
+- notes
+---
+
+
+# 1 GNN
 
 **Representation**
 - Node embedding: Each node embedded as a vector, and the entire graph represented as adjacency matrix $\mathbf{A}\in\mathbb{R}^{n\times n}$ and feature matrix (attribute vector) $\mathbf{X}\in\mathbb{R}^{n \times n}$
@@ -14,7 +26,7 @@ Why do we not represent as a CNN? what are the similarities?
 - Similarity: Locality, Weight Sharing, arbitrary input size
 - Difference: Abstract shape
 
-## Message Passing
+## 1.1 Message Passing
 
 Take a graph: $\mathcal{G}=(V,E)$ along with a set of node features $\mathbf{X}\in \mathbb{R}^{d\times \lvert V\rvert}$, and generate node embeddings $z_{u},\ \forall u\in V$.
 
@@ -55,9 +67,9 @@ Similarity to MLP with each node's weight being a vector instead of a scalar, an
 >
 > More on the influence of self-update and deeper models can be found in [GRL book](https://www.cs.mcgill.ca/~wlh/grl_book/files/GRL_Book.pdf#page=66.28) and [Xu et. al.](https://proceedings.mlr.press/v80/xu18c/xu18c.pdf).
 
-## Generalisations
+## 1.2 Generalisations
 
-### Aggregate
+### 1.2.1 Aggregate
 
 - Normalisation: Mean normalisation $m_{\mathcal{N}(u)}=\frac{\sum_{v\in \mathcal{N}(u)}h_{v}}{\lvert \mathcal{N}(u)\rvert}$ or symmetric normalisation $m_{\mathcal{N}(u)}=\frac{\sum_{v\in \mathcal{N}(u)}h_{v}}{\sqrt{\lvert \mathcal{N}(u)\mathcal{N}(v)\rvert}}$.
 	- > [!question] Why does symmetric normalisation work better than mean?
@@ -69,19 +81,19 @@ Similarity to MLP with each node's weight being a vector instead of a scalar, an
 	- $m_{\mathcal{N}(u)}=[a_{1}\oplus a_{2}\oplus\dots \oplus a_{K}]$
 	- $a_{k}=W_{k}\sum_{v\in \mathcal{N}(u)}\alpha_{v,u,k}h_{v}$
 
-### Update
+### 1.2.2 Update
 
 - Skip connections: Counter over-smoothing by directly preserving information from previous rounds of message passing.
 	- $\text{Update}_{\text{concat}}(h_{u},m_{\mathcal{N}(u)})=[\text{Update}_{\text{base}}(h_{u},m_{\mathcal{N}(u)})\oplus h_{u}]$
 	- $\text{Update}_{\text{interpolate}}(h_{u},m_{\mathcal{N}(u)})=[\alpha_{1}\text{Update}_{\text{base}}(h_{u},m_{\mathcal{N}(u)})\oplus \alpha_{2}h_{u}]$, where $\alpha_{1},\alpha_{2}\in [0,1]^{d}$ and $\alpha_{2}=1-\alpha_{1}$, and $\alpha_{1}$ can be learned jointly with other representations.
 	- Due to the analogous properties of CNNs, concatenation and skip connection as described in [He et. al](https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf) produces similar results.
 
-### Features and Relationships
+### 1.2.3 Features and Relationships
 
 - Edge attributes: $m_{\mathcal{N}(v)}=\sum_{u\in \mathcal{N}(v)}\text{MLP}^{(k)}\left(h_{u}^{(k-1)},h_{v}^{(k-1)},\mathbf{w}_{uv}\right)$
 - Multi-relational: aggregation can depend on the relationship between nodes.
 
-### Generalised Message Passing
+### 1.2.4 Generalised Message Passing
 
 $$
 \begin{align}
@@ -94,7 +106,7 @@ $$
 
 Main improvement over baseline message passing is that during each iteration, the model generates a hidden edge embedding for all edges in the graph, and an overall graph embedding corresponding to the entire graph. This helps differentiate between edge and node level features and entire graph-level features. We can also define different loss functions for different type of embeddings, and tasks.
 
-## Approximation Theory
+## 1.3 Approximation Theory
 
 Graph Isomorphisms: Given two graphs $\mathcal{G}_{1},\mathcal{G}_{2}$, declare whether two graphs are *isomorphic*. Formally, we say two graphs with adjacency matrix $A_{1},A_{2}$ and feature matrix $X_{1},X_{2}$ are isomorphic if and only if there exists a permutation matrix P such that $PA_{1}P^{T}=A_{2}$ and $PX_{1}=X_{2}$. Or informally, when they have same structure but differ in ordering of nodes in their adjacency matrices.
 
@@ -103,12 +115,12 @@ Graph Isomorphisms: Given two graphs $\mathcal{G}_{1},\mathcal{G}_{2}$, declare 
 - Weisfeiler-Lehman isomorphism test
 - Distinguishing capacity of GNNs
 
-## Problems I'm Seeing:
+## 1.4 Problems I'm Seeing:
 - A d-dimensional weight vector exists for each node in the graph, so the size scales with $\mathcal{O}(Nd)$. And number of edges will also mean that update function will be hard to compute, but is actually emabarrasingly parallel.
 - How to choose depth K?
 - How do you update the graph structure as you process more? Can we prune or connect more edges and nodes?
 
-## More Readings:
+## 1.5 More Readings:
 - [GRL Book](https://www.cs.mcgill.ca/~wlh/grl_book/files/GRL_Book.pdf)
 - [geometric-gnn-dojo/geometric\_gnn\_101.ipynb at main · chaitjo/geometric-gnn-dojo · GitHub](https://github.com/chaitjo/geometric-gnn-dojo/blob/main/geometric_gnn_101.ipynb)
 - [A Gentle Introduction to Graph Neural Networks](https://distill.pub/2021/gnn-intro/)

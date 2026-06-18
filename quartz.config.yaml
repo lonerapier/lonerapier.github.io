@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
+  pageTitle: lonerapier
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -17,7 +17,7 @@ configuration:
     cdnCaching: true
     typography:
       header: Schibsted Grotesk
-      body: Source Sans Pro
+      body: EB Garamond
       code: IBM Plex Mono
     colors:
       lightMode:
@@ -81,7 +81,7 @@ plugins:
     enabled: true
     order: 50
     layout:
-      position: right
+      position: left
       priority: 30
   - source: github:quartz-community/crawl-links
     enabled: true
@@ -97,7 +97,11 @@ plugins:
       renderEngine: katex
     order: 80
   - source: github:quartz-community/citations
-    enabled: false
+    enabled: true
+    options:
+      bibliographyFile: "./content/bibliography.bib"
+      linkCitations: true
+      csl: apa
     order: 85
   - source: github:quartz-community/hard-line-breaks
     enabled: true
@@ -139,7 +143,7 @@ plugins:
   - source: github:quartz-community/favicon
     enabled: true
   - source: github:quartz-community/og-image
-    enabled: true
+    enabled: false
   - source: github:quartz-community/cname
     enabled: true
   - source: github:quartz-community/canvas-page
@@ -151,12 +155,12 @@ plugins:
   - source: github:quartz-community/tag-page
     enabled: true
   - source: github:quartz-community/explorer
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 50
   - source: github:quartz-community/graph
-    enabled: true
+    enabled: false
     layout:
       position: right
       priority: 10
@@ -171,7 +175,7 @@ plugins:
   - source: github:quartz-community/backlinks
     enabled: true
     layout:
-      position: right
+      position: left
       priority: 50
   - source: github:quartz-community/article-title
     enabled: true
@@ -226,7 +230,7 @@ plugins:
         GitHub: https://github.com/jackyzha0/quartz
         Discord Community: https://discord.gg/cRFFHYye7t
   - source: github:quartz-community/recent-notes
-    enabled: false
+    enabled: true
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
@@ -254,17 +258,21 @@ plugins:
     order: 5
     layout:
       position: beforeBody
-      priority: 15
+      priority: 25
       display: all
+  - source: github:Requiae/quartz-leaflet-bases-plugin
+    enabled: true
+    options:
+      enableCopyTool: false
   - source:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes
       subdir: plugin
-    enabled: true
+    enabled: false
     options:
-      theme: default
+      theme: lesswrong
   - source: github:quartz-community/obsidian-plugin-excalidraw
-    enabled: true
+    enabled: false
     options:
       enableInteraction: true
       darkMode: auto
@@ -273,7 +281,7 @@ plugins:
 layout:
   groups:
     toolbar:
-      priority: 35
+      priority: 15
       direction: row
       gap: 0.5rem
   byPageType:

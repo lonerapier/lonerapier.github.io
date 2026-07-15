@@ -8,7 +8,12 @@ tags:
 Other links:
 - [[technical-links]]
 
-### Apr '26
+# Jul '26
+- [A Beginner’s Guide to Scientific Roadmapping](https://www.essentialtechnology.blog/p/scientific-roadmapping)
+- [Teaching AI How Science Actually Works \| IFP](https://ifp.org/teaching-ai-how-science-actually-works/)
+- 
+
+# Apr '26
 - ["An unsolicited guide to good research", Eugene Vinitsky](https://emerge-lab.github.io/papers/an-unsolicited-guide-to-good-research.pdf)
 	- What does it mean to do good research for me? What does good research looks like?
 		- Theoretical results that builds the understanding of empirical methods.
@@ -25,17 +30,16 @@ Other links:
 		- Be ruthless about your reading list.
 		- Build a list of absolutely cracked researchers that only release bangers. Study their papers thoroughly.
 		- Building research taste is the most important duty. As the friction towards writing experiments goes down with agents, what's left is to find ambitious ideas and unexplored directions.
-		- 
 
-### Mar'26
+# Mar'26
 - https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html
 
-## Jan '26
+# Jan '26
 - [CONWAY'S GAME OF LIFE](https://nonzerosum.games/conwaysgame.html): The whole website is meticulously crafted, tenderly sculpted, beautiful work of art. It made me ponder on a number of different things at the intersection of art, creativity, thermodynamics, philosophy.
 - [Going Founder Mode On Cancer - by Elliot Hershberg](https://centuryofbio.com/p/sid): ==TODO learn more about how and why everything is done. And how to scale it.==
 - 
 
-## Dec '25
+# Dec '25
 - [LoganThrasherCollins.com](https://logancollinsblog.com/): What an awesome person to follow. I'll surely be checking out his guide to biology.
 	- [Want to learn biology? Recommended texts from beginner to advanced \| LoganThrasherCollins.com](https://logancollinsblog.com/2020/11/27/want-to-learn-biology-recommended-texts-from-beginner-to-advanced/)
 - [Before They Hatch - by Robert Yaman - Asimov Press](https://substack.com/home/post/p-147624656)
@@ -60,7 +64,7 @@ Other links:
 	- What is the data that is discarded during X-Ray crystallography? And how can it be used to create richer molecular data? Why haven't this been done already?
 	- What data does diffuse scattering emit? And how can that be analysed and used for PDB 2.0?
 
-## Nov '25
+# Nov '25
 
 - [On AI Infrastructure in Biology - by Elliot Hershberg](https://centuryofbio.com/p/infra)
 	- What technology led to large-scale changes in biology:
@@ -68,7 +72,7 @@ Other links:
 - [The Dropout Curriculum](https://engineeringx.substack.com/p/the-dropout-curriculum)
 	- Maths, Physics, Computing and Chemistry seems to be the bare-minimum. Still before tackling a problem, understanding the fundamentals will make you stronger.
 
-## Oct '25
+# Oct '25
 - ["Too much Tacit Knowledge", Keoni Gandall](https://keonigandall.com/posts/too_much_tacit.html)
 	- [Synbio25 - A man thinks about building biology: Chapter 3](https://synbio25.com/#chapter3): Extended version of above post.
 	- Need for protocol standardisation is eerily needed in biological experiments.
@@ -104,7 +108,7 @@ Other links:
 	- 
 - [Edward Boyden, Adam Marblestone. "Architecting Discovery: A Model for How Engineers Can Help Invent Tools for Neuroscience - ScienceDirect"](https://www.sciencedirect.com/science/article/pii/S0896627319302867)
 
-## Sep '25
+# Sep '25
 - TIL, greek yogurt's translation is hung curd. Note to self, question everything.
 	- [Probiotic potential of lactic acid bacteria present in home made curd in southern India - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC4248380/)
 	- [Probiotic curd as antibacterial agent against pathogens causing oral deformities – in vitro microbiological study - PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC9926605/)
@@ -146,7 +150,7 @@ Other links:
 		- These three have become the bare-minimum you expect from anyone who's showing willingness of contribution to your project.
 	- What I'm good at: Backend, Cryptography/Security.
 
-## Aug '25
+# Aug '25
 - [MIT's](http://www.mit.edu/) [Center for Bits and Atoms](https://cba.mit.edu/classes/index.html): What a treasure trove of knowledge. Wow.
 - [Historical Tech Tree](https://www.historicaltechtree.com/): Who even think of creating such an amazing thing. I can't stop reading it. Endless rabbit hole to understand how humanity has progressed since the dawn of time.
 	- [Learning to learn from inventions: electrophoresis, PCR, Sanger sequencing — lada nuzhna](https://www.ladanuzhna.xyz/writing/inventing-biology): On similar note as above page, but goes deep into Biology inventions.
@@ -167,7 +171,7 @@ Other links:
 	- What's the bottleneck to gain 10x speed? Some tasks (like cooking) are limited by time, but we're still seeing more than 20x difference in expert human and robot timings for task completion. Is it hardware, software, training data, physics?
 	- What are the hardware boosts needed to make efficiency 10x better? Can we design more efficient Cameras, Sensors, LiDAR, Batteries, Actuators?
 
-## Jul '25
+# Jul '25
 - [There Are No New Ideas in AI… Only New Datasets](https://blog.jxmo.io/p/there-are-no-new-ideas-in-ai-only)
 	- **"DNN -> Transformer -> RLHF -> Reasoning"**
 	- Is [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) really true for all kind of AI based architecture? Is scaling and massive computation all we need to unlock new general solutions from these models?
@@ -238,7 +242,7 @@ Other links:
 	- Is the reward function going to be optimised using RL? is it going to be self-supervised learning?
 	- Is it going to be trained on text or multimodal?
 
-## Jun '25
+# Jun '25
 - ["The Grugbrained CEO", Sam Rodriques](https://www.sam-rodriques.com/post/the-grugbrained-ceo)
 - [Prakash Lab](https://prakashlab.stanford.edu/): This is a completely different and probably more humane proposition to academia that I actually like and prefer. Enabling and inspiring people all over the world with affordable tools with puzzles to solve. Real world example of curiosity driven science.
 	- [How Paradoxical Questions and Simple Wonder Lead to Great Science \| Quanta Magazine](https://www.quantamagazine.org/how-paradoxical-questions-and-simple-wonder-lead-to-great-science-20250528/)
@@ -324,7 +328,7 @@ Other links:
 		- Physical labour will see a short-lived increase in demand due to it being a bottleneck until we reach humanoid robots capable of self-replication, and performing real-world tasks at human level.
 		- At some point, current physical infrastructure will start becoming bottlenecks for the humanoid robots, and we'll design optimised equipment that relax human capabilities.
 
-## May '25
+# May '25
 - [Uses This / Interviews](https://usesthis.com/): Nice interviews of people from different professions about what their current tools are.
 - [Jony Ive and Patrick Collison](https://x.com/patrickc/status/1920590121537052881): What a beautiful conversation!!
 	- "Having a clear sense of goal which is to enable and inspire people"
@@ -365,7 +369,7 @@ Other links:
 		-
 - [Fundamental Development Gap Map v1.0](https://www.gap-map.org/): List of unsolved gaps in R&D.
 
-## Apr '25
+# Apr '25
 - ["Welcome to the semantic apocalypse", Erik Hoel](https://www.theintrinsicperspective.com/p/welcome-to-the-semantic-apocalypse): *Semantic Satiety, Neural Fatigue*
 	- "An oversupply that satiates us at a cultural level, until we become divorced from the semantic meaning and see only the cheap bones of its structure."
 	- This is what's going to happen with art short-term, but I strongly believe this will also drive the value of original human-generated art a lot more, and it goes both ways.
@@ -394,7 +398,7 @@ Other links:
 	- TODO: write more notes.
 -
 
-## Mar '25
+# Mar '25
 - ["You and Your Research", Richard Hamming](https://gwern.net/doc/science/1986-hamming): Revisit
 - ["A habit to make learning MUCH more fun and effective"](https://learnhowtolearn.org/a-habit-to-make-learning-much-more-fun-and-effective/), [dnbt777](https://learnhowtolearn.org/author/learnhowtolearn/): view of world as Rabbit hole makes learning so much easier. i also really like the way he's organising information through flowcharts, and diagrams.
 - ["Digital Hygiene", Andrej Karpathy](https://karpathy.bearblog.dev/digital-hygiene/)
@@ -416,7 +420,7 @@ Other links:
 - ["The Impact of Generative AI on Critical Thinking", Microsoft Research](https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/lee_2025_ai_critical_thinking_survey.pdf): TL;DR question everything. having high confidence on GenAI responses signals low critical thinking. It works doesn't mean it's a good solution.
 	- I've also noticed how I've personally started delegating most of the critical thinking tasks to an LLM, and copy-pasting the example, only to notice it's not working when given an error by the IDE.
 	- [\[2506.08872\] Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI Assistant for Essay Writing Task](https://arxiv.org/abs/2506.08872)
-## Feb'25
+# Feb'25
 - ["Everyone knows your location: tracking myself down through in-app ads"](https://timsh.org/tracking-myself-down-through-in-app-ads/), [tim](https://timsh.org/author/tim/): this is beyond scary. Imagine the data owned by by big organisations, regarding your interests, financial capacity, relationships, geographic location. It's not just targeted ads, this ad-based economy has been influencing people already. Mega organisations have been accused of altering election outcomes, race hate, propagandist thinking several times now. It's supposed to end at some point, and I think the arrival of agents will solve that to an extent. Internet will become more AI friendly and less user friendly. Information will be hidden behind paid APIs
 - [Will DeepSeek deep-six the US economy?](https://asiatimes.com/2025/02/will-deepseek-deep-six-the-us-economy/), by [Steve Hsu](https://asiatimes.com/author/steve-hsu/) and [David P Goldman](https://asiatimes.com/author/david-p-goldman-2/)
 - ["The Generalist’s Productivity Stack", The Generalist](https://substack.com/home/post/p-156091567): Raycast's focus extension has done wonders for my focus. It fights that initial friction and agitation, and helps to avoid any and all distractions.
@@ -436,7 +440,7 @@ Other links:
 		- I'm trying to learn this method more and more, and applying this with other orthogonal areas can really speed up the process of learning a new thing.
 	- Similarly with coding, I think i spend 100x more time trying to find a good solution rather than just code the brute force approach, test it out, and improve later. Testing really gives your brain time to think of each step you wrote, why it's there, can it be improved, or removed entirely.
 - ["50 Years of Travel Tips", Kevin Kelly](https://kk.org/thetechnium/50-years-of-travel-tips/): all of these are really good tips.
-## Jan'25
+# Jan'25
 - ["Putting Ideas into Words", Paul Graham](https://paulgraham.com/words.html): Writing thoughts and ideas down formally (heck, even informally) is one of the most therapeutical thing one can do. It's not easy, you start to uncover many flaws in your understanding. What seemed like a 1500 line essay turns into a 200 line, scattered, unfinished, mostly factually or logically incorrect think train. But, that doesn't mean you stop writing. It's the only way I know to slow down my thoughts, and to move them from working memory to long term memory. And it's not just words, you can do the same thing with code, drawing, cooking. To put more precisely, actually building something physically.
 - ["Privacy guides"](https://www.privacyguides.org/): Extensive list of privacy guides for browsers, DNS, VPN, cloud providers, etc. Highly recommended.
 - ["Machines of Loving Grace", Dario Amodei](https://darioamodei.com/machines-of-loving-grace): 5/5. well-explained 10K ft view of what AGI will and won't do. Most of the article can be summarised as being a lengthy discussion on human processes, which might be all true. AGI's, according to me, will be considered useful, if it can design processes far more efficient, creative and organised than the human counterparts that are mostly riddled with bureaucratic administrative problems. Easy way of estimating what AGI can achieve is to imagine *100* parallel researchers, working on different problems in different domain, but with same accuracy. With speed and efficiency, will also come reduced cost of deployment, and thus, ultimately benefitting humanity with low-cost, accurate, and efficient **end products**. These products can be substituted with anything: medicines, drugs, therapy. Revisit
@@ -457,7 +461,7 @@ Other links:
 	- "Look for the positive opportunities." - I'm a really negative person, confidence comes hard to me. I've recently just seen that just labelling a task as *easy* or *doable in x days* can decrease the complexity by significant amount. Having amazing people around you to ask for help always helps, but in the end, any task has to be completed by you. So, look for those positive opportunities in a project, and double down without ever looking back. Obviously, retrospect later.
 - ["I Ditched the Algorithm for RSS—and You Should Too", Joey Hand](https://joeyehand.com/blog/2025/01/15/i-ditched-the-algorithm-for-rssand-you-should-too/): trying to set up nice RSS, and move over completely from algorithm based timelines.
 
-## Dec'24
+# Dec'24
 
 - ["Always Measure One Level Deeper", John Ousterhout](https://cacm.acm.org/research/always-measure-one-level-deeper/)
 - [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
@@ -483,23 +487,23 @@ Other links:
 - ["Cognitive load is what matters", zakirullin](https://minds.md/zakirullin/cognitive#long)
 -
 
-## Nov '24
+# Nov '24
 
 - ["Tips on mathematical writing", Tom Leinster](https://www.maths.ed.ac.uk/~tl/tips.pdf)
 - [Facebook's Red book](https://drive.google.com/file/d/1TZYqdFOXkZZPpMJx_16YBFkw-jaPbxiS/view)
 
-## Oct '24
+# Oct '24
 
 - [Art of attention](https://billwear.github.io/art-of-attention.html)
 - [Register Spill, "How I use git"](https://registerspill.thorstenball.com/p/how-i-use-git)
 - [Andy Matuschak, “Why books don’t work”](https://andymatuschak.org/books/)
 - [Thorsten Bell, "Rust prism"](https://registerspill.thorstenball.com/p/rust-prism)
 
-## September 2024
+# September 2024
 - [Paul Graham, "Founder Mode"](https://www.paulgraham.com/foundermode.html)
 - [What Does It Really Mean to Learn?](https://www.newyorker.com/culture/open-questions/what-does-it-really-mean-to-learn)
 
-## August 2024
+# August 2024
 - [Why We Can't Have Nice Software](https://andrewkelley.me/post/why-we-cant-have-nice-software.html)
 - [Perceived Age](https://suryad.com/blog/percieved-age/)
 - [some principles for building an r&d organisation](https://alexobadia.com/(ツ)/blog/some+principles+for+building+an+r%26d+organisation)
@@ -513,13 +517,13 @@ Other links:
 - [On learning deeply](https://adamdhalla.medium.com/on-learning-deeply-7efd9a4284a8)
 
 
-## July 2024
+# July 2024
 - [Lukas Murdock's website](https://lukasmurdock.com/): Treasure trove of good links
 - [Tropical Forests in Big Trouble](https://nautil.us/tropical-forests-in-big-trouble-499544/?)
 - [PG: Right kind of Stubborn](https://paulgraham.com/persistence.html)
 - [How to Learn Hardware – Casey Handmer's blog](https://caseyhandmer.wordpress.com/2024/06/08/how-to-learn-hardware/)
 
-## June 2024
+# June 2024
 - [Developing the training mindset in fighting games | by Patrick Miller | Medium](https://pattheflip.medium.com/developing-the-training-mindset-in-fighting-games-2c0d167adcb5)
 - [What’s the greatest line you’ve ever read in any book?](https://x.com/DylanoA4/status/1794037247286579264)
 

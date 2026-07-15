@@ -37,7 +37,7 @@ Reference:
 
 [[thoughts/gaussian-processes]]
 
-[[thoughts/generative-modelling]]
+[[thoughts/generative-modeling]]
 
 # Beyond IID assumption
 

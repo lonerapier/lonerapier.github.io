@@ -9,7 +9,7 @@ I haven't taken any formal education in mathematics and with more experience, I'
 
 Initially, want to complete at least undergraduate level courses.
 
-## Improvements
+# Improvements
 
 - Write my own notation OR explain concepts formally on my own
 - Solve more problems without looking at notes.
@@ -18,40 +18,39 @@ Initially, want to complete at least undergraduate level courses.
 
 # Syllabus
 
-1. SV Calc
-2. MV Calc
-3. Linear Algebra
-4. [Algebra I](https://ocw.mit.edu/courses/18-701-algebra-i-fall-2010/), [Algebra II](https://ocw.mit.edu/courses/18-702-algebra-ii-spring-2011/)
-5. [Real Analysis](https://ocw.mit.edu/courses/18-100a-real-analysis-fall-2020/pages/syllabus/), [Analysis](https://ocw.mit.edu/courses/18-100b-analysis-i-fall-2010/pages/syllabus/), [Real Analysis: 18-100C](https://ocw.mit.edu/courses/18-100c-real-analysis-fall-2012/pages/syllabus/)
-6. [Calculus with theory](https://ocw.mit.edu/courses/18-014-calculus-with-theory-fall-2010/pages/syllabus/), [DiffEq](https://ocw.mit.edu/courses/18-034-honors-differential-equations-spring-2004/), [Analysis II](https://ocw.mit.edu/courses/18-101-analysis-ii-fall-2005/pages/calendar/)
-7. [Lie Groups and Lie Algebra I](https://ocw.mit.edu/courses/18-745-lie-groups-and-lie-algebras-i-fall-2020/pages/syllabus/), [Lie Groups and Lie Algebra II](https://ocw.mit.edu/courses/18-755-lie-groups-and-lie-algebras-ii-spring-2024/pages/syllabus/)
-8. [Topology](https://ocw.mit.edu/courses/18-901-introduction-to-topology-fall-2004/) 
-9. [Algebraic topology I](https://ocw.mit.edu/courses/18-905-algebraic-topology-i-fall-2016/pages/syllabus/), [Algebraic topology II](https://ocw.mit.edu/courses/18-906-algebraic-topology-ii-spring-2020/pages/syllabus/)
-10. [Fourier Analysis](https://ocw.mit.edu/courses/18-103-fourier-analysis-fall-2013/pages/syllabus/)
-11. [Differential Analysis I](https://ocw.mit.edu/courses/18-155-differential-analysis-fall-2004/), [Differential Analysis II](https://ocw.mit.edu/courses/18-156-differential-analysis-ii-partial-differential-equations-and-fourier-analysis-spring-2016/pages/syllabus/)
-12. [Probability and Random Variables](https://ocw.mit.edu/courses/18-440-probability-and-random-variables-spring-2014/), [Probabilistic Systems Analysis and Applied Probability](https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/)
-13. [Introduction to Stochastic Processes](https://ocw.mit.edu/courses/18-445-introduction-to-stochastic-processes-spring-2015/pages/syllabus/)
+- Abstract algebra, [Group Theory Problems](https://home.iitk.ac.in/~chavan/alg1.pdf)
+- [Algebra I](https://ocw.mit.edu/courses/18-701-algebra-i-fall-2010/), [Algebra II](https://ocw.mit.edu/courses/18-702-algebra-ii-spring-2011/)
+- [MA 231: Topology](https://math.iisc.ac.in/~gadgil/topology-2025/index.html), [Topology Problems](https://home.iitk.ac.in/~chavan/topology_mth304.pdf), [Topology](https://ocw.mit.edu/courses/18-901-introduction-to-topology-fall-2004/)
+- [Analysis II](https://ocw.mit.edu/courses/18-101-analysis-ii-fall-2005/pages/calendar/)
+- [Introduction To Differential Geometry](https://math.jhu.edu/~lindblad/439/439.html)
+	- [Differential Geometry - YouTube](https://www.youtube.com/playlist?list=PLeFwDGOexoe-Vvq0Ef3PmXVqWL9j8NX35)
+- [Lie Groups and Lie Algebra I](https://ocw.mit.edu/courses/18-745-lie-groups-and-lie-algebras-i-fall-2020/pages/syllabus/), [Lie Groups and Lie Algebra II](https://ocw.mit.edu/courses/18-755-lie-groups-and-lie-algebras-ii-spring-2024/pages/syllabus/)
+	- [Intro to Lie groups and Lie algebras](https://www.math.stonybrook.edu/~kirillov/mat552/)
+	- [Lie Theory: A Visual Introduction](https://aalok.uk/projects/lietheory/)
+- [Measure Theory Notes](https://www.math.ucdavis.edu/~hunter/measure_theory/measure_theory.html)
+- [Introduction to Functional Analysis \| Mathematics \| MIT OpenCourseWare](https://ocw.mit.edu/courses/18-102-introduction-to-functional-analysis-spring-2009/), [18.102 Intro to Functional Analysis](https://canvas.mit.edu/courses/30063)
+	- [Functional Analysis (MMAT1), Even Sem 2021-22](https://www.isibang.ac.in/~soumyashant/teaching/FUNCANALYSIS-M1-EVEN2022/CourseWebpage.html)
+	- [Hilbert Spaces - Sequel to Linear Algebra](https://rtullydo.github.io/hilbert/hilbert.html)
+	- [Functional Analysis Problems](https://home.iitk.ac.in/~chavan/fa_mth405_1.pdf)
+- [Complex Analysis, Jan 2020](https://math.iisc.ac.in/~vvdatar/teaching_2020-Jan.html)
+	- [Complex analysis](https://math.iisc.ac.in/~bharali/MA224-2026/handout_w26_web.pdf)
+	- [MATH 331: Complex Analysis](https://www.supermath.info/Complex.html)
+- [PDE: Math 4340 (Advanced Engineering Mathematics), Summer II 2023 (online)](https://www.math.clemson.edu/~macaule/classes/m23_math4340/)
+	- [Math 372: Partial Differential Equations](https://www.math.cmu.edu/~gautam/teaching/2013-14/372-pde/)
+- [Fourier Analysis](https://ocw.mit.edu/courses/18-103-fourier-analysis-fall-2013/pages/syllabus/)
+- [Probability and Random Signals II](https://adityam.github.io/probability-and-random-signals/): I don't know many things inside this course, and it's theory heavy too, going deep into measure theory, sigma-algebra, hilbert spaces.
+	- [Introduction to Stochastic Processes](https://ocw.mit.edu/courses/18-445-introduction-to-stochastic-processes-spring-2015/pages/syllabus/)
+- [Algebraic topology I](https://ocw.mit.edu/courses/18-905-algebraic-topology-i-fall-2016/pages/syllabus/), [Algebraic topology II](https://ocw.mit.edu/courses/18-906-algebraic-topology-ii-spring-2020/pages/syllabus/)
+- [Fourier Analysis](https://ocw.mit.edu/courses/18-103-fourier-analysis-fall-2013/pages/syllabus/)
+- [Differential Analysis I](https://ocw.mit.edu/courses/18-155-differential-analysis-fall-2004/), [Differential Analysis II](https://ocw.mit.edu/courses/18-156-differential-analysis-ii-partial-differential-equations-and-fourier-analysis-spring-2016/pages/syllabus/)
+- ODE
+	- [ODE applied](https://www.math.unl.edu/~jlogan1/PDFfiles/New3rdEditionODE.pdf)
+	- [ODE Theory](https://www.math.unipd.it/~monti/ED2/PC13GiugnoFinale.pdf)
 
-## Calculus & Real Analysis
-0. Linear Algebra, Precalculus, Trignometry
-1. Stewart, Calculus or any Calculus I, II lecture and PS **and** Spivak, Calculus: Intro to real analysis
-2. Apostol, Calculus Vol. II
-3. Abbot, Understanding Analysis or Pugh, Mathematical Analysis
-4. Measure Theory: 
-5. Functional & Convex Analysis
-6. Fourier Analysis
-7. ODE/PDE
-
-## Prob & Stats & StochProc
-0. PreReq: LA, Calc, RA
-1. **Probability:** Blitzstein & Hwang **or** Bertsekas & Tsitsiklis **or** Ross First course in probability or [MIT 18.05](https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/pages/syllabus/) and [MIT 18.440](https://ocw.mit.edu/courses/18-440-probability-and-random-variables-spring-2014/pages/readings/)
-2. **Statistics:** Wasserman (_All of Statistics_)
-3. **Processes:** Grimmett and D. R. Stirzaker **or** Durrett (_Essentials of Stochastic Processes_) or Ross, Stochastic Processes or [MIT 18.175](https://ocw.mit.edu/courses/18-175-theory-of-probability-spring-2014/pages/syllabus/)
-	1. [Syllabus \| Fundamentals of Probability \| Electrical Engineering and Computer Science \| MIT OpenCourseWare](https://ocw.mit.edu/courses/6-436j-fundamentals-of-probability-fall-2018/pages/syllabus/)
-4. **HD probability:** Vershynin, Wainwright
-5. **Learning theory:** Mohri et al. **or** Shalev-Shwartz & Ben-David
-6. **Optimization:** Boyd & Vandenberghe
-7. **Info theory (optional but great):** Cover & Thomas
+## Problems
+- [real analysis: Problems and solutions](https://www.math.ucla.edu/~yanovsky/handbooks/real_analysis.pdf): I should be very comfortable with these problems.
+- [Practice for Math PhD Prelims - TCU](https://faculty.tcu.edu/richardson/Prelims/?v=27170512)
+- [Darij Grinberg: Mathematical Problem Solving (Math 235), Fall 2020](https://www.cip.ifi.lmu.de/~grinberg/t/20f/): Initial undergraduate course on problem solving with amazing putnam problem and notes
 
 ## Courses
 - MATH 185 Complex Analysis
@@ -68,7 +67,7 @@ Initially, want to complete at least undergraduate level courses.
 - CS 229A Information Theory and Coding
 - EE 227BT Convex Optimization
 
-# Meta learning so far
+# Meta Learning so far
 - **Problem solving approach**
 	- What previous axioms/statements/theorems do I need to solve this problem?
 	- What assumptions do I need to make to start solving?
@@ -87,13 +86,11 @@ Initially, want to complete at least undergraduate level courses.
 can you give me a rabbit hole related to `x` that can allow me to explore something much deeper than it?
 ```
 
-
 Resources:
 - [Math — Susan Rigetti](https://www.susanrigetti.com/math)
-- [Napkin Math - Evan Chen](https://venhance.github.io/napkin/Napkin.pdf)
 - [Mathematics for the adventurous self-learner](https://www.neilwithdata.com/mathematics-self-learner)
+- Amazing set of notes: [Class Notes by Andrew Lin](https://web.stanford.edu/~lindrew/notes.html)
 - [How to Become a Pure Mathematician (or Statistician)](https://hbpms.blogspot.com/)
-- [Mathacademy](https://mathacademy.com/courses)
 - [Art of Problem solving](https://artofproblemsolving.com/wiki/index.php/Math_books)
 - [Math notes](https://holdenlee.github.io/Math%20notes.html)
 - [OSSU math](https://github.com/ossu/math)
@@ -106,16 +103,7 @@ Resources:
 - [UCL maths modules](https://www.ucl.ac.uk/maths/current-students/current-undergraduates/module-information-undergraduates)
 - [Yale Mathematics major](https://math.yale.edu/undergraduate/mathematics-major)
 - [How to Learn Math and Physics - John Baez](https://math.ucr.edu/home/baez/books.html#math)
-- [rossant](https://github.com/rossant)/[awesome-math](https://github.com/rossant/awesome-math)
-- [Paul's online math notes](https://tutorial.math.lamar.edu/)
-- [Darij Grinberg: Mathematical Problem Solving (Math 235), Fall 2020](https://www.cip.ifi.lmu.de/~grinberg/t/20f/): Initial undergraduate course on problem solving with amazing putnam problem and notes
 - [Math Major Guide \| Warning: Nonstandard advice. - YouTube](https://www.youtube.com/watch?v=EE7KpcReYw4)
-- [Algebra, Topology, Differential Calculus, and Optimization Theory for Computer Science and Machine Learning​](https://www.cis.upenn.edu/~jean/math-deep.pdf)
-- [Course categories \| Mathematical Institute](https://courses.maths.ox.ac.uk/course/index.php)
 - [Mathematics Textbooks for Self Study --- A Guide for the Autodidactic](https://marktomforde.com/academic/mathmajors/textbook-suggestions.html)
 - [Suggested Readings by Subject - Mathematics - Research Guides at University of Michigan Library](https://guides.lib.umich.edu/c.php?g=282871&p=6557089)
-- [Greg Yang's textbooks list](https://xcancel.com/TheGregYang/status/1679997898887426048)
-
-![syllabus](https://i.imgur.com/am4fVnh.png)
-
-[^1]: <https://infinityplusonemath.wordpress.com/2017/02/18/asteroids-on-a-donut/>
+- [Asteroids on a Donut – Infinity Plus One](https://infinityplusonemath.wordpress.com/2017/02/18/asteroids-on-a-donut/)

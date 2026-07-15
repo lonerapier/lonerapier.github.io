@@ -2,9 +2,9 @@
 title: Score Matching
 date: 2026-04-30
 tags:
-- machine-learning
-- generative-modelling
-- mcmc
+  - machine-learning
+  - generative-modeling
+  - mcmc
 ---
 
 # 1 Score Based Generative Models

@@ -1,15 +1,15 @@
 ---
-title: "Variation Diffusion Models"
+title: Diffusion Models
 date: 2026-05-05
 tags:
-- machine-learning
-- generative-modelling
-- notes
+  - machine-learning
+  - generative-modeling
+  - notes
 ---
 
 > Most of these notes are inspired from amazing posts, tutorials, and research papers mentioned in the reference. I urge readers to look at them, before reading this.
 
-Variational Diffusion Models are just Markovian HVAE with following modifications:
+Variational Diffusion Models are just Markovian [[thoughts/vae|HVAE]] with following modifications:
 1. Input dimension and latent dimension is exactly equal.
 2. Latent encoder at each step is pre-defined as Linear Gaussian model aka. Gaussian distribution centred at output from previous timestamp, and is not learned.
 3. Latent distributions are added in such a manner that latent at final timestamp is standard Gaussian.
@@ -29,8 +29,8 @@ $$
 \end{align}
 $$
 
-> [!note] Linear combinations of Gaussians = Gaussian. 
-> Let $\tilde{\epsilon}=c_{t}\epsilon_{t-1}+c_{t-1}\epsilon_{t-2}$, and $\tilde{\epsilon}\sim \mathcal{N}(0,\sigma^{2}I)$. We need to find $\text{Var}(\tilde{\epsilon})$ which equals $c^{2}I$. Thus, $\sigma^{2}=1-\alpha_{t}+\alpha_{t}(1-\alpha_{t-1})=1-\alpha_{t}\alpha_{t-1}$. 
+> [!note] Linear combinations of Gaussians = Gaussian.
+> Let $\tilde{\epsilon}=c_{t}\epsilon_{t-1}+c_{t-1}\epsilon_{t-2}$, and $\tilde{\epsilon}\sim \mathcal{N}(0,\sigma^{2}I)$. We need to find $\text{Var}(\tilde{\epsilon})$ which equals $c^{2}I$. Thus, $\sigma^{2}=1-\alpha_{t}+\alpha_{t}(1-\alpha_{t-1})=1-\alpha_{t}\alpha_{t-1}$.
 
 Telescoping till the last state, we get:
 $$
@@ -90,7 +90,7 @@ q(\mathbf{x}_{t-1}|\mathbf{x}_{t},\mathbf{x}_{0})\propto \mathcal{N}\left( \math
 }\end{equation}
 $$
 
-Our goal is to train a generative model that learns the reverse diffusion process to approximate the above distribution: $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\mathcal{N}(\mathbf{x}_{t-1}|\mu_{\theta}(\mathbf{x}_{0},\mathbf{x}_{t}),\Sigma_{\theta}(\mathbf{x}_{t},t))$. The process is defined as Markov chain with learned Gaussian parameters starting at $p(\mathbf{x}_{T})=\mathcal{N}(\mathbf{x}_{T};0,\mathbf{I})$. Joint distribution of all the generated variables is given by 
+Our goal is to train a generative model that learns the reverse diffusion process to approximate the above distribution: $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\mathcal{N}(\mathbf{x}_{t-1}|\mu_{\theta}(\mathbf{x}_{0},\mathbf{x}_{t}),\Sigma_{\theta}(\mathbf{x}_{t},t))$. The process is defined as Markov chain with learned Gaussian parameters starting at $p(\mathbf{x}_{T})=\mathcal{N}(\mathbf{x}_{T};0,\mathbf{I})$. Joint distribution of all the generated variables is given by
 
 $$
 \begin{equation}
@@ -120,7 +120,7 @@ $$
 \end{align}
 $$
 
-We can write the variational lower bound loss as the combination of separate KL terms for each time step: $L_{t}$. Every KL term (except for $L_{0}$) compares $q,p_{\theta}$ which are both Gaussians and can be computed in closed form. 
+We can write the variational lower bound loss as the combination of separate KL terms for each time step: $L_{t}$. Every KL term (except for $L_{0}$) compares $q,p_{\theta}$ which are both Gaussians and can be computed in closed form.
 
 Let's interpret the ELBO term by term:
 1. $L_{0}$ can be interpreted as reconstruction term, which is analogous to the reconstruction term in the ELBO for VAE, and can be approximated using MC estimate.
@@ -128,7 +128,7 @@ Let's interpret the ELBO term by term:
 3. $L_{t}$, or the denoising matching term that measures the divergence between the learned denoising step with the ground truth denoising transition. Optimizing the loss function means minimizing this term with respect to the ground truth signal.
 
 > [!note] Closed form KL for Gaussian distribution
-> Computing the KL term using closed form solution for d-dimensional Gaussian distributions. $D_{\text{KL}}(\mathcal{N}(a,\Sigma_{a})\|\mathcal{N}(b,\Sigma_{b}))=\frac{1}{2}\left(\log\frac{\det\Sigma_{b}}{\det\Sigma_{a}}-d+ (a-b)^{\top}\Sigma_{b}^{-1}(a-b)+\mathrm{Tr}(\Sigma_{b}^{-1}\Sigma_{a})\right)$. 
+> Computing the KL term using closed form solution for d-dimensional Gaussian distributions. $D_{\text{KL}}(\mathcal{N}(a,\Sigma_{a})\|\mathcal{N}(b,\Sigma_{b}))=\frac{1}{2}\left(\log\frac{\det\Sigma_{b}}{\det\Sigma_{a}}-d+ (a-b)^{\top}\Sigma_{b}^{-1}(a-b)+\mathrm{Tr}(\Sigma_{b}^{-1}\Sigma_{a})\right)$.
 
 Note that in the ELBO term, majority of the optimisation cost lies in the denoising term. We need to train a parametrised model $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\mathcal{N}(\mathbf{x}_{t-1};\mu_{\theta}(\mathbf{x}_{t},\mathbf{x}_{0}),\Sigma_{\theta}(\mathbf{x}_{t},t))$ to learn the reversed diffusion process. We can simplify the optimisation problem by modelling learned denoising process $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})$ as Gaussian, and since $\alpha$ terms are frozen at timestep, we can set $\Sigma_{q}=\sigma^{2}_{q}\mathbf{I}=\beta_{q}\mathbf{I}$:
 
@@ -281,7 +281,7 @@ $$
 
 So, score function is equal to the noise along with a constant factor that decreases as time increases. Noisifying the input adds some noise in a direction, and intuitively, moving opposite in the direction of noise must lead to opposite of noise, i.e. "denoising" step.
 
-### Conditional Diffusion models
+# Conditional Diffusion Models
 
 We focus at deriving the generative model conditioned on some information. The simplest way would be maximise the conditional likelihood $p(x|c)$, where $c$ can be a scalar (class label) which can be mapped to embedding vector, and added into the network using spatial addition, or another image, or text prompt. We could then modify the neural network approximators of VDM with the additional information as $\hat{x}_{\theta}(x_{t},t,c)\approx x_{0},\hat{\epsilon}_{\theta}(x_{t},t,c)\approx\epsilon_{0},s_{\theta}(x_{t},t,c)\approx \nabla \log p(x_{t}|c)$. But the network has to be learned separately for each of the different kind of conditioning that we want to perform.
 
@@ -322,7 +322,7 @@ $$
 
 We now need to learn two diffusion models, namely $p(x|c),p(x)$. But notice that unconditional model is equivalent to conditional model with $c=\emptyset$. Using the weight hyperparameter $\lambda$, the diffusion model can be guided in the direction that respects the conditioning information by using $\lambda>1$.
 
-### Latent diffusion model
+# Latent Diffusion Model
 
 - What diffusion models have done until now is perform diffusion in pixel space directly, and the problem with that is pixel space is huge and also sparsely populated. This makes it difficult for the model to learn the image manifold, it also makes optimization hard to perform (requires hundreds of GPU), and inference is awfully slow.
 - Idea: Run full diffusion in latent space of pretrained autoencoders.
@@ -348,7 +348,7 @@ We now need to learn two diffusion models, namely $p(x|c),p(x)$. But notice that
 >   
 >   VQ-VAEs use autoregressive models to learn an expressive prior over a discretized latent space. Different from VQ-VAEs, VQGANs employ a first stage with an adversarial and perceptual objective to scale autoregressive transformers to larger images.
 
-### References
+# References
 - [What are Diffusion Models? \| Lil'Log](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
 - [Understanding Diffusion Models&#58; A Unified Perspective](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
 - [Latent Diffusion (Stable Diffusion) \| José Salgado-Rojas](https://josesalgr.github.io/blog/2022/Stable-Diffusion/)

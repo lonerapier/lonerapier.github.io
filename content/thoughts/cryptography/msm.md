@@ -1,11 +1,9 @@
 ---
-title: "MSM - Multi scalar multiplication"
+title: MSM - Multi scalar multiplication
 date: 2023-07-08T10:00:00-07:00
 tags:
-- tech
-- math
-- cryptography
-- engineering
+  - math
+  - cryptography
 ---
 
 Problem: calculate $\sum_{i=0}^{n-1}k_{i}P_{i}$, where $k_{i}$ is a scalar and $P_{i}$ is point on an [[elliptic-curves|EC]].
@@ -103,7 +101,7 @@ $k_1$ and $k_2$ are found using [barret-reduction](https://hackmd.io/@chaosma/Sy
 
 Complexity: b/2 squaring and $d/2+2^{c+1}$ additions
 
-## WNAF (windowed Non-adjacent form)
+## WNAF (Windowed Non-adjacent fOrm)
 
 Most of the time in MSM is spent in additions, and number of additions depend on hamming weight of the scalar. Less number of additions will have to be done if the number of 1's in the scalar bits is less.
 

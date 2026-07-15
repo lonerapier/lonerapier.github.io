@@ -1,10 +1,10 @@
 ---
-title: "Variational Auto-encoders"
+title: Variational Auto-encoders
 date: 2026-04-25
 tags:
-- machine-learning
-- generative-modelling
-- notes
+  - machine-learning
+  - generative-modeling
+  - notes
 ---
 
 Autoencoders learn low-dimensional representation of the data in unsupervised way by aiming to imitate the identity function i.e. reconstruct the original data while having a low-dimensional representation bottleneck in the process. In other words, Autoencoders are neural networks trained to generate output y that is as close to the input x, and an internal layer that gives the representation z(x) for each new input.
@@ -28,7 +28,7 @@ $$
 \end{array}
 $$
 
-Our goal is to generate $\mathbf{x}$ or in other words sample $\mathbf{x}$ from distribution $p_{\theta}(\mathbf{x})$. If we know the distribution to latent variable z, then expressing x is just taking marginal likelihood $p_{\theta}(\mathbf{x})=\int_{\mathbf{z}}p_{\theta}(\mathbf{x}|\mathbf{z})p(\mathbf{z})d\mathbf{z}$ over latent variables $p(\mathbf{z})$ with the conditional distribution of $p_{\theta}(\mathbf{x}|\mathbf{z})$, or if we have access to ground truth latent encoder, we can also write $$p(x)=\frac{p(x,z)}{p(z|x)}$$ 
+Our goal is to generate $\mathbf{x}$ or in other words sample $\mathbf{x}$ from distribution $p_{\theta}(\mathbf{x})$. If we know the distribution to latent variable z, then expressing x is just taking marginal likelihood $p_{\theta}(\mathbf{x})=\int_{\mathbf{z}}p_{\theta}(\mathbf{x}|\mathbf{z})p(\mathbf{z})d\mathbf{z}$ over latent variables $p(\mathbf{z})$ with the conditional distribution of $p_{\theta}(\mathbf{x}|\mathbf{z})$, or if we have access to ground truth latent encoder, we can also write $$p(x)=\frac{p(x,z)}{p(z|x)}$$
 
 Using log likelihood objective $\sum_{i=1}^{N}\log p_{\theta}(\mathbf{x}^{(i)})$, we can optimise $\theta$ by minimising the NLL.
 
@@ -55,7 +55,7 @@ Our goal will be to use the representation of the distribution $p(x)$ to derive 
 
 The estimated posterior $q_{\phi}(\mathbf{z}|\mathbf{x})$ needs to be close to best approximation $p_{\theta}(\mathbf{z}|\mathbf{x})$, and is measured using reversed KL divergence $D_\text{KL}( q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z}\vert\mathbf{x}) )$.
 
-> [!question] Why use reverse KL? 
+> [!question] Why use reverse KL?
 > Doesn't KL $D(p\|q)$ measure how many bits is required to estimate p using q? Then, why are measuring how many bits are required to go from p to q, when instead we are approximating p with q?
 
 $$
@@ -71,12 +71,12 @@ $$
 We can rearrange the terms to get the learning objective. To get optimal parameters $\theta^{*},\phi^{*}$, we want to minimise the KL divergence between the two distributions $p_{\theta}(\mathbf{z}|\mathbf{x}),q_{\phi}(\mathbf{z}|\mathbf{x})$ and maximise the log likelihood of generating real data $p_{\theta}(\mathbf{x})$.
 
 $$
-L(\theta,\phi)=-\log p_\theta(\mathbf{x}) + D_\text{KL}( q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z}\vert\mathbf{x}) ) = -\underset{ \text{reconstruction term} }{ \mathbb{E}_{\mathbf{z}\sim q_\phi}[\log p_\theta(\mathbf{x}\vert\mathbf{z})] } + \underset{ \text{prior matching term} }{ D_\text{KL}(q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z})) }
+L(\theta,\phi)=-\log p_\theta(\mathbf{x}) + D_\text{KL}( q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z}\vert\mathbf{x}) ) = -\underbrace{ \mathbb{E}_{\mathbf{z}\sim q_\phi}[\log p_\theta(\mathbf{x}\vert\mathbf{z})] }_{ \text{reconstruction term} } + \underbrace{ D_\text{KL}(q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z})) }_{ \text{prior matching term} }
 $$
 
-This term is known as Variational lower bound or **Evidence lower bound (ELBO)**. For more details on why *variational* bound, refer to this amazing [post](https://blog.evjang.com/2016/08/variational-bayes.html). Let's understand what each term in the objective represents: 
-1. Reconstruction term: Measures how well are we able to convert a latent vector $z$ into an observation $x$. 
-2. Prior matching term: Measures how well is the learned encoder $q_{\phi}$ matching our prior belief over latent variables, $p(\boldsymbol{z})$. 
+This term is known as Variational lower bound or **Evidence lower bound (ELBO)**. For more details on why *variational* bound, refer to this amazing [post](https://blog.evjang.com/2016/08/variational-bayes.html). Let's understand what each term in the objective represents:
+1. Reconstruction term: Measures how well are we able to convert a latent vector $z$ into an observation $x$.
+2. Prior matching term: Measures how well is the learned encoder $q_{\phi}$ matching our prior belief over latent variables, $p(\boldsymbol{z})$.
 
 Lower bound is achieved because KL-divergence is always non-negative, thus $L\geq-\log p_{\theta}(\mathbf{x})$.
 
@@ -124,7 +124,7 @@ $$
 \end{align}
 $$
 
-### References
+# References
 - [33  Generative Modeling Meets Representation Learning – Foundations of Computer Vision](https://visionbook.mit.edu/generative_modeling_and_rep_learning.html)
 - [Understanding Diffusion Models&#58; A Unified Perspective](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
 - [From Autoencoder to Beta-VAE \| Lil'Log](https://lilianweng.github.io/posts/2018-08-12-vae/)

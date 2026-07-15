@@ -46,15 +46,17 @@ mm2 --> Y
 ```
 *<center>Attention Head</center>*
 
-> [!note] Reason for normalising with $\frac{1}{\sqrt{ D_{k} }}$
+> [!note] Reason for normalizing with $\frac{1}{\sqrt{ D_{k} }}$
 > Assume $Q_{i}, K_{j}$ are i.i.d. with $\mu=0,\sigma=1$, then $E[Q_{i}K_{j}]=0$ and $\sigma[Q_{i}K_{j}]=D_{k}$. So, as dimension increase, dot products can be large in magnitude that saturates softmax and gradients becomes exponentially small. We want $\sigma\left[ \frac{Q_{i}K_{j}}{c} \right]=1\implies c=\sqrt{ D_{k} }$.
 
 ![attention](thoughts/images/attention.png)
 
+*<center>Attention matrices [^1]</center>*
+
 > [!note] History
-> Attention was first introduced by [Badhanau et al.](https://arxiv.org/abs/1409.0473) which used additive attention which used vectors of different tokens (and not the input token as done in self-attention) as key vectors. [Luong et al.](https://arxiv.org/abs/1508.04025) introduced multiplicative or dot-product to calculate the alignment scores.
+> Attention was first introduced by @bahdanau2014neural which used additive attention which used vectors of different tokens (and not the input token as done in self-attention) as key vectors. @luong2015effective introduced multiplicative or dot-product to calculate the alignment scores.
 >
-> [Vaswani et al.](https://arxiv.org/abs/1706.03762) introduced Transformer architecture that removed <>, self-attention mechanism, normalised alignment score and positional encoding of the input tokens.
+> @vaswani2017attention introduced Transformer architecture that removed <>, self-attention mechanism, normalized alignment score and positional encoding of the input tokens.
 
 **Multi-head Attention**: What we described so far can be termed as an Attention head. We can use multiple attention heads to learn multiple patterns. Formally, suppose we have H heads, then $Y_{h}=\text{Attention}(Q_{h},K_{h},V_{h})$ and $Y=\text{concat}[Y_{1},\dots,Y_{H}]W^{(o)}$, where each $Q_{i},K_{i},V_{i}$ have same dimension, and $W^{(o)}\in \mathbb{R}^{HD_{v}\times D}$.
 
@@ -81,14 +83,14 @@ Now, we can stack multiple layers on top of each other to create a deep Transfor
 > [!todo]
 > - Efficient Transformers
 
-## Positional encoding and embeddings
+## Positional Encoding and Embeddings
 
 **Positional encoding**: Convince yourself that vanilla transformer architecture is equivariant to input permutations, i.e. permuting the input permutes the output. This can be mitigated by assigning a unique position to each input token in the input itself. Modifying the input vectors by adding the position vectors onto the token vectors give $\tilde{x}_{n}=x_{n}+p_{n}$, where p is the positional encoding of the input token in the data.
 
 > [!question] Why does adding a new vector to the input vector not corrupt the information?
 > Because randomly sampled two vectors in a high dimensional space tend to be nearly orthogonal implying that model can process token information and token position separately even when they're added in a single entity.
 
-Approach proposed in [Vaswani et al.](https://arxiv.org/abs/1706.03762) is based on fourier basis where for a given position n the associated position encoding vector is:
+Approach proposed in @vaswani2017attention is based on Fourier basis where for a given position n the associated position encoding vector is:
 
 $$
 p_{j}=\begin{cases}
@@ -108,7 +110,7 @@ p_{j+k,1} &=\cos\left( \frac{j+k}{L^{2\cdot0/D}} \right)&=\cos(j+k)
 \end{align}
 $$
 
-Using trigonometric identities, sin(j+k)=sin(j)cos(k) + cos(j)sin(k) and cos(j+k)=cos(j)cos(k) - sin(j)sin(k), we can write:
+Using trigonometric identities, $\sin(j+k)=\sin(j)\cos(k) + \cos(j)\sin(k)$ and $\cos(j+k)=\cos(j)\cos(k) - \sin(j)\sin(k)$, we can write:
 $$
 \begin{align}
 \sin(j+k)&=\sin(j)\cos(k)+\cos(j)\sin(k)&=p_{j,0}\cos(k)+p_{j,1}\sin(k) \\

@@ -1,10 +1,10 @@
 ---
-title: "Energy-based models"
+title: Energy-based models
 date: 2026-04-30
 tags:
-- machine-learning
-- generative-modelling
-- notes
+  - machine-learning
+  - generative-modeling
+  - notes
 ---
 
 
@@ -27,11 +27,11 @@ Contrary to density based models, EBMs don't normalise the probability density f
 
 Advantage of EBMs is the flexible use of any non-negative real scalar function as energy function, and this allows to use different type of NN architectures. Each of these architecture can have specialised use in different tasks like image generation, RL, density estimation, etc.
 
-Calculating relative probability $p_{\theta}(x_{1})/p_{\theta}(x_{2})$ is straightforward for EBMs and is generally, what's required for sampling in MCMC. It's not fit for places where end output need to indicate true probabilities about the result. 
+Calculating relative probability $p_{\theta}(x_{1})/p_{\theta}(x_{2})$ is straightforward for EBMs and is generally, what's required for sampling in MCMC. It's not fit for places where end output need to indicate true probabilities about the result.
 
 To fit the probabilistic model $p_{\theta}$ parametrised by $\theta$ to underlying data distribution: $\ell(\theta)=E_{x\in p_{\mathcal{D}(x)}}[\log p_{\theta}(x)]$. Maximising log likelihood is equivalent to minimising the KL divergence: $\ell(\theta)=-D_{\text{KL}}(p_{\mathcal{D}}\lVert p_{\theta})+\text{const}$.
 
-Gradient of log-likelihood is estimated using MCMC methods: $\nabla_{\theta}\log p_{\theta}(x)=-\nabla_{\theta}E_{\theta}(x)-\nabla_{\theta}\log Z_{\theta}$, where the first term is positive gradient, and minimising that means optimising the parameters in the direction of minimising the energy. We don't know what second term is (since the normalisation is an intractable integral). But using basic calculus, this simplifies to 
+Gradient of log-likelihood is estimated using MCMC methods: $\nabla_{\theta}\log p_{\theta}(x)=-\nabla_{\theta}E_{\theta}(x)-\nabla_{\theta}\log Z_{\theta}$, where the first term is positive gradient, and minimising that means optimising the parameters in the direction of minimising the energy. We don't know what second term is (since the normalisation is an intractable integral). But using basic calculus, this simplifies to
 
 $$
 \begin{align}
@@ -41,7 +41,7 @@ $$
 \end{align}
 $$
 
-Thus, both first and second term can be estimated using MC sampling by defining $x^{(i)}\sim p_{\mathcal{D}}$ and $\hat{x}^{(i)}\sim p_{\theta}$, then 
+Thus, both first and second term can be estimated using MC sampling by defining $x^{(i)}\sim p_{\mathcal{D}}$ and $\hat{x}^{(i)}\sim p_{\theta}$, then
 
 $$
 \underbrace{ -E_{x\sim p_{\mathcal{D}}}[\nabla_{\theta}E_{\theta}(x)] }_{{ \text{positive term} }}+\underbrace{ E_{x\sim p_{\theta}}[\nabla_{\theta}E_{\theta}(x) ]}_{{ \text{negative term} }}\approx-\frac{1}{N}\sum_{i=1}^{N} \nabla_{\theta}E_{\theta}(x^{(i)})+\frac{1}{N}\sum_{i=1}^{N} \nabla_{\theta}E_{\theta}(\hat{x}^{(i)})

@@ -1,22 +1,35 @@
-# Normalizing flows
+---
+title: Flow Matching
+date: 2026-05-25
+tags:
+  - machine-learning
+  - generative-modeling
+  - notes
+  - deep-learning
+---
+# 1 Normalizing Flows
 
 
 
-# Flow Matching
+# 2 Flow Matching
 
-As we saw, learning forward and reverse SDE using score function changed the dynamics under which diffusion-based models operate. Differential equations turned out to be the underlying language. Because diffusion is just transporting particles from one state to another where start and end states follows certain distribution. The question arose, "whether we can use ODEs to follow the exact same trajectory as the learned SDE in score-based models?". Flow matching based generative models constructed a suitable ODE, 
+As we saw, learning forward and reverse SDE using score function changed the dynamics under which diffusion-based models operate. Differential equations turned out to be the underlying language. Because diffusion is just transporting particles from one state to another where start and end states follows certain distribution. The question arose, "whether we can use ODEs to follow the exact same trajectory as the learned SDE in score-based models?". Flow matching based generative models constructed a suitable ODE,
 solving which gets the **flow** of the equation. Solving the ODE implies learning the associated vector field.
+
+![[Screenshot 2026-06-04 at 2.00.25 PM.png]]
 
 So, the goal of flow matching based generative model is to design a vector field that transforms a sample-able distribution (say Gaussian) to target distribution $p_{\mathcal{D}}$.
 
-> [!note] Vector field and ODE
+![[Screenshot 2026-06-04 at 2.11.32 PM.png]]
+
+> [!tip] Vector field and ODE
 > Vector field $u:\mathbb{R}^{n}\times[0,1]\to \mathbb{R}^{n},\ (x,t)\mapsto u_{t}(x)$ assigns a vector to each position in the space, and represents instantaneous movement at all locations, and we want to create an ODE, solution of which gives a trajectory that follows the vector field. Formally, $\frac{d}{dt}X_{t}=u_{t}(X_{t})$ with the initial condition, $X_{0}=x_{0}$.
-> 
+>
 > Before moving forward, We should also be confident about the existence of a solution to such an ODE. Fortunately, it's already proven that when the vector field $u$ is in $C^{1}$ with a bounded derivative then the ODE has a unique solution given by flow.
 
 Flow map, $\psi:\mathbb{R}^{n}\times[a,b]\to \mathbb{R}^{n}$ denotes the location of a particle in the space at time t. Solution to the ODE, $\frac{ \partial  }{ \partial t }\psi_{t}(x_{0})=u_{t}(\psi_{t}(x_{0}))$, with initial condition $\psi_{0}(x_{0})=x_{0}$. Trajectory of the ODE is recovered via $X_{t}=\psi_{t}(X_{0})$. Thus, solving an ODE, or finding the vector field, or flow map is equivalent. Intuitively, **Flow map** is the solution to the **ODE** defined by **vector fields**.
 
-We don't know the final distribution, so we need a way to estimate the flow map using only samples from $p_{\mathcal{D}}$. An intermediate solution is to pick a conditional sample $z_{j}$ and let all trajectories $X_{0}\sim p_{\text{init}}$ end at $z_{j}$. We define a *conditional interpolating probability path* as the set of distribution $p_{t}(x|z)$ such that $p_{0}(\cdot|z)=p_{\text{init}},\ p_{1}(\cdot|z)=\delta_{z}\quad \forall z\in \mathbb{R}^{n},\,t\in[0,1]$. Think of probability path as a straight line from noise distribution $p_{\text{init}}$ and data distribution $p_{\mathcal{D}}$. Taking the example of Gaussian probability path, trajectory $\psi_{t}(X_{0})$ is defined a simple straight line trajectory $\psi_{t}(X_{0})=\alpha_{t}z+\beta_{t}X_{0},\, X_{0}\sim \mathcal{N}(0 , I)$ and $\alpha_{t},\beta_{t}$ are the noise schedulers such that $\alpha_{t}+\beta_{t}=1$. So eventually, $\beta_{t}\to0$, and $\psi_{t}(X_{0})=z$. For intermediate time, $\psi_{t}(x|z)\sim \mathcal{N}(\alpha_{t}z , \beta_{t}^{2}I)$ is shrinking Gaussian.
+We don't know the final distribution, so we need a way to estimate the flow map using only samples from $p_{\mathcal{D}}$. An intermediate solution is to pick a conditional sample $z_{j}$ and let all trajectories $X_{0}\sim p_{\text{init}}$ end at $z_{j}$. We define a *conditional interpolating probability path* as the set of distribution $p_{t}(x|z)$ such that $p_{0}(\cdot|z)=p_{\text{init}},\ p_{1}(\cdot|z)=\delta_{z}\, \forall z\in \mathbb{R}^{n},\,t\in[0,1]$. Think of probability path as a straight line from noise distribution $p_{\text{init}}$ and data distribution $p_{\mathcal{D}}$. Taking the example of Gaussian probability path, trajectory $\psi_{t}(X_{0})$ is defined a simple straight line trajectory $\psi_{t}(X_{0})=\alpha_{t}z+\beta_{t}X_{0},\, X_{0}\sim \mathcal{N}(0 , I)$ and $\alpha_{t},\beta_{t}$ are the noise schedulers such that $\alpha_{t}+\beta_{t}=1$. So eventually, $\beta_{t}\to0$, and $\psi_{t}(X_{0})=z$. For intermediate time, $\psi_{t}(x|z)\sim \mathcal{N}(\alpha_{t}z , \beta_{t}^{2}I)$ is shrinking Gaussian.
 
 The probability path can define intermediate distributions along the trajectory, but we don't know the marginal vector field $u_{t}(x)$ corresponding to all points $z\in \mathbb{R}^{n}$. So, we can define the conditional vector field $u_{t}^{\text{target}}(\cdot|z)$ for every data point $z\in \mathbb{R}^{n}$ such that solving the ODE $\frac{d}{dt}X_{t}=u_{t}^{\text{target}}(X_{t}|z)$ gives the conditional probability path $X_{t}\sim p_{t}(\cdot|z)\quad(0\leq t\leq1)$.
 
@@ -32,11 +45,15 @@ $$
 \begin{align}
 \frac{d}{dt}(\alpha_{t}z+\beta_{t}x_{0}) & =u_{t}^{\text{target}}(\alpha_{t}z+\beta_{t}x_{0}|z) & \forall x,z\in \mathbb{R}^{n} \\
 \dot{\alpha}_{t}z+\dot{\beta}_{t}x_{0} & =u_{t}^{\text{target}}(\alpha_{t}z+\beta_{t}x_{0}|z) & \left[ \dot{\alpha}_{t}=\frac{d\alpha_{t}}{dt},\dot{\beta}_{t}=\frac{d\beta_{t}}{dt} \right] \\
-\left( \dot{\alpha}_{t}z+\dot{\beta}_{t}\left( \frac{y-\alpha_{t}z}{\beta_{t}} \right) \right) & =u_{t}(y|z) & [\because\text{Denote }y=\alpha_{t}z+\beta_{t}x] \\
+\left( \dot{\alpha}_{t}z+\dot{\beta}_{t}\left( \frac{y-\alpha_{t}z}{\beta_{t}} \right) \right) & =u_{t}(y|z) & [y=\alpha_{t}z+\beta_{t}x] \\
 \left( \dot{\alpha}_{t}-\frac{\dot{\beta}_{t}}{\beta_{t}}\alpha_{t} \right)z+\frac{\dot{\beta}_{t}}{\beta_{t}}y & =u_{t}(y|z) \\
-\left( \dot{\alpha}_{t}-\frac{\dot{\beta}_{t}}{\beta_{t}}\alpha_{t} \right)z+\frac{\dot{\beta}_{t}}{\beta_{t}}x & =u_{t}(x|z)  & [\text{Change of variables, denote }y\to x] \\
+\left( \dot{\alpha}_{t}-\frac{\dot{\beta}_{t}}{\beta_{t}}\alpha_{t} \right)z+\frac{\dot{\beta}_{t}}{\beta_{t}}x & =u_{t}(x|z)  & (\text{Change of variables, denote }y\to x) \\
 \end{align}
 $$
+
+![[Screenshot 2026-06-04 at 2.00.13 PM.png]]
+> [!todo]
+> replace it with something I make
 
 So, we have the conditional vector field, but as explained before, what we need is *marginal vector field*. Define **marginal vector field** as the average of all conditional fields for all data points $z\in \mathbb{R}^{n}$ weighed by how likely it is to get $x$ from $z$. We use **continuity equation** to get marginal from conditional vector fields.
 
@@ -44,7 +61,7 @@ $$
 \partial_{t}p_{t}(x)=-\text{div}(p_{t}u_{t}^{\text{target}})(x)\quad \forall x \in \mathbb{R}^{n},0\leq t\leq1
 $$
 
-Informally, it states that change of probability mass at each location over time equals the net inflow (negative divergence) of mass change according to the vector field at x (Each particle follows the field scaled by total mass currently residing at $x$). Interpret $\text{div}(p_{t}u_{t}^{\text{target}})(x)$ as $u_{t}\in \mathbb{R}^{n}\to \mathbb{R}^{n}$ as vector-valued function, $p_{t}\in \mathbb{R}^{n}\to \mathbb{R}$ as scalar valued function, then $p_{t}(x)u_{t}(x)\in \mathbb{R}^{n}$, and 
+Informally, it states that change of probability mass at each location over time equals the net inflow (negative divergence) of mass change according to the vector field at x (Each particle follows the field scaled by total mass currently residing at $x$). Interpret $\text{div}(p_{t}u_{t}^{\text{target}})(x)$ as $u_{t}\in \mathbb{R}^{n}\to \mathbb{R}^{n}$ as vector-valued function, $p_{t}\in \mathbb{R}^{n}\to \mathbb{R}$ as scalar valued function, then $p_{t}(x)u_{t}(x)\in \mathbb{R}^{n}$, and
 $$
 \begin{equation}
 \nabla\cdot(p_{t}u_{t}^{\text{target}})(x)=\left[ \frac{ \partial  }{ \partial x_{1} } ,\frac{ \partial  }{ \partial x_{2} } ,\dots,\frac{ \partial  }{ \partial x_{n} }  \right]
@@ -57,7 +74,7 @@ p_{t}u_{t}^{n}(x)
 \end{equation}
 $$
 
-We know that conditional vector field $u_{t}^{\text{target}}(\cdot|z)$ correctly transports conditional probability path $p_{t}(x|z)$. But we need to know whether marginal vector field will also correctly solve the marginal probability path. 
+We know that conditional vector field $u_{t}^{\text{target}}(\cdot|z)$ correctly transports conditional probability path $p_{t}(x|z)$. But we need to know whether marginal vector field will also correctly solve the marginal probability path.
 
 $$
 u_{t}^{\text{target}}(x)=\int u_{t}^{\text{target}}(x|z)\frac{p_{t}(x|z)p_{\mathcal{D}}(z)}{p_{t}(x)}dz
@@ -67,18 +84,18 @@ Define marginal vector field as the average over all data points $z$ that takes 
 
 $$
 \begin{align}
-\partial_{t}p_{t}(x) & = \partial_{t}\int p_{t}(x|z)p_{\mathcal{D}}(z)dz \\
- & =\int \partial_{t}p_{t}(x|z)p_{\mathcal{D}}(z)dz \\
- & =\int-\text{div}(p_{t}(\cdot|z)u_{t}^{\text{target}}(\cdot|z)) p_{\mathcal{D}}(z)dz \\
- & =-\text{div}\left( \int p_{t}(x|z)u_{t}^{\text{target}}(x|z)p_{\mathcal{D}}(z)dz \right) \\
- & =-\text{div}\left(p_{t}( x)\int u_{t}^{\text{target}}(x|z)\frac{p_{t}(x|z)p_{\mathcal{D}}(z)}{p_{t}(x)}dz \right)(x) \\
+\partial_{t}p_{t}(x) & = \partial_{t}\int p_{t}(x|z)p_{\mathcal{D}}(z)dz & (\text{Def. Marginal probability path}) \\
+ & =\int \partial_{t}p_{t}(x|z)p_{\mathcal{D}}(z)dz & \left( \nabla_{t}\int(\cdot)dz= \int\nabla_{t}(\cdot)dz\right) \\
+ & =\int-\text{div}(p_{t}(\cdot|z)u_{t}^{\text{target}}(\cdot|z)) p_{\mathcal{D}}(z)dz & (\text{Continuity equation}) \\
+ & =-\text{div}\left( \int p_{t}(x|z)u_{t}^{\text{target}}(x|z)p_{\mathcal{D}}(z)dz \right)  & (\text{div is linear operator})\\
+ & =-\text{div}\left(p_{t}( x)\underbrace{ \int u_{t}^{\text{target}}(x|z)\frac{p_{t}(x|z)p_{\mathcal{D}}(z)}{p_{t}(x)}dz }_{ u_{t}^{\text{target}}? } \right)(x) & \left( \frac{\cdot}{p_{t}(x)}p_{t}(x) \right) \\
  & =-\text{div}(p_{t}u_{t}^{\text{target}})(x)
 \end{align}
 $$
 
 Continuity equation is satisfied when marginal vector field equals the field defined above, and transports $X_{0}\sim p_{\text{init}}$ to $p_{t}$ such that the endpoint of the flow $X_{1}\sim p_{\mathcal{D}}$. Now, we see how do we learn the marginal vector field $u_{t}^{\text{target}}$.
 
-We parametrise the vector field as neural network approximation $u_{t}^{\theta}$ and use MSE loss as the flow matching loss:
+We parametrize the vector field as neural network approximation $u_{t}^{\theta}$ and use MSE loss as the flow matching loss:
 $$
 \begin{equation}
 \mathcal{L}_{\text{FM}}(\theta)=\mathbb{E}_{t\sim U[0,1],x\sim p_{t}}\left[ \lVert u_{t}^{\theta}(x)-u_{t}^{\text{target}}(x) \rVert ^{2} \right]
@@ -93,7 +110,7 @@ $$
 \end{equation}
 $$
 
-Informally, the loss says to draw a random time $t\in [0,1]$, then draw a random point $z$ from the data set, and sample $x\sim p_{t}(\cdot|z)$, and compute $u_{t}^{\theta}(x)$, and then finally compute the mean squared error between the output from the neural network and true marginal vector field $u_{t}^{\text{target}(x)}$. But computing the marginal vector field requires that the integral is tractable, which is often untrue. Solution to this is to use a known term and replace with unknown term in the loss formula, and then use the surrogate loss. We will, ofcourse, have to prove that minimising the surrogate loss is equivalent to minimising the original one. We use the conditional velocity field $u_{t}^{\text{target}}(x|z)$, and define the new loss as:
+Informally, the loss says to draw a random time $t\in [0,1]$, then draw a random point $z$ from the data set, and sample $x\sim p_{t}(\cdot|z)$, and compute $u_{t}^{\theta}(x)$, and then finally compute the mean squared error between the output from the neural network and true marginal vector field $u_{t}^{\text{target}(x)}$. But computing the marginal vector field requires that the integral is tractable, which is often untrue. Solution to this is to use a known term and replace with unknown term in the loss formula, and then use the surrogate loss. We will, of course, have to prove that minimizing the surrogate loss is equivalent to minimizing the original one. We use the conditional velocity field $u_{t}^{\text{target}}(x|z)$, and define the new loss as:
 
 $$
 \begin{equation}
@@ -132,7 +149,9 @@ $$
 \end{align}
 $$
 
-Therefore, flow matching training consists of minimising the conditional flow matching loss. We can see that the loss equation turns out to be simple regression, equivalent to supervised learning. We also thus, don't need to simulate any ODE during training, and can directly train the neural network on the loss.
+![[Screenshot 2026-06-04 at 2.11.01 PM.png]]
+
+Therefore, flow matching training consists of minimizing the conditional flow matching loss. We can see that the loss equation turns out to be simple regression, equivalent to supervised learning. We also thus, don't need to simulate any ODE during training, and can directly train the neural network on the loss.
 
 For the Gaussian conditional probability paths, the loss function simplifies to
 
@@ -144,8 +163,98 @@ $$
 \end{align}
 $$
 
-# References
+# 3 Flow and Score Matching
+
+We will aim to prove the equivalence between learning score $\nabla_{x}\log p(x)$ and the velocity field $u_{t}^{\text{target}}(x)$. Similar to conditional and marginal velocity field, we can define conditional score $\nabla_{x}\log p_{t}(x|z)$ and marginal score $\nabla_{x}\log p_{t}(x)=\int \nabla_{x}\log p_{t}(x|z)p_{t}(z|x)dz$.
+
+> [!note] Prove marginal score formulation $\nabla_{x}\log p_{t}(x)=\int \nabla_{x}\log p_{t}(x|z)p_{t}(z|x)dz$.
+
+For gaussian probability paths $p_{t}(x|z)\sim \mathcal{N}(x_{t};\alpha_{t}z , \beta_{t}^{2}I_{d})$ we know that $\nabla_{x}\log p_{t}(x|z)=\frac{x-\alpha_{t}z}{\beta_{t}^{2}}$. We can write marginal velocity vector field $u_{t}^{\text{target}}(x)$ with respect to score as $$u_{t}^{\text{target}}(x)=a_{t}\nabla \log p_{t}(x)+b_{t}x,\quad a_{t}=\beta_{t}^{2} \frac{\dot{\alpha}_{t}}{\alpha_{t}}-\frac{\dot{\beta}_{t}}{\beta_{t}},b_{t}=\frac{\dot{\alpha}_{t}}{\alpha_{t}}$$ by using the conditional velocity field $u_{t}^{\text{target}}(x|z)=a_{t}\nabla_{x}\log p_{t}(x|z)+b_{t}x$. This establishes the fact that learning vector field $u_{t}^{\text{target}}(x)$ is equivalent to learning score $\nabla_{x}\log p_{t}(x)$.
+Further note that, both conditional vector field and conditional score used to derive marginals are linear functions of z and x. Thus, marginalizing term fall naturally as an average (weighted) of conditional term multiplied by how likely it is to arrive at noisy term $x$ given clean data $z$ ($p_{t}(z|x)$) given all data points $z$. *Formally*, plugging the conditional term back into marginalizing, we get a linear reparameterization of the posterior mean $\mathbb{E}_{x|z}[z]$.
+
+> [!todo] add a diagram for conditional and marginal score field
+
+To rephrase, any quantity that can recover $\mathbb{E}_{x|z}[z]$ can be used to learn vector field or score field. We interpret the term that gives estimate of clean data z given noisy data $x$ as *Denoiser*.  For conditional scenario, $\mathbb{E}_{x|z}[z]$ is equal to the clean data $z$, $\mathcal{D}_{t}(x|z)=z$.
+
+$$
+\begin{align*}
+\mathcal{D}_{t}(x)&=\int z\, p_{t}(x|z)\, dz=\frac{1}{\dot{\alpha}\beta_{t}-\alpha_{t}\dot{\beta}_{t}}(\beta_{t}u_{t}^{\text{target}}(x_{t})-\dot{\beta}_{t}x_{t})
+\end{align*}
+$$
+
+Therefore, denoising diffusion models, flow matching models and score models, all are equivalent and learning one allows to recover the other.
+
+## 3.1 Training Score Models
+
+We proved using continuity equation that trajectory $x_{t}$ follows the desired probability path $p_{t}$ if it follows the ODE $dx_{t}=u_{t}(x_{t})$. Learning the vector field allows us to follow the trajectory $x_{t}$ that leads to $p_{\text{data}}$. For diffusion models, we use SDEs to learn the score distribution.
+
+> [!note] Proposition
+> We will similarly prove that we can take flow ODE and extend it using stochastic dynamics with diffusion coefficient $\sigma_{t}\geq0$ such that
+> $$
+> \begin{align*}
+> x_{0}\sim p_{\text{init}},&\quad dx_{t}=u_{t}^{\text{target}}(x_{t})dt+\underbrace{ \frac{\sigma_{t}^{2}}{2}\nabla_{x}\log p_{t}(x_{t})dt+\sigma_{t}dW_{t} }_{ \text{stochasticity} }\\
+> &\implies x_{t}\sim p_{t},\quad (0\leq t\leq1)
+> \end{align*}
+> $$
+> Setting $x_{1}\sim p_{\text{data}}$ for the above SDE implies that marginal distribution $x_{t}\sim p_{t}$ is preserved across the whole process.
+
+We use *Fokker-Planck* equation to prove the above proposition.
+$$\partial_{t}p_{t}(x)=-\text{div}(p_{t}u_{t})(x)+\frac{\sigma_{t}^{2}}{2}\Delta p_{t}(x)$$
+
+where $\Delta p_{t}(x)$ is Laplacian of distribution $p_{t}$ defined as $\Delta p_{t}(x)=\sum_{i=1}^{N}\frac{ \partial^{2} p_{t}(x) }{ \partial x_{i}^{2} }$.
+
+> [!todo] Proof
+>
+
+> [!todo] Explain Fokker-planck. Attach a proof in appendix.
+
+Langevin dynamics is a special case of above SDE with $p_{t}=p$ (constant) distribution, which implies $\partial p_{t}(x)=0\implies u_{t}^{\text{target}}=0$. In conclusion, for langevin dynamics, $x_{0}\sim p,x_{t}\sim p,\quad(t\geq0)$. In practice, for any Markov Process, the dynamics converge to stationary distribution $p$ even if we start $x_{0}\sim p'\neq p$ and $x_{t}\sim p_{t}'$, then $p_{t}'\to p$.
+
+**Training score matching**: We use a neural network $s_{t}^{\theta}:\mathbb{R}^{d}\times[0,1]\to \mathbb{R}^{d}$ to learn the score. We define the marginal score matching loss and conditional loss as
+
+$$
+\begin{align*}
+\mathcal{L}_{\text{SM}}&=E_{t\sim U(0,1),z\sim p_{\mathcal{D}},x\sim p(\cdot|z)}\left[ \lVert s_{t}^{\theta}(x_{t})-\nabla_{x}\log p_{t}(x) \rVert^{2}_{2}  \right]\\
+\mathcal{L}_{\text{CSM}}&=E_{t\sim U(0,1),z\sim p_{\mathcal{D}},x\sim p(\cdot|z)}\left[\lVert s_{t}^{\theta}(x_{t}|z)-\nabla_{x}\log p_{t}(x|z) \rVert^{2}_{2} \right]
+\end{align*}
+$$
+
+We use similar training dynamics as flow matching models, i.e. train a conditional score model and prove that $\mathcal{L}_{\text{SM}}=\mathcal{L}_{CSM}+C$ which implies $\nabla_{\theta}\mathcal{L}_{\text{SM}}=\nabla_{\theta}\mathcal{L}_{\text{CSM}}$. So, training the network to predict conditional score is equivalent to predicting the score and for the minimizer $s_{t}(\theta^{*})=\nabla \log p_{t}$ .
+
+For Gaussian probability path,
+$$
+\begin{align*}
+\mathcal{L}_{\text{CSM}}^{\theta}&=\mathbb{E}_{t,z,x}\left[ \lVert s_{t}^{\theta}(x|z)-\nabla \log p_{t}(x|z) \rVert^{2}_{2} \right]\\
+&=\mathbb{E}_{t,z,x}\left[ \left\lVert  s_{t}^{\theta}(\alpha_{t}z+\beta_{t}\epsilon)+\frac{x-\alpha_{t}z}{\beta_{t}^{2}}  \right\rVert ^{2} \right]\\
+&=\mathbb{E}_{t,z,\boldsymbol{\epsilon}}\left[ \lVert  s_{t}^{\theta}(\alpha_{t}z+\beta_{t}\epsilon)+\epsilon\rVert^{2}  \right]
+\end{align*}
+$$
+
+> [!summary] Summary
+> 1. We defined the marginal and conditional score.
+> 2. Proved relationship to velocity vector field.
+> 3. To get desired probability path, extended the ODE to SDE for **any** diffusion coefficient $\sigma_{t}\geq0$.
+> 4. Using Fokker-Planck equation, proved that marginal distribution $p_{t}(x)$ is preserved for $t\in[0,1]$.
+> 5. Defined $\mathcal{L}_{\text{SM}},\mathcal{L}_{\text{CSM}}$ and proved that learning a conditional score network finds the optimal minimizer.
+> 6. After training, sample from the SDE to obtain approximate sample $x_{1}\sim p_{\text{data}}$ given $x_{0}\sim p_{\text{init}}$.
+
+
+
+# 4 References
+1. Helbling, Alec. "A Visual Introduction to Rectified Flows." (2025) [\[Link\]](https://alechelbling.com/blog/rectified-flows)
+2. Gao, Ruiqi and Hoogeboom, Emiel and Heek, Jonathan and Bortoli, Valentin De and Murphy, Kevin P. and Salimans, Tim. "Diffusion Meets Flow Matching: Two Sides of the Same Coin." (2025) [\[Link\]](https://diffusionflow.github.io/)
+3. Gagneux, Anne and Martin, Ségolène and Emonet, Rémi and Bertrand, Quentin and Massias, Mathurin. "A Visual Dive into Conditional Flow Matching". (2025) [\[Link\]](https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/)
+4. Fjelde, Tor and Mathieu, Emile and Dutordoir, Vincent. "An Introduction to Flow Matching". (2024) [\[Link\]](https://mlg.eng.cam.ac.uk/blog/2024/01/20/flow-matching.html)
+5. Scott H. Hawley. "Flow With What You Know". (2024) [\[Link\]](https://drscotthawley.github.io/blog/posts/FlowModels.html)
+
+---
+
 1. Lipman, Yaron, et al. "Flow matching for generative modeling." _arXiv preprint arXiv:2210.02747_ (2022).
 2. Liu, Xingchao, Chengyue Gong, and Qiang Liu. "Flow straight and fast: Learning to generate and transfer data with rectified flow." _arXiv preprint arXiv:2209.03003_ (2022).
-3. Albergo, Michael, Nicholas M. Boffi, and Eric Vanden-Eijnden. "Stochastic interpolants: A unifying framework for flows and diffusions." _Journal of Machine Learning Research_ 26.209 (2025): 1-80.
-4. Lipman, Yaron, et al. "Flow matching guide and code." _arXiv preprint arXiv:2412.06264_ (2024).
+3. Albergo, Michael S., and Eric Vanden-Eijnden. "Building normalizing flows with stochastic interpolants." _arXiv preprint arXiv:2209.15571_ (2022).
+4. Albergo, Michael, Nicholas M. Boffi, and Eric Vanden-Eijnden. "Stochastic interpolants: A unifying framework for flows and diffusions." _Journal of Machine Learning Research_ 26.209 (2025): 1-80.
+5. Lipman, Yaron, et al. "Flow matching guide and code." _arXiv preprint arXiv:2412.06264_ (2024).
+6. Li, Tianhong, and Kaiming He. "Back to basics: Let denoising generative models denoise." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2026.
+7. Esser, Patrick, et al. "Scaling rectified flow transformers for high-resolution image synthesis." Forty-first international conference on machine learning. 2024.
+8. Kornilov, Nikita, et al. "Optimal flow matching: Learning straight trajectories in just one step." _Advances in Neural Information Processing Systems_ 37 (2024): 104180-104204.
+9. Chen, Ricky TQ, and Yaron Lipman. "Flow matching on general geometries." _International Conference on Learning Representations_. Vol. 2024. 2024.

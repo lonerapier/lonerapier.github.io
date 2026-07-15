@@ -1,5 +1,5 @@
 ---
-title: "🗡 lonerapier.xyz"
+title: "🗡 lonerapier.me"
 tags:
 - exploring
 ---

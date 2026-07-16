@@ -6,7 +6,7 @@ tags:
   - randomness
   - probability
   - entropy
-  - drafts
+  - draft
 ---
 
 # References

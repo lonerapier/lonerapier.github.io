@@ -1,8 +1,8 @@
 ---
-title: "Zeroes And Poles"
-date: 2022-10-10T10:00:00-07:00
+title: Zeroes And Poles
+date: 2022-10-10
 tags:
-- math
+- mathematics
 ---
 
 In complex analysis, functions are studied that are differentiable (in the complex space) at almost all points. Zeroes and poles are very important concept.

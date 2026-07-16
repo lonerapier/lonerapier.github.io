@@ -1,4 +1,11 @@
-## GAN
+---
+title: Generative Adversarial Networks
+date: 2026-04-20
+tags:
+- machine-learning
+- generative-modeling
+- notes
+---
 
 > [!note] KL Divergence, Jensen-Shannon Divergence and f-divergence
 >

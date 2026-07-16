@@ -1,6 +1,6 @@
 ---
-title: "Group Theory"
-date: 2023-05-06T10:00:00-07:00
+title: Group Theory
+date: 2023-05-06
 tags:
 - math
 - algebra

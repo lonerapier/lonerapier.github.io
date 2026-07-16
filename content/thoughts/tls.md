@@ -1,6 +1,6 @@
 ---
-title: "TLS"
-date: 2024-06-24:12:00:00
+title: TLS
+date: 2024-06-24
 tags:
 - technical
 - network

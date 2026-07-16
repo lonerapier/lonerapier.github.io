@@ -1,4 +1,11 @@
-## Optimisation
+---
+title: Optimization Methods
+date: 2026-04-15
+tags:
+- machine-learning
+- convex-optimization
+- mathematics
+---
 
 Resources:
 - [Numerical Methods I - CS 357 @ UIUC Textbook](https://cs357.cs.illinois.edu/textbook/)

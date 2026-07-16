@@ -5,6 +5,7 @@ tags:
 - exploring
 - seed
 - evergreen
+- draft
 ---
 
 [[private/cool-things]]

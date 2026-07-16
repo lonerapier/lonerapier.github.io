@@ -1,6 +1,6 @@
 ---
 title: TLS Oracles
-date: 2024-07-30:12:00:00Z
+date: 2024-07-30
 tags:
   - cryptography
   - distributed-systems

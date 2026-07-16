@@ -1,5 +1,5 @@
 ---
-title: "Undecidability"
+title: Undecidability
 date: 2025-04-04
 tags:
 - math

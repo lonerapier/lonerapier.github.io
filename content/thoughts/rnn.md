@@ -6,27 +6,32 @@ tags:
 - notes
 ---
 
+Introduces the concept of feedback with Neural networks from past states and the notion of timestep. RNNs are represented as computational DAGs.
 
-# RNNs
-- Introduces the concept of feedback with Neural networks from past states and the notion of timestep. RNNs are represented as computational DAGs.
-- Adds a state variable h (hidden unit), and the operation of the layer depends on its state. State is updated at every time step. $f,g$ can be arbitrary differentiable functions (required for backpropagation).
-$$\begin{align}
+Adds a state variable h (hidden unit), and the operation of the layer depends on its state. State is updated at every time step. $f,g$ can be arbitrary differentiable functions (required for backpropagation).
+
+$$
+\begin{align}
 h_{t}&=f(h_{t-1},x_{\text{in}}[t]) \\
 x_{\text{out}}[t]&=g(h_{t}) 
-\end{align}$$
-- Backpropagation through time: our goal is to compute MLE of the parameters by solving $\theta^{*}=\arg\max_{\theta}p(y_{1:T}\vert x_{1:T},\theta)$. To compute the MLE, we need the gradients of the loss wrt parameters. Consider a general parameterized RNN model 
+\end{align}
+$$
+
+Backpropagation through time: our goal is to compute MLE of the parameters by solving $\theta^{*}=\arg\max_{\theta}p(y_{1:T}\vert x_{1:T},\theta)$. To compute the MLE, we need the gradients of the loss wrt parameters. Consider a general parameterized RNN model 
+
 $$
 \begin{align}
 h_{t}&=W_{hx}x_{t}+W_{hh}h_{t-1}&=f(x_{t},h_{t},w_{h}) \\
 o_{t}&=W_{ho}h_{t}&=g(h_{t},w_{o})
 \end{align}
 $$
-	- Loss can be written as: $L=\frac{1}{T}\sum_{t=1}^{T}\ell(y_{t},o_{t})$ and we need to compute $\frac{ \partial L }{ \partial W_{hx} },\frac{ \partial L }{ \partial W_{hh} },\frac{ \partial L }{ \partial W_{ho} }$, and $w_{h}$ is just flattened version of $W_{hx},W_{hh}$.
-	- $\frac{ \partial L }{ \partial w_{h} }=\frac{1}{T}\sum_{t=1}^{T}\frac{ \partial \ell(y_{t},o_{t}) }{ \partial w_{h} }$
-	- Using chain rule, this can be calculated, and takes $\mathcal{O}(T^{2})$ to compute overall and thus, need to truncated at some time step to maintain computable tracatability.
+
+- Loss can be written as: $L=\frac{1}{T}\sum_{t=1}^{T}\ell(y_{t},o_{t})$ and we need to compute $\frac{ \partial L }{ \partial W_{hx} },\frac{ \partial L }{ \partial W_{hh} },\frac{ \partial L }{ \partial W_{ho} }$, and $w_{h}$ is just flattened version of $W_{hx},W_{hh}$.
+- $\frac{ \partial L }{ \partial w_{h} }=\frac{1}{T}\sum_{t=1}^{T}\frac{ \partial \ell(y_{t},o_{t}) }{ \partial w_{h} }$
+- Using chain rule, this can be calculated, and takes $\mathcal{O}(T^{2})$ to compute overall and thus, need to truncated at some time step to maintain computable tracatability.
 - Exploding and vanishing gradients: We are multiplying by the jacobian to compute backpropagation at each time step (consider the gradient of $\frac{ \partial x_{\text{out}}[t] }{ \partial x_{in}[0] }=\frac{ \partial x_{out}[t] }{ \partial h_{t} }\frac{ \partial h_{t} }{ \partial h_{t-1} }\dots \frac{ \partial h_{0} }{ \partial x_{\text{in}}[0] }$ and $\frac{ \partial h_{t} }{ \partial h_{t-1} }=\sigma'W$ where $\sigma'$ is gradient of the nonlinearity). If the gradients are high or low, it can result in exploding and vanishing gradients respectively.
 
-## LSTM
+# LSTM
 
 > [!note] Much better introduction by [Chris Olah](https://colah.github.io/posts/2015-08-Understanding-LSTMs).
 
@@ -49,7 +54,7 @@ $$
 - Our memory is updated at this point, and LSTM now decides what to output.
 - Output gate $O_{t}$ decides what gets read out from the input and hidden state, and is transformed with the cell state to compute the next hidden state: $H_{t}=O_{t}\cdot\text{tanh}(C_{t})$
 
-### GRU
+## GRU
 
 GRU combines forget and input gate into a single "update" gate $Z_{t}\in \mathbb{R}^{N\times H}$. And also merges cell and hidden state.
 
@@ -62,7 +67,7 @@ H_{t} & = Z_{t}\odot H_{t-1}+(1-Z_{t})\odot \tilde{H}*{t}
 \end{align}
 $$
 
-## Beam search
+# Beam search
 
 Compute top K candidate outputs at each step, and expand each one in V possible ways, to generate VK candidates. Select top K again.
 - Stochastic beam search samples top K without replacement, i.e. pick the top one, renormalize, and pick the new top one.

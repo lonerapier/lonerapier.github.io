@@ -6,6 +6,7 @@ tags:
   - generative-modeling
   - notes
 ---
+# Introduction
 
 Autoencoders learn low-dimensional representation of the data in unsupervised way by aiming to imitate the identity function i.e. reconstruct the original data while having a low-dimensional representation bottleneck in the process. In other words, Autoencoders are neural networks trained to generate output y that is as close to the input x, and an internal layer that gives the representation z(x) for each new input.
 
@@ -13,7 +14,7 @@ Composed of two networks:
 - Encoder $E_{\theta}:\mathcal{X\to Z}$: Maps high-dimensional input to low-dimensional latent representation, usually $\lvert \mathcal{Z}\rvert\leq \lvert \mathcal{X}\rvert$.
 - Decoder $D_{\phi}:\mathcal{Z\to Y}$: Outputs data as close to original from latent representation.
 
-Encoder network is generally used to accomplish dimensionality reduction when $\lvert \mathcal{Z}\rvert\ll \lvert \mathcal{X}\rvert$ and can be seen as a non-linear generalisation to PCA.
+Encoder network is generally used to accomplish dimensionality reduction when $\lvert \mathcal{Z}\rvert\ll \lvert \mathcal{X}\rvert$ and can be seen as a non-linear generalization to PCA.
 
 > [!todo] Deterministic AE
 > - Denoising AE
@@ -21,18 +22,21 @@ Encoder network is generally used to accomplish dimensionality reduction when $\
 > - Contractive AE
 
 Consider random variables x and z, with g being deterministic decoder (generator) and f being deterministic encoder. The process looks like:
+
 $$
-\begin{array}[cc] \\
-\mathbf{x}\sim p_{\mathcal{D}} & \mathbf{z}\sim p_{\mathbf{z}} \\
-\hat{\mathbf{z}}=f(\mathbf{x}) & \hat{\mathbf{x}}=g(\mathbf{z})
+\begin{array}{ccc}
+x\sim p_{\mathcal{D}} & z\sim p_{z} \\
+\hat{z}=f(x) & \hat{x}=g(z) \\
 \end{array}
 $$
 
 Our goal is to generate $\mathbf{x}$ or in other words sample $\mathbf{x}$ from distribution $p_{\theta}(\mathbf{x})$. If we know the distribution to latent variable z, then expressing x is just taking marginal likelihood $p_{\theta}(\mathbf{x})=\int_{\mathbf{z}}p_{\theta}(\mathbf{x}|\mathbf{z})p(\mathbf{z})d\mathbf{z}$ over latent variables $p(\mathbf{z})$ with the conditional distribution of $p_{\theta}(\mathbf{x}|\mathbf{z})$, or if we have access to ground truth latent encoder, we can also write $$p(x)=\frac{p(x,z)}{p(z|x)}$$
 
-Using log likelihood objective $\sum_{i=1}^{N}\log p_{\theta}(\mathbf{x}^{(i)})$, we can optimise $\theta$ by minimising the NLL.
+Using log likelihood objective $\sum_{i=1}^{N}\log p_{\theta}(\mathbf{x}^{(i)})$, we can optimize $\theta$ by minimizing the NLL.
 
-But generally, z is not known, and primary goal of a generative model is to create output from scratch. So, we need a distribution $p_{\mathbf{z}}$ so that z can be sampled from the distribution. You might ask, why can't an AE be used for this, where we can use the encoder to get the sample z? Firstly, encoder works on an input, and secondly, is optimised to work as a identity lookup table. The latent space might not be structured, and AE doesn't provide any guarantee about the structure of the latent variable distribution.
+But generally, z is not known, and primary goal of a generative model is to create output from scratch. So, we need a distribution $p_{\mathbf{z}}$ so that z can be sampled from the distribution. You might ask, why can't an AE be used for this, where we can use the encoder to get the sample z? Firstly, encoder works on an input, and secondly, is optimized to work as a identity lookup table. The latent space might not be structured, and AE doesn't provide any guarantee about the structure of the latent variable distribution.
+
+# Likelihood
 
 To calculate the intractable data likelihood $p_{\theta}(\mathbf{x})$, we make following assumptions:
 1. Hypothesis space $p_{\theta}(\mathbf{x}|\mathbf{z})$ is modelled using a product mixture of distributions (e.g., Gaussians or Bernoullis) with a prior $p_{z}$ (usually Gaussian). Thus, VAEs can be seen as an infinite mixture of Gaussians. To prevent learning infinite set of parameters over discrete latent space, VAE uses a function $g_{\theta}$ that outputs the parameters of a continuous latent variable, and smoothens the latent space.
@@ -43,15 +47,15 @@ $$
 $$
 p_{\theta}(\mathbf{x})=E_{z\sim p_{z}}[p_{\theta}(\mathbf{x}|\mathbf{z})]=\int_{z}q_{\mathbf{z}}(\mathbf{z}) \frac{p_{\mathbf{z}}(\mathbf{z})}{q_{\mathbf{z}}(\mathbf{z})}p_{\theta}(\mathbf{x}|\mathbf{z})d\mathbf{z}=E_{\mathbf{z}\sim p_{\mathbf{z}}}[\frac{p_{\mathbf{z}}(\mathbf{z})}{q_{\mathbf{z}}(\mathbf{z})}p_{\theta}(\mathbf{x}|\mathbf{z})]
 $$
-3. Use variational inference to estimate p by modelling $q_{\phi}$ parametrised by $\phi$. Posterior distribution $q_{\phi}(\mathbf{z}|\mathbf{x})=\mathcal{N}(f_{\phi}^{\mu}(\mathbf{x}),f_{\phi}^{\Sigma}(\mathbf{x}))$ uses approximation function $f$ that outputs the parameters of the distribution and can be seen as **probabilistic encoder**.
+3. Use variational inference to estimate p by modeling $q_{\phi}$ parametrized by $\phi$. Posterior distribution $q_{\phi}(\mathbf{z}|\mathbf{x})=\mathcal{N}(f_{\phi}^{\mu}(\mathbf{x}),f_{\phi}^{\Sigma}(\mathbf{x}))$ uses approximation function $f$ that outputs the parameters of the distribution and can be seen as **probabilistic encoder**.
 
-Our goal will be to use the representation of the distribution $p(x)$ to derive a term called the Evidence Lower Bound (ELBO), which gives a lower bound on the evidence. Evidence is written as log likelihood of the observed data: $\log p(\boldsymbol{x})$. ELBO gives a proxy objective that can be optimised with respect to a latent variable model, and in the best case (when true distribution is learned), ELBO exactly equals the evidence.
+Our goal will be to use the representation of the distribution $p(x)$ to derive a term called the Evidence Lower Bound (ELBO), which gives a lower bound on the evidence. Evidence is written as log likelihood of the observed data: $\log p(\boldsymbol{x})$. ELBO gives a proxy objective that can be optimized with respect to a latent variable model, and in the best case (when true distribution is learned), ELBO exactly equals the evidence.
 
 <p align="center">
 	<img src="vae.png" width="300">
 </p>
 
-**Objective**
+# Objective
 
 The estimated posterior $q_{\phi}(\mathbf{z}|\mathbf{x})$ needs to be close to best approximation $p_{\theta}(\mathbf{z}|\mathbf{x})$, and is measured using reversed KL divergence $D_\text{KL}( q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z}\vert\mathbf{x}) )$.
 
@@ -68,7 +72,7 @@ D_{\text{KL}}(q_{\phi}(\mathbf{z}|\mathbf{x})\|p_{\theta}(\mathbf{z}|\mathbf{x})
 \end{align}
 $$
 
-We can rearrange the terms to get the learning objective. To get optimal parameters $\theta^{*},\phi^{*}$, we want to minimise the KL divergence between the two distributions $p_{\theta}(\mathbf{z}|\mathbf{x}),q_{\phi}(\mathbf{z}|\mathbf{x})$ and maximise the log likelihood of generating real data $p_{\theta}(\mathbf{x})$.
+We can rearrange the terms to get the learning objective. To get optimal parameters $\theta^{*},\phi^{*}$, we want to minimize the KL divergence between the two distributions $p_{\theta}(\mathbf{z}|\mathbf{x}),q_{\phi}(\mathbf{z}|\mathbf{x})$ and maximize the log likelihood of generating real data $p_{\theta}(\mathbf{x})$.
 
 $$
 L(\theta,\phi)=-\log p_\theta(\mathbf{x}) + D_\text{KL}( q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z}\vert\mathbf{x}) ) = -\underbrace{ \mathbb{E}_{\mathbf{z}\sim q_\phi}[\log p_\theta(\mathbf{x}\vert\mathbf{z})] }_{ \text{reconstruction term} } + \underbrace{ D_\text{KL}(q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z})) }_{ \text{prior matching term} }
@@ -101,7 +105,8 @@ We want to compute gradient of $E_{z\sim q_{\phi}(z|x)}[\log p_{\theta}(x|z)]$ w
 
 After training the VAE, to use it as a generative model, we can simply sample a latent variable $z\sim p(z)$ from the latent space, and run it through the decoder. VAE are able to learn a compressed, low-dimensional representation of the high-dimensional data manifold as dimension of $z$ is much less than $x$, and the output can be controlled by carefully editing the latent variable.
 
-**Hierarchical VAE**: Introduced in \[2, 3\], HVAE can be seen as a generalisation of VAE to multiple hierarchies of latent variables. We can generate arbitrary graphical models to condition latent on all other previous latents, which themselves are generated from other higher-level, more abstract latents.
+# Hierarchical VAE
+Introduced in \[2, 3\], HVAE can be seen as a generalization of VAE to multiple hierarchies of latent variables. We can generate arbitrary graphical models to condition latent on all other previous latents, which themselves are generated from other higher-level, more abstract latents.
 
 ![hvae](thoughts/images/hvae.png)
 

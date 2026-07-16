@@ -5,5 +5,7 @@ tags:
 - physics
 - machine-learning
 - statistics
+- notes
+- draft
 ---
 

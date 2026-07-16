@@ -4,6 +4,8 @@ date: 2025-05-29
 tags:
 - ai
 - prompt-engineering
+- curation
+- draft
 ---
 
 List of helpful prompts sourced throughout internet:

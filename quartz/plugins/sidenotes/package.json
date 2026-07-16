@@ -3,12 +3,21 @@
   "version": "0.1.0",
   "description": "Quartz transformer that renders GFM footnotes as sidenotes",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "dependencies": {
-    "@quartz-community/types": "github:quartz-community/types"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "@quartz-community/types": "*"
   },
   "quartz": {
     "name": "sidenotes",

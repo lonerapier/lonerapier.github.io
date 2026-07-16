@@ -1,4 +1,11 @@
-# Representation Learning
+---
+title: Representation Learning
+date: 2026-04-01
+tags:
+- machine-learning
+- representation-learning
+- draft
+---
 
 > Ch 32 in book2
 

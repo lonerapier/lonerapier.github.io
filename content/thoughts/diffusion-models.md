@@ -2,9 +2,9 @@
 title: Diffusion Models
 date: 2026-05-05
 tags:
-  - machine-learning
-  - generative-modeling
-  - notes
+- machine-learning
+- generative-modeling
+- notes
 ---
 
 > Most of these notes are inspired from amazing posts, tutorials, and research papers mentioned in the reference. I urge readers to look at them, before reading this.

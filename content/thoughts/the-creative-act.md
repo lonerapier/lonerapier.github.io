@@ -1,6 +1,6 @@
 ---
-title: "The Creative Act by Rick Rubin"
-date: 2023-05-02T00:00:00Z
+title: The Creative Act by Rick Rubin
+date: 2023-05-02
 tags:
 - books
 ---

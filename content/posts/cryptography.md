@@ -6,16 +6,6 @@ tags:
 - exploring
 ---
 
-TODO:
-- [x] Intro
-- [ ] Why I learnt?
-- [x] Struggle
-- [ ] What's the future looks like?
-- [x] Syllabus
-- [x] Resources
-
----
-
 Started learning cryptography end of 2023 rigorously, i.e. getting deeper into core of how and why things work, the way they work. This is a compilation of my thoughts, challenges, resources, notes, everything that I know about cryptography.
 
 > [!note] I'm not an expert in any way, still learning, and breaking things. Most of the implementations that I've done are broken and were done for toy purposes, and still yet to write production grade cryptographic software.
@@ -49,7 +39,6 @@ I hope you do not relate with this section, but if you're struggling, this might
 - Reading papers quickly (although my speed has improved tremendously)
 - Auditing implementations
 - Implementation pitfalls
-- [[performance-engineering|High-Performance]] implementations
 
 ### Things that helped
 

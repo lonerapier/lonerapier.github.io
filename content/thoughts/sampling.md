@@ -5,6 +5,8 @@ tags:
 - machine-learning
 - deep-learning
 - statistics
+- draft
+- notes
 ---
 
 # Inverse Transform

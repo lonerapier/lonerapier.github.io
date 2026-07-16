@@ -1,10 +1,10 @@
 ---
-title: "Autoregressive models"
+title: Autoregressive Models
 date: 2026-05-17
 tags:
-- machine-learning
-- generative-modelling
-- notes
+  - machine-learning
+  - generative-modeling
+  - notes
 ---
 
 
@@ -20,3 +20,10 @@ Above equation can be relaxed in various ways to treat the intractability of con
 - Hidden state $z_{t}$: compress past into hidden state
 	- when $z_{t}$ is a deterministic function of past states, resulting model is RNN
 	- when $z_{t}$ is stochastic function, resulting model is hidden markov model.
+
+Looking at some neural models used in classification.
+
+Classification problem: Given $X \in \{ 0,1 \}^{n}$, predict $Y \in \{ 0,1 \}$. We care about $P(Y=1|x;\alpha)=f(x,\alpha)$. For logistic regression, $f=\sigma()$
+
+# FVSBN
+- 

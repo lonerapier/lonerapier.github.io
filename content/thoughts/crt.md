@@ -1,6 +1,6 @@
 ---
-title: "Chinese Remainder Theorem"
-date: 2024-05-26:12:00:00
+title: Chinese Remainder Theorem
+date: 2024-05-26
 tags:
 - cryptography
 - algorithms

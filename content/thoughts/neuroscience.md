@@ -1,15 +1,16 @@
 ---
-title: "Neuroscience"
+title: Neuroscience
 date: 2026-02-08
 tags:
 - neuroscience
 - disease
+- notes
+- draft
 ---
 
 # BCI
 
 - [A Primer on Investing in Brain-Computer Interfaces](https://hamrah.substack.com/p/a-primer-on-investing-in-brain-computer)
-- 
 
 # Psychosis
 
@@ -25,7 +26,6 @@ Some numbers about psychosis:
 - Expected duration of treatment
 - Number of patients who are seen having symptoms after treatment
 - Frequency of symptoms/episodes
-- 
 
 # Companies
 - ARIA programmes: [Precision Neurotechnologies](https://www.aria.org.uk/opportunity-spaces/scalable-neural-interfaces/precision-neurotechnologies/), [Scalable Neural Interfaces](https://www.aria.org.uk/opportunity-spaces/scalable-neural-interfaces/)
@@ -50,7 +50,6 @@ Some numbers about psychosis:
 # Courses
 - [Introduction — Machine Learning Methods for Neural Data Analysis](https://slinderman.github.io/ml4nd/)
 - [Introduction to Computational Neuroscience / Spring 2025 - Stanford University](https://druckmann-lab.github.io/nepr208/)
-- 
 
 # Links
 - [Neurotechnology Numbers Worth Knowing](https://milan.cvitkovic.net/writing/neurotechnology_numbers_worth_knowing/)

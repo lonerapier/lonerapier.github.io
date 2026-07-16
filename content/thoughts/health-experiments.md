@@ -118,14 +118,10 @@ Will mainly contain the log of experiments that I'm doing with my body, mind hea
 	- Less wheat intake.
 	- Less carbs. My vegetarian indian diet has too much carbs in the form of chapathis and rice.
 	- More protein. Sprouts, lentils, paneer/tofu.
-	- 
 
 # Questions
 
 > [!question] Why is carbs heavy diet bad?
-
-
-
 
 ### Thyroid
 - [The complete guide to maximizing thyroid hormone production to lose weight and look better!](https://substack.com/home/post/p-155688268)

@@ -1,6 +1,6 @@
 ---
-title: "Utilitarianism"
-date: 2024-08-24:12:00:00Z
+title: Utilitarianism
+date: 2024-08-24
 tags:
 - philosophy
 - evergreen

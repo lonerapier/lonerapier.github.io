@@ -3,6 +3,7 @@ title: "Reading List: Books"
 date: "2023-09-16T00:00:00Z"
 tags:
 - books
+- abandoned
 ---
 
 This post highlights my read of the year, probably too late in 2023, but better late than never, right?

@@ -3,6 +3,7 @@ title: "Convolutional Neural networks"
 date: 2025-04-15
 tags:
 - machine-learning
+- computer-vision
 - notes
 ---
 

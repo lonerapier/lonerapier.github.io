@@ -1,8 +1,8 @@
 ---
-title: "WASM"
-date: 2024-08-03:12:00:00Z
+title: WASM
+date: 2024-08-03
 tags:
-- incomplete
+- draft
 - technical
 ---
 

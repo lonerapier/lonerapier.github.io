@@ -1,6 +1,6 @@
 ---
-title: "TEE"
-date: 2023-01-15T12:40:00-07:00
+title: TEE
+date: 2023-01-15
 tags:
 - technical
 - confidential-computing
@@ -9,22 +9,19 @@ tags:
 
 ## TODO
 
-- [ ] Remote attestation
-- [ ] TPM
-- [ ] SE
-- [ ] HSM
-- [ ] TDX
-	- [ ] ["Intel TDX", Enclaive](https://docs.enclaive.cloud/confidential-cloud/technology-in-depth/intel-tdx)
-- [x] chrome headless protocol
-	- [ ] chromiumoxide
-- [x] let's encrypt
-- [ ] EKM
-- [ ] TEE deployment stack
-	- [ ] [dstack](https://github.com/Dstack-TEE/dstack)
-	- [ ] yocto
-	- [ ]
-
-	- [x] microvm: firecracker
+- Remote attestation
+- TPM
+- SE
+- HSM
+- TDX
+  - ["Intel TDX", Enclaive](https://docs.enclaive.cloud/confidential-cloud/technology-in-depth/intel-tdx)
+-	chrome headless protocol, chromiumoxide
+-  let's encrypt
+-  EKM
+  - TEE deployment stack
+   - [dstack](https://github.com/Dstack-TEE/dstack)
+   - yocto
+	- microvm: firecracker
 
 ## Why?
 
@@ -160,7 +157,6 @@ Difference from SGX:
 - ["Intel TDX Demystified: A Top-Down Approach", P. Cheng et. al.](https://dl.acm.org/doi/pdf/10.1145/3652597)
 
 ## Resources
-
 
 - [Securing TEE Apps: A Developer's Guide](https://www.bedlamresear.ch/posts/securing-tee-apps/)
 

@@ -1,6 +1,6 @@
 ---
-title: "MMU"
-date: 2023-04-26T10:00:00-07:00
+title: MMU
+date: 2023-04-26
 tags:
 - technical
 - incomplete

@@ -2,7 +2,8 @@
 title: "Physics reintroduction"
 date: 2026-01-01
 tags:
-- Physics
+- physics
+- learning
 ---
 
 # Syllabus

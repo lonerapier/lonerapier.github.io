@@ -1,4 +1,10 @@
-# Transformers
+---
+title: Transformers
+date: 2026-05-01
+tags:
+- machine-learning
+- notes
+---
 
 > [!tip] what's the limitation of CNNs?
 > No global state due to local patches.

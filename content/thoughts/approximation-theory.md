@@ -7,9 +7,6 @@ tags:
 - notes
 ---
 
-
-# Approximation Theory
-
 Given a family of curves G, and a family of neurons F. For any curve $g \in G$, does there exist a neural net $f \in F$ such that $\xi(g,f)<\epsilon$.
 - Goal is to think about how deep and how wide the network should be? Why should we care about the architecture of a NN?
 - One nice family: Lipschitz family of functions.
@@ -37,7 +34,7 @@ A class of functions $F$ is universal approximator over a compact set S if for e
 Fourier representation is also a universal approximator
 	- TODO: read this.
 
-## Depth Separation
+# Depth Separation
 
 Goal is to prove that to approximate a function that can be approximated with constant width deep networks, constant deep shallow network, require exponential many neurons.
 	- Proven by taking a function $g(x)=\sigma(2\sigma(x)-4\sigma\left( x-\frac{1}{2} \right))$. This function has the property that the number of kinks scale exponentially with $g^{L}$.

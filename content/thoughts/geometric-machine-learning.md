@@ -7,5 +7,7 @@ tags:
 - topology
 - group-theory
 - statistics
+- draft
+- notes
 ---
 

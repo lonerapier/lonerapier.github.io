@@ -13,6 +13,8 @@ tags:
 - SAC: [\[1812.05905\] Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905)
 - A3C: [\[1602.01783\] Asynchronous Methods for Deep Reinforcement Learning](https://arxiv.org/abs/1602.01783)
 - DDPG: [Deterministic Policy Gradient Algorithms](https://proceedings.mlr.press/v32/silver14.html)
+- [\[2211.07819\] General Intelligence Requires Rethinking Exploration](https://arxiv.org/abs/2211.07819)
+
 World Models
 - [https://worldmodels.github.io/#:\~:text=We%20explore%20building%20generative%20neural,back%20into%20the%20actual%20environment](https://worldmodels.github.io/#:~:text=We%20explore%20building%20generative%20neural,back%20into%20the%20actual%20environment)
 - [Training Agents Inside of Scalable World Models](https://danijar.com/project/dreamer4/)
@@ -48,6 +50,7 @@ Inverse RL:
 - [Diffusion Models for Reinforcement Learning: Foundations, Taxonomy, and Development \| alphaXiv](https://www.alphaxiv.org/abs/2510.12253)
 - [Enhancing Deep Reinforcement Learning: A Tutorial on Generative Diffusion Models in Network Optimization \| alphaXiv](https://www.alphaxiv.org/abs/2308.05384)
 - [\[2603.27450\] FlowRL: A Taxonomy and Modular Framework for Reinforcement Learning with Diffusion Policies](https://arxiv.org/abs/2603.27450)
+- [\[2208.06193\] Diffusion Policies as an Expressive Policy Class for Offline Reinforcement Learning](https://arxiv.org/abs/2208.06193)
 
 Tutorials
 - [Reinforcement Learning: An Overview \| alphaXiv](https://www.alphaxiv.org/abs/2412.05265)

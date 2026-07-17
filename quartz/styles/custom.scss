@@ -13,12 +13,41 @@ body {
 /* Reduce the TOC font size – change the value to whatever you like */
 .toc,
 .toc a {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .toc li,
 .toc li a {
   line-height: 1.3;
+}
+
+/* Reduce the Explorer font size to match the rest of the sidebar */
+.explorer,
+.explorer a,
+.explorer-content {
+  font-size: 0.85rem;
+}
+
+/* Cap how much vertical space the Explorer tree can take so other
+   sidebar components (backlinks, TOC, etc.) stay visible */
+.explorer-content {
+  max-height: 20rem;
+}
+
+.explorer-content li,
+.explorer-content a,
+.folder-container div>a,
+.folder-container div>button span {
+  line-height: 1.3 !important;
+}
+
+.explorer-content .folder-outer>ul {
+  padding-left: 0.6rem;
+}
+
+/* Tags */
+.tags {
+  font-size: 0.9rem;
 }
 
 /* Sidebar */

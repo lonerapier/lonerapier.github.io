@@ -33,7 +33,7 @@ Representation learning using:
 	- pretext tasks: predict abstract properties of data
 
 > [!question] Compression and Prediction
-> - Is both compression and prediction principle same? What are the differences? Does models that are good at compression better at prediction? Is it true the other way around? 
+> - Is both compression and prediction principle same? What are the differences? Does models that are good at compression better at prediction? Is it true the other way around?
 > - Does transfer learning to new problems a function of how good your model is at compression? Can you find such a function and theorise it?
 
 Autoencoder (section 20.3)
@@ -43,7 +43,7 @@ Autoencoder (section 20.3)
 - How representation view of clustering, precisely k-means, can be seen as encoder-decoder model where the encoder is outputting a one-hot integer, and decoder is learning the best possible mean to minimise the reconstruction error.
 
 Data prediction (self-supervised learning)
--  Masked prediction: mask part of your input data, and model predicts the masked data
+- Masked prediction: mask part of your input data, and model predicts the masked data
 	- BERT
 	- MAE: Masked Autoencoder
 - Why does masked prediction works better than encoding
@@ -77,7 +77,7 @@ Questions
 		- $\mathcal{L}_{\text{align}}(f;\alpha)=E_{(x,y)\sim p_{\text{pos}}}[\lVert f(x)-f(y) \rVert_{2}^{\alpha}]$: expected pairwise positive distance
 		- $\mathcal{L}_{\text{uniform}}(f;t)=\log E_{(x,y)\sim p_{\text{data}}}[G_{t}(f(x),f(y))]=\log E[e^{-t\lVert f(x)-f(y) \rVert_{2}^{2}}]$: log of expected pairwise Gaussian potential. To minimise this, the pairwise distance of negative samples should be farther apart from each other.  TODO: what's the meaning of gaussian potential
 		- Combining above two, the solution that minimise the loss is the one that uniformly cover the whole hypersphere. Or in other words, uniform distribution on the hyperspehere is the unique measure minimising the expected pairwise potential.
-	-  So, the contrastive loss asymptotically as the number of samples $M\to \infty$, converges to 
+	- So, the contrastive loss asymptotically as the number of samples $M\to \infty$, converges to
 $$
 \begin{align}
 \lim_{ M \to \infty }\mathcal{L}*{\text{contrastive}}&(f;\tau,M)-\log M \\
@@ -105,3 +105,7 @@ $$
 	- $\mathcal{K}$ is a Mercer kernel iff Gram matrix is positive definite for any set of inputs.
 	- Example kernel: squared exponential kernel or Gaussian kernel: $\mathcal{K}(x,x')=\exp\left( - \frac{\lVert x-x' \rVert^{2}}{2\ell^{2}} \right)$.
 - TODO: write more
+
+# References
+- [GitHub - HHU-MMBS/RepresentationLearning\_SS2023: Representation Learning MSc course Summer Semester 2023 · GitHub](https://github.com/HHU-MMBS/RepresentationLearning_SS2023)
+- 

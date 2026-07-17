@@ -23,9 +23,9 @@ Empirical Risk vs Population Risk
 - Optimisation
 - Generalisation
 
-[[thoughts/rnn]]
+# [[thoughts/rnn]]
 
-[[thoughts/transformers]]
+# [[thoughts/transformers]]
 
 # Probabilistic Graphical Models
 - joint distribution of random variables modelled as DAGs.
@@ -36,13 +36,12 @@ Reference:
 - DL: Bishop Chapter 11
 - Murphy book 2: Chapter 4
 
-[[thoughts/representation-learning]]
-
 [[thoughts/gaussian-processes]]
+# [[thoughts/representation-learning]]
 
-[[thoughts/generative-modeling]]
+# [[thoughts/generative-modeling]]
 
-# Beyond IID assumption
+# Beyond IID Assumption
 
 ## References
 - Murphy, Kevin P. Probabilistic machine learning: Advanced topics. MIT press, 2023.
@@ -64,7 +63,7 @@ Contrastive Learning + Generative Modelling
 
 # Scaling Laws
 
-- Popularised by [Kaplan et al.](https://arxiv.org/abs/2001.08361). 
+- Popularised by [Kaplan et al.](https://arxiv.org/abs/2001.08361).
 - Similar testes were performed at [Hoffman et al.](https://arxiv.org/abs/2203.15556) on a larger scale with new empirical foundings.
 - [\[2004.10802\] A Neural Scaling Law from the Dimension of the Data Manifold](https://arxiv.org/abs/2004.10802): Theoretical explanation using data manifold and relationship of task (loss) and data with the low-dimensional manifold.
 

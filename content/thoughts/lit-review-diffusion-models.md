@@ -115,6 +115,7 @@ Discrete
 - [\[2412.10193\] Simple Guidance Mechanisms for Discrete Diffusion Models](https://arxiv.org/abs/2412.10193)
 - [Beyond Single Tokens: Distilling discrete diffusion models \| Emiel Hoogeboom](https://ehoogeboom.github.io/post/discrete_mmd_diffusion_language_models
 - [\[2407.15595\] Discrete Flow Matching](https://arxiv.org/abs/2407.15595)
+- [Flow Map Language Models: One-step Language Modeling via Continuous Denoising](https://one-step-lm.github.io/index.html)
 
 Diffusion x RL
 - [\[2208.06193\] Diffusion Policies as an Expressive Policy Class for Offline Reinforcement Learning](https://arxiv.org/abs/2208.06193)
@@ -158,6 +159,7 @@ Flow matching
 # Foundational Models
 - [\[2403.03206\] Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/abs/2403.03206): SD3. Scaled Rectified flows with QK-normalization, logit-normal noise scheduler. Introduced MM-DiT architecture.
 - [\[2506.15742\] FLUX.1 Kontext: Flow Matching for In-Context Image Generation and Editing in Latent Space](https://arxiv.org/abs/2506.15742)
+- [Lance: Unified Multimodal Modeling by Multi-Task Synergy](https://lance-project.github.io/)
 
 # Miscellaneous
 - [\[2504.10612\] Energy Matching: Unifying Flow Matching and Energy-Based Models for Generative Modeling](https://arxiv.org/abs/2504.10612)

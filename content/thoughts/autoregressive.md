@@ -25,5 +25,14 @@ Looking at some neural models used in classification.
 
 Classification problem: Given $X \in \{ 0,1 \}^{n}$, predict $Y \in \{ 0,1 \}$. We care about $P(Y=1|x;\alpha)=f(x,\alpha)$. For logistic regression, $f=\sigma()$
 
-# FVSBN
-- 
+- FVSBN
+
+---
+
+> [!note] Questions
+> - **Autoregressive models (ARM) achieve strong performance in density estimation.**
+> 
+> Why does AR model perform good in density estimation? What exactly is density estimation?
+> - **How does VQ-VAE, VQ-GANs work?**
+> 
+> VQ-VAEs use autoregressive models to learn an expressive prior over a discretized latent space. Different from VQ-VAEs, VQGANs employ a first stage with an adversarial and perceptual objective to scale autoregressive transformers to larger images.

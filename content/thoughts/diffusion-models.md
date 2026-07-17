@@ -6,6 +6,7 @@ tags:
 - generative-modeling
 - notes
 ---
+# 1 DDPM
 
 > Most of these notes are inspired from amazing posts, tutorials, and research papers mentioned in the reference. I urge readers to look at them, before reading this.
 
@@ -19,6 +20,8 @@ If latent and input dimension is equal, that means for timestamp $t\in\{1,\dots,
 $$
 q(x_{1:T}|x_{0})=\prod_{t=1}^{T}q(x_{t}|x_{t-1})
 $$
+
+## 1.1 Forward Diffusion
 
 Then, from the second assumption, each encoder $q(\mathbf{x}_{t}|\mathbf{x}_{t-1})$ is a linear gaussian model, which we write as $q(\mathbf{x}_{t}|\mathbf{x}_{t-1})=\mathcal{N}(\mathbf{x}_{t}|\sqrt{ \alpha_{t} }\mathbf{x}_{t-1},\sqrt{ 1-\alpha_{t} }\mathbf{I})$. Think of this step as adding noise gradually at each step into the data, and initial input $\mathbf{x}_{0}\sim q(\mathbf{x}_{0})$ is sampled from real data distribution, and is termed as **Forward diffusion process**. The coefficients $\alpha_{t}$ for each step can either be set as hyperparameters in the network [DDPM] or learned as parameters [VDM]. The reason for choosing the Gaussian encoder in this specific form is to keep the variance of latent variables at similar scale, i.e. the encoding process is *variance-preserving*.  We can telescope the error to calculate $q(\mathbf{x}_{t}|\mathbf{x}_{0})$ by combining the gaussians.
 
@@ -41,7 +44,9 @@ where $\bar{\alpha}_{t}=\prod_{k=1}^{t}\alpha_{k}$. Noise schedule is chosen suc
 
 ![VDM](thoughts/images/vdm.png)
 
-**Reverse Diffusion Process**: We invert the forward process to find $q(\mathbf{x}_{t-1}|\mathbf{x}_{t})$, but this is intractable as we need to know the whole distribution to compute $q(\mathbf{x}_{t})=\int q(\mathbf{x}_{t}|\mathbf{x}_{0})q(\mathbf{x}_{0})d\mathbf{x}_{0}$ so we condition the distribution on $\mathbf{x}_{0}$ and compute $q(\mathbf{x}_{t-1}|\mathbf{x}_{t},\mathbf{x}_{0})$. Using Bayes rule and Markov property ($q(\mathbf{x}_{t}|\mathbf{x}_{t-1},\mathbf{x}_{0})=q(\mathbf{x}_{t}|\mathbf{x}_{t-1})$)
+## 1.2 Reverse Diffusion Process
+
+We invert the forward process to find $q(\mathbf{x}_{t-1}|\mathbf{x}_{t})$, but this is intractable as we need to know the whole distribution to compute $q(\mathbf{x}_{t})=\int q(\mathbf{x}_{t}|\mathbf{x}_{0})q(\mathbf{x}_{0})d\mathbf{x}_{0}$ so we condition the distribution on $\mathbf{x}_{0}$ and compute $q(\mathbf{x}_{t-1}|\mathbf{x}_{t},\mathbf{x}_{0})$. Using Bayes rule and Markov property ($q(\mathbf{x}_{t}|\mathbf{x}_{t-1},\mathbf{x}_{0})=q(\mathbf{x}_{t}|\mathbf{x}_{t-1})$)
 $$
 \begin{align}
 q(\mathbf{x}_{t-1}|\mathbf{x}_{t},\mathbf{x}_{0})&=\frac{q(\mathbf{x}_{t}|\mathbf{x}_{t-1},\mathbf{x}_{0})q(\mathbf{x}_{t-1}|\mathbf{x}_{0})}{q(\mathbf{x}_{t}|\mathbf{x}_{0})} & \text{Using Bayes rule} \\
@@ -98,7 +103,8 @@ p_{\theta}(\mathbf{x}_{0:T})=p(\mathbf{x}_{T})\prod_{t=1}^{T}p_{\theta}(\mathbf{
 \end{equation}
 $$
 
-**Model Fitting**: We can maximise the model log likelihood: $\log p_{\theta}(\mathbf{x}_{0})$
+## 1.3 Model Fitting
+We can maximise the model log likelihood: $\log p_{\theta}(\mathbf{x}_{0})$
 
 $$
 \begin{align}
@@ -130,7 +136,7 @@ Let's interpret the ELBO term by term:
 > [!note] Closed form KL for Gaussian distribution
 > Computing the KL term using closed form solution for d-dimensional Gaussian distributions. $D_{\text{KL}}(\mathcal{N}(a,\Sigma_{a})\|\mathcal{N}(b,\Sigma_{b}))=\frac{1}{2}\left(\log\frac{\det\Sigma_{b}}{\det\Sigma_{a}}-d+ (a-b)^{\top}\Sigma_{b}^{-1}(a-b)+\mathrm{Tr}(\Sigma_{b}^{-1}\Sigma_{a})\right)$.
 
-Note that in the ELBO term, majority of the optimisation cost lies in the denoising term. We need to train a parametrised model $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\mathcal{N}(\mathbf{x}_{t-1};\mu_{\theta}(\mathbf{x}_{t},\mathbf{x}_{0}),\Sigma_{\theta}(\mathbf{x}_{t},t))$ to learn the reversed diffusion process. We can simplify the optimisation problem by modelling learned denoising process $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})$ as Gaussian, and since $\alpha$ terms are frozen at timestep, we can set $\Sigma_{q}=\sigma^{2}_{q}\mathbf{I}=\beta_{q}\mathbf{I}$:
+Note that in the ELBO term, majority of the optimization cost lies in the denoising term. We need to train a parametrized model $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})=\mathcal{N}(\mathbf{x}_{t-1};\mu_{\theta}(\mathbf{x}_{t},\mathbf{x}_{0}),\Sigma_{\theta}(\mathbf{x}_{t},t))$ to learn the reversed diffusion process. We can simplify the optimization problem by modeling learned denoising process $p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_{t})$ as Gaussian, and since $\alpha$ terms are frozen at time step, we can set $\Sigma_{q}=\sigma^{2}_{q}\mathbf{I}=\beta_{q}\mathbf{I}$:
 
 $$
 \begin{align}
@@ -141,7 +147,7 @@ $$
 \end{align}
 $$
 
-Thus, Our goal for the model is to predict $\mu_{\theta}\approx \tilde{\mu}_{t}=\frac{1}{\sqrt{ \alpha_{t} }}\left( \mathbf{x}_{t}- \frac{\beta_{t}}{\sqrt{ 1-\bar{\alpha}_{t} }}\epsilon_{t} \right)$.
+Thus, our goal for the model is to predict $\mu_{\theta}\approx \tilde{\mu}_{t}=\frac{1}{\sqrt{ \alpha_{t} }}\left( \mathbf{x}_{t}- \frac{\beta_{t}}{\sqrt{ 1-\bar{\alpha}_{t} }}\epsilon_{t} \right)$.
 
 We can further write $\mu_{\theta}(\mathbf{x}_{t},t)$ which conditions on $\mathbf{x}_{t}$ to match $\mu_{q}(\mathbf{x}_{t},\mathbf{x}_{0})$ as
 
@@ -152,7 +158,7 @@ $$
 \end{align}
 $$
 
-which simplifies the optimisation term to
+which simplifies the optimization term to
 
 $$
 \begin{align}
@@ -161,7 +167,7 @@ $$
 \end{align}
 $$
 
-Optimisation goal is equal to learning a neural network that can predict the original input using any noisy version of it, at any timestep $t$. Across all timestamps, the optimisation term can be approximated as  minimising the expectation over all time steps:
+Optimization goal is equal to learning a neural network that can predict the original input using any noisy version of it, at any time step $t$. Across all timestamps, the optimization term can be approximated as  minimizing the expectation over all time steps:
 
 $$
 \begin{align}
@@ -197,7 +203,7 @@ $$
 > - [\[2107.00630\] Variational Diffusion Models](https://arxiv.org/abs/2107.00630)
 > - [\[2511.13720\] Back to Basics: Let Denoising Generative Models Denoise](https://arxiv.org/abs/2511.13720)
 
-**Learning Noise schedule**
+## 1.4 Learning Noise Schedule
 
 In the beginning, we said that noise parameters can be set as hyperparameters of the network or learned simultaneously with the neural network. Let's now see how is it possible to learn the noise parameters.
 
@@ -226,7 +232,7 @@ $$
 \end{align}
 $$
 
-**Alternative view of Diffusion using Score function**
+# 2 Alternative view of Diffusion Using Score Function
 
 VDM formulation of diffusion models that we've derived in the previous section is also directly related with another interpretation using score function, which is the gradient of the log-probability wrt x, $\nabla_{\mathbf{x}}\log p(\mathbf{x})$. To see this, we'll first introduce Tweedie's formula, which states that true mean of an exponential family distribution, given samples from a distribution, is equal to max likelihood estimate of the samples (aka. empirical mean), along with a term that contains the score. Mathematically, for a Gaussian: $z\sim\mathcal{N}(z;\mu_{z},\Sigma_{z})$,
 
@@ -281,7 +287,7 @@ $$
 
 So, score function is equal to the noise along with a constant factor that decreases as time increases. Noisifying the input adds some noise in a direction, and intuitively, moving opposite in the direction of noise must lead to opposite of noise, i.e. "denoising" step.
 
-# Conditional Diffusion Models
+# 3 Conditional Diffusion Models
 
 We focus at deriving the generative model conditioned on some information. The simplest way would be maximise the conditional likelihood $p(x|c)$, where $c$ can be a scalar (class label) which can be mapped to embedding vector, and added into the network using spatial addition, or another image, or text prompt. We could then modify the neural network approximators of VDM with the additional information as $\hat{x}_{\theta}(x_{t},t,c)\approx x_{0},\hat{\epsilon}_{\theta}(x_{t},t,c)\approx\epsilon_{0},s_{\theta}(x_{t},t,c)\approx \nabla \log p(x_{t}|c)$. But the network has to be learned separately for each of the different kind of conditioning that we want to perform.
 
@@ -322,7 +328,7 @@ $$
 
 We now need to learn two diffusion models, namely $p(x|c),p(x)$. But notice that unconditional model is equivalent to conditional model with $c=\emptyset$. Using the weight hyperparameter $\lambda$, the diffusion model can be guided in the direction that respects the conditioning information by using $\lambda>1$.
 
-# Latent Diffusion Model
+# 4 Latent Diffusion Model
 
 - What diffusion models have done until now is perform diffusion in pixel space directly, and the problem with that is pixel space is huge and also sparsely populated. This makes it difficult for the model to learn the image manifold, it also makes optimization hard to perform (requires hundreds of GPU), and inference is awfully slow.
 - Idea: Run full diffusion in latent space of pretrained autoencoders.
@@ -333,22 +339,13 @@ We now need to learn two diffusion models, namely $p(x|c),p(x)$. But notice that
 - Training is divided into two phases:
 	- AE: train an autoencoder which provides a low-dimensional representation space. Only need to be trained once, and can be used with any downstream diffusion model.
 	- Diffusion model: Train a conditional/unconditional diffusion model in the representational space.
-
 - *"Our perceptual compression model is based on previous work and consists of an autoencoder trained by combination of a perceptual loss and a patch-based adversarial objective. This ensures that the reconstructions are confined to the image manifold by enforcing local realism and avoids bluriness introduced by relying solely on pixel-space losses such as L2 or L1 objectives."*
 	- What are the variants of these pixel-space losses that induce bluriness in generated images? and what's the loss used by AE in this work?
 - *"To pre-process y from various modalities (such as language prompts) we introduce a domain specific encoder $\tau_{\theta}$ that projects y to an intermediate representation $\tau_{\theta}(y)\in \mathbb{R}^{M\times d_{\tau}}$ , which is then mapped to the intermediate layers of the UNet via a cross-attention layer implementing $\text{Attention}(Q, K, V ) = \text{softmax}\left(  \frac{QK^{\top}}{√d} \right)· V$ , with $Q = W^{(i)}_{Q} · \varphi_{i}(z_{t}), K = W^{(i)}_{K} · \tau_{\theta} (y), V = W^{(i)}_{V} · \tau_{\theta}(y)$."*
 	- *"Here, $\varphi_{i}(z_{t}) \in \mathbb{R}^{N \times d_{i}}$ denotes a (flattened) intermediate representation of the UNet implementing $\theta$ and $W^{(i)}_{V} \in \mathbb{R}{d\times d_{i}}, W^{(i)}_{Q} \in \mathbb{R}^{d\times d_{\tau}}$ & $W^{(i)}_{K} \in \mathbb{R}^{d\times d_{\tau}}$ are learnable projection matrices."*
-- *"We employ the BERT-tokenizer and implement $\tau_{\theta}$ as a transformer to infer a latent code which is mapped into the UNet via (multi-head) crossattention."*
+- *"We employ the BERT-tokenizer and implement $\tau_{\theta}$ as a transformer to infer a latent code which is mapped into the UNet via (multi-head) cross-attention."*
 
-> [!note] Questions
-> - **Autoregressive models (ARM) achieve strong performance in density estimation.**
->   
->   Why does AR model perform good in density estimation? What exactly is density estimation?
-> - **How does VQ-VAE, VQ-GANs work?**
->   
->   VQ-VAEs use autoregressive models to learn an expressive prior over a discretized latent space. Different from VQ-VAEs, VQGANs employ a first stage with an adversarial and perceptual objective to scale autoregressive transformers to larger images.
-
-# References
+# 5 References
 - [What are Diffusion Models? \| Lil'Log](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
 - [Understanding Diffusion Models&#58; A Unified Perspective](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
 - [Latent Diffusion (Stable Diffusion) \| José Salgado-Rojas](https://josesalgr.github.io/blog/2022/Stable-Diffusion/)

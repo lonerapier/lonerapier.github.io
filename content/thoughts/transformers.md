@@ -89,7 +89,7 @@ Now, we can stack multiple layers on top of each other to create a deep Transfor
 > [!todo]
 > - Efficient Transformers
 
-## Positional Encoding and Embeddings
+# Positional Encoding and Embeddings
 
 **Positional encoding**: Convince yourself that vanilla transformer architecture is equivariant to input permutations, i.e. permuting the input permutes the output. This can be mitigated by assigning a unique position to each input token in the input itself. Modifying the input vectors by adding the position vectors onto the token vectors give $\tilde{x}_{n}=x_{n}+p_{n}$, where p is the positional encoding of the input token in the data.
 
@@ -157,7 +157,14 @@ Problems with sinusoidal position encodings:
 > [!question] Why is transformer sinusoidal positional encoding using alternating sines and cosines? And why is RoPE applying the same rotation matrix to the query vector?
 - 2D encodings for images
 
-## References
+# To-Read
+- [Jane Street Blog - Using group theory to explore the space of positional encodings for attention](https://blog.janestreet.com/using-group-theory-to-explore-positional-encodings-attention/)
+- [\[2511.05963\] Next-Latent Prediction Transformers Learn Compact World Models](https://arxiv.org/abs/2511.05963)
+- [\[2604.12946\] Parcae: Scaling Laws For Stable Looped Language Models](https://arxiv.org/abs/2604.12946)
+- [\[2606.18206\] Fixed-Point Reasoners: Stable and Adaptive Deep Looped Transformers](https://arxiv.org/abs/2606.18206)
+- [The Annotated Kolmogorov-Arnold Network (KAN) \| Alex L. Zhang](https://alexzhang13.github.io/blog/2024/annotated-kan/)
+
+# References
 
 - [You could have designed state of the art positional encoding](https://huggingface.co/blog/designing-positional-encoding)
 

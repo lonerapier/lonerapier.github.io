@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: lonerapier
+  pageTitle: lonerapier.me
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -46,9 +46,9 @@ plugins:
     options:
       defaultDateType: modified
       priority:
-        - frontmatter
-        - git
         - filesystem
+        - git
+        - frontmatter
     order: 10
   - source: github:quartz-community/syntax-highlighting
     enabled: true
@@ -158,10 +158,12 @@ plugins:
   - source: github:quartz-community/tag-page
     enabled: true
   - source: github:quartz-community/explorer
-    enabled: false
+    enabled: true
+    options:
+      folderDefaultState: collapsed
     layout:
       position: left
-      priority: 50
+      priority: 60
   - source: github:quartz-community/graph
     enabled: false
     layout:
@@ -191,7 +193,7 @@ plugins:
       position: beforeBody
       priority: 20
   - source: github:quartz-community/tag-list
-    enabled: false
+    enabled: true
     layout:
       position: beforeBody
       priority: 30
@@ -230,10 +232,14 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        GitHub: https://github.com/lonerapier
+        X: https://x.com/lonerapier
   - source: github:quartz-community/recent-notes
     enabled: true
+    layout:
+      position: left
+      priority: 50
+      condition: is-index
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
@@ -255,7 +261,7 @@ plugins:
         - tags
         - aliases
       excludedProperties: []
-      hidePropertiesView: false
+      hidePropertiesView: true
       delimiters: ---
       language: yaml
     order: 5

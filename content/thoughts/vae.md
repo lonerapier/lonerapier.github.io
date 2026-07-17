@@ -6,7 +6,7 @@ tags:
   - generative-modeling
   - notes
 ---
-# Introduction
+# 1 Introduction
 
 Autoencoders learn low-dimensional representation of the data in unsupervised way by aiming to imitate the identity function i.e. reconstruct the original data while having a low-dimensional representation bottleneck in the process. In other words, Autoencoders are neural networks trained to generate output y that is as close to the input x, and an internal layer that gives the representation z(x) for each new input.
 
@@ -36,7 +36,7 @@ Using log likelihood objective $\sum_{i=1}^{N}\log p_{\theta}(\mathbf{x}^{(i)})$
 
 But generally, z is not known, and primary goal of a generative model is to create output from scratch. So, we need a distribution $p_{\mathbf{z}}$ so that z can be sampled from the distribution. You might ask, why can't an AE be used for this, where we can use the encoder to get the sample z? Firstly, encoder works on an input, and secondly, is optimized to work as a identity lookup table. The latent space might not be structured, and AE doesn't provide any guarantee about the structure of the latent variable distribution.
 
-# Likelihood
+# 2 Likelihood
 
 To calculate the intractable data likelihood $p_{\theta}(\mathbf{x})$, we make following assumptions:
 1. Hypothesis space $p_{\theta}(\mathbf{x}|\mathbf{z})$ is modelled using a product mixture of distributions (e.g., Gaussians or Bernoullis) with a prior $p_{z}$ (usually Gaussian). Thus, VAEs can be seen as an infinite mixture of Gaussians. To prevent learning infinite set of parameters over discrete latent space, VAE uses a function $g_{\theta}$ that outputs the parameters of a continuous latent variable, and smoothens the latent space.
@@ -55,7 +55,7 @@ Our goal will be to use the representation of the distribution $p(x)$ to derive 
 	<img src="vae.png" width="300">
 </p>
 
-# Objective
+# 3 Objective
 
 The estimated posterior $q_{\phi}(\mathbf{z}|\mathbf{x})$ needs to be close to best approximation $p_{\theta}(\mathbf{z}|\mathbf{x})$, and is measured using reversed KL divergence $D_\text{KL}( q_\phi(\mathbf{z}\vert\mathbf{x}) \| p_\theta(\mathbf{z}\vert\mathbf{x}) )$.
 
@@ -105,7 +105,7 @@ We want to compute gradient of $E_{z\sim q_{\phi}(z|x)}[\log p_{\theta}(x|z)]$ w
 
 After training the VAE, to use it as a generative model, we can simply sample a latent variable $z\sim p(z)$ from the latent space, and run it through the decoder. VAE are able to learn a compressed, low-dimensional representation of the high-dimensional data manifold as dimension of $z$ is much less than $x$, and the output can be controlled by carefully editing the latent variable.
 
-# Hierarchical VAE
+# 4 Hierarchical VAE
 Introduced in \[2, 3\], HVAE can be seen as a generalization of VAE to multiple hierarchies of latent variables. We can generate arbitrary graphical models to condition latent on all other previous latents, which themselves are generated from other higher-level, more abstract latents.
 
 ![hvae](thoughts/images/hvae.png)
@@ -129,7 +129,7 @@ $$
 \end{align}
 $$
 
-# References
+# 5 References
 - [33  Generative Modeling Meets Representation Learning – Foundations of Computer Vision](https://visionbook.mit.edu/generative_modeling_and_rep_learning.html)
 - [Understanding Diffusion Models&#58; A Unified Perspective](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
 - [From Autoencoder to Beta-VAE \| Lil'Log](https://lilianweng.github.io/posts/2018-08-12-vae/)

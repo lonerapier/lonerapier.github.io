@@ -78,6 +78,8 @@ Score Matching and SDE
 - [\[1907.05600\] Generative Modeling by Estimating Gradients of the Data Distribution](https://arxiv.org/abs/1907.05600): Reintroduced score matching as viable objective
 - [\[2011.13456\] Score-Based Generative Modeling through Stochastic Differential Equations](https://arxiv.org/abs/2011.13456): Introduced diffusion models as SDE that can be reversed and sampled using langevin samplers.
 
+Drifting: [\[2602.04770\] Generative Modeling via Drifting](https://arxiv.org/abs/2602.04770)
+
 Design space and solvers
 - [\[2206.00364\] Elucidating the Design Space of Diffusion-Based Generative Models](https://arxiv.org/abs/2206.00364)
 	- Main ODE equation that arises from solving the diffusion ODE
@@ -160,6 +162,7 @@ Flow matching
 - [\[2403.03206\] Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/abs/2403.03206): SD3. Scaled Rectified flows with QK-normalization, logit-normal noise scheduler. Introduced MM-DiT architecture.
 - [\[2506.15742\] FLUX.1 Kontext: Flow Matching for In-Context Image Generation and Editing in Latent Space](https://arxiv.org/abs/2506.15742)
 - [Lance: Unified Multimodal Modeling by Multi-Task Synergy](https://lance-project.github.io/)
+- [\[2603.06507\] Self-Supervised Flow Matching for Scalable Multi-Modal Synthesis](https://arxiv.org/abs/2603.06507): Flux-3 backbone
 
 # Miscellaneous
 - [\[2504.10612\] Energy Matching: Unifying Flow Matching and Energy-Based Models for Generative Modeling](https://arxiv.org/abs/2504.10612)

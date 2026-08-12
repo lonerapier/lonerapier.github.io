@@ -315,7 +315,7 @@ $$
 
 **Classifier-free Guidance**
 
-Training a classifier for different kind of conditioning is infeasible, and since the classifier is pre-trained, it may or may not map the noisy input to correct conditioning information. If we train it alongside the diffusion model, then it defeats the purpose of conditioning the generative model in the first place.
+Proposed by @ho2022classifier, training a classifier for different kind of conditioning is infeasible, and since the classifier is pre-trained, it may or may not map the noisy input to correct conditioning information. If we train it alongside the diffusion model, then it defeats the purpose of conditioning the generative model in the first place.
 
 First, note that we can write classifier guidance equation such that $\nabla_{x}\log p(c|x)=\nabla_{x}\log p(x|c)-\nabla_{x}\log p(x)$, and then substituting the equation into the final weighted form:
 
@@ -345,14 +345,62 @@ We now need to learn two diffusion models, namely $p(x|c),p(x)$. But notice that
 	- *"Here, $\varphi_{i}(z_{t}) \in \mathbb{R}^{N \times d_{i}}$ denotes a (flattened) intermediate representation of the UNet implementing $\theta$ and $W^{(i)}_{V} \in \mathbb{R}{d\times d_{i}}, W^{(i)}_{Q} \in \mathbb{R}^{d\times d_{\tau}}$ & $W^{(i)}_{K} \in \mathbb{R}^{d\times d_{\tau}}$ are learnable projection matrices."*
 - *"We employ the BERT-tokenizer and implement $\tau_{\theta}$ as a transformer to infer a latent code which is mapped into the UNet via (multi-head) cross-attention."*
 
-# 5 References
+# 5 Evaluation
+
+Common metrics:
+1. **FID** measures similarity between the distributions of generated vs real images using features representations of an inception-v3 model. Improved older Inception score that only measured the fidelity of generated images without comparing them to real images.
+	1. FID measures both fidelity between real and generated images, and diversity across the generated set (cover all categories, poses, style in the real distribution vs mode collapse).
+	2. Quantitatively, measures Frechet distance between Gaussian distributions fit to the Inception feature representations of the reference distribution. Sufficient statistics (mean and covariance) $(\mu_{r},\Sigma_{r}),(\mu_{g},\Sigma_{g})$.
+	3. Since FID computes Frechet distance (W2 distance),
+	4. FID uses Inception-v3 trained on imagenet which work on a limited class in the dataset (dogs, cats, birds, cars, etc.), and doesn't work well with recent trends in T2I models.
+2. **Precision, Recall**:
+3. **KID**
+4. **CLIP** score: $\cos(E_{I}\cdot E_T)$, where $E_{(\cdot)}$ is the clip encoder for image and text.
+
+> [!question] What are the current sources of randomness in training and inference of a generative model like diffusion? [@dufour2026fid]
+
+- Training recipe (initialization and inputs are randomly picked), random noise addition, hardware drift.
+- During inference, random gaussian noised image is provided. Generally, you perform the inference step across multiple seeds and take the average value.
+
+> [!question] How to study the other four that occurs during training?
+
+1. *"Zhang et al. recently showed that independently-trained diffusion networks converge to nearly the same noise-to-image mapping."* This looks interesting. What does *noise-to-image* mapping mean? [\[2310.05264v5\] The Emergence of Reproducibility and Generalizability in Diffusion Models](https://arxiv.org/abs/2310.05264v5)
+2. Main question is does FID also hold stable over a set of generated images?
+3. Questions:
+	1. Where is seed used during training or evaluation of diffusion models?
+	2. Why is FID a bad metric? or why does FID vary so much? Why doesn't it faithfully measure the underlying quality of the model?
+	3. Is there a metric that measures diversity/creativity of the model directly? from either its outputs or its inner parameter/representations?
+	4. What other metrics exist? [An Essential Guide for Generative Models Evaluation Metrics](https://pub.towardsai.net/an-essential-guide-for-generative-models-evaluation-metrics-255b42007bdd).
+4. What sort of experiments I would've run if I had the same hypothesis?
+	1. EX1: Fix other source of randomness and let one vary freely. For example: during training we add random noise to an image. What if we fix the noise getting added, and then measure the fid variance.
+		1. How do i fix hardware drift?
+		2. Observation: Which factor has the least and most variance.
+	2. EX2: Slowly remove each randomness source and then measure how FID varies?
+	3. EX3: What effect does retraining have on FID vs resampling. Perform a matrix of N independent training runs and K evaluations per trained model resulting in $N\times K$ panel of FID evaluations.
+		1. To see the variation, generate a violin plot across all trained runs.
+		2. Hypothesis that evaluation variance is much less than training variance. Comptue Grand mean across all runs and compute variance across all training runs.
+		3. Statistics: $\sigma_{\text{within}}$ (*generation lottery*) for variation between the K evaluations performed on a single trained model averaged over N different trained models. $\sigma_{\text{between}}$ (*training lottery*) for variations between N models trained on different seeds.
+	4. EX4: Measure metrics other than FID. Contrastive score: CLIP score, Representation score: [DINOV2](https://arxiv.org/abs/2304.07193) score, precision, recall.
+5. Results:
+	1. Training volatility dominates Evaluation volatility.
+	2. Contribution of FID variance among noise sources overlap with each other. Fixing others and letting one vary freely overestimates the contribution from the source.
+	3. Tuning CFG weight for each seed halves CoV from 1.26% to 0.67%, but seed becomes harder to predict. Only 75% of the seeds survive the ranking, but FID for the rest 25% is reshuffled among without CFG and with CFG evaluations.
+	4. Most surprising: 1-2% CoV survives Scale and compute. Per step noise as the dominating source of variance is constant even with bigger models and more compute.
+	5. Luckiest seed gives 1.4-2.0x speedup in training performance, i.e. luckiest seed reaches the same FID twice as faster.
+	6. CFG converts optimal LR from a point to a window. Optimal LR refers to hyperparameters that give the optimal FID score.
+6. Results with DiNO-v2 and Inception Precision, Recall shows similar trend with all 5 results.
+7. Related works
+	1. [\[2306.04675\] Exposing flaws of generative model evaluation metrics and their unfair treatment of diffusion models](https://arxiv.org/abs/2306.04675)
+	2. [\[2401.09603\] Rethinking FID: Towards a Better Evaluation Metric for Image Generation](https://arxiv.org/abs/2401.09603)
+
+# 6 References
 - [What are Diffusion Models? \| Lil'Log](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
-- [Understanding Diffusion Models&#58; A Unified Perspective](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
+- [Calvin Luo, "Understanding Diffusion Models; A Unified Perspective"](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
 - [Latent Diffusion (Stable Diffusion) \| José Salgado-Rojas](https://josesalgr.github.io/blog/2022/Stable-Diffusion/)
-- PML Book 2, Chapter 25
+- [The FID Lottery — Quantifying Hidden Randomness in Generative Model Evaluation](https://kyutai.org/fid-lottery)
+
 
 1. Sohl-Dickstein, Jascha, et al. "Deep unsupervised learning using nonequilibrium thermodynamics." _International conference on machine learning_. pmlr, 2015.
 2. Ho, Jonathan, Ajay Jain, and Pieter Abbeel. "Denoising diffusion probabilistic models." _Advances in neural information processing systems_ 33 (2020): 6840-6851.
 3. Kingma, Diederik, et al. "Variational diffusion models." _Advances in neural information processing systems_ 34 (2021): 21696-21707.
 4. Dhariwal, Prafulla, and Alexander Nichol. "Diffusion models beat gans on image synthesis." _Advances in neural information processing systems_ 34 (2021): 8780-8794.
-5. Ho, Jonathan, and Tim Salimans. "Classifier-free diffusion guidance." _arXiv preprint arXiv:2207.12598_ (2022).

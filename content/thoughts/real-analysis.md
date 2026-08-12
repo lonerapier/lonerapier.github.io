@@ -477,20 +477,22 @@ Intuition: Using a proof strategy similar as above, Let M be the l.u.b. of all v
 - Refinement $P^{*}\supset P$.
 	- $L(P_{1},f,\alpha)\leq L(P^{*},f,\alpha)\leq U(P^{*},f,\alpha)\leq U(P_{2},f,\alpha)$.
 	- $L(P,f,\alpha)\leq \int fd\alpha\leq U(f,P,\alpha)$
-- Criteria for Integratability: $f\in \mathscr{R}(\alpha)\iff\forall \space \epsilon >0,\exists P \ \text{s.t.} \space U(P,f,\alpha)-L(P,f,\alpha)<\epsilon$
+- Criteria for Integrability: $f\in \mathscr{R}(\alpha)\iff\forall \space \epsilon >0,\exists P \ \text{s.t.} \space U(P,f,\alpha)-L(P,f,\alpha)<\epsilon$
 - f is continuous implies f is Riemann integrable.
 	- $U(f,P,\alpha)-L(f,P,\alpha)=\sum_{i=1}^{n}(M_{i}-m_{i})\Delta\alpha$
 - f has finitely many discontinuities, and $\alpha$ is continuous at those points, and f is continuous everywhere else. f is Riemann integrable.
 	- What if $\alpha$ is discontinuous there?
 	- What if $f$ is discontinuous at infinitely many points?
-- $f$ is integrable in \[a,b\] and bounded by \[M,m\], and $\phi$ is uniformly continuous in $[m,M]$. Then $\phi(f)$ is integrable.
+- **Lebesgue Criterion for Riemann Integrability**: $f$ is integrable in $[a,b]$ and bounded by $[M,m]$, and $\phi$ is uniformly continuous in $[m,M]$. Then $\phi\circ f$ is integrable.
+	- If $f$ is Riemann integrable, then so is $\lvert f\rvert, f^{2}$
+	- Converse is not true: *Dirichlet* function
 - Properties of Integral:
 	- $f_{1},f_{2}\in \mathscr{R}(\alpha)$ on \[a,b\], then f1+f2 is integrable, and $\int fd\alpha=\int f_{1}d\alpha+\int f_{2}d\alpha$.
 	- $\int cfd\alpha=c\int fd\alpha$
 	- f is integrable on \[a,b\] and a < c < b, then $\int_{a}^{b}fd\alpha=\int_{a}^{c}fd\alpha+\int_{c}^{b}fd\alpha$
 - Unit step function
 - Let $(s_{n})$ be sequence of distinct points in (a,b). $\alpha(x)=\sum_{n=1}^{\infty}c_{n}I(x-s_{n})$, and let f be continuous in \[a,b\], then $\int_{a}^{b}fd\alpha=\sum_{n=1}^{\infty}f(s_{n})$.
-	- One detail not mentioned is the proof works only for partition like $a<s_{1}<\cdots<s_{n}<b$, because $\int_{a}^{b}fd\alpha_{1}$ is we want each sequence to be used as partition point, so that jumps are discrete, and easier to analyse when doing $\alpha(x_{i})-\alpha(x_{i-1})$.
+	- One detail not mentioned is the proof works only for partition like $a<s_{1}<\cdots<s_{n}<b$, because $\int_{a}^{b}fd\alpha_{1}$ is we want each sequence to be used as partition point, so that jumps are discrete, and easier to analyze when doing $\alpha(x_{i})-\alpha(x_{i-1})$.
 - Let $\alpha$ be monotonically increasing, and $\alpha'\in\mathscr{R}$ on \[a,b\]. Let f be bounded on the interval, then f is integrable iff $f\alpha'$ is integrable, and $\int_{a}^{b}fd\alpha=\int_{a}^{b}f(x)\alpha'(x)dx$.
 - Properties of $\alpha$ in Stieltjes Integral
 	- When $\alpha$ is pure step function, Integral reduces to finite or infinite series.
@@ -744,7 +746,7 @@ Intuition: Using a proof strategy similar as above, Let M be the l.u.b. of all v
 	- when $D>0$ and $f_{xx}(a,b)<0$, then $a,b$ is a relative maxima
 	- when $D<0$, then (a,b) is a saddle point
 
-## Multiple integrals
+## Multiple Integrals
 
 - Double integrals
 
@@ -753,11 +755,11 @@ Intuition: Using a proof strategy similar as above, Let M be the l.u.b. of all v
 **Fubini's Theorem**: If $f(x,y)$ is continuous on $R=[a,b]\times[c,d]$ then,
 $$\iint\limits_{R}f(x,y)\, dA = \int_{a}^{b}\int_{c}^{d}f(x,y)\, dy\, dx = \int_{c}^{d}\int_{a}^{b}f(x,y)\, dx\, dy$$
 These integrals are called **iterated integrals**.
- 
+
 - Triple integrals
 - Change of variables
 
-## Line integral
+## Line Integral
 
 **Line integral along curve C** or line-integral along arc-length
 $$\int\limits_{C}f(x,y,z)\, ds=\int_{a}^{b}f(x(t),y(t),z(t))\underbrace{ \sqrt{ \left( \frac{dx}{dt} \right)^{2}+\left( \frac{dy}{dt} \right)^{2} +\left( \frac{dz}{dt} \right)^{2}} }_{ \lVert\vec{r}'(t)\rVert }\, dt$$
@@ -790,7 +792,7 @@ $$
 \end{align}
 $$
 
-### Green's theorem
+### Green's Theorem
 
 Let 𝐶 be a positively oriented, piecewise smooth, simple, closed curve and let 𝐷 be the region enclosed by the curve. If 𝑃 and 𝑄 have continuous first order partial derivatives on 𝐷 then,
 
@@ -886,7 +888,7 @@ Gauss’s theorem says that the *“total divergence”* of a vector field in a 
 
 
 
-# Next steps
+# Next Steps
 - [Algebra I](https://ocw.mit.edu/courses/18-701-algebra-i-fall-2010/pages/readings/)
 - [Analysis II](https://ocw.mit.edu/courses/18-101-analysis-ii-fall-2005/pages/syllabus/): Analysis on several variables -> Munkres' Analysis on manifold
 	- [18.101 — Analysis II (Fall 2006)](https://math.mit.edu/classes/18.101/fa07/#handouts)

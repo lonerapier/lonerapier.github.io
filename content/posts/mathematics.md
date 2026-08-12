@@ -107,3 +107,4 @@ Resources:
 - [Mathematics Textbooks for Self Study --- A Guide for the Autodidactic](https://marktomforde.com/academic/mathmajors/textbook-suggestions.html)
 - [Suggested Readings by Subject - Mathematics - Research Guides at University of Michigan Library](https://guides.lib.umich.edu/c.php?g=282871&p=6557089)
 - [Asteroids on a Donut – Infinity Plus One](https://infinityplusonemath.wordpress.com/2017/02/18/asteroids-on-a-donut/)
+- [Problem Tags - Sachchidanand Prasad](https://prasadsachchidanand.github.io/miscellaneous/daily-problems/tags)

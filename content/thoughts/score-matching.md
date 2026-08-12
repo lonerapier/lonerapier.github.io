@@ -9,15 +9,15 @@ tags:
 
 # 1 Score Based Generative Models
 
-We have shown in VDM that approximating the score function is analogous to predicting the posterior mean $\mu_{q}$ or noise $\epsilon$. We can now look at another class of models: Score-based Generative models that directly learn the score function and then sample from the distribution using MCMC methods like Annealed Langevin sampling.
+We have shown in [[thoughts/diffusion-models|diffusion-models]] that approximating the score function is analogous to predicting the posterior mean $\mu_{q}$ or noise $\epsilon$. We can now look at another class of models: Score-based Generative models that directly learn the score function and then sample from the distribution using MCMC methods like Annealed Langevin sampling.
 
-Recall, in EBMs, we represent an arbitrary distribution using Boltzmann energy function, $p_{\theta}(x)=\frac{1}{Z(\theta)}\exp(-f_{\theta}(x))$, where $f_{\theta}$ is arbitrary, flexible and parametrizable function and $Z_{\theta}$ is the normalizing or partition function written as $\int \exp(-f_{\theta}(x))dx$. One way to learn such a distribution is Maximum likelihood estimation but requires tackling the constant $Z_{\theta}$ which can be computed using MC estimate of the samples, but that might be difficult to get for complex $f_{\theta}$ functions.
+Recall, in [[thoughts/ebm|EBMs]], we represent an arbitrary distribution using Boltzmann energy function, $p_{\theta}(x)=\frac{1}{Z(\theta)}\exp(-f_{\theta}(x))$, where $f_{\theta}$ is arbitrary, flexible and parametrizable function and $Z_{\theta}$ is the normalizing or partition function written as $\int \exp(-f_{\theta}(x))dx$. One way to learn such a distribution is Maximum likelihood estimation but requires tackling the constant $Z_{\theta}$ which can be computed using MC estimate of the samples, but that might be difficult to get for complex $f_{\theta}$ functions.
 
 To make likelihood training feasible, models restrict their architectures or approximate normalizing constant:
-- Causal convolutions in AR models: likelihood is written using chain rule that avoids normalizing constant
-- Normalizing flows: uses change-of-variables to solve the problem differently.
-- VAE: Avoid latent variable integral using ELBO maximization.
-- MCMC sampling: approximate expectation using real samples or the current best samples.
+- Causal convolutions in [[thoughts/autoregressive|autoregressive]] models: likelihood is written using chain rule that avoids normalizing constant
+- [[thoughts/flow-matching#1 Normalizing Flows|Normalizing flows]]: uses change-of-variables to solve the problem differently.
+- [[vae|VAE]]: Avoid latent variable integral using ELBO maximization.
+- [[thoughts/sampling|MCMC sampling]]: approximate expectation using real samples or the current best samples.
 
 Learning the score function using neural network approximation $s_{\theta}$ is one way to avoid modeling the normalization constant.
 $$
@@ -46,7 +46,7 @@ Score function is the gradient of the log likelihood of the data $\mathbf{x}$. G
 
 > [!todo] add a plot for langevin dynamics and score function.
 
-After learning the true distribution by modelling the score function, we can just sample from the distribution. Langevin sampling is an MCMC sampling procedure that enables drawing sample from the distribution using just the score function which we've learned as $s_{\theta}$, and arbitrary isotropic Gaussian noise. We update the values and iteratively follow the direction until a mode is reached.
+After learning the true distribution by modeling the score function, we can just sample from the distribution. Langevin sampling is an MCMC sampling procedure that enables drawing sample from the distribution using just the score function which we've learned as $s_{\theta}$, and arbitrary isotropic Gaussian noise. We update the values and iteratively follow the direction until a mode is reached.
 
 $$
 \mathbf{x}_{i+1}\leftarrow \mathbf{x}_{i}+\epsilon \nabla_{\mathbf{x}}\log p(\mathbf{x})+\sqrt{ 2\epsilon }\mathbf{z}_{i} \quad,i=1,2,\dots,K
@@ -63,11 +63,11 @@ In case, we do not have access, we can use score matching techniques to minimize
 
 - From manifold hypothesis, we know that x lies on a low-dimensional manifold in a high-dimensional space. Computing log of the probability of the points not in low-dimensional manifold is undefined, which means, even if we have access to ground truth score function, it leads to numerical instability errors when learning on low-probability points.
 - Model is trying to estimate the expectation of L2 norm of difference between learned score function and ground truth. In low-density regions, where few data points are available, probability assigned to the point will be very low, and model will not gain any significant information from the input. Sampling from Langevin dynamics involves starting from a random point and iteratively following the score. Starting sample is highly likely to be in low-density regions. Due to inaccurate scores in those regions, model may never find the mode, and the final generated sample may be suboptimal.
-- Langevin sampling may not consider the weight of the mixture of distributions. Suppose the distribution is  p(x)=cp1(x)+c2p2(x). Computing the score using gradient of log probability erases the weight of the distribution. The learned score function may then be agnostic to the different weights, and Langevin sampling then leads to a different peak irrespective of the strengths in the combined distribution.
+- Langevin sampling may not consider the weight of the mixture of distributions. Suppose the distribution is  $p(x)=c_{1}p_{1}(x)+c_{2}p_{2}(x)$. Computing the score using gradient of log probability erases the weight of the distribution. The learned score function may then be agnostic to the different weights, and Langevin sampling then leads to a different peak irrespective of the strengths in the combined distribution.
 
 How to mitigate this problem? How can the problem be summed in one sentence? The problem is due to lack of signal in low-density regions. This is equivalent of using an unseen image from the true distribution to the network.
 
-The solution is quite simple, yet elegant, and follows the same process as VDM, i.e. to perturb data points with noise, and train a score based model on the noisy data. This fixes two of the three previously stated problems. Suppose, we perturb a high-dimensional distribution with additional Gaussian noise: $\tilde{x}=x+\sigma z,\ z\sim \mathcal{N}(0,I)$.
+The solution introduced by @song2019generative is quite simple, yet elegant, and follows the same process as VDM, i.e. to perturb data points with noise, and train a score based model on the noisy data. This fixes two of the three previously stated problems. Suppose, we perturb a high-dimensional distribution with additional Gaussian noise: $\tilde{x}=x+\sigma z,\ z\sim \mathcal{N}(0,I)$.
 - Due to the support of Gaussian being the entire space, a perturbed sample is no longer confined to high-density region, $p_{\sigma}(x)>0, \ \forall x$. Mathematically, this is equivalent of taking a convolution with a Gaussian kernel: $$p_{\sigma}(\tilde{x})=\int p(x)\mathcal{N}(\tilde{x};x,\sigma^{2}I)dx$$
 - Adding Large Gaussian noise smoothens out the peaks of the distribution more aggressively, and model can get training signal from low-density areas.
 ![score-multi-scale](thoughts/images/score-multi-scale.png)
@@ -78,7 +78,8 @@ Suppose, we always perturb the data with isotropic Gaussians.
 - Take L Gaussians with increasing standard deviations: $\sigma_{1}<\sigma_{2}<\dots<\sigma_{L}$.
 - Perturb the data distribution $p(x)$ with each of the noisy Gaussian to obtain a sequence of more noisy distributions: $$p_{\sigma_{i}}(x)=\int p(z)\mathcal{N}(x;z,\sigma_{i}^{2}I)dz\quad ,i=1,2,\dots ,L$$
 - Drawing samples from each of the distribution is trivial, $x\sim p(x)$, and computing $x+\sigma_{i}z,\ z\sim \mathcal{N}(0,I)$
-- Train a neural network approximator to learn the score function for all noise level simultaneously. The objective is a weighted sum of fisher divergences of each noisy distribution $$\arg \min_{\theta}\sum_{t=1}^{T} \lambda(t)\mathbb{E}_{p_{\sigma_{t}}(x_{t})}\left[\lVert s_{\theta}(x,t)-\nabla \log p_{\sigma_{t}}(x_{t}) \rVert_{2}^{2} \right]$$
+- Train a neural network approximator to learn the score function for all noise level simultaneously. The objective is a weighted sum of fisher divergences of each noisy distribution
+$$\arg \min_{\theta}\sum_{t=1}^{T} \lambda(t)\mathbb{E}_{p_{\sigma_{t}}(x_{t})}\left[\lVert s_{\theta}(x,t)-\nabla \log p_{\sigma_{t}}(x_{t}) \rVert_{2}^{2} \right]$$
 
 After training, produce samples by running **Annealed Langevin dynamics** which is just Langevin dynamics that runs for each distribution $t=T,T-1,\dots,1$ in sequence, and initialization for each sampling is the output of the previous sampler. You can note how the noise reduces with each new sampler, and the most recent sample is used as the initializer to carry-forward the information learned from previous step. This can be interpreted as reverse diffusion process of a VDM, where an isotropic noisy vector is gradually refined towards lesser noise levels.
 
@@ -87,12 +88,6 @@ After training, produce samples by running **Annealed Langevin dynamics** which 
 > - Implicit score matching
 > - Denoising score matching
 > - sliced score matching
-
-# 2 References
-- [Generative Modeling by Estimating Gradients of the Data Distribution \| Yang Song](https://yang-song.net/blog/2021/score/)
-
-1. Song, Yang, and Stefano Ermon. "Generative modeling by estimating gradients of the data distribution." _Advances in neural information processing systems_ 32 (2019).
-2. 
 
 # 3 Score Based Generative Modelling Using SDEs
 
@@ -153,3 +148,7 @@ Following similar iterative update scheme, this can be converted into DDPM rever
 > [!todo] Why DDPM SDE is called Variance-Preserving SDE?
 
 > [!todo] Why SMLD SDE is called Variance exploding SDE?
+
+# References
+
+- [Generative Modeling by Estimating Gradients of the Data Distribution \| Yang Song](https://yang-song.net/blog/2021/score/)

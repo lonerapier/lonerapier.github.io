@@ -20,7 +20,7 @@ What are the properties of good representations?
 - Explanatory (Sufficient)
 - Disentangled (Independent factors)
 - Interpretable
-- make Subsequent problem solving easy
+- make subsequent problem solving easy
 
 Representation learning using:
 - Compression
@@ -54,8 +54,8 @@ Questions
 **Metric Learning**
 - A better representations is compact, explanatory, and concentrated (intra-class) and separated (inter-class).
 - Introduce a distance metric that can be used to better separate classes and keep elements in same class as close together as possible.
-- First idea: Perform linear fitting by using euclidean distance i.e. L2 norm to learn W in $z=Wx$ on similar set of class $S$ and dissimilar set of class $D$, and minimise $\lVert x_{i}-x_{j} \rVert^{2}$. This is equivalent to Mahalanobis distance, and can be turned into an optimisation problem by minimising $\min_{A \succeq 0}d_{A}(x_{i},x_{j})^{2},\ \text{s.t}\ \sum_{k,l\in D}d_{A}(x_{k},x_{l})\geq\epsilon$.
-- Deep Metric Learning (16.2.2): learned using non-linear function and optimise using SGD
+- First idea: Perform linear fitting by using euclidean distance i.e. L2 norm to learn W in $z=Wx$ on similar set of class $S$ and dissimilar set of class $D$, and minimize $\lVert x_{i}-x_{j} \rVert^{2}$. This is equivalent to Mahalanobis distance, and can be turned into an optimization problem by minimizing $\min_{A \succeq 0}d_{A}(x_{i},x_{j})^{2},\ \text{s.t}\ \sum_{k,l\in D}d_{A}(x_{k},x_{l})\geq\epsilon$.
+- Deep Metric Learning (16.2.2): learned using non-linear function and optimize using SGD
 
 **Contrastive Loss** (16.2.4)
 - Pairwise loss and Siamese networks
@@ -68,20 +68,20 @@ Questions
 	- Why map to a hypersphere? Classes are linearly separable due to similarity being measured by angles and dot-products and easily understandable.
 	- How to turn this into self-supervised training? By generating augmentations for positive examples and rest of the batch can be sampled as negative examples.
 	- What's the effect of contrastive loss? Why is it effective?
-		- Maximises a lower bound on mutual information between positive samples: $\text{MI}(f(x),f(x^{+}))\geq \log(N)-\mathcal{L}(f)$
-		- But just maximising the mutual information actually worsens the performance. TODO: add citation.
-		- This indicates that the contrastive loss is maximising not just alignment of similar data together.
+		- Maximizes a lower bound on mutual information between positive samples: $\text{MI}(f(x),f(x^{+}))\geq \log(N)-\mathcal{L}(f)$
+		- But just maximizing the mutual information actually worsens the performance. TODO: add citation.
+		- This indicates that the contrastive loss is maximizing not just alignment of similar data together.
 		- *Uniformity*: In order to build the optimal representation, models also separate the dissimilar classes or in other words, feature distribution on the hypersphere representation is uniform.
-		- Unsupervised contrastive Learning maximises the uniformity.
-	- To formalise the metric for alignment and uniformity
+		- Unsupervised contrastive Learning maximizes the uniformity.
+	- To formalize the metric for alignment and uniformity
 		- $\mathcal{L}_{\text{align}}(f;\alpha)=E_{(x,y)\sim p_{\text{pos}}}[\lVert f(x)-f(y) \rVert_{2}^{\alpha}]$: expected pairwise positive distance
-		- $\mathcal{L}_{\text{uniform}}(f;t)=\log E_{(x,y)\sim p_{\text{data}}}[G_{t}(f(x),f(y))]=\log E[e^{-t\lVert f(x)-f(y) \rVert_{2}^{2}}]$: log of expected pairwise Gaussian potential. To minimise this, the pairwise distance of negative samples should be farther apart from each other.  TODO: what's the meaning of gaussian potential
-		- Combining above two, the solution that minimise the loss is the one that uniformly cover the whole hypersphere. Or in other words, uniform distribution on the hyperspehere is the unique measure minimising the expected pairwise potential.
+		- $\mathcal{L}_{\text{uniform}}(f;t)=\log E_{(x,y)\sim p_{\text{data}}}[G_{t}(f(x),f(y))]=\log E[e^{-t\lVert f(x)-f(y) \rVert_{2}^{2}}]$: log of expected pairwise Gaussian potential. To minimize this, the pairwise distance of negative samples should be farther apart from each other.  TODO: what's the meaning of gaussian potential
+		- Combining above two, the solution that minimize the loss is the one that uniformly cover the whole hypersphere. Or in other words, uniform distribution on the hypersphere is the unique measure minimizing the expected pairwise potential.
 	- So, the contrastive loss asymptotically as the number of samples $M\to \infty$, converges to
 $$
 \begin{align}
-\lim_{ M \to \infty }\mathcal{L}*{\text{contrastive}}&(f;\tau,M)-\log M \\
-&=\lim*{ M \to \infty } E_{(x,y)\sim p_{\text{pos}}}\left[ -\log \frac{e^{f(x)^{\top}f(y)/\tau}}{e^{f(x)^{\top}f(y)/\tau}+\sum_{i}e^{f(x^{-}*{i})^{\top}f(y)/\tau}} \right]-\log M \\
+\lim_{ M \to \infty }\mathcal{L}_{\text{contrastive}}&(f;\tau,M)-\log M \\
+&=\lim_{ M \to \infty } E_{(x,y)\sim p_{\text{pos}}}\left[ -\log \frac{e^{f(x)^{\top}f(y)/\tau}}{e^{f(x)^{\top}f(y)/\tau}+\sum_{i}e^{f(x^{-}*{i})^{\top}f(y)/\tau}} \right]-\log M \\
 &=-\frac{1}{\tau}E[f(x)^{\top}f(y)]+E*{x\sim p_{\text{data}}}\left[\log E_{x^{-}\sim p_{\text{data}}}[e^{f(x^{-})f(x)/\tau}]\right]
 \end{align}
 $$
@@ -108,4 +108,5 @@ $$
 
 # References
 - [GitHub - HHU-MMBS/RepresentationLearning\_SS2023: Representation Learning MSc course Summer Semester 2023 · GitHub](https://github.com/HHU-MMBS/RepresentationLearning_SS2023)
-- 
+- [Principles and Practice of Deep Representation Learning](https://ma-lab-berkeley.github.io/deep-representation-learning-book/)
+- [\[2304.12210\] A Cookbook of Self-Supervised Learning](https://arxiv.org/abs/2304.12210)

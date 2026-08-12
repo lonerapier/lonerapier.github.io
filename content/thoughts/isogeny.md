@@ -1,8 +1,8 @@
 ---
-title: "Isogeny"
-date: "2024-02-12:12:00:00"
+title: Isogeny
+date: 2024-02-12
 tags:
-- math
+  - math
 ---
 
 understanding what are [isogenies](https://math.stackexchange.com/questions/36724/what-is-isogeny) in elliptic curve: so, isogenies are **group homomorphism** from one curve to another. they’re not an isomorphism because map doesn’t imply an inverse map. [Isogeny](https://www.johndcook.com/blog/2019/04/21/what-is-an-isogeny/) have a characteristic called _degree of isogeny_.

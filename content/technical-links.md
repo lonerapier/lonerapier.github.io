@@ -6,6 +6,11 @@ tags:
 - exploring
 - evergreen
 ---
+# Aug '26
+- [How Claude Performs on Robotics Tasks \\ Anthropic](https://www.anthropic.com/research/claude-plays-robotics): 
+	- 
+	- Reasoning making no additional difference in output is a little surprising.
+	- 
 
 # Jan '26
 - [The GitLab Handbook](https://handbook.gitlab.com/): Every company, irrespective of being remote or not, have something like this. It's a comprehensive document of everything going inside Gitlab, all made publicly available for anyone to read.

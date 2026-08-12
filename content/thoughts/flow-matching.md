@@ -9,18 +9,22 @@ tags:
 ---
 # 1 Normalizing Flows
 
-
+- [\[1908.09257\] Normalizing Flows: An Introduction and Review of Current Methods](https://ar5iv.labs.arxiv.org/html/1908.09257)
+- [Flow-based Deep Generative Models \| Lil'Log](https://lilianweng.github.io/posts/2018-10-13-flow-models/)
 
 # 2 Flow Matching
 
 As we saw, learning forward and reverse SDE using score function changed the dynamics under which diffusion-based models operate. Differential equations turned out to be the underlying language. Because diffusion is just transporting particles from one state to another where start and end states follows certain distribution. The question arose, "whether we can use ODEs to follow the exact same trajectory as the learned SDE in score-based models?". Flow matching based generative models constructed a suitable ODE,
 solving which gets the **flow** of the equation. Solving the ODE implies learning the associated vector field.
 
-![[Screenshot 2026-06-04 at 2.00.25 PM.png]]
+![[thoughts/images/flow-matching-blueprint.png]]
+*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
 
 So, the goal of flow matching based generative model is to design a vector field that transforms a sample-able distribution (say Gaussian) to target distribution $p_{\mathcal{D}}$.
 
-![[Screenshot 2026-06-04 at 2.11.32 PM.png]]
+![[thoughts/images/flow-matching-flow-field.png]]
+*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
+
 
 > [!tip] Vector field and ODE
 > Vector field $u:\mathbb{R}^{n}\times[0,1]\to \mathbb{R}^{n},\ (x,t)\mapsto u_{t}(x)$ assigns a vector to each position in the space, and represents instantaneous movement at all locations, and we want to create an ODE, solution of which gives a trajectory that follows the vector field. Formally, $\frac{d}{dt}X_{t}=u_{t}(X_{t})$ with the initial condition, $X_{0}=x_{0}$.
@@ -51,7 +55,8 @@ $$
 \end{align}
 $$
 
-![[Screenshot 2026-06-04 at 2.00.13 PM.png]]
+![[thoughts/images/flow-matching-path-design.png]]
+*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
 > [!todo]
 > replace it with something I make
 
@@ -62,6 +67,7 @@ $$
 $$
 
 Informally, it states that change of probability mass at each location over time equals the net inflow (negative divergence) of mass change according to the vector field at x (Each particle follows the field scaled by total mass currently residing at $x$). Interpret $\text{div}(p_{t}u_{t}^{\text{target}})(x)$ as $u_{t}\in \mathbb{R}^{n}\to \mathbb{R}^{n}$ as vector-valued function, $p_{t}\in \mathbb{R}^{n}\to \mathbb{R}$ as scalar valued function, then $p_{t}(x)u_{t}(x)\in \mathbb{R}^{n}$, and
+
 $$
 \begin{equation}
 \nabla\cdot(p_{t}u_{t}^{\text{target}})(x)=\left[ \frac{ \partial  }{ \partial x_{1} } ,\frac{ \partial  }{ \partial x_{2} } ,\dots,\frac{ \partial  }{ \partial x_{n} }  \right]
@@ -149,7 +155,8 @@ $$
 \end{align}
 $$
 
-![[Screenshot 2026-06-04 at 2.11.01 PM.png]]
+![[thoughts/images/flow-matching-diffeo.png]]
+*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
 
 Therefore, flow matching training consists of minimizing the conditional flow matching loss. We can see that the loss equation turns out to be simple regression, equivalent to supervised learning. We also thus, don't need to simulate any ODE during training, and can directly train the neural network on the loss.
 
@@ -169,7 +176,11 @@ We will aim to prove the equivalence between learning score $\nabla_{x}\log p(x)
 
 > [!note] Prove marginal score formulation $\nabla_{x}\log p_{t}(x)=\int \nabla_{x}\log p_{t}(x|z)p_{t}(z|x)dz$.
 
-For gaussian probability paths $p_{t}(x|z)\sim \mathcal{N}(x_{t};\alpha_{t}z , \beta_{t}^{2}I_{d})$ we know that $\nabla_{x}\log p_{t}(x|z)=\frac{x-\alpha_{t}z}{\beta_{t}^{2}}$. We can write marginal velocity vector field $u_{t}^{\text{target}}(x)$ with respect to score as $$u_{t}^{\text{target}}(x)=a_{t}\nabla \log p_{t}(x)+b_{t}x,\quad a_{t}=\beta_{t}^{2} \frac{\dot{\alpha}_{t}}{\alpha_{t}}-\frac{\dot{\beta}_{t}}{\beta_{t}},b_{t}=\frac{\dot{\alpha}_{t}}{\alpha_{t}}$$ by using the conditional velocity field $u_{t}^{\text{target}}(x|z)=a_{t}\nabla_{x}\log p_{t}(x|z)+b_{t}x$. This establishes the fact that learning vector field $u_{t}^{\text{target}}(x)$ is equivalent to learning score $\nabla_{x}\log p_{t}(x)$.
+For gaussian probability paths $p_{t}(x|z)\sim \mathcal{N}(x_{t};\alpha_{t}z , \beta_{t}^{2}I_{d})$ we know that $\nabla_{x}\log p_{t}(x|z)=\frac{x-\alpha_{t}z}{\beta_{t}^{2}}$. We can write marginal velocity vector field $u_{t}^{\text{target}}(x)$ with respect to score as
+
+$$u_{t}^{\text{target}}(x)=a_{t}\nabla \log p_{t}(x)+b_{t}x,\quad a_{t}=\beta_{t}^{2} \frac{\dot{\alpha}_{t}}{\alpha_{t}}-\frac{\dot{\beta}_{t}}{\beta_{t}},b_{t}=\frac{\dot{\alpha}_{t}}{\alpha_{t}}$$
+
+by using the conditional velocity field $u_{t}^{\text{target}}(x|z)=a_{t}\nabla_{x}\log p_{t}(x|z)+b_{t}x$. This establishes the fact that learning vector field $u_{t}^{\text{target}}(x)$ is equivalent to learning score $\nabla_{x}\log p_{t}(x)$.
 Further note that, both conditional vector field and conditional score used to derive marginals are linear functions of z and x. Thus, marginalizing term fall naturally as an average (weighted) of conditional term multiplied by how likely it is to arrive at noisy term $x$ given clean data $z$ ($p_{t}(z|x)$) given all data points $z$. *Formally*, plugging the conditional term back into marginalizing, we get a linear reparameterization of the posterior mean $\mathbb{E}_{x|z}[z]$.
 
 > [!todo] add a diagram for conditional and marginal score field
@@ -239,13 +250,13 @@ $$
 > 6. After training, sample from the SDE to obtain approximate sample $x_{1}\sim p_{\text{data}}$ given $x_{0}\sim p_{\text{init}}$.
 
 
-
 # 4 References
-1. Helbling, Alec. "A Visual Introduction to Rectified Flows." (2025) [\[Link\]](https://alechelbling.com/blog/rectified-flows)
-2. Gao, Ruiqi and Hoogeboom, Emiel and Heek, Jonathan and Bortoli, Valentin De and Murphy, Kevin P. and Salimans, Tim. "Diffusion Meets Flow Matching: Two Sides of the Same Coin." (2025) [\[Link\]](https://diffusionflow.github.io/)
-3. Gagneux, Anne and Martin, Ségolène and Emonet, Rémi and Bertrand, Quentin and Massias, Mathurin. "A Visual Dive into Conditional Flow Matching". (2025) [\[Link\]](https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/)
-4. Fjelde, Tor and Mathieu, Emile and Dutordoir, Vincent. "An Introduction to Flow Matching". (2024) [\[Link\]](https://mlg.eng.cam.ac.uk/blog/2024/01/20/flow-matching.html)
-5. Scott H. Hawley. "Flow With What You Know". (2024) [\[Link\]](https://drscotthawley.github.io/blog/posts/FlowModels.html)
+1. Helbling, Alec. "A Visual Introduction to Rectified Flows." (2025) [\[URL\]](https://alechelbling.com/blog/rectified-flows)
+2. Gao, Ruiqi and Hoogeboom, Emiel and Heek, Jonathan and Bortoli, Valentin De and Murphy, Kevin P. and Salimans, Tim. "Diffusion Meets Flow Matching: Two Sides of the Same Coin." (2025) [\[URL\]](https://diffusionflow.github.io/)
+3. Gagneux, Anne and Martin, Ségolène and Emonet, Rémi and Bertrand, Quentin and Massias, Mathurin. "A Visual Dive into Conditional Flow Matching". (2025) [\[URL\]](https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/)
+4. Fjelde, Tor and Mathieu, Emile and Dutordoir, Vincent. "An Introduction to Flow Matching". (2024) [\[URL\]](https://mlg.eng.cam.ac.uk/blog/2024/01/20/flow-matching.html)
+5. Scott H. Hawley. "Flow With What You Know". (2024) [\[URL\]](https://drscotthawley.github.io/blog/posts/FlowModels.html)
+6. Lipman, Yaron, et al. "Flow matching guide and code." _arXiv preprint arXiv:2412.06264_ (2024). [\[URL\]](https://arxiv.org/abs/2412.06264)
 
 ---
 
@@ -253,8 +264,7 @@ $$
 2. Liu, Xingchao, Chengyue Gong, and Qiang Liu. "Flow straight and fast: Learning to generate and transfer data with rectified flow." _arXiv preprint arXiv:2209.03003_ (2022).
 3. Albergo, Michael S., and Eric Vanden-Eijnden. "Building normalizing flows with stochastic interpolants." _arXiv preprint arXiv:2209.15571_ (2022).
 4. Albergo, Michael, Nicholas M. Boffi, and Eric Vanden-Eijnden. "Stochastic interpolants: A unifying framework for flows and diffusions." _Journal of Machine Learning Research_ 26.209 (2025): 1-80.
-5. Lipman, Yaron, et al. "Flow matching guide and code." _arXiv preprint arXiv:2412.06264_ (2024).
-6. Li, Tianhong, and Kaiming He. "Back to basics: Let denoising generative models denoise." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2026.
-7. Esser, Patrick, et al. "Scaling rectified flow transformers for high-resolution image synthesis." Forty-first international conference on machine learning. 2024.
-8. Kornilov, Nikita, et al. "Optimal flow matching: Learning straight trajectories in just one step." _Advances in Neural Information Processing Systems_ 37 (2024): 104180-104204.
-9. Chen, Ricky TQ, and Yaron Lipman. "Flow matching on general geometries." _International Conference on Learning Representations_. Vol. 2024. 2024.
+5. Li, Tianhong, and Kaiming He. "Back to basics: Let denoising generative models denoise." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2026.
+6. Esser, Patrick, et al. "Scaling rectified flow transformers for high-resolution image synthesis." Forty-first international conference on machine learning. 2024.
+7. Kornilov, Nikita, et al. "Optimal flow matching: Learning straight trajectories in just one step." _Advances in Neural Information Processing Systems_ 37 (2024): 104180-104204.
+8. Chen, Ricky TQ, and Yaron Lipman. "Flow matching on general geometries." _International Conference on Learning Representations_. Vol. 2024. 2024.

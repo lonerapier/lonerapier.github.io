@@ -8,10 +8,15 @@ tags:
 Other links:
 - [[technical-links]]
 
+# Aug '26
+- [John McGreevy, "Some advice I've found useful"](https://mcgreevy.physics.ucsd.edu/advice.html)
+- 
+
 # Jul '26
 - [A Beginner’s Guide to Scientific Roadmapping](https://www.essentialtechnology.blog/p/scientific-roadmapping)
 - [Teaching AI How Science Actually Works \| IFP](https://ifp.org/teaching-ai-how-science-actually-works/)
-- 
+- [F​et​​c​​hi​​n​g ​​Tit​l​e](https://www.amacad.org/publication/daedalus/toward-science-of-intelligence-unifying-physics-neuroscience-ai)
+- [F​​et​​ching​​ ​T​​itl​e](https://whatisintelligence.antikythera.org/)
 
 # Apr '26
 - ["An unsolicited guide to good research", Eugene Vinitsky](https://emerge-lab.github.io/papers/an-unsolicited-guide-to-good-research.pdf)

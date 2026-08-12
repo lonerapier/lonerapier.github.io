@@ -205,7 +205,6 @@ int main() {
 <p align="center">
   <img src="3d-grid-hierarchy.png" alt="3D grid hierarchy">
 </p>
-
 *<center>3D grid hierarchy [^3]</center>*
 
 Kernels are executed on a particular thread, and to access the data for that thread, we need to index the thread according to the block dimension. To understand grid -> block -> thread dimensions hierarchy:

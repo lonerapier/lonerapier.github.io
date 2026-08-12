@@ -11,6 +11,16 @@ private/
 replit.nix
 .quartz/
 quartz/cli/tui/dist/
+.claude/
 
 content/Excalidraw/
 *.canvas
+
+# R2 credentials
+.env
+.env.local
+
+# Images live in R2, not git. They stay in the local Obsidian vault for
+# authoring; r2-manifest.json is the committed index the build reads, and
+# `npm run images:pull` restores the files on a fresh clone.
+content/**/images/

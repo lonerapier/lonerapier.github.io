@@ -19,7 +19,12 @@
     "test": "tsx --test",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "install-plugins": "npx tsx ./quartz/plugins/loader/install-plugins.ts",
-    "prebuild": "npm run install-plugins"
+    "prebuild": "npm run install-plugins",
+    "images:sync": "node scripts/r2-sync.mjs",
+    "images:check": "node scripts/r2-sync.mjs --dry-run",
+    "images:prune": "node scripts/r2-sync.mjs --prune",
+    "images:pull": "node scripts/r2-sync.mjs --pull",
+    "hooks:install": "git config core.hooksPath .githooks"
   },
   "engines": {
     "npm": ">=10.9.2",

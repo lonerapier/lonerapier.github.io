@@ -86,6 +86,18 @@ plugins:
     layout:
       position: left
       priority: 30
+  # Must run before crawl-links: crawl-links rewrites relative img src to
+  # page-relative paths, but leaves absolute URLs alone. Rewriting to R2 first
+  # means the images never need to exist in the repo at build time.
+  - source: ./quartz/plugins/r2-images
+    enabled: true
+    options:
+      baseUrl: https://cdn.lonerapier.me
+      manifestPath: r2-manifest.json
+      cacheBust: true
+      skipOnServe: true
+      warnOnMissing: true
+    order: 55
   - source: github:quartz-community/crawl-links
     enabled: true
     options:

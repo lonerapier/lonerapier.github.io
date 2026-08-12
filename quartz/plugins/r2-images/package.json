@@ -1,0 +1,32 @@
+{
+  "name": "@lonerapier/quartz-r2-images",
+  "version": "0.1.0",
+  "description": "Quartz transformer that rewrites content image URLs to a Cloudflare R2 bucket",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "@quartz-community/types": "*"
+  },
+  "quartz": {
+    "name": "r2-images",
+    "displayName": "R2 Images",
+    "category": ["transformer", "emitter"],
+    "version": "0.1.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 55,
+    "defaultEnabled": true
+  }
+}

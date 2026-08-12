@@ -1,0 +1,27 @@
+#!/bin/sh
+# Uploads any new or changed images to R2 and stages the regenerated manifest.
+#
+# Images are gitignored, so this is the only thing keeping the bucket and the
+# committed manifest in step. Without it a commit can reference an image that
+# Cloudflare Pages has no way to resolve.
+#
+# Enable with: npm run hooks:install
+# Bypass once with: git commit --no-verify
+
+set -e
+
+# Nothing to sync if credentials are absent (e.g. a clone used only for reading).
+if [ ! -f .env ] && [ ! -f .env.local ] && [ -z "$R2_ACCOUNT_ID" ]; then
+  echo "pre-commit: no R2 credentials, skipping image sync"
+  exit 0
+fi
+
+echo "pre-commit: syncing images to R2..."
+node scripts/r2-sync.mjs
+
+# Staged unconditionally: `git diff` reports nothing while the manifest is still
+# untracked, which is exactly the first-commit case.
+if [ -f r2-manifest.json ]; then
+  git add r2-manifest.json
+  echo "pre-commit: staged r2-manifest.json"
+fi

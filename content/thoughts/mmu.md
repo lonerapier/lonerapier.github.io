@@ -27,8 +27,6 @@ Segmentation is a memory management scheme that divides process into these diffe
 - Does segmentation allow sharing between processes? :: It does allow sharing as each segment addresses can be divided into two parts. For example, 16KB segments can be divided into 8KB global and 8KB local segments which is then stored in GDT (global descriptor table), LDT (local descriptor table).
 - what if a program is too big such that segments can't be allocated contiguously? :: then paging can be used to divide segments into pages and then stored accordingly. Logical address derives linear address which contains page number and offset, which is then used to derive the physical address.
 
-![segment-into-pages](segment-into-pages.png)
-
 ![selector-part](selector-part-logical-address.png)
 
 - How does logical address get divided to derive linear address? :: 16bit segment number is divided into 13 bit, i.e. 8KB local and 8KB global address, 1 bit for local/global and 2 bits for permissions.

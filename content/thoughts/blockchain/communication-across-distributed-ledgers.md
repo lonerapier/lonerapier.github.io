@@ -63,8 +63,6 @@ Goal: sync of P and Q such that Q is included iff P is included. For example, th
 4. **Commit on Y:** $Q$ writes $TX_Q$ to $L^Q_Y$ at time $t$’ in round $r$’.
 5. **Abort**: revert $TX_P$ on $Lx$ in case of verification failure or $Q$ fails
 
-![Image.png](thoughts/images/sok-communication-across-distributed-ledgers.png)
-
 CCC protocols follow two-phase commit design.
 
 Pre-commit and commit on Y is executed in parallel following verification and abortion, if required.

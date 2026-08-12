@@ -28,8 +28,6 @@ Modular Stack divided the monolithic state of a blockchain into four main parts:
 
 ## Different Rollups
 
-![1_Modular-Stacks](thoughts/images/1_Modular-Stacks.jpeg)
-
 There are [four](https://twitter.com/apolynya/status/1511623759786307586) main kinds into which Rollups can be categorised:
 
 1. Smart Contract Rollups: they use already decentralised, economic secure L1 for settling through the use of smart contracts for arbitrating proofs.
@@ -50,8 +48,6 @@ Rollups use proofs to verify their transactions on the base layer and these come
 
 ## Rollup fees
 
-![14_Smart-Contract-Rollups.jpeg](thoughts/images/14_Smart-Contract-Rollups.jpeg)
-
 In its current form i.e. pre *EIP-4844* and *Danksharding*, each rollup is essentially a *Smart Contract Rollup,* which posts its transaction data (in case of ORUs, ZKRs don't need to post complete transaction data), state roots along with proof data to L1 in the form of calldata to smart contracts. These SCRs have fixed cost in terms of state commitments and proofs that they submit and variable costs in the transaction data along with proposers signatures in case of ORs.
 
 > Note: ZKRs don't need to submit transaction data and ORUs does is in case of fraud in ORUs, transaction data is needed to check the fraud but ZKRs along with validity proofs prove that the state diffs are valid. Thus, ZKRs post validity proofs every time to L1.
@@ -62,8 +58,6 @@ Optimism currently uses two smart contracts at L1 that sequencer and proposer po
 2. State Commitment Chain contract: state roots proposed by the proposers for each transactions in CTC.
 
 Posting to both of these contracts incur a cost to L2s. Although most of these contracts will be archived sooner than later as Ethereum eyes its bigger upgrades and Rollups also upgrades to better infra in the form of ***bedrock*** for Optimism and ***Nitro*** for Arbitrum. Better DA layer, separate EIP-1559 fee market for rollup data will get rid of the smart contracts.
-
-![8_Value-Flows.jpeg](thoughts/images/8_Value-Flows.jpeg)
 
 But with EIP-4844 and Danksharding looming, DA supply will overshoot and better compression from rollups as well will scale the TPS metric to an absurd amount. This brings to the question of value accrual as the value acquired as a DA layer won't be much if the DA supply isn't fully exhausted.
 
@@ -125,8 +119,6 @@ As the name mentions, ERs are currently a theoretical concept, meant to be part 
    With weak statelessness already part of the roadmap, full nodes wouldn't have to execute every transaction to check state validity due to SNARK coming with every block leading to simpler consensus logic. Removing compute bottleneck and statelessness reducing disk I/O also helps in raising the block gas limit. And bandwidth resource increases according to the Nielsen's Law. Also light clients can filter invalid state roots due to SNARKs much more quickly than fraud proofs.
 
 **Step 2** would be to deploy parallel zkEVMs ERs. These parallel ERs can verify separate SNARKs and then can settle to one main settlement rollup, performing like execution shards but better.
-
-![24.-Enshrined-Rollups_00288-1.jpeg](thoughts/images/24.-Enshrined-Rollups_00288-1.jpg)
 
 zkEVMs ERs have several benefits:
 

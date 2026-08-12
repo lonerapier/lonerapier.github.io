@@ -124,8 +124,6 @@ Design Goals for Narwhal:
 
 #### Block Structure in Narwhal:
 
-![block_structure](thoughts/images/narwhal_block_structure.webp)
-
 A block $b$ consists of:
 
 - Set of transactions

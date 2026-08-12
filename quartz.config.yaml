@@ -44,11 +44,11 @@ plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
     options:
-      defaultDateType: modified
+      defaultDateType: created
       priority:
-        - filesystem
-        - git
         - frontmatter
+        - git
+        - filesystem
     order: 10
   - source: github:quartz-community/syntax-highlighting
     enabled: true

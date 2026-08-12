@@ -257,6 +257,11 @@ a {
         flex-direction: row;
         padding: 0;
         padding-top: 2rem;
+
+        & > .toc,
+        & > .backlinks {
+          display: none;
+        }
       }
     }
 

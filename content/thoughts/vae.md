@@ -51,9 +51,7 @@ $$
 
 Our goal will be to use the representation of the distribution $p(x)$ to derive a term called the Evidence Lower Bound (ELBO), which gives a lower bound on the evidence. Evidence is written as log likelihood of the observed data: $\log p(\boldsymbol{x})$. ELBO gives a proxy objective that can be optimized with respect to a latent variable model, and in the best case (when true distribution is learned), ELBO exactly equals the evidence.
 
-<p align="center">
-	<img src="vae.png" width="300">
-</p>
+![vae|200](thoughts/images/vae.png)
 
 # 3 Objective
 

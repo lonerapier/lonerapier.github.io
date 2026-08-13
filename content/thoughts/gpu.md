@@ -26,14 +26,14 @@ tags:
 	- 32 seems to be a sweet spot for sufficient parallelism and power consumption. This dictates how instruction scheduling, register file design, memory accesses (cache line of 32 x 4 = 128B), power usage.
 - Thread: Execution unit with its own register, program counter. Each thread has a unique `threadIdx`
 
-<p align="center"><img src="cuda-thread-hierarchy-2.png" alt="CUDA thread hierarchy"></p>
+<p align="center"><img src="thoughts/images/cuda-thread-hierarchy-2.png" alt="CUDA thread hierarchy"></p>
 
 > [!question] Why is blockDim useful? Why not go with 1D every time?
 - Natural thread indexing depending on data geometry. Data that is inherently 2D, will be less error prone, if block dimension is also 2D.
 - Memory accesses
 
 <p align="center">
-  <img src="cuda-thread-hierarchy.png" alt="CUDA thread hierarchy">
+  <img src="thoughts/images/cuda-thread-hierarchy.png" alt="CUDA thread hierarchy">
 </p>
 
 *<center>CUDA thread hierarchy [^1]</center>*
@@ -203,7 +203,7 @@ int main() {
 ```
 
 <p align="center">
-  <img src="3d-grid-hierarchy.png" alt="3D grid hierarchy">
+  <img src="thoughts/images/3d-grid-hierarchy.png" alt="3D grid hierarchy">
 </p>
 *<center>3D grid hierarchy [^3]</center>*
 
@@ -705,7 +705,7 @@ A kernel's performance is determined by three factors:
 - Communication between chips: For distributed kernels, tensors are transferred between different devices using PCIe, DCN hardware.
 
 <p align="center">
-  <img src="roofline.svg" alt="Roofline plot">
+  <img src="thoughts/images/roofline.svg" alt="Roofline plot">
 </p>
 
 *<center>Roofline plot</center>*
@@ -722,7 +722,7 @@ H100 has a ridge point at 1e15/3.4e12 = 294 FLOPs/byte, i.e. for each byte loade
 
 | GPU      | HBM Bandwidth | FLOPs/s (bf16/fp16) | FLOPs/s (fp8/int8) |
 | -------- | ------------- | ------------------- | ------------------ |
-| H100[^5]  | 3.4e12        | 1e15                | 2e15               |
+| H100[^5] | 3.4e12        | 1e15                | 2e15               |
 
 Taking an example of two kernels:[^6]
 - **Hadamard product**
@@ -762,7 +762,7 @@ So far, I've learned about basic thread and memory hierarchy in GPUs, and learne
 ## 3.1 GPU Architecture Contd.
 
 <p align="center">
-  <img src="h100.svg" alt="H100 SM">
+  <img src="thoughts/images/h100.svg" alt="H100 SM">
 </p>
 
 *<center>H100 SM</center>*
@@ -799,7 +799,7 @@ Because GPU, essentially is a very simple thread handler. It intentionally, left
 - Programmer managed shared memory (L1 cache)
 
 <p align="center">
-  <img src="gpu-cpu.svg" alt="GPU CPU comparison">
+  <img src="thoughts/images/gpu-cpu.svg" alt="GPU CPU comparison">
 </p>
 
 *<center>GPU / CPU comparison [^7]</center>*
@@ -1416,10 +1416,10 @@ cuBLAS performs SGEMM: $C=\alpha\cdot \mathsf{op}(A)\cdot\mathsf{op}(B)+\beta C$
 - `C`: output matrix of dimension `ldc x n`
 - `ldc`: leading dimension of matrix C
 
-| Dimension | Duration   | GFLOPS  |
-| --------- | ---------- | ------- |
-| 1024      | 0.5052 ms  | 3559.01 |
-| 2048      | 4.6375 ms  | 3980.87 |
+| Dimension | Duration   | GFLOPS    |
+| --------- | ---------- | --------- |
+| 1024      | 0.5052 ms  | 3559.01   |
+| 2048      | 4.6375 ms  | 3980.87   |
 | 4096      | 35.8264 ms | 4130.5391 |
 
 > [!todo] Baseline plot

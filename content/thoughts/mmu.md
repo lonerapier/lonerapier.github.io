@@ -16,7 +16,7 @@ These segments can be divided and stored in main memory differently rather than 
 
 Segmentation is a memory management scheme that divides process into these different segments and allocate the memory accordingly. For example: global variables function symbols are read only whereas local/global variables of the program can be shared with other processes, thus needs to be treated differently.
 
-![segmentation-addressing](segmentation-addressing.png)
+![segmentation-addressing](thoughts/images/segmentation-addressing.png)
 
 ## Questions
 
@@ -27,14 +27,14 @@ Segmentation is a memory management scheme that divides process into these diffe
 - Does segmentation allow sharing between processes? :: It does allow sharing as each segment addresses can be divided into two parts. For example, 16KB segments can be divided into 8KB global and 8KB local segments which is then stored in GDT (global descriptor table), LDT (local descriptor table).
 - what if a program is too big such that segments can't be allocated contiguously? :: then paging can be used to divide segments into pages and then stored accordingly. Logical address derives linear address which contains page number and offset, which is then used to derive the physical address.
 
-![selector-part](selector-part-logical-address.png)
+![selector-part](thoughts/images/selector-part-logical-address.png)
 
 - How does logical address get divided to derive linear address? :: 16bit segment number is divided into 13 bit, i.e. 8KB local and 8KB global address, 1 bit for local/global and 2 bits for permissions.
-![two-level-paging-segmentation](two-level-paging-segmentation.png)
+![two-level-paging-segmentation](thoughts/images/two-level-paging-segmentation.png)
 
 - If paging is used to divide the segments, what if page table gets too big as well? 4GB for each segment in a 48 bit architecture is large enough to get divided too, right? :: Yes, multi-level paging is implemented for this case as 4GB, i.e. $2^{22}$ is too large to be accommodated in main memory. So, two-level paging can be used which divides 32 bit into 20 bits for page number, i.e. 10 bit for P1, 10 bit for P2, and 12 bits for offset.
 
-![intel-80386-address-translation](intel-80386-address-translation.png)
+![intel-80386-address-translation](thoughts/images/intel-80386-address-translation.png)
 
 - Show an example of segmentation with paging for 48 bit logical addresses.
 	- 48 bit address is divided into 4GB segments, i.e. 32 bits for segments and 16 bits for selector.
@@ -60,9 +60,9 @@ Segmentation is a memory management scheme that divides process into these diffe
 	14. updates registers and process state as some other process was being executed now.
 	15. program goes back to user mode, execution restarts.
 - Give an example of average time required to access a particular page.
-	- $20ms$ to service page fault, $1\micro s$ to access main memory.
+	- $20ms$ to service page fault, $1\mu s$ to access main memory.
 	- 80% TLB hit, out of remaining 20%, 2% are page faults.
-	- Total time = $0.8*1+0.18*2+0.02*20002 = 401.2\micro s$
+	- Total time = $0.8*1+0.18*2+0.02*20002 = 401.2\mu s$
 
 # Demand Paging
 

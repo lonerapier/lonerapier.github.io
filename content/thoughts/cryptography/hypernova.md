@@ -85,9 +85,11 @@ Linearized CCS only consists of linear checks of CCS. HN folds a CCS instance in
 - structure: $m,n,N,l,t,q,d\in \mathbb{N}$
 - relation: $(s,(u,m,\mathsf{x},r,v_{1},\dots,v_{t}))\in \mathcal{R}_{\textsf{LCCS}}$ if
 
-$$\begin{equation}
+$$
+\begin{equation}
 v_{i}=\sum_{y\in\{ 0,1 \}^{s'}}\widetilde{M}_{i}(r,y)\cdot \widetilde{z}(y)
-\end{equation}$$
+\end{equation}
+$$
 
 where $\widetilde{z}=\widetilde{(w,u,\mathsf{x})}$ is a multilinear polynomial in $s'$ variables.
 

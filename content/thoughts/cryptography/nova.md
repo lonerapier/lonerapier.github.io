@@ -26,11 +26,11 @@ nova realises incremental verifiability using a relaxed [[r1cs|R1CS]] instance. 
 
 completeness:
 
-![[nova-2021-370.pdf#page=11&rect=141,463,461,538&color=yellow|p.11]]
+<!-- ![[nova-2021-370.pdf#page=11&rect=141,463,461,538&color=yellow|p.11]] -->
 
 knowledge soundness:
 
-![[nova-2021-370.pdf#page=11&rect=136,331,481,432&color=yellow|p.11]]
+<!-- ![[nova-2021-370.pdf#page=11&rect=136,331,481,432&color=yellow|p.11]] -->
 
 ## NIFS
 
@@ -87,7 +87,7 @@ To construct an IVC from above folding scheme, let $\mathsf{NIFS = (G,K,P,V)}$ b
 - $\mathcal{P}(pk,(i,z_{0},z_{i}),\omega_{i},\Pi_{i})\rightarrow\Pi_{i+1}$
 - $\mathcal{V}(\mathsf{vk},(i,z_{0},z_{i}),\Pi_{i})\rightarrow\{0,1\}$
 
-![[nova-2021-370.pdf#page=19&rect=123,288,488,566&color=yellow|p.19]]
+<!-- ![[nova-2021-370.pdf#page=19&rect=123,288,488,566&color=yellow|p.19]] -->
 
 - Nova works on 2 R1CS constraint systems defined as $\textsf{R1CS}^{(1)}, \textsf{R1CS}^{(2)}$
 - For each constraint system, relaxed R1CS instance consist of $(\mathbb{U}=(\bar{E},s,\bar{W},x),\mathbb{W}=(E,W))$.

@@ -1,7 +1,8 @@
 ---
-title: "Signed Data"
+title: Signed Data
 tags:
-- exploring
+  - exploring
+date: 2025-04-02
 ---
 
 Starting with HTTP message signatures, a la. [RFC 9421](https://www.rfc-editor.org/rfc/rfc9421.html)
@@ -83,11 +84,11 @@ Security:
 - is message content included as message component in base?
 	- Message digest is added, but need to be verified separately.
 
-## Comparison with SXG
+# Comparison with SXG
 
 
 
-## References
+# References
 
 - [RFC 9421: HTTP Signed Message](https://datatracker.ietf.org/doc/html/rfc9421)
 - [SXG: Signed Exchanges](https://developers.cloudflare.com/speed/optimization/other/signed-exchanges/)

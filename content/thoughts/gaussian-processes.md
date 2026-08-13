@@ -1,9 +1,15 @@
-**Gaussian Processes**
-> [!tip] MVN 
+---
+title: Gaussian Processes
+date: 2026-02-07
+tags:
+  - statistics
+---
+
+> [!tip] MVN
 > $\mathcal{N}(\mu,\Sigma)$ is a distribution on a set of n random variables in n-dimension, where index i determines $i^{\text{th}}$ random variable, $\mu$ sets the position and scale of the distribution and $\Sigma$ sets the shape of the distribution on the basis of correlation between each pair of $\mathbf{x}_{i},\mathbf{x}_{j}$, where $\mathbf{x}_{i}$ is ith random variable.
-> 
+>
 > Joint distribution: $$P_{X,Y}=\begin{bmatrix} X \\ Y \end{bmatrix}\sim \mathcal{N}(0,\Sigma)=\mathcal{N}\left(\begin{bmatrix} 0 \\ 0 \end{bmatrix},\begin{bmatrix} \Sigma_{XX} & \Sigma_{XY} \\ \Sigma_{YX} & \Sigma_{YY} \end{bmatrix}\right)$$
-> 
+>
 > Conditional distribution: $$P_{X|Y}\sim\mathcal{N}(\mu_{X}+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_{Y}),\Sigma_{XX}-\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX})$$
 
 - Non-parametric method that allows us to make predictions on our data by incorporating prior knowledge. It defines a **probability distribution over possible functions**.

@@ -259,7 +259,8 @@ a {
         padding-top: 2rem;
 
         & > .toc,
-        & > .backlinks {
+        & > .backlinks,
+        & > .recent-notes {
           display: none;
         }
       }

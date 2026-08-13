@@ -28,6 +28,14 @@ body {
   font-size: 0.85rem;
 }
 
+/* Recent Notes / Explorer section headings blend into the list items below
+   them at the plugins' default 1rem - bump them up so they read as headings */
+.recent-notes > h3,
+button.mobile-explorer h2,
+button.desktop-explorer h2 {
+  font-size: 1.2rem !important;
+}
+
 /* Cap how much vertical space the Explorer tree can take so other
    sidebar components (backlinks, TOC, etc.) stay visible */
 .explorer-content {
@@ -48,6 +56,20 @@ body {
 /* Tags */
 .tags {
   font-size: 0.9rem;
+}
+
+/* Item lists (folder/tag pages, recent notes): tags were crowding out the
+   title - shrink the tag pills and give the title more visual weight */
+.section-li > .section > .desc > h3 {
+  font-size: 1.3rem;
+}
+
+.section-li > .section > .tags {
+  font-size: 0.7rem;
+}
+
+.section-li > .section > .tags a.tag-link {
+  padding: 0.1rem 0.3rem;
 }
 
 /* Sidebar */

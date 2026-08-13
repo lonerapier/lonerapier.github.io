@@ -1,10 +1,20 @@
 import { visit } from "unist-util-visit";
+import { visitParents } from "unist-util-visit-parents";
 const footnoteSectionSelector = (node) => isElement(node) && node.tagName === "section" && "dataFootnotes" in node.properties;
 const isElement = (node) => typeof node === "object" &&
     node !== null &&
     "type" in node &&
     node.type === "element" &&
     "tagName" in node;
+// Ancestors from visit-parents may include the hast `root` node (e.g. a
+// top-level <table> is a direct child of root, not of another element), so
+// splicing into an ancestor's children needs to accept both.
+const isParentNode = (node) => isElement(node) ||
+    (typeof node === "object" &&
+        node !== null &&
+        "type" in node &&
+        node.type === "root" &&
+        "children" in node);
 const clone = (value) => structuredClone(value);
 const getId = (node) => {
     const id = node.properties.id;
@@ -112,13 +122,27 @@ export const Sidenotes = () => ({
                     if (notes.size === 0) {
                         return;
                     }
-                    visit(tree, "element", (node, index, parent) => {
+                    // Footnotes referenced from inside a table cell have no room to
+                    // float into the page margin there, so their sidenote is placed
+                    // as a sibling right after the table instead, where it can float
+                    // into the margin the normal way. Track how many have already
+                    // been appended after each table so multiple notes stack in order.
+                    const tableInsertOffsets = new Map();
+                    visitParents(tree, "element", (node, ancestors) => {
                         if (node.tagName !== "sup" || node.children.length === 0) {
                             return;
                         }
-                        if (index === undefined || parent === undefined) {
+                        const parent = ancestors[ancestors.length - 1];
+                        if (!isElement(parent)) {
                             return;
                         }
+                        const index = parent.children.indexOf(node);
+                        if (index === -1) {
+                            return;
+                        }
+                        const tableIndex = ancestors.findIndex((ancestor) => isElement(ancestor) && ancestor.tagName === "table");
+                        const table = tableIndex === -1 ? undefined : ancestors[tableIndex];
+                        const tableParent = tableIndex <= 0 ? undefined : ancestors[tableIndex - 1];
                         const ref = node.children.find((child) => isElement(child) &&
                             child.tagName === "a" &&
                             "dataFootnoteRef" in child.properties);
@@ -138,7 +162,17 @@ export const Sidenotes = () => ({
                             .map((child) => ("value" in child && typeof child.value === "string" ? child.value : ""))
                             .join("")
                             .trim();
-                        parent.children.splice(index + 1, 0, createSidenote(label, children));
+                        const sidenote = createSidenote(label, children);
+                        if (table && isParentNode(tableParent)) {
+                            const tableIndexInParent = tableParent.children.indexOf(table);
+                            if (tableIndexInParent !== -1) {
+                                const offset = tableInsertOffsets.get(table) ?? 0;
+                                tableParent.children.splice(tableIndexInParent + 1 + offset, 0, sidenote);
+                                tableInsertOffsets.set(table, offset + 1);
+                                return;
+                            }
+                        }
+                        parent.children.splice(index + 1, 0, sidenote);
                     });
                 };
             },

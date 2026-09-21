@@ -25,7 +25,7 @@ Let's first explain what the full form of FRI is:
 	- **Oracle Proofs**: Prover behaves like an oracle answering queries of the verifier at random points.
 	- **Proximity**: verifier rejects any codewords that are $\delta$ far from original codeword.
 
-Pros: post quantum secure, transparent (based on hashing), doesn’t require cryptographic [[group-theory|groups]], thus, can work with smaller fields (mersenne or babybear or goldilocks). Later, you'll see that FRI does work with groups due to polynomials being evaluated at roots of unity but that's just for performance.
+Pros: post quantum secure, transparent (based on hashing), doesn’t require cryptographic [[thoughts/basic-group-theory|groups]], thus, can work with smaller fields (mersenne or babybear or goldilocks). Later, you'll see that FRI does work with groups due to polynomials being evaluated at roots of unity but that's just for performance.
 
 Cons: proof size is large (order of 10s of KBs)
 

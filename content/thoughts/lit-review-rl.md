@@ -6,25 +6,27 @@ tags:
 - deep-learning
 - reinforcement-learning
 ---
+Questions
+- Form
 
+
+More papers
 - [DiscoRL: Discovering state-of-the-art reinforcement learning algorithms \| Nature](https://www.nature.com/articles/s41586-025-09761-x): David silver last work at deepmind
 - MuZero: [Schrittwieser, Julian, et al. "Mastering atari, go, chess and shogi by planning with a learned model." Nature 588.7839 (2020): 604-609.](https://arxiv.org/abs/1911.08265)
-- DQN: [Human-level control through deep reinforcement learning \| Nature](https://www.nature.com/articles/nature14236)
-- SAC: [\[1812.05905\] Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905)
 - A3C: [\[1602.01783\] Asynchronous Methods for Deep Reinforcement Learning](https://arxiv.org/abs/1602.01783)
-- DDPG: [Deterministic Policy Gradient Algorithms](https://proceedings.mlr.press/v32/silver14.html)
 - [\[2211.07819\] General Intelligence Requires Rethinking Exploration](https://arxiv.org/abs/2211.07819)
+- [Keep the Tokens Flowing: Lessons from 16 Open-Source RL Libraries](https://huggingface.co/blog/async-rl-training-landscape)
+- [Reinforcement Learning for LLMs: The Complete Guide](https://cameronrwolfe.substack.com/p/llm-rl)
+- [GitHub - TuragaLab/flybody: MuJoCo fruit fly body model and locomotion RL tasks · GitHub](https://github.com/TuragaLab/flybody)
 
-World Models
-- [https://worldmodels.github.io/#:\~:text=We%20explore%20building%20generative%20neural,back%20into%20the%20actual%20environment](https://worldmodels.github.io/#:~:text=We%20explore%20building%20generative%20neural,back%20into%20the%20actual%20environment)
-- [Training Agents Inside of Scalable World Models](https://danijar.com/project/dreamer4/)
-	- [GitHub - lucidrains/dreamer4: Implementation of Danijar's latest iteration for his Dreamer line of work · GitHub](https://github.com/lucidrains/dreamer4)
-- [Mastering Diverse Control Tasks through World Models](https://danijar.com/project/dreamerv3/)
-- [LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels \| alphaXiv](https://www.alphaxiv.org/abs/2603.19312)
-- [MIRA](https://mira-wm.com/)
-- [DIAMOND](https://diamond-wm.github.io/): Diffusion for World Modeling: Visual Details Matter in Atari
-- [\[2605.26379\] When Does LeJEPA Learn a World Model?](https://arxiv.org/abs/2605.26379)
-- [Fei-Fei Li on X: "https://t.co/Kt50ttQRMJ" / X](https://x.com/drfeifei/status/2062247238143996275)
+Q-Learning
+- DQN: [Human-level control through deep reinforcement learning \| Nature](https://www.nature.com/articles/nature14236)
+
+Policy Gradient
+- DDPG: [Deterministic Policy Gradient Algorithms](https://proceedings.mlr.press/v32/silver14.html)
+- PPO: [\[1707.06347\] Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)
+- SAC: [\[1812.05905\] Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905)
+- TD3: 
 
 JEPA
 - [The Annotated JEPA \| Elements of a Vector Space](https://elonlit.com/scrivings/the-annotated-jepa/)
@@ -55,3 +57,6 @@ Inverse RL:
 Tutorials
 - [Reinforcement Learning: An Overview \| alphaXiv](https://www.alphaxiv.org/abs/2412.05265)
 - [Reinforcement Learning from Human Feedback \| alphaXiv](https://www.alphaxiv.org/abs/2504.12501)
+
+# Environments
+- [OpenReward: Train and evaluate agents on 380+ reinforcement learning environments with zero infrastructure setup.](https://openreward.ai/)

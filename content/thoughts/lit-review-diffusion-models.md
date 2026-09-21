@@ -18,57 +18,91 @@ Interests
 - what's after diffusion (markov-process based iterative noising and denoising), score (navigating the data manifold through score approximation), and flow matching (approximating the optimal transport map)? Energy based matching?
 
 Questions
+
+Gaussians
 - Why high-dimensional gaussians' density is concentrated on a sphere?
 - What's fisher divergence, and what's the geometry like? Compare it to more general bregman divergence?
+
+Diffusion & sampling
 - What's tweedie's identity? How to derive it? Explain it in plain words.
 - Write the continuous time version of langevin dynamics? Why is there a square-root 2 in the diffusion term? Why is it useful for diffusion models?
-- Score Matching
-	- What's the difference between score matching (Hyvärinen and Dayan, 2005) and denoising score matching (Vincent, 2011)?
-	- What's the issue with Score matching?
-	- How does sliced score matching sidestep the problems in score matching? And what's the problem with sliced score matching?
-	- Write the loss function for denoising score matching (DSM). Express *denoiser*. How does it connect with tweedie's identity?
-	- How does NCSN improves upon previous iteration of score matching? Write training objective of NCSN.
-	- can i explain the difference between VE-SDE, and VP-SDE?
-	- Why is NCSN VE-SDE, and DDPM VP-SDE?
-	- How are NCSN and DDPM losses connected?
-	- What's the difference between denoising score matching and NCSN?
-	- Illustrate DDPM, NCSN.
-	- Proof of affine-drift conditional forward kernel closed-form analytical formulation as gaussian.
-	- Why does forward marginal density converge to prior distribution?
-	- Write reverse SDE dynamics equation. Explain the reason for diffusion coefficient in the drift coefficient term.
-	- How does f,g in forward and reverse SDE vary with time?
-	- What's PF-ODE? How to convert between other representations of the same thing? i.e. going from SDE to ODE to discretization.
-	- What's the algorithm/pseudocode for annealed langevin dynamics? How is it different from Unadjusted langevin algorithm?
-	- Proof of fokker-planck.
-	- How does $\sigma$ vary from $t=0\to t=T$? Is it more at the start or the end?
-- Flow matching
-	- NF, continuous NF, NODE
-	- Illustrate flow matching models.
-- Efficient solvers and samplers
-	- What are the different samplers for ODEs and SDEs that are used?
-	- What are the different ODE solvers used for sampling the diffusion models?
-	- Write the equation for euler-maruyama?
-	- What's the sde solver beside euler-maruyama?
-	- What are the main takeaways from EDM paper?
-- Guided diffusion
-	- How will you explain DPS really quickly?
-	- guidance: classifier-based, classifier free
-- Multimodal diffusion
-	- What's the problem with CLIP? What are other better multimodal encoders?
-- Architecture
-	- Lay out the architecture for U-Net and DiTs. How are they different? Which to prefer? What's the pitfalls?
-	- Write the architecture for Image generators: SD2, SD3, Flux 1-2, Nano Banana
-	- Illustrate the architecture for multimodal DiT
-	- Write the architecture for Video Gen models. Meta Movie gen, google omni
-	- What's the current SOTA architecture for Any-to-Any generative model?
-- Discrete diffusion or flow matching
-	- Illustrate discrete flow matching
-	- What's the difference between MDLM
-	- Block diffusion modeling
-	- CTMC theory. Why is it useful?
+
+Score Matching
+- What's the difference between score matching (Hyvärinen and Dayan, 2005) and denoising score matching (Vincent, 2011)?
+- What's the issue with Score matching?
+- How does sliced score matching sidestep the problems in score matching? And what's the problem with sliced score matching?
+- Write the loss function for denoising score matching (DSM). Express *denoiser*. How does it connect with tweedie's identity?
+- How does NCSN improves upon previous iteration of score matching? Write training objective of NCSN.
+- can i explain the difference between VE-SDE, and VP-SDE?
+- Why is NCSN VE-SDE, and DDPM VP-SDE?
+- How are NCSN and DDPM losses connected?
+- What's the difference between denoising score matching and NCSN?
+- Illustrate DDPM, NCSN.
+- Proof of affine-drift conditional forward kernel closed-form analytical formulation as gaussian.
+- Why does forward marginal density converge to prior distribution?
+- Write reverse SDE dynamics equation. Explain the reason for diffusion coefficient in the drift coefficient term.
+- How does f,g in forward and reverse SDE vary with time?
+- What's PF-ODE? How to convert between other representations of the same thing? i.e. going from SDE to ODE to discretization.
+- What's the algorithm/pseudocode for annealed langevin dynamics? How is it different from Unadjusted langevin algorithm?
+- Proof of fokker-planck.
+- How does $\sigma$ vary from $t=0\to t=T$? Is it more at the start or the end?
+
+Flow matching
+- NF, continuous NF
+- NODE: Instantaneous change-of-variables formula. How does $\log p(x)=\log p(z)-\log\left\lvert \det \frac{ \partial f }{ \partial z } \right\rvert$ for discrete case equal $\frac{d\log p_{t}(x(t))}{dt}=-\mathrm{Tr} \left( \frac{ \partial f }{ \partial x } \right)$ for continuous case?
+- How does normalizing flows enable exact log-likelihood computation?
+- How is backpropagation happen for continuous NF models?
+- Illustrate flow matching models.
+
+Efficient solvers and samplers
+- What are the different samplers for ODEs and SDEs that are used?
+- What are the different ODE solvers used for sampling the diffusion models?
+- Write the equation for euler-maruyama?
+- What's the sde solver beside euler-maruyama?
+- What are the main takeaways from EDM paper?
+- why is DDIM an integrator for PF-ODE?
+- Derive PF-ODE from SDE? Why does there exist an ODE that preserves the marginal density evolution of the SDE?
+
+Distillation and one-step diffusion
+- Progressive Distillation
+- Consistency models
+	- What are the issues with CTM? Why do we lose the ability to compute exact log-likelihood?
+- Flow maps
+	- Shortcut models
+	- Mean flows
+
+Guided diffusion
+- How will you explain DPS really quickly?
+- guidance: classifier-based, classifier free
+
+Multimodal diffusion
+- What's the problem with CLIP? What are other better multimodal encoders?
+
+Architecture
+- Lay out the architecture for U-Net and DiTs. How are they different? Which to prefer? What's the pitfalls?
+- Write the architecture for Image generators: SD2, SD3, Flux 1-2, Nano Banana
+- Illustrate the architecture for multimodal DiT
+- Write the architecture for Video Gen models. Meta Movie gen, google omni
+- What's the current SOTA architecture for Any-to-Any generative model?
+
+Discrete diffusion or flow matching
+- Illustrate discrete flow matching
+- What's the difference between MDLM
+- Block diffusion modeling
+- CTMC theory. Why is it useful?
+
+Training
 - What is the design space over which diffusion models can be categorized?
 
 # Diffusion
+
+Tutorials
+- [Diffusion Models From Scratch](https://www.tonyduan.com/diffusion/index.html)
+- [\[2510.21890\] The Principles of Diffusion Models](https://arxiv.org/abs/2510.21890)
+- [\[2403.18103\] Tutorial on Diffusion Models for Imaging and Vision](https://arxiv.org/abs/2403.18103)
+- [\[2406.08929\] Step-by-Step Diffusion: An Elementary Tutorial](https://arxiv.org/abs/2406.08929)
+- [All Posts – Sander Dieleman](https://sander.ai/posts/)
+- ==[Simon Coste's notes for a graduate-level course on flow-based generative models](https://simoncoste.gitlab.io/transport/)==
 
 DDPM
 - [Deep Unsupervised Learning using Nonequilibrium Thermodynamics](https://proceedings.mlr.press/v37/sohl-dickstein15.html): introduced iterative Markov process based noising and denoising.
@@ -84,16 +118,15 @@ Design space and solvers
 - [\[2206.00364\] Elucidating the Design Space of Diffusion-Based Generative Models](https://arxiv.org/abs/2206.00364)
 	- Main ODE equation that arises from solving the diffusion ODE
 	- Solution to ODE can now be done using different ODE solvers, particularly better approximator like RK2/4
-	- Reparametrization of loss function.
+	- Reparameterization of loss function.
 	- Analyzing different noise (sigma) schedules.
 - [\[2312.02696\] Analyzing and Improving the Training Dynamics of Diffusion Models](https://arxiv.org/abs/2312.02696)
 - [\[2010.02502\] Denoising Diffusion Implicit Models](https://arxiv.org/abs/2010.02502): DDIM
 - [\[2206.00927\] DPM-Solver: A Fast ODE Solver for Diffusion Probabilistic Model Sampling in Around 10 Steps](https://arxiv.org/abs/2206.00927): DPM-Solver
 - [\[2102.09672\] Improved Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2102.09672): iDDPM
 - [\[2107.00630\] Variational Diffusion Models](https://arxiv.org/abs/2107.00630): VDM
-- [\[2202.00512\] Progressive Distillation for Fast Sampling of Diffusion Models](https://arxiv.org/abs/2202.00512): Introduced v-prediction parametrization and progressive distillation
 - Distillation, one-step sampling
-	- [\[2202.00512\] Progressive Distillation for Fast Sampling of Diffusion Models](https://arxiv.org/abs/2202.00512)
+	- [\[2202.00512\] Progressive Distillation for Fast Sampling of Diffusion Models](https://arxiv.org/abs/2202.00512): Introduced v-prediction parametrization and progressive distillation by distilling a student model from teacher trajectories that match 2 DDIM teacher steps in one step. Progressively applying this K times leads to a student model that directly denoise
 	- [\[2303.01469\] Consistency Models](https://arxiv.org/abs/2303.01469)
 	- [\[2505.18825\] How to build a consistency model: Learning flow maps via self-distillation](https://arxiv.org/abs/2505.18825)
 	- [\[2410.12557\] One Step Diffusion via Shortcut Models](https://arxiv.org/abs/2410.12557)
@@ -125,6 +158,8 @@ Diffusion x RL
 - [\[2407.13734\] Understanding Reinforcement Learning-Based Fine-Tuning of Diffusion Models: A Tutorial and Review](https://arxiv.org/abs/2407.13734)
 - [\[2505.05470\] Flow-GRPO: Training Flow Matching Models via Online RL](https://arxiv.org/abs/2505.05470)
 - [\[2505.07818\] DanceGRPO: Unleashing GRPO on Visual Generation](https://arxiv.org/abs/2505.07818)
+- [\[2603.18991\] CRAFT: Aligning Diffusion Models with Fine-Tuning Is Easier Than You Think](https://arxiv.org/abs/2603.18991)
+- [\[2605.26491\] Beyond Pairwise Preferences: Listwise Reward-Aware Alignment for Diffusion Models](https://arxiv.org/abs/2605.26491)
 
 Geometry x diffusion
 - [\[2505.17517\] The Spacetime of Diffusion Models: An Information Geometry Perspective](https://arxiv.org/abs/2505.17517)
@@ -141,6 +176,7 @@ Diffusion x Interp
 
 Generalization
 - [\[2506.03719\] On the Closed-Form of Flow Matching: Generalization Does Not Arise from Target Stochasticity](https://arxiv.org/abs/2506.03719)
+- [\[2408.13256\] How Diffusion Models Learn to Factorize and Compose](https://arxiv.org/abs/2408.13256)
 
 # Flow Matching
 
@@ -154,9 +190,7 @@ Flow matching
 - [\[2510.21608\] Generalised Flow Maps for Few-Step Generative Modelling on Riemannian Manifolds](https://arxiv.org/abs/2510.21608)
 
 # Evaluation
-- [\[2606.20536\] The FID Lottery: Quantifying Hidden Randomness in Generative-Model Evaluation](https://arxiv.org/abs/2606.20536) \[[Website](https://kyutai.org/fid-lottery)\]
-- 
-
+- [\[2606.20536\] The FID Lottery: Quantifying Hidden Randomness in Generative-Model Evaluation](https://arxiv.org/abs/2606.20536) \[[Website](https://kyutai.org/fid-lottery)\]:Evaluated lack of FID reproduction for generative models, and why it exists. More [[thoughts/diffusion-models#5 Evaluation|here]].
 
 # Foundational Models
 - [\[2403.03206\] Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/abs/2403.03206): SD3. Scaled Rectified flows with QK-normalization, logit-normal noise scheduler. Introduced MM-DiT architecture.
@@ -167,6 +201,7 @@ Flow matching
 # Miscellaneous
 - [\[2504.10612\] Energy Matching: Unifying Flow Matching and Energy-Based Models for Generative Modeling](https://arxiv.org/abs/2504.10612)
 - [\[2511.13720\] Back to Basics: Let Denoising Generative Models Denoise](https://arxiv.org/abs/2511.13720): Debunked myths surrounding diffusion model training, particularly, showing low FID scores with x-pred and v-loss due to predicting in high dimension without preconditioning introduced in EDM.
+- [\[2502.13129\] Is Noise Conditioning Necessary for Denoising Generative Models?](https://arxiv.org/abs/2502.13129): Another Kaiming He's paper that debunks old myths in diffusion models. Removing noise conditioning as popularized by EDM paper, doesn't offer much degradation to FID values except DDIM. Flow models are particularly interesting to notice as they marginally show improvements in FID scores.
 - [\[2602.18428\] The Geometry of Noise: Why Diffusion Models Don't Need Noise Conditioning](https://arxiv.org/abs/2602.18428)
 
 # Inverse Problems
@@ -175,18 +210,21 @@ Flow matching
 - [\[2509.26489\] Contrastive Diffusion Guidance for Spatial Inverse Problems](https://arxiv.org/abs/2509.26489)
 - [\[2505.05657\] ArrayDPS: Unsupervised Blind Speech Separation with a Diffusion Prior](https://arxiv.org/abs/2505.05657)
 - [Zero-shot Human Pose Estimation using Diffusion-based Inverse solvers](https://iclrinpose-crypto.github.io/ICLRInPose/)
-- 
 
-# Practical Implementations
+# Implementations
+- [GitHub - yuanchenyang/smalldiffusion: Simple and readable code for training and sampling from diffusion models · GitHub](https://github.com/yuanchenyang/smalldiffusion/)
+- > [!todo] add difflow here.
 
-# Tutorials
-- [Diffusion Models From Scratch](https://www.tonyduan.com/diffusion/index.html)
-- [\[2510.21890\] The Principles of Diffusion Models](https://arxiv.org/abs/2510.21890)
-- [\[2403.18103\] Tutorial on Diffusion Models for Imaging and Vision](https://arxiv.org/abs/2403.18103)
-- [\[2406.08929\] Step-by-Step Diffusion: An Elementary Tutorial](https://arxiv.org/abs/2406.08929)
+# More Tutorials
 - [Diffusion Models: A Comprehensive Survey of Methods and Applications \| alphaXiv](https://www.alphaxiv.org/abs/2209.00796)
 - [Statistical Analysis of Markovian Generative Modeling \| alphaXiv](https://www.alphaxiv.org/abs/2604.22712)
 - [Diffusion Models: A Mathematical Introduction \| alphaXiv](https://www.alphaxiv.org/abs/2511.11746)
 - [Score-based Diffusion Models via Stochastic Differential Equations -- a Technical Tutorial \| alphaXiv](https://www.alphaxiv.org/abs/2402.07487)
 - [A Tutorial on Diffusion Theory: From Differential Equations to Diffusion Models \| alphaXiv](https://www.alphaxiv.org/abs/2605.22586)
 - [\[2412.11024v2\] Exploring Diffusion and Flow Matching Under Generator Matching](https://arxiv.org/abs/2412.11024v2)
+- [CVPR 2026 Tutorials](https://cvpr.thecvf.com/virtual/2026/events/tutorial): CVPR tutorials is cool. what other conferences has these tutorials track?
+	- [CVPR'26 Tutorial on Diffusion Models](https://sites.google.com/view/cvpr26-principles-of-diffusion/home)
+	- [CVPR 2026 Tutorial on Accelerated Diffusion Models](https://cvpr26-tutorial-fastgen.github.io/)
+	- [Analytic Understanding of Diffusion Models — CVPR 2026 Tutorial](https://analytic-diffusion.github.io/)
+- [Latest Posts – Sander Dieleman](https://sander.ai/): Sander's posts are a delight to read.
+- Simon Coste's notes for a graduate-level course on flow-based generative models: [Transport and Generation](https://simoncoste.gitlab.io/transport/)

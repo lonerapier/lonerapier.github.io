@@ -20,7 +20,7 @@ tags:
 
 ### Hardness of DLP
 
-A very important thing to note is hardness of DLP depends heavily on the [[group-theory|groups]] used. For example: DLP for an additive group in $\mathbb{F}_{p}$ can be solved in $\mathcal{O}(\log p)$ using Extended-Euclidean algorithm while the best known solution for DLP in $\mathbb{F}_{p}^{*}$ has sub-exponential time algorithm. Elliptic curves has DLP solution computable in $\mathcal{O}(\sqrt{ p })$ which is exponential time.
+A very important thing to note is hardness of DLP depends heavily on the [[thoughts/basic-group-theory|groups]] used. For example: DLP for an additive group in $\mathbb{F}_{p}$ can be solved in $\mathcal{O}(\log p)$ using Extended-Euclidean algorithm while the best known solution for DLP in $\mathbb{F}_{p}^{*}$ has sub-exponential time algorithm. Elliptic curves has DLP solution computable in $\mathcal{O}(\sqrt{ p })$ which is exponential time.
 
 ### Shanks Babystep-Giantstep
 

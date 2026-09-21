@@ -6,6 +6,7 @@ tags:
   - machine-learning
   - deep-learning
 ---
+# 1 Introduction
 
 - Action $A$: set of actions that an agent can take
 - State $S$: set of states
@@ -56,7 +57,7 @@ exp --"Direct RL"--> v
 
 Reinforcement learning with/without Planning: Problems where a model is first trained with dynamics of the environment, and then placed into the environment to maximize the reward.
 
-# 1 Markov Decision Processes
+# 2 Markov Decision Processes
 
 **Markov Process** is a tuple $(S,P)$, where S is finite set of states, and P is the state transition probability for any two state pairs.
 
@@ -81,7 +82,7 @@ $$
 - $\gamma \in[0,1]$: Discount factor. Each new action into the future is discounted to give more weight to recent states.
 - Most RL problems are defined using some form of MDPs like Continuous MDPs (Optimal control), Partial MDPs (Partially observable environments), Single state MDP (Bandits).
 
-## 1.1 State-transition Probabilities
+## 2.1 State-transition Probabilities
 
 Finite MDPs are defined using discrete random variables $\mathcal{S,R}$, such that for a particular time step t, $R_{t}$ and $S_{t}$ take values $r,s$ depending on the values of the previous state and action. This can be defined using the dynamics function $p:\mathcal{S\times R\times S\times A}\to[0,1]$.
 
@@ -93,22 +94,24 @@ Using dynamics function, we define the state transition probabilities as sum of 
 
 Expected reward for state-action pair is given by function $r:\mathcal{S\times A}\to \mathbb{R}$ as $$r(s,a)=\mathbb{E}[R_{t}|S_{t-1}=s,A_{t-1}=a]=\sum_{r \in \mathcal{R}}r\sum_{s' \in \mathcal{S}}p(s',r|s,a)$$
 
-## 1.2 Policy
+## 2.2 Policy
 
 Take an agent with initial state $s_{0}$,
 - it's **state transition** looks like: $s_{0}\overset{ a_{0} }{ \longrightarrow }s_{1}\overset{ a_{1} }{ \longrightarrow }s_{2}\overset{ a_{2} }{ \longrightarrow }\cdots$, and
 - **Total reward** for the agent: $R(s_{0},a_{0})+\gamma R(s_{1},a_{1})+\gamma^{2}R(s_{2},a_{2})+\dots$.
-- **Goal** is to maximise **expected value** of the reward payoff: $E[R(s_{0},a_{0})+\dots]$.
+- **Goal** is to maximize **expected value** of the reward payoff: $E[R(s_{0},a_{0})+\dots]$.
 
 We solve finite state ($\lvert S\rvert<\infty$) MDPs, by modelling each state in the form of bellman equation. This gives a set of $\lvert S\rvert$ linear equations in $\lvert S\rvert$ variables, solution to which gives $V^{\pi}(s)$ for each state.
 
-**Policy** $\pi:S\to A$ is a mapping from states to actions, and is usually stationary (time-independent).
+**Policy** $\pi:S\to A$ is a mapping from states to actions, and is usually stationary (time-independent), and is of two types:
+- Deterministic: chooses a single action from a particular state irrespective of history.
+- Stochastic: expresses a probability distribution of action from a state.
 
 Given an MDP $(S,A,P,R,\gamma)$ and a policy $\pi$,
 - The sequence of states $S_{1},\dots$ is a Markov Process
 - Sequence of states and rewards $S_{1},R_{1},S_{2},R_{2},\dots$ is Markov Reward Process $(S,P^{\pi},R^{\pi},\gamma)$ where $P^{\pi}_{ss'}=\sum_{a\in A}\pi(a|s)P^{a}_{ss'}$ and $R^{\pi}_{s}=\sum_{a\in A}\pi(a|s)R_{s}^{a}$.
 
-## 1.3 Value Function
+## 2.3 Value Function
 
 **Value function** is the expected discounted return from state s, $V(s)=E[G_{t}|s_{t}=s]$. It's the measure of total reward expected from state s. States that give more total rewards are preferred over other states.
 
@@ -129,8 +132,8 @@ First term is when the agent starts at state s, and the second term is expected 
 
 $$
 \begin{align}
-v_{\pi}(s) &= \mathbb{E}*{\pi}[G*{t}|S_{t}=s] \\
- & =\mathbb{E}*{\pi}[R*{t+1}+\gamma G_{t+1}|S_{t}=s] \\
+v_{\pi}(s) &= \mathbb{E}_{\pi}[G_{t}|S_{t}=s] \\
+ & =\mathbb{E}_{\pi}[R_{t+1}+\gamma G_{t+1}|S_{t}=s] \\
   & =\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma E_{\pi}[G_{t+1}|S_{t+1}=s']] \\
 	 & =\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)[r+\gamma v_{\pi }(s')]
 \end{align}
@@ -169,14 +172,15 @@ $$
 
 ![state-action-value-function](thoughts/images/state-action-value-function.png)
 
-State-Value function according to policy is defined as $$\upsilon_{\pi}(s)=E_{\pi}[G_{t}|s_{0}=s,\pi]=E_{\pi}[R(s_{0})+\gamma R(s_{1})+\gamma^{2}R(s_{2})+\cdots|s_{0}=s,\pi]$$
+State-Value function according to policy is defined as
+$$\upsilon_{\pi}(s)=E_{\pi}[G_{t}|s_{0}=s,\pi]=E_{\pi}[R(s_{0})+\gamma R(s_{1})+\gamma^{2}R(s_{2})+\cdots|s_{0}=s,\pi]$$
 Action-value function is the expected return started from state s and taking action a using policy $\pi$ defined as $q_{\pi}(s,a)=E_{\pi}[G_{t}|S_{t}=s,A_{t}=a]$.
 - Bellman expected equation for $\upsilon_{\pi}(s)$ in terms of $q_{\pi}(s,a)$ is the expected return over all actions from state s: $\upsilon_{\pi}(s)=\sum_{a\in A}\pi(a|s)q_{\pi}(s,a)$
 - Bellman expected equation for $q_{\pi}(s,a)$ in terms of $\upsilon_{\pi}(s)$ is the expected return when taking action a over all possible states: $q_{\pi}(s,a)=R_{s}^{a}+\gamma\sum_{s'\in S}P_{ss'}^{a}\upsilon_{\pi}(s')$
 - Recursive equation for $v_{\pi}(s)=\sum_{a\in A}\pi(a|s)\left( R_{s}^{a}+\gamma \sum_{s'\in S}P_{ss'}^{a}v_{\pi}(s') \right)$
 - Recursive equation for $q_{\pi}(s,a)=R_{s}^{a}+\gamma \sum_{s'\in S}P_{ss'}^{a}\sum_{a'\in A}\pi(a'|s')q_{\pi}(s',a')$.
 
-**Optimal Value function** is the maximum possible expected reward attained by using any policy. Optimal state-value function defines the best possible policy that maximises the rewards of a state, and Optimal action-value function defines the best possible policy that maximises the rewards given that action a is being taken.
+**Optimal Value function** is the maximum possible expected reward attained by using any policy. Optimal state-value function defines the best possible policy that maximizes the rewards of a state, and Optimal action-value function defines the best possible policy that maximizes the rewards given that action a is being taken.
 $$
 \begin{align}
 v^{*}(s)&=\max_{\pi}v_{\pi}(s) \\
@@ -184,13 +188,13 @@ q^{*}(s,a)&=\max_{\pi}q_{\pi}(s,a)
 \end{align}
 $$
 
-So, optimal action-value function $q^{*}(s,a)$ is what we're aiming to solve, because knowledge of the best possible rewards that the agent can get from a particular state, taking action a, allows us to define the policy that exactly takes the action, i.e. for action that maximises action-value function $\pi(s)=\arg \underset{a\in A}{\max}q^{*}(s,a)$.
+So, optimal action-value function $q^{*}(s,a)$ is what we're aiming to solve, because knowledge of the best possible rewards that the agent can get from a particular state, taking action a, allows us to define the policy that exactly takes the action, i.e. for action that maximizes action-value function $\pi(s)=\arg \underset{a\in A}{\max}q^{*}(s,a)$.
 
 **Optimal Policy**: $\pi^{*}(s)=\arg \underset{_{a\in A}}{\max}q^{*}(s,a)$ such that $\pi^{*}(s)\geq \pi(s)$ when $v_{\pi^{*}}(s)\geq v_{\pi}(s), \forall\ s \in S$
 - For MDPs, there always exists an optimal policy function.
 - Optimal policy achieves optimal value function $v^{*}(s)=v_{\pi^{*}}(s)$, and $q^{*}(s,a)=q_{\pi^{*}}(s,a)$
 
-Optimal State-value function in terms of Bellmans equations is
+Optimal State-value function in terms of Bellman's equations is
 $$
 \begin{align}
 v^{*}(s)&=\max_{a\in A}q^{*}(s,a)&=\max_{a\in A}R_{s}^{a}+\gamma \sum_{s'\in S}P_{ss'}^{a}v^{*}(s') \\
@@ -204,11 +208,11 @@ $$
 > - How does optimal value function calculation relate to transition probabilities $P_{sa}$ estimates might not be fully correct? Do we approximate these probabilities using different distributions?
 > - If I know the policy, then value function is calculated by solving linear equations. What are the algorithms to solve Bellman optimality equation for value and policy functions?
 
-# 2 Dynamic Programming
+# 3 Dynamic Programming
 
 DP refers to algorithms that decompose a problem into subproblems and apply principle of optimality to each subproblem, i.e. solve each problem optimally and aggregate the solution with one condition that subproblems recursively overlap i.e. subproblem has identical or similar structure as the parent problem. MDPs satisfy the criteria required to apply DP solutions using Bellman equations. By computing the optimal value function and caching the information for solving the parent problem.
 
-## 2.1 Policy Evaluation (Prediction)
+## 3.1 Policy Evaluation (Prediction)
 
 Given a policy $\pi$ and MDP $(\mathcal{S,A,R},P,\gamma)$, evaluating the state-value function $v_{\pi}$.
 
@@ -225,8 +229,8 @@ $$
 v_{1}\to v_{2}\to v_{3}\to \cdots\to v_{\pi} \ ;\ [v_{i}(s)\in \mathbb{R}]
 $$
 
-## 2.2 Policy Improvement
-Our ultimate goal is to find better policies. During policy evalution, we can figure out the expected rewards from a given state by marginalising over all possible actions. But is there a better action to take, one that maximises the value function, i.e. $q_{\pi}(s,a)\geq v_{\pi}(s)$. If such an action exists, then following action a whenever s is achieved is optimal rather than to follow stochastic policy approach. Applying this to all states and defining $\pi'$ as the new policy, we find out $q_{\pi}(s,\pi'(s))\geq v_{\pi}(s)$.
+## 3.2 Policy Improvement
+Our ultimate goal is to find better policies. During policy evalution, we can figure out the expected rewards from a given state by marginalising over all possible actions. But is there a better action to take, one that maximizes the value function, i.e. $q_{\pi}(s,a)\geq v_{\pi}(s)$. If such an action exists, then following action a whenever s is achieved is optimal rather than to follow stochastic policy approach. Applying this to all states and defining $\pi'$ as the new policy, we find out $q_{\pi}(s,\pi'(s))\geq v_{\pi}(s)$.
 
 To prove this, let's take deterministic policy $\pi$ and identical policy $\pi'$ except, for particular state s $\pi'(s)=a\neq \pi(s)$. Then,
 
@@ -242,7 +246,7 @@ v_{\pi}(s) & \leq q_{\pi}(s,\pi'(s)) \\ \\
 \end{align}
 $$
 
-Extending this to all states, we can update policy $\pi$ by *greedily* selecting the action that maximises action-value function over all possible states. This leads to policy $\pi'$ that is as good or better than original policy $\pi$.
+Extending this to all states, we can update policy $\pi$ by *greedily* selecting the action that maximizes action-value function over all possible states. This leads to policy $\pi'$ that is as good or better than original policy $\pi$.
 
 $$
 \pi'(s)=\underset{ a }{ \arg \max }\ q_{\pi}(s,a)
@@ -310,7 +314,7 @@ Since each iteration of Policy iteration take max over all actions, it implicitl
 
 > [!note] Same steps can be followed to find optimal action-value function $q^{*}(s,a)$,  but the complexity $\mathcal{O}(m^{2}n^{2})$ exceeds value iteration. Every sweep considers every action for every state recursively.
 
-### 2.2.1 Asynchronous DP
+### 3.2.1 Asynchronous DP
 
 Reduce computation by not iterating over the complete state set. It isn't necessary to use old value when performing a sweep of improvement, instead, in-place algorithms can update values of states in any order, using whatever value happens to be available. Asynchronous algorithms can be used in **real-time** during an episode, where each interaction updates the values, and the updated value is used for the next instance during the same episode.
 
@@ -332,6 +336,7 @@ Solution: Sample backups
 **GPI**: term used for any algorithm that iteratively improves a policy, and stabilises both value and policy function. Policy Iteration computes **infinite horizon** value of a policy while value iteration only performs one step of evaluation between each improvement. Asynchronous methods, evaluation and improvement can be interleaved.
 
 <p align="center"><img src="gpi.svg"></p>
+
 <center><em>Generalised Policy Iteration</em></center>
 
 > [!question] Proof behind convergence to optimal value function and policy.
@@ -351,13 +356,13 @@ $$
 - Thus, when $\gamma<1$, converges to a fixed point $v_{\pi}$.
 - When *Bellman optimality backup operator* $T^{*}(v)=\max_{a}R^{a}+\gamma P^{a}v$ is used, then the fixed point is equal to the optimal value function $v_{*}$.
 
-# 3 Model-Free Prediction
+# 4 Model-Free Prediction
 
 - Goal: compute optimal value and policy function when model is unknown.
 - Major assumption from previous section is that environment is fully known, but that's untrue for most of the real-world scenarios. Instead we aim to learn directly from agent's experience.
 - We'll break down the estimation again into model-free prediction and control.
 
-## 3.1 Monte-Carlo Policy Evaluation
+## 4.1 Monte-Carlo Policy Evaluation
 
 Idea is to use Monte-Carlo estimation to estimate $v_{\pi}(s)$ based on samples from experience. Can be done using two methods: *first-visit* MC or *every-visit* MC. As the name suggests, first-visit MC estimates the empirical mean following the first visit to s, and every-visit estimate the mean of return following all visits to s.
 
@@ -366,14 +371,14 @@ Algorithm first-visit MC:
 2. Loop for each episode
 	1. In each sample, for first-visit at each state:
 		1. Update N(s)
-		2. Increment total return
+		2. Increment total return: $G(s) = G(s) + G_{it}$
 		3. Update expected value: V(s) = Returns / N(s)
 
 $$
-V^{\pi}(s)=V^{\pi}(s)\frac{N(s)-1}{N(s)}+\frac{G*{i,t}}{N(s)}=V^{\pi}(s)+\frac{1}{N(s)}(G_{i,t}-V^{\pi}(s))
+V^{\pi}(s)=V^{\pi}(s)\frac{N(s)-1}{N(s)}+\frac{G_{i,t}}{N(s)}=V^{\pi}(s)+\frac{1}{N(s)}(G_{i,t}-V^{\pi}(s))
 $$
 
-Updates can be applied incrementally depending on the learning rate $\alpha$ as $V^{\pi}(s_{it})=V^{\pi}(s_{it})+\alpha(G_{i,t}-V^{\pi}(s_{it}))$.
+Updates can be applied *incrementally* depending on the learning rate $\alpha$ as $V^{\pi}(s_{it})=V^{\pi}(s_{it})+\alpha(G_{i,t}-V^{\pi}(s_{it}))$.
 
 ![mc-evaluation](thoughts/images/mc-evaluation.png)
 
@@ -387,7 +392,7 @@ Properties:
 - Every-visit MC: $V^{\pi}$ is a biased estimator, but consistent estimator, and has better MSE.
 - Incremental MC depends on learning rate $\alpha$
 
-## 3.2 Temporal Difference Evaluation
+## 4.2 Temporal Difference Evaluation
 
 Our goal is to learn directly from experience, but main difference over MC methods is that TD methods allows to learn from incomplete episodes using Bootstrapping. It can be seen as a combination of DP (bootstrapping) and MC (sampling).
 
@@ -417,15 +422,21 @@ MC and TD
 	- MC always converges to solution that minimizes MSE
 		- $\min_{V}\sum_{s}(G_{t}-V(s_{t}))^{2}$
 		- Fit values directly to observed returns.
-	- TD: from samples of experience, it builds a model of the MDP (transition probabilities $\hat{P}$ and rewards $\hat{R}$), and then solve the bellman equation of the MDP using the estimate. This is the concept of **Certainty Equivalence**.
+	- TD: from samples of experience, it builds a model of the MDP (transition probabilities $\hat{P}$ and rewards $\hat{R}$), and then solve the bellman equation of the MDP using the estimate, for $K$ episodes and $T_k$ length per episode. This is the concept of **Certainty Equivalence**.
 	- $\hat{P}_{ss'}^{a}=\frac{1}{N(s,a)}\sum_{k=1}^{K}\sum_{t=1}^{T_{k}}\mathbb{1}(s_{t}^{k},a_{t}^{k},s_{t+1}^{k}=s,a,s')$
 	- $\hat{R}_{s}^{a}=\frac{1}{N(s,a)}\sum_{k=1}^{K}\sum_{t=1}^{T_{k}}\mathbb{1}(s_{t}^{k},a_{t}^{k}=s,a)r_{t}^{k}$
 	- Converges to solution of max likelihood Markov model or Certainty equivalence estimate.
 - Markov property
-	- TD exploits Markov property.
+	- TD exploits Markov property, and can work in continuing environments (extremely long state).
 	- MC can work in Non-Markov environments.
+- Efficiency: $\mathcal{O}(1)$ operation per update for TD(0) while $\mathcal{O}(L)$ operations per update for an L length episode.
 
-## 3.3 N-step return
+Where TD learning struggles?
+- In a large environment with large number of states, TD learning will struggle when bootstrap estimates are systematically incorrect. For example: with poor initialization and insufficient iteration steps, it may happen that true value from all states is never propagated across all the states.
+- For Partially observable MDP environments, say state is dependent on history $h$ and observation $x$, then the true state is represented as $s=(h,x)$, but if agent only views observation $x$, then TD and MC both are susceptible to errors.
+- When combined with function approximation, and off-policy learning, bootstrapped estimates like TD can diverge from true value poorly. See [[#7.3 Deadly Triad]].
+
+## 4.3 N-step return
 
 Generalizing TD(0) method to more than one step samples gives a whole spectrum of method with TD methods at one end and MC methods at other.
 
@@ -442,7 +453,7 @@ We define the n-step return as $G_{t}^{(n)}=R_{t+1}+\gamma R_{t+2}+\dots+\gamma^
 
 We can prove similar to TD(0) returns that $\max_{s}\lvert \mathbb{E}_{\pi}[G_{t}^{(n)}|S_{t}=s]-V_{\pi}(s)\rvert\leq\gamma^{n}\max_{s}\lvert V_{t+n-1}(s)-V_{\pi}(s)\rvert$ for all $n\geq1$. We can then prove that $v_{\pi}$ is the fixed point and n-step TD method converge using contraction mapping theorem.
 
-## 3.4 $\text{TD}(\lambda)$ Returns
+## 4.4 $\text{TD}(\lambda)$ Returns
 Averaging n-step updates produces new range of algorithms. $\lambda$-return $G_{t}^{\lambda}$ combines all n-step returns $G_{t}^{(n)}$. Using weight proportional to $\lambda^{n-1}$ and normalised by $(1-\lambda)$, resulting to $$G_{t}^{\lambda}=(1-\lambda)\sum_{n=1}^{T-t-1}\lambda^{n-1}G_{t}^{(n)}+\lambda^{T-t-1}G_{t}$$
 
 Note that $\sum=1$. When $\lambda=1$, TD($\lambda$) turns to MC algorithm. When $\lambda=0$, updates happen according to one-step $\text{TD(0)}$.
@@ -453,7 +464,7 @@ Forward-view learning: $V(S_{t})\leftarrow V(S_{t})+\alpha(G_{t}^{\lambda}-V(S_{
 > - Offline updates: Updates happening at the end of the batch
 > - Online updates: Updates happen at each time step
 
-### 3.4.1 Backward view TD($\lambda$)
+### 4.4.1 Backward view TD($\lambda$)
 
 Problem with forward-view is that it needs to look into future steps to compute the expected rewards for state s at time t, and it needs complete episodes, and returns is compute multiple times for each step.
 
@@ -484,9 +495,9 @@ $$
 	- TD(1) updates accumulates error online: $\sum_{t=1}^{T}\alpha\delta_{t}e_{t}(s)=\sum_{t=1}^{T}\gamma^{t-1}\delta_{t}=\alpha(G_{t}-V(St))$
 	- TD(1) is roughly equivalent to every-visit MC, with the only difference that error is updated online per step. If the updates are offline, then it is exactly same as MC.
 
-# 4 Model-free Control
+# 5 Model-free Control
 
-When environment is too big to model, and our objective is to know the optimal behaviour of an agent.
+When environment is too big to model, and our objective is to know the optimal behavior of an agent.
 
 > [!note] On-policy vs Off-policy learning
 > - On-policy: Learn about policy $\pi$ while evaluating it and drawing samples from experience.
@@ -510,7 +521,7 @@ $$
 \end{cases}
 $$
 
-## 4.1 MC Control
+## 5.1 MC Control
 
 Algorithm (first-visit MC control for $\epsilon$-soft policies):
 1. Initialise policy $\pi$, action-value function $Q(s,a)$, Counter $C(s,a)$,
@@ -543,11 +554,11 @@ But the problem with $\epsilon$-greedy policy is that even after convergence, it
 
 GLIE-MC: We can choose $\epsilon_{k}=1/k$ to turn the MC control into GLIE-MC. Policy converges to greedy policy as $k\to \infty$.
 
-## 4.2 TD Control
+## 5.2 TD Control
 
 - Natural extension to MC control is to consider TD in our control loop.
 - Update the values of state-action pairs using TD(0): $Q(S_{t},A_{t})\leftarrow Q(S_{t},A_{t})+\alpha[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_{t},A_{t})]$
-- Gives rist to Sarsa (State-Action-Reward-State-Action $S_{t},A_{t},R_{t+1},S_{t+1},A_{t+1}$ quintuple) algorithm: on-policy TD control
+- Gives rise to **Sarsa** (State-Action-Reward-State-Action $S_{t},A_{t},R_{t+1},S_{t+1},A_{t+1}$ quintuple) algorithm: on-policy TD control
 
 Algorithm:
 1. Initialise
@@ -566,7 +577,7 @@ Convergence of SARSA:
 - GLIE sequence of policies $\pi_{t}(a|s)$
 - Robbin's Monroe sequence of step sizes $\alpha_{t}$: $\sum_{t=1}\alpha_{t}=\infty$ and $\sum_{t=1}^{\infty}\alpha^{2}<\infty$
 
-We can form a spectrum of TD control learning algorithms when increasing the estimation step size from 1 to infinity, ranging from SARSA to MC updates. Generalising this to n-steps:
+We can form a spectrum of TD control learning algorithms when increasing the estimation step size from 1 to infinity, ranging from SARSA to MC updates. Generalizing this to n-steps:
 $$
 \begin{align}
 q_{t}^{(n)} & =R_{t+1}+\gamma R_{t+2}+\dots+\gamma^{n-1}R_{t+n}+\gamma^{n}Q(S_{t+n}) \\
@@ -579,9 +590,9 @@ $$
 - TD-error: $\delta_{t}=R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_{t},A_{t})$
 - Updates happen for each state-action pair: $Q(S_{t},A_{t})\leftarrow Q(S_{t},A_{t})+\alpha\delta_{t}e_{t}(s,a)$
 
-# 5 Off-policy Learning
+# 6 Off-policy Learning
 
-Idea: Evaluate *target policy* $\pi(a|s)$ to compute $v_{\pi},q_{\pi}$ while following *behaviour policy* $\mu(a|s)$. In on-policy approach, we're using a near-optimal policy to learn about optimal policy. But as the policy starts converging, exploration reduces that may lead to local maxima.
+Idea: Evaluate *target policy* $\pi(a|s)$ to compute $v_{\pi},q_{\pi}$ while following *behavior policy* $\mu(a|s)$. In on-policy approach, we're using a near-optimal policy to learn about optimal policy. But as the policy starts converging, exploration reduces that may lead to local maxima.
 
 > [!question] What's the motivation behind off-policy learning?
 > - Learning from observation of another agent
@@ -589,7 +600,7 @@ Idea: Evaluate *target policy* $\pi(a|s)$ to compute $v_{\pi},q_{\pi}$ while fol
 > 	- Follow some other exploratory policy (like $\epsilon$-greedy policy) while learning about optimal policy (like deterministic policy)
 > - Learn multiple policies while following one policy
 
-## 5.1 Off-policy Learning Using Importance Sampling
+## 6.1 Off-policy Learning Using Importance Sampling
 
 To learn from a separate policy at each step, we have to use returns from $\mu$ to evaluate $\pi$. Returns $G_{t}$ are weighted according to similarity between policies.
 
@@ -610,8 +621,8 @@ Above variant is called Ordinary Importance sampling. Evidently, it's an unbiase
 
 Variants:
 - Weighted Importance Sampling: $V^{\pi}(s)=\frac{\sum_{t\in \tau}\rho_{t:T-1}G_{t}}{\sum_{t\in \tau}\rho_{t:T-1}}$. Variance is much lower due to highest ratio of weights being 1, and converges to zero even if the variance of ratios is infinite.[^2]
-Discounting-aware IS
-Per-decision IS
+- Discounting-aware IS
+- Per-decision IS
 
 Problems:
 - $\mu$ has to be non-zero which happens in very limited cases because the probability of selecting an action in a policy can be zero for multiple actions and in multiple different states.
@@ -620,20 +631,20 @@ Problems:
 
 **Off-policy TD**: Weight TD target by importance sampling. $V(S_{t})\leftarrow V(S_{t})+\alpha\left( \frac{\pi(A_{t}|S_{t})}{\mu(A_{t}|S_{t})}\left(R_{t+1}+\gamma V(S_{t+1})\right)-V(S_{t}) \right)$. Has lower variance than MC importance sampling.
 
-## 5.2 Q-Learning
+## 6.2 Q-Learning
 - No importance sampling
-- Choose next action using behaviour policy: $A_{t+1}\sim \mu$
+- Choose next action using behavior policy: $A_{t+1}\sim \mu$
 - Consider $A'\sim \pi(\cdot|S_{t})$ as alternate action
 - Update Q-value: $Q(S_{t},A_{t})\leftarrow Q(S_{t},A_{t})+\alpha(R_{t+1}+\gamma Q(S_{t+1},A')-Q(S_{t},A_{t}))$
-- At any time-step t, state-action value is updated in the direction of the alternate policy plus the reward obtained from following behaviour policy.
+- At any time-step t, state-action value is updated in the direction of the alternate policy plus the reward obtained from following behavior policy.
 
 <p align="center">
-<img src="q-learning.svg">
+<img src="q-learning.svg" height=250>
 </p>
 
 **Off-policy Control**:
 - Target policy $\pi$ is greedy: $\pi(s_{t+1})=\underset{a'}{\arg\max}Q(S_{t+1},a')$
-- Behaviour policy is $\epsilon$-greedy
+- Behavior policy is $\epsilon$-greedy
 
 Q-Learning target: $Q(S,A)\leftarrow Q(S_,A)+\gamma(R+\max_{a'}Q(S',a')-Q(S,A))$
 
@@ -646,34 +657,43 @@ G_{t} & =R_{t+1}+\gamma Q(S_{t+1},A') \\
 $$
 
 Algorithm:
-1. Initialise Q(S,A)
+1. Initialise $Q(S,A)$
 2. Loop for each episode:
-	1. Initialise start state S
+	1. Initialize start state $S$
 	2. Loop for each step of episode until terminal state
-		1. Choose A from $\epsilon$-greedy policy derived from Q
-		2. Take action A, observe reward R, state S'
-		3. Update Q(S,A)
-		4. Update S <- S'
+		1. Choose $A$ from $\epsilon$-greedy policy derived from $Q$
+		2. Take action $A$, observe reward $R$, state $S'$
+		3. Update $Q(S,A)\leftarrow Q(S,A)+\alpha[R+\gamma \max_{a}Q(S',a)-Q(S,A)]$
+		4. Update $S \leftarrow S'$
+
+> [!note] SARSA vs Q-Learning
+> Update for Sarsa and Q-Learning:
+> $$
+> \begin{aligned}
+> \text{SARSA}&=R+\gamma Q(S',A')\\
+> \text{Q-Learning}&=R+\gamma\max_{a}Q(S',a)
+> \end{aligned}
+> $$
+> Sarsa uses actual next action that the agent chooses, while Q-Learning updates the value based on the optimal action, while continuing to explore using behavior policy.
 
 | DP                                                                                | TD                                                                |
 | --------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | Iterative Policy Evaluation: $V(S)\leftarrow \mathbb{E}[R+\gamma V(S') \lvert s]$ | TD Learning: $V(S)\overset{ \alpha }{ \leftarrow }R+\gamma V(S')$ |
 | Q-Policy Iteration                                                                | SARSA                                                             |
 | Q-Value Iteration                                                                 | Q-Learning                                                        |
-
 *Relationship between full backup DP and sample backup TD methods*
 
-# 6 Function Approximation
+# 7 Function Approximation
 
-When $\lvert S\rvert$ is very large, tabular methods aren't feasible. We instead use parametrised form of functions with weight vector $\mathbf{w}\in \mathbb{R}^{d}$.
-- Value function for state s is approximated using the parametrised function with weight vector $\hat{v}(s,\mathbf{w})\approx v_{\pi}(s)$.
+When $\lvert S\rvert$ is very large, tabular methods aren't feasible. We instead use parametrized form of functions with weight vector $\mathbf{w}\in \mathbb{R}^{d}$.
+- Value function for state s is approximated using the parametrized function with weight vector $\hat{v}(s,\mathbf{w})\approx v_{\pi}(s)$.
 - $\hat{q}(s,a,\mathbf{w})\approx q_{\pi}(s,a)$
 
-Any kind of function approximator can work but we use Neural networks to estimate the function due to their generalisation and efficient learning (differentiable, Non-linear approximator) property. Typically, $d\ll \lvert S\rvert$, and changing one weight changes estimated value of many states. Indicatively, one change can *generalise* to other states which is a highly desirable property is massive state systems.
+Any kind of function approximator can work but we use Neural networks to estimate the function due to their generalization and efficient learning (differentiable, Non-linear approximator) property. Typically, $d\ll \lvert S\rvert$, and changing one weight changes estimated value of many states. Indicatively, one change can *generalize* to other states which is a highly desirable property in massive state systems.
 
 One straightforward way to use NNs is to treat each (state, action, return) tuple as training data and fit a neural network using Supervised Learning. One important property from approximator is to handle non-stationary data (training examples are acquired incrementally) and target functions (function that is constantly changing).
 
-## 6.1 On-policy Prediction
+## 7.1 On-policy Prediction
 
 **Prediction Objective** $\overline{\text{VE}}$
 
@@ -732,7 +752,7 @@ Convergence:
 | Off-Policy    | TD(0)         | Y            | N      | N          |
 | Off-Policy    | TD($\lambda$) | Y            | N      | N          |
 
-## 6.2 On-policy Control
+## 7.2 On-policy Control
 
 For control, we used action-value function Q(s,a):
 - $\Delta \mathbf{w}=\alpha(q_{\pi}(s,a)-\hat{q}(s,a,\mathbf{w}))\Delta_{\mathbf{w}}\hat{q}(s,a,\mathbf{w})$
@@ -740,7 +760,7 @@ For control, we used action-value function Q(s,a):
 - SGD update is applied to a sample
 $$
 \begin{align}
-\nabla*{\mathbf{w}}\hat{q}(s,a,\mathbf{w})&=\mathbf{x}(S,A) \\
+\nabla_{\mathbf{w}}\hat{q}(s,a,\mathbf{w})&=\mathbf{x}(S,A) \\
 \Delta \mathbf{w} & =\alpha(U_{t}-\hat{q}(s,a,\mathbf{w}))\mathbf{x}(s,a)
 \end{align}
 $$
@@ -758,11 +778,19 @@ Convergence of control algorithms (`()` means chatters around non-optimal value 
 | Q-Learning          | Y            | N      | N          |
 | Gradient Q-Learning | Y            | Y      | N          |
 
-## 6.3 Deadly Triad
+## 7.3 Deadly Triad
 
 > [!todo] write more
 
-## 6.4 DQN
+Why does deadly triad diverge? Combination of function approximation, bootstrapping and off-policy learning increases both bias and variance. Approximation error in one is amplified by the other two. For example: with function approximation, we're using $Q(s,a;\theta)$. During gradient update, update for state in one region, may also update the value for states in other region, all while those states are still unexplored. Then, bootstrapping the estimate will produce incorrect results.
+
+Informally, the intuition is that convergence for MC or TD learning is proved by showing that Bellman backup operators: $TV^{\pi}=R+\gamma V^{\pi}$ is a contraction, but value function approximation fitting can be an expansion.
+
+> Baird's Counterexample from Sutton & Barto.
+
+Each in isolation provide convergence guarantees. Off-policy learning with GLIE target policy converges, Bootstrapping estimates like TD learning converge, and we already know that neural networks are universal approximator.
+
+## 7.4 DQN
 
 One issue mentioned in [[#Function Approximation]] is an approximator that works with both non-stationary data and non-iid samples. Q-Learning with VFA can diverge due to precisely these reasons. DQN by [Mnih et al.](https://www.nature.com/articles/nature14236) proposed two main improvements:
 - Experience Replay: Store dataset called **Replay buffer** of tuples $(s,a,r',s')$ from prior experience. During learning, samples are drawn uniformly from the dataset and the target value is computed for the sampled s.
@@ -780,7 +808,7 @@ $$
 \mathcal{L}(\mathbf{w}_{i})=\mathbb{E}_{s,a,r,s'\sim \mathcal{D}_{i}}[(r+\gamma \max_{a'}Q(s',a',\mathbf{w}_{i}^{-})-Q(s,a,\mathbf{w}_{i}))^{2}]
 $$
 
-## 6.5 Least Squares Prediction
+## 7.5 Least Squares Prediction
 - We are currently using gradient descent for each time step and each episode.
 - Q: Can we use training data in the form of episodes: $\mathcal{D}=\langle  (s,v_{1}^{\pi}),(s_{2},v_{2}^{\pi}),\dots(s_{T},v_{T}^{\pi})\rangle$, and learn the best fitting parameters $\mathbf{w}$ for value function $\hat{v}(s,\mathbf{w})$.
 - Goal is to find $\mathbf{w}$ minimising sum-squared error. $\text{LS}(\mathbf{w})=\sum_{t=1}^{T}(v_{t}^{\pi}-\hat{v}(s,\mathbf{w}))^{2}=\mathbb{E}_{\mathcal{D}}[(v^{\pi}-\hat{v}(s,\mathbf{w}))^{2}]$.
@@ -801,7 +829,6 @@ $$
 w & =\left( \sum_{t=1}^{T} \mathbf{x}(S_{t},A_{t})(\mathbf{x}(S_{t},A_{t})-\gamma\mathbf{x}(S_{t+1},\pi(S_{t+1})))^{\top} \right)^{-1}\sum_{t=1}^{T} \mathbf{x}(S_{t},A_{t})R_{t+1}
 \end{align}
 $$
-
 Convergence of Control Algorithms:
 
 | Algorithm  | Table lookup | Linear | Non-Linear |
@@ -811,7 +838,7 @@ Convergence of Control Algorithms:
 | Q-Learning | Y            | N      | N          |
 | LSPI       | Y            | (Y)    | -          |
 
-# 7 Policy Gradient Methods
+# 8 Policy Gradient Methods
 
 So far we have worked with methods that approximate value functions, using which we generate a deterministic (greedy) or stochastic ($\epsilon$-greedy) policy. In this section, we look at methods that learn a parametrised policy. A direct advantage to learning policy is that agent doesn't have to consult value function for selecting action. Value function may be used to learn the policy parameters but is not required for action selection. Another advantage is parametrised policy is effective in high-dimensional or continuous action space. We write a parametrised policy as $\pi(a|s,\boldsymbol{\theta})=\Pr\{ A_{t}=a|S_{t}=s,\theta_{t}=\theta \}$ where $\theta \in \mathbb{R}^{d'}$.
 
@@ -823,13 +850,14 @@ So far we have worked with methods that approximate value functions, using which
 > An optimal deterministic policy always exist for an MDP (completely observable), but when only partially observable MDP or feature space (function approximation) exist, a deterministic policy might not enable exploration, and thus stochastic policy might be better.
 
 **Policy Objective Function**
+
 Given policy $\pi_{\theta}(s,a)$ with parameter $\theta$ and state space $\mathcal{S}$, find best $\theta$. Before that, we need a performance objective to measure the quality of $\pi_{\theta}$.
 - In episodic, measure the reward from start value: $J(\theta)=V^{\pi_{\theta}}(s_{1})=\mathbb{E}_{\pi_{\theta}}(V_{1})$
 - In continuing environment, use average value: $J_{\text{av}V}(\theta)=\sum_{s}d^{\pi_{\theta}}(s)V^{\pi_{\theta}}(s)$ or average reward per time step: $\sum_{s}d^{\pi_{\theta}}\sum_{a}\pi_{\theta}(s,a)R_{s}^{a}$, where $d^{\pi_{\theta}}(s)$ is stationary (state) distribution: $\sum_{t}P(S_{t}=s|\pi_{\theta})$ of Markov chain for $\pi_{\theta}$
 	- $d^{\pi_{\theta}}(s)$ can be interpreted as how often you visit state s following policy $\pi_{\theta}$.
 	- **Q**: When is average reward better than average value? In continuing environment, when there's no end state, calculating reward from each state might be more efficient.
 
-Policy can be parametrised in many ways, with the only condition that objective function and policy is differentiable (i.e. $\nabla_{\theta}\pi(a|s,\theta)$ exists) with respect to parameters. We can apply optimisation methods like gradient descent directly: find $\theta$ that maximises $J(\theta)$.  Searching for local maximum in $J(\theta)$ by ascending the gradient of the policy wrt $\theta$: $\Delta\theta=\alpha \nabla_{\theta}J(\theta)$, where $$\nabla_{\theta}J(\theta)=\left( \frac{ \partial J(\theta) }{ \partial \theta_{1} },\frac{ \partial J(\theta) }{ \partial \theta_{2} },\dots,\frac{ \partial J(\theta) }{ \partial \theta_{n} } \right)^{\top}$$ and $\alpha$ is the step-size parameter.
+Policy can be parametrised in many ways, with the only condition that objective function and policy is differentiable (i.e. $\nabla_{\theta}\pi(a|s,\theta)$ exists) with respect to parameters. We can apply optimisation methods like gradient descent directly: find $\theta$ that maximizes $J(\theta)$.  Searching for local maximum in $J(\theta)$ by ascending the gradient of the policy wrt $\theta$: $\Delta\theta=\alpha \nabla_{\theta}J(\theta)$, where $$\nabla_{\theta}J(\theta)=\left( \frac{ \partial J(\theta) }{ \partial \theta_{1} },\frac{ \partial J(\theta) }{ \partial \theta_{2} },\dots,\frac{ \partial J(\theta) }{ \partial \theta_{n} } \right)^{\top}$$ and $\alpha$ is the step-size parameter.
 
 > [!note] Compute gradients by Finite difference
 > For each dimension $k\in[1,n]$
@@ -837,22 +865,23 @@ Policy can be parametrised in many ways, with the only condition that objective 
 > - Perturb $\theta$ by small amount $\epsilon$ in kth dimension: $\frac{ \partial J(\theta) }{ \partial \theta_{k} }\approx \frac{J(\theta+\epsilon \mathrm{u}_{k})-J(\theta)}{\epsilon}$, where $u_{k}$ is a kth unit vector.
 > - Inefficient, and high variance, but work for non-differentiable policies
 
-$V(s_{0})$ can also be written as $\sum_{\tau}P(\tau;\theta)R(\tau)$, where $\tau=(s_{0},a_{0},r_{1},s_{1},a_{1},\dots,s_{T})$ is the trajectory.
+**Deriving the Policy Gradient**
+
+$V(s_{0})$ can also be written as total sum of rewards across all trajectories under the trajectory distribution $\sum_{\tau}P(\tau;\theta)R(\tau)$, where $\tau=(s_{0},a_{0},r_{1},s_{1},a_{1},\dots,s_{T})$ is the trajectory.
 - $R(\tau)$: trajectory return: $\sum_{t=1}^{T}R_{t}(s_{t},a_{t})$
 - $P(\tau;\theta)$: Probability of entire trajectory happening under policy $\pi_{\theta}$ which equals $p(s_{0})\prod_{t=1}^{T}\pi_{\theta}(a_{t}|s_{t})P(s_{t+1}|s_{t},a_{t})$
 
 Reinterpreting the objective function as weigh each state's value by how much an agent visits it.
 $$
-\begin{align}
-J(\theta) & =\mathbb{E}_{\pi_{\theta}}[V(s_{0})] \\
+\begin{aligned}
+J(\theta) & =V(s_{0})\\
  & =\mathbb{E}_{\pi_{\theta}}[R]=\mathbb{E}_{\pi_{\theta}}\left[ \sum_{t=1}^{T}R(s_{t},a_{t}) \right] & (\text{Undiscounted returns}) \\
   & =\sum_{t=1}^{T} \mathbb{E}_{\pi_{\theta}}[R(s_{t},a_{t})]=\sum_{t=1}^{T} \sum_{s}P(S_{t}=s)\mathbb{E}[R_{t}|S_{t}=s] \\
 	 & =\sum_{s}d_{\pi_{\theta}}(s)V_{\pi_{\theta}}(s)
-\end{align}
+\end{aligned}
 $$
 
 Expanding further, $$J(\theta)=\sum_{s}d_{\pi_{\theta}}(s)\sum_{a}\pi(a|s)Q_{\pi_{\theta}}(s,a)$$
-
 Objective is defined as expected Q-value under state distribution and action distribution from each state.
 
 Consider the case of one step MDPs (MDPs where terminal state is next state):
@@ -860,28 +889,33 @@ $$
 \begin{align}
 J(\theta)&=\mathbb{E}_{\pi_{\theta}}[r]=\sum_{s}d(s)\sum_{a}\pi_{\theta}(a|s)R_{s}^{a} \\
 \nabla_{\theta}J(\theta) &= \sum_{s}d(s)\sum_{a}\pi_{\theta}(a|s)\nabla_{\theta}\log \pi_{\theta}(a|s)R_{s}^{a}  & \text{(using Likelihood ratio)}\\
- & =\mathbb{E}_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(a|s)r] & \text{score function =}\nabla_{\theta}\log \pi_{\theta}(s,a) \\
+ & =\mathbb{E}_{s\sim d,a\sim\pi_{\theta}}[R(s)\cdot\nabla_{\theta}\log \pi_{\theta}(a|s)] & \text{score function =}\nabla_{\theta}\log \pi_{\theta}(s,a) \\  \\
+ & =\sum_{i=1}^{m}R(\tau^{(i)})\sum_{i=0}^{T-1} \nabla_{\theta}\log \pi_{\theta}(a|s)
  \end{align}
 $$
 
-Policy Gradient theorem generalises this to multi-step MDP, replacing instantaneous reward with long term value $Q_{\pi}(s,a)$. We want to update the policy in direction that has **high expected future reward**.
+Policy Gradient theorem generalizes this to multi-step MDP, replacing instantaneous reward with long term value $Q_{\pi}(s,a)$. We want to update the policy in direction that has **high expected future reward**.
 
 > [!note] Policy Gradient theorem
 > For any differentiable policy $\pi_{\theta}(s,a)$, for any of the policy objective function $J=J_{1}$ (episodic), $J_{\text{avg}R}$ (average reward per time step) or $\frac{1}{1-\gamma}J_{\text{av}V}$, the policy gradient is
-> $$\nabla_{\theta}J(\theta)=E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)Q_{\pi_{\theta}}(s,a)]$$
+> $$\nabla_{\theta}J(\theta)=E_{s,a}[\nabla_{\theta}\log \pi_{\theta}(s,a)Q^{\pi}(s,a)]$$
+
+Correctness of the policy gradient theorem can be intuitively thought of as measuring the reward of the sample $x$, and moving in the direction that pushes the log probability of the sample proportional to how good it is.
 
 > [!todo] write full proof of Policy gradient theorem from S&B 13.2
+
 
 Taking example of Softmax, and Gaussian Policies where the score function can be easily calculated:
 - Softmax policy
 	- Weight actions using linear combination of features $\phi(s,a)^{\top}\theta$.
 	- Probability of action is proportional to exponentiated weight: $\pi_{\theta}(s,a)=\frac{e^{\phi(s,a)^{\top}\theta}}{\sum_{a}e^{\phi(s,a)^{\top}\theta}}$.
-	- The score function can be simply calculated as $\phi(s,a)-\mathbb{E}_{\pi_{\theta}}[\phi(s,\cdot)]$
+	- The score function can be simply calculated as $\nabla_{\theta}\log \pi_{\theta}(s,a)=\phi(s,a)-\mathbb{E}_{\pi_{\theta}}[\phi(s,\cdot)]$
 - Gaussian Policy: Used in continuous action spaces.
 	- Mean $\mu$ is a linear combination of state features: $\mu(s)=\phi(s)^{\top}\theta$, and variance can be fixed or parametrised.
 	- Score function is $\nabla_{\theta}\log \pi_{\theta}(s,a)=\frac{(a-\mu(s))\phi(s)}{\sigma^{2}}$, where policy is Gaussian: $a\sim \mathcal{N}(\mu(s),\sigma^{2})$.
 
-## 7.1 REINFORCE (MC Policy Gradient)
+Our problem is that even though Policy Gradient theorem confirms the convergence to minima, it uses true return $Q^{\pi}$. So, we have to somehow estimate this term. Our first approach is to simply use the unbiased MC estimate of $Q^{\pi}$ from sampled return.
+## 8.1 REINFORCE (MC Policy Gradient)
 
 One way to estimate returns is to take episode samples, and use the returns $G_{t}$ to update the policy parameters as per policy gradient theorem. Expectation of the sample gradient equals actual gradient.
 
@@ -895,7 +929,7 @@ $$
 \end{align}
 $$
 
-Take a real sample, measure return $G_{t}$, and move towards direction in parameter space that increases the probability of taking the action $A_{t}$ in future visits to state $S_{t}$. Increment is proportional to return and inversely proportional to action probability. Reason for latter is because otherwise action with high probability are favoured over low probability actions.
+Take a real sample, measure return $G_{t}$, and move towards direction in parameter space that increases the probability of taking the action $A_{t}$ in future visits to state $S_{t}$. Increment is proportional to return and inversely proportional to action probability. Reason for latter is because otherwise action with high probability are favored over low probability actions.
 
 Algorithm:
 1. Input: policy $\pi(a|s,\theta)$, step-size $\alpha$
@@ -906,23 +940,31 @@ Algorithm:
 		1. Calculate return: $G\leftarrow \sum_{k=t+1}^{T}\gamma^{k-t-1}R_{k}$
 		2. Update policy parameters: $\theta\leftarrow\theta+\alpha\gamma^{t}G\nabla \log \pi(A_{t}|S_{t},\theta)$
 
-## 7.2 Actor-Critic Methods
+> [!question]- Difference between Q-Learning/SARSA (Value-based function approximation) methods vs Policy gradient method (REINFORCE)?
+> - Episode generation
+> - Policy gradient works well with continuous high-dimensional action spaces because we're not iterating over all actions to get ${\arg\max}_{a}Q^{\pi_{\theta}}(a|s)$.
+> - *Sample inefficiency*: Policy gradient method require an entire episode to perform the update, while value-based methods can perform the updates during experience.
+> - *Interpretability*: No direct correlation between action and value for policy gradient methods lead to even more difficult to interpret quantities which is already amplified by function approximation methods.
+
+## 8.2 Actor-Critic Methods
 
 To mitigate high variance of value functions from single step as seen in MC policy evaluation methods, Actor-Critic algorithm estimate both action-value function $Q_{w}(s,a)\approx Q^{\pi_{\theta}}(s,a)$ using *critic* and policy using *actor*. The actor wants to solve: $$\nabla_{\theta}J(\theta)=E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)Q_{\pi_{\theta}}(s,a)]$$
 
 But MC estimates for $Q^{\pi_{\theta}}(s,a)$ are high variance, and that is solved using critic that learns a low-variance, bootstrapped estimate of assessing policy $\pi_{\theta}$ under parameters $\theta$.
 
 Simple algorithm: Using linear function approximation for $Q_{\mathbf{w}}(s,a)=\phi(s,a)^{\top}\mathbf{w}$. Critic updates $\mathbf{w}$ by TD(0), and actor updates $\theta$ by policy gradient.
-1. Initialise
-2. Sample $a\sim \pi_{\theta}$
-3. for each step of the episode:
-	1. Sample reward: $R^{a}_{s}$ and state $s'\sim P_{ss'}^{a}$
-	2. Sample action $a'\sim \pi_{\theta}(a'|s')$
-	3. $\delta=r+\gamma Q_{\mathbf{w}}(s',a')-Q_{\mathbf{w}}(s,a)$
-	4. $\theta=\theta+\alpha \nabla_{\theta}\log \pi_{\theta}(s,a)Q_{\mathbf{w}}(s,a)$
-	5. $w\leftarrow w+\beta\delta \phi(s,a)$
-	6. $a\leftarrow a',s\leftarrow s'$
-
+1. Initialize with MDP: $\langle S,s_{0},A,P_{ss'}^{a},r(s,a,s') \rangle$, $\pi_{\theta},Q_{\mathbf{w}}$
+2. for each episode e
+	1. Sample $a\sim \pi_{\theta}$
+	2. for each step of the episode:
+		1. Sample reward: $R^{a}_{s}$ and state $s'\sim P_{ss'}^{a}$
+		2. Sample action $a'\sim \pi_{\theta}(a'|s')$
+		3. $\delta=r+\gamma Q_{\mathbf{w}}(s',a')-Q_{\mathbf{w}}(s,a)$
+		4. $\theta=\theta+\alpha \nabla_{\theta}\log \pi_{\theta}(s,a)Q_{\mathbf{w}}(s,a)$
+		5. $w\leftarrow w+\beta\delta \phi(s,a)$
+		6. $a\leftarrow a',s\leftarrow s'$
+	3. Until $s$ is the terminal state
+3. until $\pi_{\theta}$ converges
 
 **Baseline**: Policy gradient methods use a single step return that has high variance as seen in [[#Policy Evaluation (prediction)]]. We can use baseline $b(s)$ to reduce variance:
 $$
@@ -934,11 +976,18 @@ $$
 \sum_{a}b(s)\nabla \pi(a|s,\theta)=b(s)\nabla\sum_{a}\pi(a|s,\theta)=b(s)\nabla1=0
 $$
 
-It can be proven that the baseline that minimises the variance is the state value function $b(s)=V^{\pi_{\theta}}(s)$. We can now rewrite the policy gradient using the advantage function
+> [!todo] Prove that the baseline that minimizes the variance is the state value function $b(s)=V^{\pi_{\theta}}(s)$.
+> - $V\left[ E_{\tau}\left[ \sum_{t=0}^{T-1}\nabla_{\theta}\log \pi_{\theta}(a_{t}|s_{t})(R_{t}(s_{t})-b(s_{t})) \right] \right]=\mathbb{E}_{\tau}[V[\cdot]]\approx \sum_{t=0}^{T-1}V[\cdot]$
+> - Focus on variance of one step term
+> - Notice that expectation doesn't change with baseline.
+> - Convert the term to least squares.
+> - Take the derivative and setting to 0 yields the value function.
+
+We can now rewrite the policy gradient using the advantage function
 $$
 \begin{align}
-A^{\pi_{\theta}}(s,a)&=Q^{\pi_{\theta}}(s,a)-V^{\pi_{\theta}}(s,a) \\
-\nabla J(\theta) & =E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)A^{\pi_{\theta}}(s,a)]
+A^{\pi}(s,a)&=Q^{\pi}(s,a)-V^{\pi}(s,a) \\
+\nabla J(\theta) & =E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)\hat{A}^{\mathbf{w}}(s,a)]
 \end{align}
 $$
 
@@ -948,10 +997,10 @@ Policy gradient $\nabla_{\theta}J(\theta)$ has many forms:
 - REINFORCE: $E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)V_{t}]$
 - Q AC: $E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)Q_{\mathbf{w}}(s,a)]$
 - Advantage actor critic: $E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)A^{\mathbf{w}}(s,a)]$
-- TD actor-critic: $E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)\delta]$
+- TD(0) actor-critic: $E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)\delta]$, where $\delta_{t}=r_{t}+\gamma V(s_{t+1})-V(s_{t})$
 - TD($\lambda$) actor-critic: $E_{\pi_{\theta}}[\nabla_{\theta}\log \pi_{\theta}(s,a)\delta e]$
 
-## 7.3 Problems
+## 8.3 Problems
 
 Major problems with policy gradient methods:
 - Sample inefficiency: We're throwing away trajectories as soon as we get one, update the policy, and sample new trajectories. To mitigate this, we need to use rollouts collected from most recent policy as efficiently as possible.
@@ -959,7 +1008,7 @@ Major problems with policy gradient methods:
 
 Our goal is to evaluate performance of another target policy $\pi'$ while learning from current policy $\pi$.
 
-## 7.4 PPO
+## 8.4 PPO
 
 Performance difference Lemma: $J(\pi')-J(\pi)=\mathbb{E}_{\tau\sim \pi'}\left[ \sum_{t=0}^{\infty}\gamma^{t}A^{\pi}(s_{t},a_{t}) \right]$, where $d^{\pi}(s)=(1-\gamma)\sum_{t=0}^{\infty}\gamma^{t}P(s_{t}=s)$ is the discounted future state distribution.
 
@@ -974,7 +1023,7 @@ If the policies are close to each other such that state distribution doesn't cha
 
 [Achiam et al., 2017](https://arxiv.org/abs/1705.10528) proposed relative policy performance bounds which gives an upper bound of the approximation error by KL divergence between the two policies. Lowering the upper bound gives an objective which allows to measure new policy's performance using trajectories from current policy. $$\lvert J(\pi)-(J(\pi')+L_{\pi'}(\pi))\rvert \leq C\sqrt{ \mathbb{E}_{s\sim d^{\pi}}[D_{\text{KL}}(\pi'\|\pi)][s] }$$
 
-[TRPO](https://arxiv.org/abs/1502.05477) used a similar modified objective to perform on-policy learning by enforcing a KL divergence constraint to work as a regulariser for penalising size of policy update. TRPO maximises the following objective
+[TRPO](https://arxiv.org/abs/1502.05477) used a similar modified objective to perform on-policy learning by enforcing a KL divergence constraint to work as a regularizer for penalizing size of policy update. TRPO maximizes the following objective
 
 $$J(\theta)=\mathbb{E}_{s\sim d^{\pi},a\sim \pi}\left[ \frac{\pi'(a|s)}{\pi(a|s)}\hat{A}^{\pi}(s,a) \right]$$
 
@@ -983,31 +1032,67 @@ subject to KL constraint: $\mathbb{E}_{s\sim d^{\pi}}[D_{\text{KL}}(\pi(\cdot|s)
 Problem with TRPO is that the ratio of the new and old policies can be inflated arbitrarily leading to unstable parameter updates by modifying the KL constraint only by the logarithmic factor.
 
 **PPO**: Proposed by [Schulman et al. 2017](https://arxiv.org/abs/1707.06347), simplifies the problems associated with TRPO. The objective function used by on-policy TRPO becomes: $J(\theta)=\mathbb{E}_{s,a\sim d^{\pi},\pi}[r(\theta)\hat{A}_{\theta}(s,a)]$ where $r(\theta)=\frac{\pi_{\theta'}(a|s)}{\pi_{\theta}(a|s)}$. PPO proposes two variants:
-- Adaptive KL penalty: penalty term is used as a regulariser in optimisation objective.
+- Adaptive KL penalty: penalty term is used as a regularizer in optimization objective.
 $$
-\begin{align}
-\theta_{k+1}&=\arg \max_{\theta}\mathcal{L}_{\theta_{k}}(\theta)-\beta_{k}D_{\text{KL}}(\theta\|\theta_{k}) \\
-D_{\text{KL}}(\theta\|\theta_{k})&=\mathbb{E}_{s\sim d^{\pi_{k}}}[D_{\text{KL}}(\pi_{\theta_{k}}(\cdot|s)\|\pi_{\theta}(\cdot|s))]
-\end{align}
+\begin{aligned}
+\theta_{k+1}&=\arg \max_{\theta}\mathcal{L}_{\theta_{k}}(\theta)-\beta_{k}\bar{D}_{\text{KL}}(\theta\|\theta_{k}) \\
+\bar{D}_{\text{KL}}(\theta\|\theta_{k})&=\mathbb{E}_{s\sim d^{\pi_{k}}}[D_{\text{KL}}(\pi_{\theta_{k}}(\cdot|s)\|\pi_{\theta}(\cdot|s))]
+\end{aligned}
 $$
 - Clipped objective: Uses a clipping function $\text{clip}(r(\theta),1-\epsilon,1+\epsilon)$ to prevent vanishing or exploding parameter updates for state-action pairs of uneven importance ratios.
 $$
-\begin{align}
-\mathcal{L}_{\theta_{k}}^{\text{clip}}(\theta)&=\mathbb{E}_{\tau\sim \pi_{k}}\left[ \sum_{t=0}^{\infty} \left(\min(r_{t}(\theta)\hat{A}_{t}^{\pi_{k}},\text{clip}(r_{t}(\theta),1-\epsilon,1+\epsilon)\hat{A}_{t}^{\pi_{k}})\right) \right] \\
+\begin{aligned}
+\mathcal{L}_{\theta_{k}}^{\text{clip}}(\theta)&=\mathbb{E}_{\tau\sim \pi_{k}}\left[ \sum_{t=0}^{\infty} \left(\min(r_{t}(\theta)\hat{A}^{\pi_{k}},\text{clip}(r_{t}(\theta),1-\epsilon,1+\epsilon)\hat{A}_{t}^{\pi_{k}})\right) \right] \\
 \theta_{k+1}&=\arg \max \mathcal{L}_{\theta_{k+1}}^{\text{clip}}
-\end{align}
+\end{aligned}
 $$
 
+Clipping objective can be simplified by conditioning on advantage value.
+
+**Positive advantage**
+
+If $\hat{A}_{t}(s_{t},a_{t}) > 0$, then the action is beneficial, and we want to increase the likelihood of taking this action in future. Further categorizing the region into three cases:
+- Case 1, $r_{t}<1-\epsilon$ implies clipping reduces to $(1-\epsilon)\hat{A}_{t}$ and gradient follows the direction $\nabla_{\theta}r_{t}\hat{A}_{t}$.
+- Case 2, $1-\epsilon\leq r_{t}\leq1+\epsilon$ implies clipping acts as identity, and likelihood of the action is increased by following normal policy gradient update.
+- Case 3, $r_{t}>1+\epsilon$ activates clipping to $1+\epsilon$, and final objective amounts to $(1+\epsilon)\hat{A}_{t}$. Gradient with respect to parameters stays flat at 0, and policy remains constant preventing overly-greedy updates.
+![ppo-positive](thoughts/images/ppo_positive.svg)
+
+**Negative advantage**
+
+If $\hat{A}_{t}(s_{t},a_{t}) < 0$, then the value function rate the action as worse, and policy gradient should decrease the likelihood of the action being taken in the future. Similar to positive advantage scenario, this too reduces to three cases:
+- Case 1, $r_{t}<1-\epsilon$. Clipping selects $1-\epsilon$, and final objective stays flat as $(1-\epsilon)A_{t}$ preventing policy entropy collapse in early phases of learning.
+- Case 2, $1-\epsilon\leq r_{t}\leq1+\epsilon$ objective remains in the trust region and gradient suppresses the action.
+- Case 3, $\pi_{\theta}>(1+\epsilon)\pi_{old}$ implies action is more favorable in the new policy, so we strongly penalize the action proportional to the advantage.
+![ppo-negative](thoughts/images/ppo_negative.svg)
+
+PPO often uses Actor-Critic mechanism to estimate the reward using a critic $V_{\phi}$. Adds a separate critic loss $L_{V}(\phi)=(V_{\phi}(s_{t})-R_{t})^{2}$.
+
+Algorithm:
+1. Initialize parameters $\beta,\delta_{\text{low}},\delta_{\text{high}}$, policy $\pi_{0}$
+2. for $k = 1,2,\dots$ do
+	1. Generate set of trajectories $\mathcal{D}_{k}=\{ \tau_{i} \}$ from policy $\pi_{\theta_{k}}$
+	2. Compute rewards $\hat{R}_{t}$
+	3. Compute advantages $\hat{A}^{\pi_{k}}$ using any advantage estimation algorithm (GAE)
+	4. Compute one of PPO policy loss
+		1. adaptive KL penalty loss:  $L_{\text{Policy}}=\mathcal{L}_{\theta_{k}}(\theta)-\beta_{k}\bar{D}_{\text{KL}}(\theta\|\theta_{k})$
+		2. Or clipped PPO loss $L_{\text{Policy}}=\frac{1}{\lvert \mathcal{D}_{k}\rvert T}\sum_{\tau \in \mathcal{D}_{k}}\sum_{t=0}^{T}\min(r_{t}(\theta,\theta_{k})\hat{A}_{t}^{\pi_{k}},g(\epsilon,\hat{A}_{t}^{\pi_{k}}))$
+	5. Update parameters $\theta_{k+1}=\arg\max_{\theta}L_{\text{Policy}}$
+	6. Fit value function by regression on MSE, $\phi_{k+1}=\arg \underset{\phi}{\min} \frac{1}{\lvert \mathcal{D}_{k}\rvert T}\sum_{\tau \in \mathcal{D}_{k}}\sum_{t=0}^{T}(V_{\phi}(s_{t})-\hat{R}_{t})^{2}$
+	7. if $\bar{D}_{\text{KL}}<\delta_{\text{low}}$, decrease $\beta\leftarrow\beta/2$
+	8. if $\bar{D}_{\text{KL}}>\delta_{\text{high}}$, increase $\beta\leftarrow2\beta$
+
 PPO has several advantages, particularly:
-- Utilises old policy data, and takes several gradient steps before gathering more data from policy.
+- Utilizes old policy data, and takes several gradient steps before gathering more data from policy.
 - Uses clipping to increase likelihood of monotonic improvement.
 - Converges to local optima.
 
-> [!question] PPO
-> - What are the shortcomings of PPO? Where does it not work as expected?
-> - How to make it work with continuous action spaces?
+> [!question]- PPO issues
+> What are the shortcomings of PPO? Where does it not work as expected?
+> - Clipping hyperparameter is difficult to tune. It can lead to conservative clipping where important information from policy gradient is thrown away.
+> - Clipping only constrains the probability ratio and not equivalent to enforcing $D_{\text{KL}}(\pi_{\theta}\|\pi_{\text{old}})\leq\delta$
+> - Sample inefficiency due to old episodes being discarded after every batch.
 
-**Generalised Advantage Estimation**: We can calculate policy ratio in above objective, but true advantage function is unknown. We can use similar techniques as used in function approximation. Consider n-step estimates:
+**Generalized Advantage Estimation**: We can calculate policy ratio in above objective, but true advantage function is unknown. We can use similar techniques as used in function approximation. Consider n-step estimates:
 
 $$
 \begin{align}
@@ -1018,9 +1103,9 @@ $$
 \end{align}
 $$
 
-Writing TD errors: $\delta_{t}^{V}=r_{t}+\gamma V(s_{t+1})-V(s_{t})$, and telescoping the sum, $\hat{A}^{(n)}_{t}=\sum_{l=0}^{n-1}\lambda^{l}\delta_{t+l}^{V}$
+Writing TD errors: $\delta_{t}^{V}=r_{t}+\gamma V(s_{t+1})-V(s_{t})$, and telescoping the sum, $\hat{A}^{(n)}_{t}=\sum_{l=0}^{n-1}\gamma^{l}\delta_{t+l}^{V}=\sum_{l=0}^{n-1}\gamma^{l}r_{t+1}+\gamma^{k}V(s_{t+k})-V(s_{t})$
 
-[Schulman et al, 2015](https://arxiv.org/abs/1506.02438) introduced GAE estimate is exponentially weighted average n-step estimate:
+[Schulman et al., 2015](https://arxiv.org/abs/1506.02438) introduced GAE estimate as exponentially weighted average n-step estimate:
 $$
 \begin{align}
 \hat{A}_{t}^{\text{GAE}(\gamma,\lambda)} & =(1-\lambda)\sum_{l=0}^{\infty}\lambda^{l}\hat{A}_{t+l}^{(l+1)} \\
@@ -1045,7 +1130,13 @@ $$
 
 Thus, RHS = 0 when $\pi_{k}=\pi_{k+1}$ And optimal value = $\arg\max_{\pi'}(\text{objective})$. Thus, objective(optimal value) >= 0 which implies $J(\pi')\geq J(\pi)$.
 
-# 8 Imitation Learning
+> [!tip] Some fantastic resources
+> - [The 37 Implementation Details of Proximal Policy Optimization · The ICLR Blog Track](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/)
+> - [PPO — Stable Baselines3 2.9.2a0 documentation](https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html)
+> - [Proximal Policy Optimization — Spinning Up  documentation](https://spinningup.openai.com/en/latest/algorithms/ppo.html)
+> - [GitHub - vwxyzjn/cleanrl: High-quality single file implementation of Deep Reinforcement Learning algorithms with research-friendly features](https://github.com/vwxyzjn/cleanrl/)
+
+# 9 Imitation Learning
 
 In some cases, we already know the near optimal policy and our goal is to learn from it and automate this process function for future learning. Imitation learning allows to learn from set of one or more expert demonstrations $(s_{0},a_{0},s_{1},a_{1},\dots)$
 
@@ -1056,15 +1147,15 @@ Input:
 - Set of one or more expert demonstrations
 
 Three ideas:
-- Behavioural Cloning: directly learn expert's policy using supervised Learning.
+- Behavioral Cloning: directly learn expert's policy using supervised Learning.
 - Inverse RL: Learn reward function R
 - Apprenticeship learning using IRL: learn R, use R to generate good $\pi$
 
-## 8.1 Behavioural Cloning
+## 9.1 Behavioral Cloning
 
 Reduce problem to standard SL by converting demonstrations to training examples: $(s_{0},a_{0}),(s_{1},a_{1}),\dots$.
 
-### 8.1.1 DAGGER (Dataset Aggregation)
+### 9.1.1 DAGGER (Dataset Aggregation)
 
 Problem: SL learning assumes non-iid data which means no temporal structure in learning examples. We desire that if error at time $t\leq\epsilon$, then $\mathbb{E}[\text{total error}]\leq\epsilon T$, but due to training data being sampled from expert policy $\text{train}\sim D_{\pi^{*}}$, and test being sampled from different learned policy $\text{test}\sim D_{\pi_{\theta}}$, expected total error compounds: $\mathbb{E}[\text{total error}]\leq\epsilon(T+(T-1)+\dots)\leq\epsilon T^{2}$.[^2]
 
@@ -1081,7 +1172,7 @@ Algorithm:
 
 Problem with learning policy directly is that the training examples might not cover complete state action distribution, and the policy generated might not be able to generalise states beyond training data.
 
-## 8.2 Reward Learning
+## 9.2 Reward Learning
 
 Generate the reward function R by parameterising and using ideas similar to Value Function approximation (like DQN).
 
@@ -1102,11 +1193,11 @@ But there are still inifinite reward functions under optimal policy and infinite
 - Max entropy inverse RL ([Ziebart et al. AAAI 2008](https://cdn.aaai.org/AAAI/2008/AAAI08-227.pdf))
 - Generative Adversarial Imitation Learning ([Ho and Ermon, NeurIPS 2016](https://arxiv.org/abs/1606.03476))
 
-### 8.2.1 Max Entropy Inverse RL
+### 9.2.1 Max Entropy Inverse RL
 
-Assume reward is linear function of weights and feature vectors: $r(s)=\mathbf{w}^{\top}\mathbf{x}(s)$. Then, according to principle of Max entropy, probability distribution that best explain current data is the one that maximises entropy, given the constraints of precisely stated prior data.
+Assume reward is linear function of weights and feature vectors: $r(s)=\mathbf{w}^{\top}\mathbf{x}(s)$. Then, according to principle of Max entropy, probability distribution that best explain current data is the one that maximizes entropy, given the constraints of precisely stated prior data.
 
-Objective finds the policy that maximises the entropy given the constraints that feature expectations match the expert's feature $D$ (due to linear reward function case), and P is a probability distribution.
+Objective finds the policy that maximizes the entropy given the constraints that feature expectations match the expert's feature $D$ (due to linear reward function case), and P is a probability distribution.
 
 $$
 \max_{P}-\sum_{\tau} P(\tau)\log P(\tau) \  \text{s.t.} \ \sum P(\tau)\mu(\tau)=\frac{1}{\lvert D\rvert }\sum_{\tau_{i}\in D}\mu(\tau_{i}),\sum P(\tau)=1
@@ -1158,11 +1249,11 @@ Assumptions:
 - States are finite so that state frequency algorithm can run efficiently
 - Access to expert trajectories.
 
-### 8.2.2 Guided Cost Learning
+### 9.2.2 Guided Cost Learning
 
 > [!todo] Learn about GCL
 
-## 8.3 Preference Learning
+## 9.3 Preference Learning
 
 Amount of human input required for learning can be measured on multiple dimension in a spectrum. One of that is human effort which has DAGGER style constant teaching on one end, and expert demonstrations gathered once on the other. Preference learning finds a sweet middle spot by turning the preferences into probability distribution that can be used as labeled examples for learning.
 
@@ -1170,7 +1261,7 @@ Bradley-Terry Model: To model the preference of K actions: $b_{1},\dots b_{k}$ w
 
 This can be generalised to trajectories $\tau_{1},\tau_{2}$, where $R^{(i)}=\sum_{i=0}^{t-1}r_{i}$ as the sum of rewards along the trajectory as $$\hat{P}(\tau_{1}\succ \tau_{2})=\sigma\left( \sum_{i=0}^{t-1} r_{1,i}-\sum_{i=0}^{t-1} r_{2,i} \right)$$
 
-### 8.3.1 RLHF & DPO
+### 9.3.1 RLHF & DPO
 
 Human feedback is used to steer a model to output depending on the preference of the user. RLHF is performed in three steps, with the input being a large unsupervised pre-trained model:
 1. **Supervised fine-tuning** on tailored examples. Usually, this can be generated from a human or even another previous family of models.
@@ -1227,16 +1318,16 @@ r_{\pi_{\theta}}(x,y) & =\beta \log\left( \frac{\pi_{\theta}(y|x)}{\pi_{\text{re
 \end{align}
 $$
 
-The log-term with intractable partition function cancels out, and we get the binary cross-entropy loss function that maximises reward from positive examples $y_{w}$ and minimises reward from negative examples $y_{l}$.
+The log-term with intractable partition function cancels out, and we get the binary cross-entropy loss function that maximizes reward from positive examples $y_{w}$ and minimises reward from negative examples $y_{l}$.
 
-# 9 Multi-Armed Bandits
+# 10 Multi-Armed Bandits
 
 > [!note] Exploration vs Exploitation
 >
 
 ![multi-armed-bandit](thoughts/images/multi-armed-bandit.png)
 
-*Multi-Armed Bandit* is a tuple $(A,R)$, with $A$ as the set of actions and $R_{s}^{a}=P(r|a)$ is the probability distribution over rewards. At each time step, the agent selects action $a_{t}$ and generates reward $r_{t}$. The goal is to maximise *cumulative reward* $\sum_{t=1}^{T-1}r_{t}$.
+*Multi-Armed Bandit* is a tuple $(A,R)$, with $A$ as the set of actions and $R_{s}^{a}=P(r|a)$ is the probability distribution over rewards. At each time step, the agent selects action $a_{t}$ and generates reward $r_{t}$. The goal is to maximize *cumulative reward* $\sum_{t=1}^{T-1}r_{t}$.
 
 Action-value function is the expected reward for action a: $Q(a)=\mathbb{E}[r|a]$, and the optimal value $V^{*}=Q(a^{*})=\max_{a}Q(a)$.
 
@@ -1263,7 +1354,7 @@ $$
 \lim_{ t \to \infty } L_{t}\geq \log t\sum_{a|\Delta_{a}>0}\frac{\Delta_{a}}{D_{\text{KL}}(R^{a}\|R^{a^{*}})}
 $$
 
-## 9.1 UCB
+## 10.1 UCB
 
 **Optimism in the face of uncertainty** says to pick the action that you're most uncertain about because it gives maximum bits of information from the environment and might turn out to be the best action.
 
@@ -1295,7 +1386,7 @@ $$
 
 > [!todo] UCB regret bounds
 
-## 9.2 Bayesian Bandits
+## 10.2 Bayesian Bandits
 
 Assume prior knowledge $p[R^{a}]$, and compute posterior distribution of rewards: $p[R|h_{t}]$, where $h_{t}=(a_{1},r_{1},a_{2},\dots,a_{t-1},r_{t-1})$ is the history.
 
@@ -1324,7 +1415,7 @@ Use posterior to guide exploration by two ways:
 Example:
 - consider gaussian prior on rewards, $R_{a}(r)=\mathcal{N}(r;\mu,\sigma^{2})$.
 - Using bayes law, the posterior $p(\mu,\sigma^{2}|R_{1},\dots R_{t})=p(\mu,\sigma^{2})\prod_{t|a_{t}=a}\mathcal{N}(r_{t};\mu_{a},\sigma^{2}_{a})$
-- pick action that maximises standard deviation: $a_{t}=\underset{a\in A}{\arg\max}\mu_{a}+\frac{c\sigma_{a}}{\sqrt{ N(a) }}$
+- pick action that maximizes standard deviation: $a_{t}=\underset{a\in A}{\arg\max}\mu_{a}+\frac{c\sigma_{a}}{\sqrt{ N(a) }}$
 
 **Probability Matching**: Instead of upper bounds, we use knowledge from posterior over action values to choose best value action. So, we create a policy using $p(Q|R_{1},\dots R_{t})$.
 
@@ -1349,7 +1440,7 @@ $$
 \text{BayesRegret}(A,T;\theta)=\mathbb{E}_{\theta\sim p_{\theta}}\left[ \mathbb{E}_{\tau}\left[ \sum_{t=1}^{T}Q(a^{*})-Q(a)|\theta \right] \right]
 $$
 
-## 9.3 Information State Space
+## 10.3 Information State Space
 
 > [!question] How to estimate the value of information?
 > You should only explore when exploration value is estimated and balance between exploration and exploitation is optimal.
@@ -1368,7 +1459,7 @@ As an example, let's look at Bayes-adaptive Bernoulli Bandits.
 
 Exact solution can be done using Dynamic Programming, provided by *Gittins Index*.
 
-## 9.4 Contextual Bandits
+## 10.4 Contextual Bandits
 Definition:
 - Contextual bandits is a tuple $(A,S,R)$, where
 	- A: known set of actions
@@ -1378,7 +1469,7 @@ Definition:
 	- Environment genreates states $s_{t}\sim S$
 	- Agent select action $a_{t}\sim A$
 	- Environment gerneates reward $r_{t}\sim R_{s_{t}}^{a_{t}}$
-- Goal: maximise cumulative reward: $\sum_{t=1}^{T}r_{t}$
+- Goal: maximize cumulative reward: $\sum_{t=1}^{T}r_{t}$
 
 We can use function approximation techniques from MDP to estimate value function, $Q(s,a)=\mathbb{E}[r|s,a]$ which is the expected reward for state s and action a.
 
@@ -1391,9 +1482,9 @@ Consider the case of Linear function approximation. Estimating value function as
 - Mean is linear in feature, $Q_{\theta}(s,a)=\phi(s,a)^{\top}\theta$
 - Variance is quadratic using parameter covariance $A^{-1}$ as $\sigma^{2}_{\theta}(s,a)=\phi(s,a)^{\top}A^{-1}\phi(s,a)$
 - UCB is $Q_{\theta}(s,a)+c\sqrt{ \phi(s,a)^{\top}A^{-1}\phi(s,a) }$
-- Select action that maximises UCB: $$a_{t}=\arg \max_{a\in A}Q_{\theta}(s,a)+c\sqrt{ \phi(s,a)^{\top}A^{-1}\phi(s,a) }$$
+- Select action that maximizes UCB: $$a_{t}=\arg \max_{a\in A}Q_{\theta}(s,a)+c\sqrt{ \phi(s,a)^{\top}A^{-1}\phi(s,a) }$$
 
-## 9.5 MDPs
+## 10.5 MDPs
 
 The same principles of exploration/exploitation used in bandits applies to MDPs as well:
 - Optimistic Initialisation
@@ -1403,13 +1494,13 @@ The same principles of exploration/exploitation used in bandits applies to MDPs 
 
 First we'll state PAC framework in RL, and prove simulation lemma.
 
-### 9.5.1 PAC Framework
+### 10.5.1 PAC Framework
 
 An MDP is defined as tuple $(S,A,P,R,\gamma)$. We define an $\epsilon$-optimal policy $\pi$ such that $V^{\pi}(s)\geq V^{*}(s)-\epsilon,\ \forall s$. We say that an algorithm is PAC-MDP if for any $\epsilon,\delta$ with probability $1-\delta$, the number of time steps where the policy is not $\epsilon$-optimal is bounded by $$\text{poly}\left( \lvert S\rvert,\lvert A\rvert, \frac{1}{\epsilon}, \frac{1}{(1-\gamma)}, \log\left( \frac{1}{\delta} \right) \right)$$
 
 In other words, in a PAC algorithm, you are allowed to explore for some time: $\text{Bad}_{\epsilon}:\{ t:V^{\pi}(s_{t})<V^{*}(s_{t})+\epsilon \}$, but after sufficient time steps $\lvert \text{Bad}_{\epsilon}\rvert$, you behave optimally $\lvert \text{Bad}_{\epsilon}\leq \text{poly}(\epsilon,\delta)\rvert$ with probability $1-\delta$.
 
-### 9.5.2 Simulation Lemma
+### 10.5.2 Simulation Lemma
 
 Our goal is to bound value function $|V_{1}^{\pi}-V_{2}^{\pi}|$ due to error in reward and dynamics model. We take two MDPs with difference rewards and dynamics, $M_{1}=(S,A,P_{1},R_{1},\gamma)$ and $M_{2}=(S,A,P_{2},R_{2},\gamma)$ such that $\lvert R_{1}(s,a)-R_{2}(s,a)\rvert\leq\alpha$ and $\lVert P_{1}(\cdot|s,a)-P_{2}(\cdot|s,a) \rVert_{1}\leq\beta$.
 
@@ -1425,11 +1516,11 @@ $$
 
 Solving the inequality, we get $\Delta \leq \frac{1}{1-\gamma}(\alpha+\gamma\beta V_{\max})$, where $\Delta:=\max_{s}\lvert V_{1}^{\pi}-V_{2}^{\pi}\rvert$.
 
-### 9.5.3 MDPs
+### 10.5.3 MDPs
 
 - Model-based RL: We estimate reward and dynamics from known state and actions. So, we can follow the optimistic initialisation by initialising the states with $r_{\max}$ reward, and solve the MDP with any model-based algorithm (policy iteration, value iteration).
 - Model-free RL:
-	- For prediction, we maximise UCB and follow action accordingly.
+	- For prediction, we maximize UCB and follow action accordingly.
 	- For control, uncertainty from policy evaluation and policy improvement make it tricky.
 
 **Bayesian MDPs**
@@ -1437,7 +1528,7 @@ Similar to bandits case, we maintain posterior over MDP models (each state-actio
 
 The main differences from bandits case is after sampling from the posterior (i.e. we know the reward and transition probabilities), we still don't know what the optimal action is in a particular state. So we have to solve the MDP using any of our favourite planning algorithm to get $Q^{*}(s,a)$, and select optimal action based on Probability Matching: $a_{t}=\arg\max_{a}Q^{*}(s_{t},a)$. The conjugate priors also change due to multiple state-action pairs, so we can use priors like Dirichlet-Multinomial models.
 
-# 10 References
+# 11 References
 - [A (Long) Peek into Reinforcement Learning \| Lil'Log](https://lilianweng.github.io/posts/2018-02-19-rl-overview/)
 - [All About Backup Diagram \| Towards Data Science](https://towardsdatascience.com/all-about-backup-diagram-fefb25aaf804/): Backup Diagrams source
 - [\[1506.02438\] High-Dimensional Continuous Control Using Generalized Advantage Estimation](https://arxiv.org/abs/1506.02438)

@@ -8,18 +8,28 @@ tags:
 Other links:
 - [[technical-links]]
 
+# Sep '26
+- [How to Choose Your Grad School — Tim Dettmers](https://timdettmers.com/2022/03/13/how-to-choose-your-grad-school/)
+- [Interactive 4D Handbook - Planes of Rotation](https://baileysnyder.com/interactive-4d/rotations/): 30 mins fun ride through rotations and 4D.
+- [How To Write With An LLM — A Final Ward](https://sockpuppet.org/blog/2026/09/17/how-to-write-with-an-llm/)
+- [Grant Sanderson, "If math is more than proof, we need to better celebrate the rest of it" \| Terrence Tao blog](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/): The part that I'm most interested in is how human learning develops further. Expository style lectures are nice but they are not new. People have used them to learn about any field in the past. It also doesn't force you to produce new research.
+
 # Aug '26
-- [John McGreevy, "Some advice I've found useful"](https://mcgreevy.physics.ucsd.edu/advice.html)
-- 
+- [John McGreevy - UCSD Physics, "Some advice I've found useful"](https://mcgreevy.physics.ucsd.edu/advice.html)
+- [What will be left for us to work on? — ICML 2026 keynote](https://www.cs.princeton.edu/~arvindn/talks/icml-2026-annotated-slides/)
+- [Heuristics for lab robotics, and where its future may go](https://www.owlposting.com/p/heuristics-for-lab-robotics-and-where)
+- [Generalist - Going Beyond World Models & VLAs](https://generalistai.com/blog/beyond-world-models): While i'm unable to comment on the current state of VLAs and world models in robotics (more info [here](https://github.com/lonerapier/robotic-experiments)), but I completely agree with Goal-Driven research or to generalize it even further: Goal-driven Learning. Idea/Method based research is just harder to scale. Constraining oneself to a lane begets the transition to even narrower thinking.
+- [Prediction Market for Clinical Trials](https://endpointarena.com/)
 
 # Jul '26
+- ==[An Opinionated Guide to ML Research](http://joschu.net/blog/opinionated-guide-ml-research.html)==
 - [A Beginner’s Guide to Scientific Roadmapping](https://www.essentialtechnology.blog/p/scientific-roadmapping)
 - [Teaching AI How Science Actually Works \| IFP](https://ifp.org/teaching-ai-how-science-actually-works/)
-- [F​et​​c​​hi​​n​g ​​Tit​l​e](https://www.amacad.org/publication/daedalus/toward-science-of-intelligence-unifying-physics-neuroscience-ai)
-- [F​​et​​ching​​ ​T​​itl​e](https://whatisintelligence.antikythera.org/)
+- [Surya Ganguli, "Toward a Science of Intelligence: Unifying Physics, Neuroscience & AI" \| American Academy of Arts and Sciences](https://www.amacad.org/publication/daedalus/toward-science-of-intelligence-unifying-physics-neuroscience-ai)
+- ==[What is Intelligence? \| Antikythera](https://whatisintelligence.antikythera.org/)==
 
 # Apr '26
-- ["An unsolicited guide to good research", Eugene Vinitsky](https://emerge-lab.github.io/papers/an-unsolicited-guide-to-good-research.pdf)
+- ==["An unsolicited guide to good research", Eugene Vinitsky](https://emerge-lab.github.io/papers/an-unsolicited-guide-to-good-research.pdf)==
 	- What does it mean to do good research for me? What does good research looks like?
 		- Theoretical results that builds the understanding of empirical methods.
 		- Methods/procedures that extend what's doable with efficiency.
@@ -31,14 +41,13 @@ Other links:
 		- Once large gaps can be identified, you've reached the frontier. Explore totally missing direction or ideas. This generally goes in the direction that spans multiple disciplines.
 	- How to read and be updated with current research?
 		- Become really good at reading papers. First skim should be <15 minutes. This means going through abstract, introduction, results, conclusion.
-		- As you read more, you start categorising the concepts. Most of the papers are filling small gaps, and you'll build the capacity to store the result in your own literature bank.
+		- As you read more, you start categorizing the concepts. Most of the papers are filling small gaps, and you'll build the capacity to store the result in your own literature bank.
 		- Be ruthless about your reading list.
 		- Build a list of absolutely cracked researchers that only release bangers. Study their papers thoroughly.
 		- Building research taste is the most important duty. As the friction towards writing experiments goes down with agents, what's left is to find ambitious ideas and unexplored directions.
 
 # Mar'26
-- https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html
-
+- [Nicholas Carlini, "How to win a best paper award (or, an opinionated take on how to do important research)"](https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html)
 # Jan '26
 - [CONWAY'S GAME OF LIFE](https://nonzerosum.games/conwaysgame.html): The whole website is meticulously crafted, tenderly sculpted, beautiful work of art. It made me ponder on a number of different things at the intersection of art, creativity, thermodynamics, philosophy.
 - [Going Founder Mode On Cancer - by Elliot Hershberg](https://centuryofbio.com/p/sid): ==TODO learn more about how and why everything is done. And how to scale it.==
@@ -63,14 +72,13 @@ Other links:
 	- On-farm hatching: Use of autonomous robotics here would increase the efficiency and reduce the cost by multiple factors.
 	- In-Ovo vaccination: Already considered at advanced stages of development.
 	- One stupid question that I have: Can sexing not be done pre-egg laying period? Can we not perform some kind of gene editing on the mother to prevent even laying male eggs for layers?
-- [From systems operators to systems architects](https://seemay.substack.com/cp/170799845): PDB contained enough structural information about proteins to make a model recognise the pattern behind static structure. But proteins have their functions embedded inside the motion (travelling, binding, catalyzing, breathing?). To get more informative data, the next problem is to go from static structure prediction to protein dynamics.
+- [From systems operators to systems architects](https://seemay.substack.com/cp/170799845): PDB contained enough structural information about proteins to make a model recognise the pattern behind static structure. But proteins have their functions embedded inside the motion (traveling, binding, catalyzing, breathing?). To get more informative data, the next problem is to go from static structure prediction to protein dynamics.
 	- What are protein conformations? Most probably these are the signals emitted by proteins during their identification.
 	- How is X-Ray crystallography used for protein conformation? What are it's other uses?
 	- What is the data that is discarded during X-Ray crystallography? And how can it be used to create richer molecular data? Why haven't this been done already?
 	- What data does diffuse scattering emit? And how can that be analysed and used for PDB 2.0?
 
 # Nov '25
-
 - [On AI Infrastructure in Biology - by Elliot Hershberg](https://centuryofbio.com/p/infra)
 	- What technology led to large-scale changes in biology:
 		- NGS: unlocked functional genomics,

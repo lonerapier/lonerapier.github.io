@@ -7,18 +7,6 @@ tags:
 - mathematics
 ---
 
-Resources:
-- [Numerical Methods I - CS 357 @ UIUC Textbook](https://cs357.cs.illinois.edu/textbook/)
-- [EE364a: Convex Optimization I](https://web.stanford.edu/class/ee364a/), [EE364b - Convex Optimization II](https://stanford.edu/class/ee364b/)
-- [Convex Optimization Overview](https://cs229.stanford.edu/section/cs229-cvxopt.pdf), [Convex Optimization Overview II](https://cs229.stanford.edu/section/cs229-cvxopt2.pdf)
-- [EE227BT: Convex Optimization](https://people.eecs.berkeley.edu/~elghaoui/Teaching/EE227BT/index.html), [EE 227C (Spring 2018) Convex Optimization and Approximation](https://ee227c.github.io/)
-- [https://qb3.github.io/optim\_crash\_course.html](https://qb3.github.io/optim_crash_course.html)
-- [ICML Tutorial Is numerical optimization theory irrelevant to machine learning practice in 2026?](https://icml.cc/virtual/2026/75373)
-- [lecture\_notes-optimization-undergraduate.pdf](https://yifanc96.github.io/slides/lecture_notes-optimization-undergraduate.pdf): same for optimization
-- [depths-of-first-order-optimization - Google Slides](https://docs.google.com/presentation/d/1PIAChMGGwhmdUxDPyOo1o8Qlhq3h_ofV2mhBb6JHH04/edit?slide=id.g313117c0c90_0_5#slide=id.g313117c0c90_0_5)
-- https://www2.isye.gatech.edu/~nemirovs/
-- [Course Overview \| STAT 4830: Numerical Optimization for Data Science and Machine Learning](https://damek.github.io/STAT-4830/index.html)
-
 # First-order Methods
 
 **Momentum**: Instead of just using past gradient, create a weighted average of all the past gradients.
@@ -36,19 +24,19 @@ Resources:
 
 **Newton's method**: $\theta_{t+1}=\theta_{t}-\eta_{t}\mathrm{H}_{t}^{-1}g_{t}$, where $\mathrm{H}_{t}=\mathrm{H}(\theta_{t})=\nabla^{2}\mathcal{L}(\theta_{t})$.
 - when Hessian is convex, the descent direction is chosen as $-\mathrm{H}_{t}^{-1}g_{t}$
-- Can be derived using taylor approximation of $\mathcal{L}(\theta)$ around $\theta_{t}$, and finding the minimum.
+- Can be derived using Taylor approximation of $\mathcal{L}(\theta)$ around $\theta_{t}$, and finding the minimum.
 - BFGS
-- Trust region: Do the opposite of line search, i.e. instead of determining the direction and then travelling optimally. Determine the distance first, and then solve for optimal direction.
-	- around parameter $\theta_{t}$ determine a Region $\mathcal{R}_{t}$, where objective function can be approximated as $M_{t}(\delta)$ locally as a quadratic using taylor approximation.
+- Trust region: Do the opposite of line search, i.e. instead of determining the direction and then traveling optimally. Determine the distance first, and then solve for optimal direction.
+	- around parameter $\theta_{t}$ determine a Region $\mathcal{R}_{t}$, where objective function can be approximated as $M_{t}(\delta)$ locally as a quadratic using Taylor approximation.
 	- At each step, we solve: $\delta^{*}=\arg \underset{\delta \in \mathcal{R_{t}}}{\min}M(_{t}(\delta))$, where $M_{t}(\delta)=\mathcal{L}(\theta_{t})+g_{t}^{\top}\delta+\frac{1}{2}\delta^{\top}\mathrm{H}_{t}\delta$.
 	- If $\mathcal{R}_{t}$ is taken as a ball of radius r, then adding a Lagrange multiplier to M, $\delta^{*}=\arg \underset{_{\delta}}{\min}M(\delta)+\lambda \lVert \delta \rVert_{2}^{2}$.
 	- Solve this using $\delta=-(H+\lambda I)^{-1}g$, i.e. $\lambda$ can be taken such that all eigenvalues are non-negative, and convex optimization methods like Momentum can be applied.
 
 # SGD
 
-**Lagrange Multipliers**: [Calculus III - Lagrange Multipliers](https://tutorial.math.lamar.edu/Classes/CalcIII/LagrangeMultipliers.aspx)
+**Lagrange Multipliers**.   [Calculus III - Lagrange Multipliers](https://tutorial.math.lamar.edu/Classes/CalcIII/LagrangeMultipliers.aspx)
 
-**Steepest Descent**: [Done](https://kenndanielso.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_7_General_steepest_descent.html) using different norms: Lp norms.
+**Steepest Descent**.   [Done](https://kenndanielso.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_7_General_steepest_descent.html) using different norms: Lp norms.
 
 > [!todo] derive dual norm $\lVert a \rVert^{\dagger}_{q}$ of $a^{T}b$ subject to arbitrary $L_{p}$ norm $\lVert b \rVert_{p}=1$.
 
@@ -72,3 +60,23 @@ For $L_{\infty}$ based norm, dual norm = $L_{1}$ norm $\lVert g \rVert_{1}$ and 
 
 # EM
 
+
+# Resources
+- [Nonlinear Optimization I - 553.761 (Fall 2024) · Mateo Díaz](https://mateodd25.github.io/nonlinear/)
+- [Numerical Methods I - CS 357 @ UIUC Textbook](https://cs357.cs.illinois.edu/textbook/)
+- [EE364a: Convex Optimization I](https://web.stanford.edu/class/ee364a/), [EE364b - Convex Optimization II](https://stanford.edu/class/ee364b/)
+- [Convex Optimization Overview](https://cs229.stanford.edu/section/cs229-cvxopt.pdf), [Convex Optimization Overview II](https://cs229.stanford.edu/section/cs229-cvxopt2.pdf)
+- [EE227BT: Convex Optimization](https://people.eecs.berkeley.edu/~elghaoui/Teaching/EE227BT/index.html), [EE 227C (Spring 2018) Convex Optimization and Approximation](https://ee227c.github.io/)
+- [https://qb3.github.io/optim\_crash\_course.html](https://qb3.github.io/optim_crash_course.html)
+- [ICML Tutorial Is numerical optimization theory irrelevant to machine learning practice in 2026?](https://icml.cc/virtual/2026/75373)
+- [lecture\_notes-optimization-undergraduate.pdf](https://yifanc96.github.io/slides/lecture_notes-optimization-undergraduate.pdf): same for optimization
+- [depths-of-first-order-optimization - Google Slides](https://docs.google.com/presentation/d/1PIAChMGGwhmdUxDPyOo1o8Qlhq3h_ofV2mhBb6JHH04/edit?slide=id.g313117c0c90_0_5#slide=id.g313117c0c90_0_5)
+- https://www2.isye.gatech.edu/~nemirovs/
+- [Steve Brunton - Optimization for ML](https://faculty.washington.edu/sbrunton/OptimizationBootcamp.pdf)
+- [Course Overview \| STAT 4830: Numerical Optimization for Data Science and Machine Learning](https://damek.github.io/STAT-4830/index.html)
+- [ICML Tutorial Is numerical optimization theory irrelevant to machine learning practice in 2026?](https://icml.cc/virtual/2026/75373): Nice ICML tutorial on optimization theory, and why we're unable to find improvements on 8 year old optimizers.
+- [Second-Order Optimization — An Alchemist's Notes on Deep Learning](https://notes.kvfrans.com/7-misc/second-order-optimization.html)
+- [Optimization](https://slds-lmu.github.io/website_optimization/)
+- [\[1909.03550\] Lecture Notes: Optimization for Machine Learning](https://arxiv.org/abs/1909.03550)
+- [\[1810.00760\] Riemannian Adaptive Optimization Methods](https://arxiv.org/abs/1810.00760)
+- [Machine Learning Refined 2nd Edition \| GitHub, PDFs & Notebooks](https://www.mlrefined.com/)

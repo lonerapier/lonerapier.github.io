@@ -49,7 +49,7 @@ $$
 - Above equation is called the *general Weierstrass equation*. $0$ is the point at infinity.
 - $\bar{K}$ is the [algebraic closure](https://en.wikipedia.org/wiki/Algebraic_closure) of [[finite-fields|field]] $K$.
 - Can be defined on any fields, such as $\mathbb{F}_{p}, \mathbb{Q}, \mathbb{R}$.
-- EC defined on $\mathbb{F}_{p}$ are finite [[group-theory|groups]].
+- EC defined on $\mathbb{F}_{p}$ are finite [[thoughts/basic-group-theory|groups]].
 - ECDLP is discrete logarithm problem for the EC defined on finite field which has exponential time complexity to solve.
 - Best known algorithm for an EC defined over $\mathbb{F}_p$ takes $O(\sqrt{p})$.
 

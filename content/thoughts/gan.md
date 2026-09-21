@@ -10,7 +10,7 @@ tags:
 > [!note] KL Divergence, Jensen-Shannon Divergence and f-divergence
 >
 > Given two probability distributions p and q,
-> 
+>
 > **KL divergence** $D_{\text{KL}}(p\|q)$ measures how "far" q is from p without requiring that D is a metric.
 > $$
 > \begin{align}

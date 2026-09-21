@@ -61,7 +61,7 @@ Sim--(Enc(x0),Enc(x1))-->F_OT
 F_OT--(x_b)-->Bob
 ```
 
-## Applications
+# Applications
 
 - [[sfe|SFE]]
 - [[ot|OT]]
@@ -71,7 +71,7 @@ F_OT--(x_b)-->Bob
 - [[psi|PSI]]
 - [[vole|VOLE]]
 
-## References
+# References
 
 - [Secure Multiparty Computation (MPC)](https://eprint.iacr.org/2020/300)
 - [Secure Function Evaluation](https://www.cs.purdue.edu/homes/hmaji/teaching/Fall%202015/lectures/13.pdf)

@@ -78,7 +78,7 @@ s it? What's the current progress? How programmable are we talking about?
 	- Does a hive have social or hierarchical structure? Or does queen command every worker bee?
 	- Can a queen change its commands, or its coded inside the DNA to protect the queen?
 	- Can a queen give birth to another queen?
-- [[robotics]]
+- [[thoughts/robotics]]
 - 3D gaussian splatting
 	- This is like eye opener on how to model real world digitally for me. Didn't know something like this is already possible. So, this is what google uses for street view. and it's arguably realtime too.
 - fMRI: [Syllabus \| Functional Magnetic Resonance Imaging: Data Acquisition and Analysis \| Health Sciences and Technology \| MIT OpenCourseWare](https://ocw.mit.edu/courses/hst-583-functional-magnetic-resonance-imaging-data-acquisition-and-analysis-fall-2008/pages/syllabus/)

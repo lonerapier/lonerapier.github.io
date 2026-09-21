@@ -59,7 +59,7 @@ mm2 --> Y
 > [!note] Reason for normalizing with $\frac{1}{\sqrt{ D_{k} }}$
 > Assume $Q_{i}, K_{j}$ are i.i.d. with $\mu=0,\sigma=1$, then $E[Q_{i}K_{j}]=0$ and $\sigma[Q_{i}K_{j}]=D_{k}$. So, as dimension increase, dot products can be large in magnitude that saturates softmax and gradients becomes exponentially small. We want $\sigma\left[ \frac{Q_{i}K_{j}}{c} \right]=1\implies c=\sqrt{ D_{k} }$.
 
-![attention](thoughts/images/attention.png)
+![attention|900](thoughts/images/attention.png)
 
 *<center>Attention matrices [^1]</center>*
 
@@ -101,42 +101,47 @@ Now, we can stack multiple layers on top of each other to create a deep Transfor
 > [!question] Why does adding a new vector to the input vector not corrupt the information?
 > Because randomly sampled two vectors in a high dimensional space tend to be nearly orthogonal implying that model can process token information and token position separately even when they're added in a single entity.
 
-Approach proposed in @vaswani2017attention is based on Fourier basis where for a given position n the associated position encoding vector is:
+Approach proposed in @vaswani2017attention is based on Fourier basis where for a given position $n$ the associated position encoding vector is:
 
 $$
-p_{j}=\begin{cases}
-p_{j,2i}=\sin\left( \frac{j}{L^{i/D}} \right),& \text{if $i$ is even,} \\
-p_{j,2i+1}=\cos\left( \frac{j}{L^{(i-1)/D}} \right),& \text{if $i$ is odd,}
-\end{cases}
+\begin{equation}
+\begin{aligned}
+PE_{j,2i}&=\sin\left( \frac{j}{L^{2i/D}} \right) \\
+PE_{j,2i+1}&=\cos\left( \frac{j}{L^{2i/D}} \right)
+\end{aligned}
+\end{equation}
 $$
+where Positional embedding for any position remains constant irrespective of the token value. $L=10000$ is chosen as a empirical hyperparameter, with base angular frequency defined by $\omega_{i}=10000^{-2i/D}$. Wavelengths form a geometric progression from $2\pi$ to $10000\cdot2\pi$ so, **early position pair have higher frequency** which gradually dies off for higher dimension index pairs. **Multiple frequencies** ensures positional embeddings for different positions in a sequence remains unique, and a combination of high and low frequency components enables the model to focus on fine positional resolution using high frequency dimensions and long-range positional information from low-frequency dimensions.
+$$PE(p) =\left[\sin(\omega_{0}p),\cos(\omega_{0}p),\sin(\omega_{1}p),\dots\right]$$
+> [!todo] insert a diagram representing the sinusoidal wavelength progression.
 
-One nice property of sinusoidal representation is that relative positions $p_{j+k}$ is a linear function of $p_{j}$ and can be encoded using a rotation matrix. To see this (referenced from [^2]), let's take a two dimensional position vector, $p_{j},p_{j+k}$:
+One **nice** property of sinusoidal representation is that relative positions $p_{j+k}$ is a linear function of $p_{j}$ and can be encoded using a rotation matrix. To see this (referenced from [^2]), let's take a two dimensional position vector, $p_{j},p_{j+k}$:
 
 $$
 \begin{align}
-p_{j,0}&=\sin\left( \frac{j}{L^{2\cdot0/D}} \right) &=\sin(j) \\
-p_{j,1}&=\cos\left( \frac{j}{L^{2\cdot0/D}} \right)&=\cos(j) \\
-p_{j+k,0}&=\sin\left( \frac{j+k}{L^{2\cdot0/D}} \right)&=\sin(j+k) \\
-p_{j+k,1} &=\cos\left( \frac{j+k}{L^{2\cdot0/D}} \right)&=\cos(j+k)
+PE_{j,0}&=\sin\left( \frac{j}{L^{2\cdot0/D}} \right) &=\sin(j) \\
+PE_{j,1}&=\cos\left( \frac{j}{L^{2\cdot0/D}} \right)&=\cos(j) \\
+PE_{j+k,0}&=\sin\left( \frac{j+k}{L^{2\cdot0/D}} \right)&=\sin(j+k) \\
+PE_{j+k,1} &=\cos\left( \frac{j+k}{L^{2\cdot0/D}} \right)&=\cos(j+k)
 \end{align}
 $$
 
 Using trigonometric identities, $\sin(j+k)=\sin(j)\cos(k) + \cos(j)\sin(k)$ and $\cos(j+k)=\cos(j)\cos(k) - \sin(j)\sin(k)$, we can write:
 $$
 \begin{align}
-\sin(j+k)&=\sin(j)\cos(k)+\cos(j)\sin(k)&=p_{j,0}\cos(k)+p_{j,1}\sin(k) \\
-\cos(j+k)&=\cos(j)\cos(k)-\sin(j)\sin(k)&=p_{j,1}\cos(k)-p_{j,0}\sin(k) \\
+\sin(j+k)&=\sin(j)\cos(k)+\cos(j)\sin(k)&=PE_{j,0}\cos(k)+PE_{j,1}\sin(k) \\
+\cos(j+k)&=\cos(j)\cos(k)-\sin(j)\sin(k)&=PE_{j,1}\cos(k)-PE_{j,0}\sin(k) \\
 \end{align}
 $$
 
-Thus, we can write $p_{j+k}$ as linear function of $p_{j}$ with a rotation matrix:
+Thus, we can write $PE_{j+k}$ as linear function of $PE_{j}$ with a rotation matrix $R(k)$:
 $$
-\begin{equation}
+\begin{align*}
 \begin{bmatrix}
 p_{j+k,0} \\
 p_{j+k,1}
 \end{bmatrix}
-=
+&=
 \begin{bmatrix}
 \cos(k) & \sin(k) \\
 -\sin(k) & \cos(k)
@@ -144,25 +149,31 @@ p_{j+k,1}
 \begin{bmatrix}
 p_{j,0} \\
 p_{j,1}
-\end{bmatrix}
-\end{equation}
+\end{bmatrix}\\\\
+PE(j+k)&=R(k)^{\top}PE(j)
+\end{align*}
 $$
 
 Problems with sinusoidal position encodings:
-- Relative positions are easier to encode but harder to learn due to direction of the sinusoidal representations being jagged. This indicates that model might have to devote a large time of its finite training schedule to attend to learning relative positions.
-- Additive: TODO
+- Relative positions are easier to encode but harder to learn due to direction of rotation by the sinusoidal representations being jagged (moves erratically in seemingly random directions). This indicates that model might have to devote a large time of its finite training schedule to attend to learning relative positions.
+- Additive: Positional information is applied additively to the input, $z_{i}=x_{i}+p_{i}$, and doesn't encode the actual geometry of the sequence. Thus, two distanced but highly related tokens can get high attention scores which might not be desirable in certain scenarios.
 
 > [!question] How do you handle a continuous input like image or audio or video for transformers? Think about tokenisation, embedding and positional encoding.
+
 - Image: Divide the input image into patches. taking an example of greyscale image of 100x100 size. then it can be flattened into 10,000 sized vector. Tokenization and embedding is done in one go, and positional encoding can be applied same as transformer paper (sinusoidal) or maybe RoPE.
 	- For images: we can create patches of say 5x5 like a CNN and then use the attention layers to learn about spatial relationships rather than just flattening the vector. Patches can be concatenated in a batch to allow for flexible learning.
 - Audio: divide the the audio signal into discrete patches at fixed length (say 0.1ms) and record the signal at that position. Concatenating the sequence as a vector, and we have the input embedding.
 	- For audio: if you take fixed windows (like 0.1 ms), what structure are you assuming about the signal? Do raw waveform chunks behave like good tokens, or would something like **time-frequency representations (e.g., spectrograms)** give better inductive bias?
 - How to detect if there is a need for separate embedding function or if we can use the pixel values or waveform amplitude as embeddings directly?
-> [!question] Why is transformer sinusoidal positional encoding using alternating sines and cosines? And why is RoPE applying the same rotation matrix to the query vector?
 - 2D encodings for images
 
+## RoPE
+
+> [!question] Why is transformer sinusoidal positional encoding using alternating sines and cosines? And why is RoPE applying the same rotation matrix to the query vector?
+
+RoPE
+
 > [!todo]
-> - rope
 > - alibi
 > - grape
 
@@ -229,7 +240,6 @@ Latent-MoE [@elango2026latentmoe]
 - Compare sparse vs active parameters for MoE models
 - Show studies performed by different works that identify the similar knowledge in all experts issue. Ex: mixtral
 - What does the expert actually learn? How is it different from dense vs sparse moe? how is it different from starting and later layers?
-- 
 
 # Survey
 
@@ -240,21 +250,13 @@ Latent-MoE [@elango2026latentmoe]
 | [Nemotron 3 Ultra](https://arxiv.org/abs/2606.15007) | 2026 | Super: 120B-A12B<br>Ultra: 550B-A55B       | Hybrid Mamba-Attention                                                                       | -         | -              | - NVFP4 training<br>- LatentMoe<br>- MTP |
 | [Gemma4](https://arxiv.org/abs/2607.02770)           | 2026 | 2.3B, 4.5B, 12B, 26B-A4B (MoE), 31B        | MQA                                                                                          | -         | 1M             | - MTP                                    |
 
-
-# To-Read
-- [Jane Street Blog - Using group theory to explore the space of positional encodings for attention](https://blog.janestreet.com/using-group-theory-to-explore-positional-encodings-attention/)
-- [\[2511.05963\] Next-Latent Prediction Transformers Learn Compact World Models](https://arxiv.org/abs/2511.05963)
-- [\[2604.12946\] Parcae: Scaling Laws For Stable Looped Language Models](https://arxiv.org/abs/2604.12946)
-- [\[2606.18206\] Fixed-Point Reasoners: Stable and Adaptive Deep Looped Transformers](https://arxiv.org/abs/2606.18206)
-- [The Annotated Kolmogorov-Arnold Network (KAN) \| Alex L. Zhang](https://alexzhang13.github.io/blog/2024/annotated-kan/)
-
 # References
 
 - [You could have designed state of the art positional encoding](https://huggingface.co/blog/designing-positional-encoding)
 - [A Visual Guide to Mixture of Experts (MoE)](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts)
 - Cai, Weilin, et al. "A survey on mixture of experts in large language models." IEEE Transactions on Knowledge and Data Engineering (2025). [URL](https://arxiv.org/abs/2407.06204)
----
+
 # Bibliography
 
 [^1]: [What is an attention mechanism? \| IBM](https://www.ibm.com/think/topics/attention-mechanism)
-[^2]: [Aakash Kumar Nain - Rotary Position Encoding](https://aakashkumarnain.github.io/posts/ml_dl_concepts/rope.html#rotary-position-encoding-the-easy-way)
+[^2]: Nain, Aakash. 2024. _Rotary Position Encoding_. accepted, December 10. [https://aakashkumarnain.github.io/posts/ml_dl_concepts/rope.html](https://aakashkumarnain.github.io/posts/ml_dl_concepts/rope.html).

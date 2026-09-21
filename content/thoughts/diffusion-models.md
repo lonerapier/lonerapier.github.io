@@ -12,7 +12,7 @@ tags:
 
 Variational Diffusion Models are just Markovian [[thoughts/vae|HVAE]] with following modifications:
 1. Input dimension and latent dimension is exactly equal.
-2. Latent encoder at each step is pre-defined as Linear Gaussian model aka. Gaussian distribution centred at output from previous timestamp, and is not learned.
+2. Latent encoder at each step is pre-defined as Linear Gaussian model aka. Gaussian distribution centered at output from previous timestamp, and is not learned.
 3. Latent distributions are added in such a manner that latent at final timestamp is standard Gaussian.
 
 If latent and input dimension is equal, that means for timestamp $t\in\{1,\dots,T\}$, the posterior is equal to:
@@ -23,7 +23,7 @@ $$
 
 ## 1.1 Forward Diffusion
 
-Then, from the second assumption, each encoder $q(\mathbf{x}_{t}|\mathbf{x}_{t-1})$ is a linear gaussian model, which we write as $q(\mathbf{x}_{t}|\mathbf{x}_{t-1})=\mathcal{N}(\mathbf{x}_{t}|\sqrt{ \alpha_{t} }\mathbf{x}_{t-1},\sqrt{ 1-\alpha_{t} }\mathbf{I})$. Think of this step as adding noise gradually at each step into the data, and initial input $\mathbf{x}_{0}\sim q(\mathbf{x}_{0})$ is sampled from real data distribution, and is termed as **Forward diffusion process**. The coefficients $\alpha_{t}$ for each step can either be set as hyperparameters in the network [DDPM] or learned as parameters [VDM]. The reason for choosing the Gaussian encoder in this specific form is to keep the variance of latent variables at similar scale, i.e. the encoding process is *variance-preserving*.  We can telescope the error to calculate $q(\mathbf{x}_{t}|\mathbf{x}_{0})$ by combining the gaussians.
+Then, from the second assumption, each encoder $q(\mathbf{x}_{t}|\mathbf{x}_{t-1})$ is a linear gaussian model, which we write as $q(\mathbf{x}_{t}|\mathbf{x}_{t-1})=\mathcal{N}(\mathbf{x}_{t}|\sqrt{ \alpha_{t} }\mathbf{x}_{t-1},\sqrt{ 1-\alpha_{t} }\mathbf{I})$. Think of this step as adding noise gradually at each step into the data, and initial input $\mathbf{x}_{0}\sim q(\mathbf{x}_{0})$ is sampled from real data distribution, and is termed as **Forward diffusion process**. The coefficients $\alpha_{t}$ for each step can either be set as hyperparameters in the network ([@ho2020denoising]) or learned as parameters ([@kingma2021variational]). The reason for choosing the Gaussian encoder in this specific form is to keep the variance of latent variables at similar scale, i.e. the encoding process is *variance-preserving*.  We can telescope the error to calculate $q(\mathbf{x}_{t}|\mathbf{x}_{0})$ by combining the gaussians.
 
 $$
 \begin{align}
@@ -195,13 +195,7 @@ L_t &= \mathbb{E}_{\mathbf{x}_0, \epsilon} \left[\frac{1}{2 \sigma^{2}_{t}} \| \
 \end{aligned}
 $$
 
-[Ho et al.](https://arxiv.org/abs/2006.11239) found empirically that removing the weighting term in $L_{t}$ loss improved the generation output.
-
-> [!todo] write a timeline on how and when diffusion models were introduced and what improved/added what?
-> - [\[2006.11239\] Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239)
-> - [\[2102.09672\] Improved Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2102.09672)
-> - [\[2107.00630\] Variational Diffusion Models](https://arxiv.org/abs/2107.00630)
-> - [\[2511.13720\] Back to Basics: Let Denoising Generative Models Denoise](https://arxiv.org/abs/2511.13720)
+[@ho2020denoising] found empirically that removing the weighting term in $L_{t}$ loss improved the generation output.
 
 ## 1.4 Learning Noise Schedule
 
@@ -291,7 +285,7 @@ So, score function is equal to the noise along with a constant factor that decre
 
 We focus at deriving the generative model conditioned on some information. The simplest way would be maximise the conditional likelihood $p(x|c)$, where $c$ can be a scalar (class label) which can be mapped to embedding vector, and added into the network using spatial addition, or another image, or text prompt. We could then modify the neural network approximators of VDM with the additional information as $\hat{x}_{\theta}(x_{t},t,c)\approx x_{0},\hat{\epsilon}_{\theta}(x_{t},t,c)\approx\epsilon_{0},s_{\theta}(x_{t},t,c)\approx \nabla \log p(x_{t}|c)$. But the network has to be learned separately for each of the different kind of conditioning that we want to perform.
 
-**Classifier Guidance**: Dhariwal et al. proposed classifier guidance to leverage pre-trained discriminative classifiers of the form $p_{\phi}(c|x)$ to control the generation process. Let's derive the objective, using bayes rule, we write: $\log p(x|c)=\log p(c|x)+\log p(x)-\log p(c)$. Taking the gradient with respect to x,
+**Classifier Guidance** [@dhariwal2021diffusion] – Leverage pre-trained discriminative classifiers of the form $p_{\phi}(c|x)$ to control the generation process. Let's derive the objective, using bayes rule, we write: $\log p(x|c)=\log p(c|x)+\log p(x)-\log p(c)$. Taking the gradient with respect to x,
 
 $$
 \begin{equation}
@@ -313,9 +307,7 @@ $$
 x_{t-1}\sim \mathcal{N}(\mu+\lambda\Sigma g,\Sigma),\quad \mu=\mu_{\theta}(x_{t},t),\quad\Sigma=\Sigma_{\theta}(x_{t},t),\quad g=\nabla_{x_{t}}\log p_{\phi}(c|x_{t})
 $$
 
-**Classifier-free Guidance**
-
-Proposed by @ho2022classifier, training a classifier for different kind of conditioning is infeasible, and since the classifier is pre-trained, it may or may not map the noisy input to correct conditioning information. If we train it alongside the diffusion model, then it defeats the purpose of conditioning the generative model in the first place.
+**Classifier-free Guidance** [@ho2022classifier] – Training a classifier for different kind of conditioning is infeasible, and since the classifier is pre-trained, it may or may not map the noisy input to correct conditioning information. If we train it alongside the diffusion model, then it defeats the purpose of conditioning the generative model in the first place.
 
 First, note that we can write classifier guidance equation such that $\nabla_{x}\log p(c|x)=\nabla_{x}\log p(x|c)-\nabla_{x}\log p(x)$, and then substituting the equation into the final weighted form:
 
@@ -398,9 +390,3 @@ Common metrics:
 - [Calvin Luo, "Understanding Diffusion Models; A Unified Perspective"](https://www.calvinyluo.com/2022/08/26/diffusion-tutorial.html)
 - [Latent Diffusion (Stable Diffusion) \| José Salgado-Rojas](https://josesalgr.github.io/blog/2022/Stable-Diffusion/)
 - [The FID Lottery — Quantifying Hidden Randomness in Generative Model Evaluation](https://kyutai.org/fid-lottery)
-
-
-1. Sohl-Dickstein, Jascha, et al. "Deep unsupervised learning using nonequilibrium thermodynamics." _International conference on machine learning_. pmlr, 2015.
-2. Ho, Jonathan, Ajay Jain, and Pieter Abbeel. "Denoising diffusion probabilistic models." _Advances in neural information processing systems_ 33 (2020): 6840-6851.
-3. Kingma, Diederik, et al. "Variational diffusion models." _Advances in neural information processing systems_ 34 (2021): 21696-21707.
-4. Dhariwal, Prafulla, and Alexander Nichol. "Diffusion models beat gans on image synthesis." _Advances in neural information processing systems_ 34 (2021): 8780-8794.

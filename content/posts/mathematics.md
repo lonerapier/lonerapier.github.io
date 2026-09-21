@@ -80,13 +80,32 @@ Initially, want to complete at least undergraduate level courses.
 	- Not performing revision or spaced repetition.
 - **Examples**. Examples that are not mentioned in the resource. Intuition is sometimes built using examples. If you can't provide an example to 2 concepts from 2 different chapters instantly, you're lacking understanding of the topic.
 
+# Amazing Teachers
+- Gilbert Strang
+- Bruno Zimmerman
+- Frederic Schuller
+- Manjul Bhargava
+- Tim Roughgarden
+
+If you have any suggestions, I'd love to know about more awesome teachers. Please tell me by reaching out at [email](mailto:sambhavdusad24@gmail.com) or [X](https://x.com/lonerapier)
+
+> **World need more amazing teachers!**
+
 # Interesting Approaches
 - LLM prompt for further investigation into a topic:
 ```
 can you give me a rabbit hole related to `x` that can allow me to explore something much deeper than it?
 ```
+- LLM enabled learning systems
+	- Guidance
+	- Planning
+	- Critic
+	- Quizzer
 
-Resources:
+# Advice
+- [Terence Tao, "Career advice \| What's new"](https://terrytao.wordpress.com/career-advice/)
+
+# Resources
 - [Math — Susan Rigetti](https://www.susanrigetti.com/math)
 - [Mathematics for the adventurous self-learner](https://www.neilwithdata.com/mathematics-self-learner)
 - Amazing set of notes: [Class Notes by Andrew Lin](https://web.stanford.edu/~lindrew/notes.html)

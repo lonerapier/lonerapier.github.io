@@ -30,7 +30,7 @@ body {
 
 /* Recent Notes / Explorer section headings blend into the list items below
    them at the plugins' default 1rem - bump them up so they read as headings */
-.recent-notes > h3,
+.recent-notes>h3,
 button.mobile-explorer h2,
 button.desktop-explorer h2 {
   font-size: 1.2rem !important;
@@ -60,15 +60,15 @@ button.desktop-explorer h2 {
 
 /* Item lists (folder/tag pages, recent notes): tags were crowding out the
    title - shrink the tag pills and give the title more visual weight */
-.section-li > .section > .desc > h3 {
+.section-li>.section>.desc>h3 {
   font-size: 1.3rem;
 }
 
-.section-li > .section > .tags {
+.section-li>.section>.tags {
   font-size: 0.7rem;
 }
 
-.section-li > .section > .tags a.tag-link {
+.section-li>.section>.tags a.tag-link {
   padding: 0.1rem 0.3rem;
 }
 
@@ -115,3 +115,71 @@ button.desktop-explorer h2 {
     display: none;
   }
 }
+
+/* APA Bibliography Styling */
+.csl-bib-body {
+  margin-top: 1.5rem;
+
+  .csl-entry {
+    padding-left: 2em;
+    text-indent: -2em;
+    margin-bottom: 0.85rem;
+    line-height: 1.2;
+  }
+}
+
+/* Citation Tooltips */
+// [data-tooltip] {
+//   position: relative;
+//   cursor: pointer;
+
+//   &::after {
+//     content: attr(data-tooltip);
+//     position: absolute;
+//     bottom: calc(100% + 7px);
+//     left: 50%;
+//     transform: translateX(-50%) translateY(4px);
+//     padding: 0.5rem 0.75rem;
+//     width: max-content;
+//     max-width: 320px;
+//     background-color: var(--dark, #2b2b2b);
+//     color: var(--light, #fbfbfb);
+//     font-size: 0.82rem;
+//     font-weight: normal;
+//     font-style: normal;
+//     line-height: 1.35;
+//     text-align: left;
+//     white-space: normal;
+//     word-break: break-word;
+//     border-radius: 6px;
+//     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+//     pointer-events: none;
+//     opacity: 0;
+//     visibility: hidden;
+//     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+//     z-index: 1000;
+//   }
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     bottom: 100%;
+//     left: 50%;
+//     transform: translateX(-50%) translateY(4px);
+//     border-width: 5px;
+//     border-style: solid;
+//     border-color: var(--dark, #2b2b2b) transparent transparent transparent;
+//     pointer-events: none;
+//     opacity: 0;
+//     visibility: hidden;
+//     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+//     z-index: 1000;
+//   }
+
+//   &:hover::after,
+//   &:hover::before {
+//     opacity: 1;
+//     visibility: visible;
+//     transform: translateX(-50%) translateY(0);
+//   }
+// }

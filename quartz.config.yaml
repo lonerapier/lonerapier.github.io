@@ -117,6 +117,8 @@ plugins:
       bibliographyFile: "./content/bibliography.bib"
       linkCitations: true
       csl: apa
+      showTooltips: true
+      tooltipAttribute: data-tooltip
     order: 85
   - source: github:quartz-community/hard-line-breaks
     enabled: true

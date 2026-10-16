@@ -6,6 +6,8 @@ import { QuartzEmitterPlugin } from "../types"
 import spaRouterScript from "../../components/scripts/spa.inline"
 // @ts-ignore
 import popoverScript from "../../components/scripts/popover.inline"
+// @ts-ignore
+import tocProgressiveScript from "../../components/scripts/toc-progressive.inline"
 import baseStyles from "../../styles/base.scss"
 import customStyles from "../../styles/custom.scss"
 import popoverStyle from "../../components/styles/popover.scss"
@@ -83,6 +85,9 @@ async function joinScripts(scripts: string[]): Promise<string> {
 
 function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentResources) {
   const cfg = ctx.cfg.configuration
+
+  // progressive toc subheadings
+  componentResources.afterDOMLoaded.push(tocProgressiveScript)
 
   // popovers
   if (cfg.enablePopovers) {
@@ -520,6 +525,6 @@ export const ComponentResources: QuartzEmitterPlugin = () => {
         content: postscript,
       })
     },
-    async *partialEmit() {},
+    async *partialEmit() { },
   }
 }

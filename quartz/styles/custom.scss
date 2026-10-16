@@ -21,6 +21,50 @@ body {
   line-height: 1.3;
 }
 
+/* Progressive Table of Contents */
+.toc {
+  ul.toc-content {
+    li.depth-0 {
+      margin-top: 0.35rem;
+      font-weight: $semiBoldWeight;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    /* Keep initial headings to level 1; progressively open subheadings on scroll */
+    li:not(.depth-0) {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      pointer-events: none;
+      transition:
+        max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease,
+        margin 0.2s ease;
+
+      &.open {
+        max-height: 4rem;
+        opacity: 1;
+        pointer-events: auto;
+        margin-top: 0.15rem;
+        margin-bottom: 0.15rem;
+      }
+    }
+
+    li a.active-heading {
+      color: var(--secondary) !important;
+      opacity: 1 !important;
+      font-weight: $semiBoldWeight;
+    }
+  }
+}
+
 /* Reduce the Explorer font size to match the rest of the sidebar */
 .explorer,
 .explorer a,
@@ -30,7 +74,7 @@ body {
 
 /* Recent Notes / Explorer section headings blend into the list items below
    them at the plugins' default 1rem - bump them up so they read as headings */
-.recent-notes>h3,
+.recent-notes > h3,
 button.mobile-explorer h2,
 button.desktop-explorer h2 {
   font-size: 1.2rem !important;
@@ -44,12 +88,12 @@ button.desktop-explorer h2 {
 
 .explorer-content li,
 .explorer-content a,
-.folder-container div>a,
-.folder-container div>button span {
+.folder-container div > a,
+.folder-container div > button span {
   line-height: 1.3 !important;
 }
 
-.explorer-content .folder-outer>ul {
+.explorer-content .folder-outer > ul {
   padding-left: 0.6rem;
 }
 
@@ -60,21 +104,21 @@ button.desktop-explorer h2 {
 
 /* Item lists (folder/tag pages, recent notes): tags were crowding out the
    title - shrink the tag pills and give the title more visual weight */
-.section-li>.section>.desc>h3 {
+.section-li > .section > .desc > h3 {
   font-size: 1.3rem;
 }
 
-.section-li>.section>.tags {
+.section-li > .section > .tags {
   font-size: 0.7rem;
 }
 
-.section-li>.section>.tags a.tag-link {
+.section-li > .section > .tags a.tag-link {
   padding: 0.1rem 0.3rem;
 }
 
 /* Sidebar */
 @media all and ($desktop) {
-  .page>#quartz-body>.right.sidebar:empty {
+  .page > #quartz-body > .right.sidebar:empty {
     pointer-events: none;
   }
 
@@ -183,3 +227,22 @@ button.desktop-explorer h2 {
 //     transform: translateX(-50%) translateY(0);
 //   }
 // }
+
+/* Underline links instead of coloring them */
+article a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+
+  /* Remove the background pill highlight from internal links */
+  &.internal {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  &:hover {
+    color: inherit;
+    opacity: 0.75;
+  }
+}

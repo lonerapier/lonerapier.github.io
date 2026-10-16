@@ -1,0 +1,44 @@
+{
+  "name": "@lonerapier/quartz-spec-header",
+  "version": "0.1.0",
+  "description": "Engineering blueprint style title and metadata block for posts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "@quartz-community/types": "*",
+    "preact": "*"
+  },
+  "quartz": {
+    "name": "spec-header",
+    "displayName": "Spec Header",
+    "category": "component",
+    "version": "0.1.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 15,
+    "defaultEnabled": true,
+    "components": {
+      "SpecHeader": {
+        "displayName": "Spec Header",
+        "defaultPosition": "beforeBody",
+        "defaultPriority": 15
+      }
+    }
+  }
+}

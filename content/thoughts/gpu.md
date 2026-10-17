@@ -26,22 +26,17 @@ tags:
 	- 32 seems to be a sweet spot for sufficient parallelism and power consumption. This dictates how instruction scheduling, register file design, memory accesses (cache line of 32 x 4 = 128B), power usage.
 - Thread: Execution unit with its own register, program counter. Each thread has a unique `threadIdx`
 
-<p align="center"><img src="thoughts/images/cuda-thread-hierarchy-2.png" alt="CUDA thread hierarchy"></p>
+![[thoughts/images/cuda-thread-hierarchy-2.png|CUDA thread hierarchy|center]]
 
 > [!question] Why is blockDim useful? Why not go with 1D every time?
 - Natural thread indexing depending on data geometry. Data that is inherently 2D, will be less error prone, if block dimension is also 2D.
 - Memory accesses
 
-<p align="center">
-  <img src="thoughts/images/cuda-thread-hierarchy.png" alt="CUDA thread hierarchy">
-</p>
-
-*<center>CUDA thread hierarchy [^1]</center>*
+![[thoughts/images/cuda-thread-hierarchy.png|CUDA thread hierarchy [^1]|center]]
 
 ### 2.1.1 CUDA Scheduling Hierarchy
 
-![minimal-gpu-arch](thoughts/images/minimal-gpu-arch.png)
-*<center>Minimal GPU architecture [^1]</center>*
+![[thoughts/images/minimal-gpu-arch.png|Minimal GPU architecture [^1]|center]]
 
 Let's go through a typical SM workflow during warp scheduling, but first, we should look at the numbers:
 
@@ -202,10 +197,7 @@ int main() {
 }
 ```
 
-<p align="center">
-  <img src="thoughts/images/3d-grid-hierarchy.png" alt="3D grid hierarchy">
-</p>
-*<center>3D grid hierarchy [^3]</center>*
+![[thoughts/images/3d-grid-hierarchy.png|3D grid hierarchy [^3]|center]]
 
 Kernels are executed on a particular thread, and to access the data for that thread, we need to index the thread according to the block dimension. To understand grid -> block -> thread dimensions hierarchy:
 - `x` measures column, `y` measures the row, and `z` measures the height.
@@ -410,160 +402,7 @@ Conclusion: Kogge-stone is not work efficient for large input sizes or when comp
 
 Since reduction is performed in a binary tree, number of elements required = 2\*width = 2\*threads. Thus, **SECTION SIZE = 2\*number of threads in the block**.
 
-```tikz
-\usetikzlibrary{arrows.meta}
-\usetikzlibrary{decorations.pathreplacing}
-\begin{document}
-\colorlet{HighlightGreen}{green!60!black}
-\begin{tikzpicture}[
-    x=0.75cm, y=1.2cm,
-    box/.style={minimum width=0.6cm, minimum height=0.4cm, font=\tiny, inner sep=0pt},
-    overviewbox/.style={minimum width=1.45cm, minimum height=0.5cm, font=\tiny, inner sep=0pt},
-    arrow/.style={-Stealth, thick, opacity=0.6},
-    warp0/.style={gray!80},
-    warp1/.style={red!70},
-    warp2/.style={green!70},
-    warp3/.style={blue!70},
-    label node/.style={font=\sffamily\scriptsize\bfseries}
-  ]
-
-  % --- 1. OVERVIEW (128 elements) ---
-  \node[label node, anchor=east] at (-0.8, 2) {Global Memory:};
-  \begin{scope}[shift={(0, 2)}]
-    % Draw contiguous memory block for Global Memory (0 to 16 units)
-    \draw (0, -0.25) rectangle (16, 0.25);
-    \foreach \k in {1,...,7} {
-        \draw (\k*2, -0.25) -- (\k*2, 0.25);
-      }
-    \foreach \s in {0,...,7} {
-        \pgfmathtruncatemacro{\startidx}{\s*16}
-        \pgfmathtruncatemacro{\endidx}{(\s+1)*16-1}
-        \node[overviewbox] (gm-\s) at (\s*2 + 1, 0) {$x_{\startidx} \dots x_{\endidx}$};
-        \ifnum\s=0
-          \coordinate (b-0-sw) at (0, -0.25);
-          \coordinate (b-0-se) at (2, -0.25);
-        \fi
-      }
-  \end{scope}
-
-  % Zoom lines from first section
-  \draw[dashed, black!30] (b-0-sw) -- (-0.5, 0.8);
-  \draw[dashed, black!30] (b-0-se) -- (15.5, 0.8);
-
-  % Help for indexing
-  \foreach \i in {0,...,15} {
-      \node[font=\tiny, gray] at (\i, 0.6) {\i};
-    }
-
-  % --- 2. INITIAL STATE ---
-  \node[label node, anchor=east] at (-0.8, 0) {Input:};
-
-  % Draw contiguous memory block for Input
-  \draw (-0.5, -0.2) rectangle (15.5, 0.2);
-  \foreach \i in {0,...,14} {
-      \draw (\i+0.5, -0.2) -- (\i+0.5, 0.2);
-    }
-  % Invisible nodes for arrow anchoring
-  \foreach \i in {0,...,15} {
-      \node[box] (s0-\i) at (\i, 0) {1};
-    }
-
-  % --- 3. UPSWEEP PHASE ---
-  % Step 1: Stride 1
-  \node[label node, anchor=east] at (-0.8, -1) {Stride 1:};
-  \draw (-0.5, -1.2) rectangle (15.5, -0.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -1.2) -- (\i+0.5, -0.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathsetmacro{\val}{mod(\i+1, 2) == 0 ? 2 : 1}
-      \node[box] (s1-\i) at (\i, -1) {\pgfmathprintnumber{\val}};
-    }
-  \foreach \k in {0,...,7} {
-      \pgfmathtruncatemacro{\idx}{\k*2+1} \pgfmathtruncatemacro{\src}{\idx-1}
-      \pgfmathtruncatemacro{\w}{floor(\k/2)}
-      \draw[arrow, warp\w] (s0-\src.south) -- (s1-\idx.north);
-    }
-
-  % Step 2: Stride 2
-  \node[label node, anchor=east] at (-0.8, -2) {Stride 2:};
-  \draw (-0.5, -2.2) rectangle (15.5, -1.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -2.2) -- (\i+0.5, -1.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathsetmacro{\val}{mod(\i+1, 4) == 0 ? 4 : (mod(\i+1, 2) == 0 ? 2 : 1)}
-      \node[box] (s2-\i) at (\i, -2) {\pgfmathprintnumber{\val}};
-    }
-  \foreach \k in {0,...,3} {
-      \pgfmathtruncatemacro{\idx}{\k*4+3} \pgfmathtruncatemacro{\src}{\idx-2}
-      \pgfmathtruncatemacro{\w}{\k}
-      \draw[arrow, warp\w] (s1-\src.south) -- (s2-\idx.north);
-    }
-
-  % Step 3: Stride 4
-  \node[label node, anchor=east] at (-0.8, -3) {Stride 4:};
-  \draw (-0.5, -3.2) rectangle (15.5, -2.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -3.2) -- (\i+0.5, -2.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathsetmacro{\val}{mod(\i+1, 8) == 0 ? 8 : (mod(\i+1, 4) == 0 ? 4 : (mod(\i+1, 2) == 0 ? 2 : 1))}
-      \node[box] (s3-\i) at (\i, -3) {\pgfmathprintnumber{\val}};
-    }
-  \draw[arrow, warp0] (s2-3.south) -- (s3-7.north);
-  \draw[arrow, warp2] (s2-11.south) -- (s3-15.north);
-
-  % Step 4: Stride 8
-  \node[label node, anchor=east] at (-0.8, -4) {Stride 8:};
-  \draw (-0.5, -4.2) rectangle (15.5, -3.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -4.2) -- (\i+0.5, -3.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathsetmacro{\val}{(\i==15) ? 16 : (mod(\i+1, 8) == 0 ? 8 : (mod(\i+1, 4) == 0 ? 4 : (mod(\i+1, 2) == 0 ? 2 : 1)))}
-      \node[box] (s4-\i) at (\i, -4) {\pgfmathprintnumber{\val}};
-    }
-  \draw[arrow, warp0] (s3-7.south) -- (s4-15.north);
-
-  % --- 4. DOWNSWEEP PHASE ---
-  % Step 5: Stride 4
-  \node[label node, anchor=east] at (-0.8, -5) {Stride 4:};
-  \draw (-0.5, -5.2) rectangle (15.5, -4.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -5.2) -- (\i+0.5, -4.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathsetmacro{\val}{(\i==11) ? 12 : ( (\i==15) ? 16 : (mod(\i+1, 8) == 0 ? 8 : (mod(\i+1, 4) == 0 ? 4 : (mod(\i+1, 2) == 0 ? 2 : 1))) ) }
-      \node[box] (s5-\i) at (\i, -5) {\pgfmathprintnumber{\val}};
-    }
-  \draw[arrow, warp1] (s4-7.south) -- (s5-11.north);
-
-  % Step 6: Stride 2
-  \node[label node, anchor=east] at (-0.8, -6) {Stride 2:};
-  \draw (-0.5, -6.2) rectangle (15.5, -5.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -6.2) -- (\i+0.5, -5.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathsetmacro{\val}{ (\i==5) ? 6 : ( (\i==9) ? 10 : ( (\i==13) ? 14 : ( (\i==11) ? 12 : ( (\i==15) ? 16 : (mod(\i+1, 8) == 0 ? 8 : (mod(\i+1, 4) == 0 ? 4 : (mod(\i+1, 2) == 0 ? 2 : 1))) ) ) ) ) }
-      \node[box] (s6-\i) at (\i, -6) {\pgfmathprintnumber{\val}};
-    }
-  \draw[arrow, warp0] (s5-3.south) -- (s6-5.north);
-  \draw[arrow, warp2] (s5-7.south) -- (s6-9.north);
-  \draw[arrow, warp3] (s5-11.south) -- (s6-13.north);
-
-  % Final Result (Stride 1)
-  \node[label node, anchor=east] at (-0.8, -7) {Stride 1:};
-  \draw[fill=HighlightGreen, opacity=0.3] (-0.5, -7.2) rectangle (15.5, -6.8);
-  \foreach \i in {0,...,14} { \draw (\i+0.5, -7.2) -- (\i+0.5, -6.8); }
-  \foreach \i in {0,...,15} {
-      \pgfmathtruncatemacro{\finalval}{\i+1}
-      \node[box] (sf-\i) at (\i, -7) {\finalval};
-    }
-  \foreach \k in {0,...,6} {
-      \pgfmathtruncatemacro{\idx}{\k*2+2} \pgfmathtruncatemacro{\src}{\idx-1}
-      \pgfmathtruncatemacro{\w}{floor(\k/2)}
-      \draw[arrow, warp\w, opacity=0.3] (s6-\src.south) -- (sf-\idx.north);
-    }
-
-  % Section Brackets
-  \draw [decorate, decoration={brace, amplitude=6pt, raise=-0.1cm, mirror}]
-  (-2.7, 0.4) -- (-2.7, -4.4) node [midway, xshift=-0.4cm, rotate=90, align=center, font=\scriptsize\bfseries] {Upsweep (Reduction)};
-  \draw [decorate, decoration={brace, amplitude=6pt, raise=-0.1cm, mirror}]
-  (-2.7, -4.8) -- (-2.7, -7.2) node [midway, xshift=-0.4cm, rotate=90, align=center, font=\scriptsize\bfseries] {Downsweep\\(Distribution)};
-
-\end{tikzpicture}
-\end{document}
-```
+![[thoughts/images/brent-kung.svg|Brent-Kung scan algorithm|center]]
 
 To understand how indices are calculated in downsweep phase:
 - Observe that in the upsweep phase, all indices of format: $2^{n}-1$ are complete with the scan values.
@@ -704,11 +543,7 @@ A kernel's performance is determined by three factors:
 - Memory (communication within chip): Time spent on waiting for data from global memory.
 - Communication between chips: For distributed kernels, tensors are transferred between different devices using PCIe, DCN hardware.
 
-<p align="center">
-  <img src="thoughts/images/roofline.svg" alt="Roofline plot">
-</p>
-
-*<center>Roofline plot</center>*
+![[thoughts/images/roofline.svg|Roofline plot|center]]
 
 Arithmetic intensity (AI) is the metric used to measure the optimal GPU utilization.
 
@@ -761,11 +596,7 @@ So far, I've learned about basic thread and memory hierarchy in GPUs, and learne
 
 ## 3.1 GPU Architecture Contd.
 
-<p align="center">
-  <img src="thoughts/images/h100.svg" alt="H100 SM">
-</p>
-
-*<center>H100 SM</center>*
+![[thoughts/images/h100.svg|H100 SM architecture|center]]
 
 Going deeper into levels of computation hierarchy in an H100 :[^2]
 1. SM Partitions
@@ -798,11 +629,7 @@ Because GPU, essentially is a very simple thread handler. It intentionally, left
 - Massive register file
 - Programmer managed shared memory (L1 cache)
 
-<p align="center">
-  <img src="thoughts/images/gpu-cpu.svg" alt="GPU CPU comparison">
-</p>
-
-*<center>GPU / CPU comparison [^7]</center>*
+![[thoughts/images/gpu-cpu.svg|GPU / CPU comparison [^7]|center]]
 
 | Metric                    | AMD EPYC 9965             | NVIDIA H100              | Ratio  |
 | ------------------------- | ------------------------- | ------------------------ | ------ |

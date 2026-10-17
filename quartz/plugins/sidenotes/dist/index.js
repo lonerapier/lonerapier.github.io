@@ -140,7 +140,7 @@ export const Sidenotes = () => ({
                         if (index === -1) {
                             return;
                         }
-                        const tableIndex = ancestors.findIndex((ancestor) => isElement(ancestor) && ancestor.tagName === "table");
+                        const tableIndex = ancestors.findIndex((ancestor) => isElement(ancestor) && (ancestor.tagName === "table" || ancestor.tagName === "figure"));
                         const table = tableIndex === -1 ? undefined : ancestors[tableIndex];
                         const tableParent = tableIndex <= 0 ? undefined : ancestors[tableIndex - 1];
                         const ref = node.children.find((child) => isElement(child) &&

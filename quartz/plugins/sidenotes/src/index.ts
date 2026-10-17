@@ -178,7 +178,9 @@ export const Sidenotes: QuartzTransformerPlugin = () => ({
             }
 
             const tableIndex = ancestors.findIndex(
-              (ancestor) => isElement(ancestor) && ancestor.tagName === "table",
+              (ancestor) =>
+                isElement(ancestor) &&
+                (ancestor.tagName === "table" || ancestor.tagName === "figure"),
             )
             const table = tableIndex === -1 ? undefined : (ancestors[tableIndex] as Element)
             const tableParent = tableIndex <= 0 ? undefined : ancestors[tableIndex - 1]

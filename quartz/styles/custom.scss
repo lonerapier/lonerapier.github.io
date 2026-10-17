@@ -255,3 +255,29 @@ article img[src*=".svg"] {
 :root[saved-theme="dark"] article img[src*=".svg"]:not(.no-invert) {
   filter: invert(0.92) hue-rotate(180deg);
 }
+
+/* Image captions styling */
+.image-captions-figure {
+  background: transparent !important;
+  margin: 1.5rem auto !important;
+
+  &.image-captions-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+.image-captions-caption {
+  background: transparent !important;
+  font-family: var(--codeFont), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 0.8rem !important;
+  color: var(--darkgray) !important;
+  margin-top: 0.5rem !important;
+  text-align: center !important;
+  line-height: 1.45 !important;
+}
+
+.image-captions-figure-label {
+  font-weight: 600 !important;
+  color: var(--dark, inherit) !important;
+}

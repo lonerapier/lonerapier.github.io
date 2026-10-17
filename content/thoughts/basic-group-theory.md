@@ -67,30 +67,7 @@ Theorem: If $H_{1},H_{2},\dots$ are subgroups, then $H_{1} \cap H_{2}\cap\dots$ 
 - Every finite group has independent set of generators which can be used to define relations.
 - Defining relation: Relation defined using independent elements.
 
-```tikz
-\usepackage{tikz-cd}
-\begin{document}
-\begin{tikzcd}
-    T
-    \arrow[drr, bend left, "x"]
-    \arrow[ddr, bend right, "y"]
-    \arrow[dr, dotted, "{(x,y)}" description] & & \\
-    K & X \times_Z Y \arrow[r, "p"] \arrow[d, "q"]
-    & X \arrow[d, "f"] \\
-    & Y \arrow[r, "g"]
-    & Z
-\end{tikzcd}
-\quad \quad
-\begin{tikzcd}[row sep=2.5em]
-A' \arrow[rr,"f'"] \arrow[dr,swap,"a"] \arrow[dd,swap,"g'"] &&
-  B' \arrow[dd,swap,"h'" near start] \arrow[dr,"b"] \\
-& A \arrow[rr,crossing over,"f" near start] &&
-  B \arrow[dd,"h"] \\
-C' \arrow[rr,"k'" near end] \arrow[dr,swap,"c"] && D' \arrow[dr,swap,"d"] \\
-& C \arrow[rr,"k"] \arrow[uu,<-,crossing over,"g" near end]&& D
-\end{tikzcd}
-\end{document}
-```
+![[thoughts/images/basic-group.svg|Group relations and generators|center]]
 
 > [!example]
 > - $GL_{n}\leq\text{Sym}(\mathbb{R}^{n})$
@@ -184,6 +161,13 @@ The inverse image of an element $\bar{s} \in \bar{S}$ is the set $\{ s \in S\ |\
 Example: map $f:G\to\mathbb{N}$ where $f(a)$ is the order of the element $a$ of $G$. Here, the fibres are set of elements with same order.
 
 Equivalence relation defined by a group homomorphism $\varphi:G\to G'$ is referred to as *congruence*, $a \equiv b$ if $\varphi(a)=\varphi(b)$. Thus, $a \equiv b$ iff b is in coset $aK$ of G where $K$ is the homomorphism kernel.
+
+## Cosets
+
+## Product Groups
+
+## Quotient Groups
+
 
 # References
 - [Ben Lynn's notes](https://crypto.stanford.edu/pbc/notes/group/)

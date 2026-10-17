@@ -10,7 +10,7 @@ Please read this [blog](https://vitalik.eth.limo/general/2020/03/21/garbled.html
 
 Originally proposed by [Yao82][Yao82] for Secure general [[mpc|2PC]] for arbitrary polynomial [[sfe|functions]].
 
-![gc-and](/Excalidraw/gc-and.svg)
+![Garbled AND gate circuit diagram|center](/Excalidraw/gc-and.svg)
 
 | a   | b   | AND |
 | --- | --- | ------ |

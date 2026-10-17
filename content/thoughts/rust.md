@@ -232,7 +232,7 @@ rust can look up at the vtable to determine which trait objects function call ha
 +---------+---------+--------+
 ```
 
-![memory layout of trait objects](https://i.imgur.com/yNB5zn5.png)
+![Memory layout of trait objects (fat pointers and vtable)|center](https://i.imgur.com/yNB5zn5.png)
 
 ```rust
 fn rands(x: bool) -> Box<dyn Bar> {

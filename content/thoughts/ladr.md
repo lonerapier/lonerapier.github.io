@@ -9,7 +9,7 @@ tags:
 
 Solution and notes to [Linear Algebra Done Right, Sheldon Axeler](https://linear.axler.net/). Each section is based on a chapter, and contains important result and exercise solutions.
 
-## Vector Spaces
+# Vector Spaces
 
 - start:
 - definition and properties
@@ -31,7 +31,7 @@ Finite-dimensional vector spaces:
 	- $\#(S_{1}\cup S_{2})\leftrightarrow \dim(V_{1}+V_{2})=\dim{V_{1}}+\dim{V_{2}}-\dim(V_{1} \cap V_{2})$
 - Is it possible to find out how many LI vectors exists in a n dim VS?
 
-## Linear Maps
+# Linear Maps
 
 - start: 01-07-25
 - linear map lemma
@@ -88,7 +88,7 @@ Finite-dimensional vector spaces:
 	- what are the most prominent examples and use case i can think of quotient maps and dual maps?
 	- QUES: what are the proof techniques that I know of right now? contradiction, induction, counterexample, equality by subset, iff, at least logic,
 
-## Polynomials
+# Polynomials
 - PROVE: polynomial division: p=sq+r with dim r <= dim q.
 > [!note] Trigonometry primer
 > - trigonometric interpretation of complex numbers = $r(\cos \theta+i\sin \theta)$
@@ -115,7 +115,7 @@ Finite-dimensional vector spaces:
 		- Surjective: TODO
 		- rp+sq=1 is proven trivially from (a,b)
 
-## Eigenvalue and Eigenvectors
+# Eigenvalue and Eigenvectors
 - START: 04-10
 - **5A**
 - operator
@@ -191,7 +191,7 @@ Finite-dimensional vector spaces:
 	- Commutative operator have Upper-Triangular matrices with respect to same basis.
 	- Ex 5E
 
-## Inner Product Spaces
+# Inner Product Spaces
 - Start: 10-11
 - **6A**
 - Inner product, Inner product spaces, norm
@@ -242,7 +242,7 @@ Finite-dimensional vector spaces:
 	- 22: Use expression for $TT^{\dagger},T^{\dagger}T$. Then the problem becomes trivial of forming the connection between LHS and RHS.
 	- 23: Identify $\text{null}\ T^{\dagger}, \text{range}\ T^{\dagger}$. Form the expression for $(T^{\dagger})^{\dagger}$. Multiply by T both sides, and prove that it equals $P_{\text{range}\ T^{\dagger}}$.
 
-## Operators on IP
+# Operators on IP
 - **7A**
 - start: 29-11
 - adjoint of an operator
@@ -341,7 +341,7 @@ Finite-dimensional vector spaces:
 - 27. a) trivial to show by subtraction, and calculating operator norm by defintion. b) calculate ||(T-E)v|| = ||((T-S) + (S-E))v|| = ||(T-S)v|| + ||(S-E)v|| >= ||T-S|| due to reverse triangle inequality on ||S-E||.
 - 31. Use spectral theorem to prove `sqrt(T*T)` can be a diagonal operator. and since S is unitary, S is normal too. Now prove that both commute, because commuting normal operators have a common orthonormal basis.
 
-## Operators on Complex VS
+# Operators on Complex VS
 - START: 15-12
 - **8A**
 - Generalised eigenvector
@@ -378,7 +378,7 @@ Finite-dimensional vector spaces:
 - **8D**
 - Trace. tr(TS) = tr(ST)
 
-## Multilinear Algebra and Determinants
+# Multilinear Algebra and Determinants
 - START: 22-12
 - **9A**
 - Bilinear form (bilinear functional)
@@ -434,7 +434,7 @@ Finite-dimensional vector spaces:
 - 7. can be done similar to above by showing that sum of rank-2 tensors won't equal rank-3 tensors.
 - 9,10. Prove that a unique bilinear map exists from T'(v,w) = Sv⊗Tw. Now, use universality property of tensor products to prove that a linear map exists.
 
-## Examples and Computational Methods
+# Examples and Computational Methods
 - T in R^2 such that dim null T^2 > dim null T.
 - operator for real vector space with no eigenvalues. Think about an irreducible characteristic polynomial and derive the operator from that.
 - T \in R^3 such that T is normal but not self-adjoint.

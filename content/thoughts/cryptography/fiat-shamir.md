@@ -5,7 +5,7 @@ tags:
 - cryptography
 ---
 
-![Feige-Fiat-Shamir.png](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/7C67DBCA-3360-4109-833A-03B26CCD00D7_2/dQqjhDktmjoMAfrbxT4zZkhqEjbfxapng3dGPIobNL0z/Feige-Fiat-Shamir.png)
+![Feige-Fiat-Shamir identification protocol|center](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/7C67DBCA-3360-4109-833A-03B26CCD00D7_2/dQqjhDktmjoMAfrbxT4zZkhqEjbfxapng3dGPIobNL0z/Feige-Fiat-Shamir.png)
 
 Method to convert interactive protocols into non-interactive system such that public verifiability is feasible and both prover and verifier doesn’t need to be online at all times.
 
@@ -49,8 +49,7 @@ first sumcheck is used to prove r1cs relation, after that, prover calculates eva
 
 now, to prove that evaluations are correct, another sumcheck instance is used, where prover sends evaluations to individual polynomials. Receives 3 random values from verifier and batch all 3 instances into one big sumcheck. at the end left with three values which are evaluations of A,B,C=va,vb,vc at rx,ry (two random values for each sumcheck).
 
-![spartan-wfs](https://i.imgur.com/amFjFu1.png)
-<center>Spartan Weak FS from https://eprint.iacr.org/2023/691</center>
+![Spartan Weak Fiat-Shamir attack ([Source](https://eprint.iacr.org/2023/691))|center](https://i.imgur.com/amFjFu1.png)
 
 Prove final evaluation.
 

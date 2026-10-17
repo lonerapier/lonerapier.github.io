@@ -31,7 +31,7 @@ $$
 
 Let's talk about the algorithm:
 
-![](https://i.imgur.com/dy6URTt.png)
+![AES encryption round structure|center](https://i.imgur.com/dy6URTt.png)
 
 ```mermaid
 flowchart TB

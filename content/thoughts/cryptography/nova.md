@@ -12,13 +12,13 @@ very introductory explanation on ivc is computation that can verify itself with 
 
 IVC works on step based functions: $z_{n}=F^{(n)}(z_{0})$ for some steps $n$, initial input $z_{0}$ and output $z_{n}$.
 
-![ivc-intro](https://i.imgur.com/nbepj2r.png)
+![Incrementally verifiable computation (IVC) step function|center](https://i.imgur.com/nbepj2r.png)
 
 nova realises incremental verifiability using a relaxed [[r1cs|R1CS]] instance. so each step is treated as an R1CS instance and that step proves that step was computed correctly and folds the R1CS instance of previous step and the current step to a new relaxed R1CS instance which is passed to next step.
 
 > [!question] how does nova map R1CS computation into a step computation function?
 
-![nova-folding-intro](https://i.imgur.com/sVISBKM.png)
+![Nova folding scheme for relaxed R1CS instances|center](https://i.imgur.com/sVISBKM.png)
 
 ## Preliminaries
 
@@ -69,7 +69,7 @@ Above folding scheme is rendered non-interactive in random-oracle model using Fi
 - $\mathcal{P}(\mathsf{pk},(u_{1},w_{1}),(u_{2},w_{2}))\rightarrow \left(E, W,\overline{T}\right)$
 - $\mathcal{V}(\mathsf{vk},(\overline{T},\overline{W}),(u_{1},u_{2})) \rightarrow \left(\overline{E},\overline{W},u,x\right)$
 
-![folding-scheme](https://i.imgur.com/DIoCRBh.png)
+![Non-interactive folding scheme (NIFS) protocol|center](https://i.imgur.com/DIoCRBh.png)
 
 Let's understand efficiency of nova's NIFS:
 
@@ -150,7 +150,7 @@ In the next step, to circumvent succinctness and zero-knowledge, nova attaches t
 
 Another very interesting [paper](https://eprint.iacr.org/2023/969) identified a soundness bug in nova proving on a [cycle of curves](https://zcash.github.io/halo2/background/curves.html#cycles-of-curves). Why is a cycle of curves necessary? because output of one circuit is in scalar field while the input is in base field of the elliptic curve used for commitments.
 
-![nova-prover](https://i.imgur.com/tYZBfuf.png)
+![Nova cycle of curves recursive prover architecture|center](https://i.imgur.com/tYZBfuf.png)
 
 So, you have to send the commitments to next curve layer, where it's accumulated and $x_0$ is verified and $x_1$ is sent to next layer.
 

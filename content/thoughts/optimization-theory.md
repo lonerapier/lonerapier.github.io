@@ -62,12 +62,12 @@ For $L_{\infty}$ based norm, dual norm = $L_{1}$ norm $\lVert g \rVert_{1}$ and 
 
 
 # Resources
+- ==🔴[Master M2 MVA: Convex Optimization, Algorithms and Applications.](https://www.di.ens.fr/~aspremon/OptConvexeM2.html)==
 - [Nonlinear Optimization I - 553.761 (Fall 2024) · Mateo Díaz](https://mateodd25.github.io/nonlinear/)
 - [Numerical Methods I - CS 357 @ UIUC Textbook](https://cs357.cs.illinois.edu/textbook/)
 - [EE364a: Convex Optimization I](https://web.stanford.edu/class/ee364a/), [EE364b - Convex Optimization II](https://stanford.edu/class/ee364b/)
 - [Convex Optimization Overview](https://cs229.stanford.edu/section/cs229-cvxopt.pdf), [Convex Optimization Overview II](https://cs229.stanford.edu/section/cs229-cvxopt2.pdf)
 - [EE227BT: Convex Optimization](https://people.eecs.berkeley.edu/~elghaoui/Teaching/EE227BT/index.html), [EE 227C (Spring 2018) Convex Optimization and Approximation](https://ee227c.github.io/)
-- [https://qb3.github.io/optim\_crash\_course.html](https://qb3.github.io/optim_crash_course.html)
 - [ICML Tutorial Is numerical optimization theory irrelevant to machine learning practice in 2026?](https://icml.cc/virtual/2026/75373)
 - [lecture\_notes-optimization-undergraduate.pdf](https://yifanc96.github.io/slides/lecture_notes-optimization-undergraduate.pdf): same for optimization
 - [depths-of-first-order-optimization - Google Slides](https://docs.google.com/presentation/d/1PIAChMGGwhmdUxDPyOo1o8Qlhq3h_ofV2mhBb6JHH04/edit?slide=id.g313117c0c90_0_5#slide=id.g313117c0c90_0_5)
@@ -80,3 +80,5 @@ For $L_{\infty}$ based norm, dual norm = $L_{1}$ norm $\lVert g \rVert_{1}$ and 
 - [\[1909.03550\] Lecture Notes: Optimization for Machine Learning](https://arxiv.org/abs/1909.03550)
 - [\[1810.00760\] Riemannian Adaptive Optimization Methods](https://arxiv.org/abs/1810.00760)
 - [Machine Learning Refined 2nd Edition \| GitHub, PDFs & Notebooks](https://www.mlrefined.com/)
+- [Continuous optimization | Michael Lindsey](https://quantumtative.github.io/optimization.pdf)
+- [Optimization — An Alchemist's Notes on Deep Learning](https://notes.kvfrans.com/2-training-neural-networks/optimization.html)

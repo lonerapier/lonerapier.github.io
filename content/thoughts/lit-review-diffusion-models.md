@@ -101,8 +101,11 @@ Tutorials
 - [\[2510.21890\] The Principles of Diffusion Models](https://arxiv.org/abs/2510.21890)
 - [\[2403.18103\] Tutorial on Diffusion Models for Imaging and Vision](https://arxiv.org/abs/2403.18103)
 - [\[2406.08929\] Step-by-Step Diffusion: An Elementary Tutorial](https://arxiv.org/abs/2406.08929)
+- [\[2512.05092\] Foundations of Diffusion Models in General State Spaces: A Self-Contained Introduction](https://arxiv.org/abs/2512.05092)
 - [All Posts – Sander Dieleman](https://sander.ai/posts/)
 - ==[Simon Coste's notes for a graduate-level course on flow-based generative models](https://simoncoste.gitlab.io/transport/)==
+- [Notes — Antonio Franca](https://www.antoniofranca.me/notes.html): detailed notes on flow matching, optimal transport, Generator matching, Symmetry
+- [Topics in High-Dimensional Sampling and Generative Diffusions – Yifan Chen, UCLA](https://yifanc96.github.io/slides/MATH_285J_topics_in_high_dimensional_sampling_and_generative_diffusion.pdf)
 
 DDPM
 - [Deep Unsupervised Learning using Nonequilibrium Thermodynamics](https://proceedings.mlr.press/v37/sohl-dickstein15.html): introduced iterative Markov process based noising and denoising.

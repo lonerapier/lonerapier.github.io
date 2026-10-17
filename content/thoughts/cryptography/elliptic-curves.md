@@ -36,7 +36,7 @@ And for some groups, it is difficult but not computably infeasible:
 
 # Elliptic Curves
 
-![ec-curve|480x480](https://i.imgur.com/7K5pcAc.png)
+![Elliptic curve group law|center|480x480](https://i.imgur.com/7K5pcAc.png)
 
 This is a curve defined in plane $\mathbb{R}^2$.
 
@@ -71,7 +71,7 @@ $$
 
 Point in standard projective coordinates $(X,Y,Z)$ represents $(\frac{X}{Z},\frac{Y}{Z})$ in Affine coordinate system. Also called homogeneous projective coordinates as the curve equation takes on the homogeneous form $Y^{2}Z=X^{3}+4Z^{3}$.
 
-![standard-projective-coordinates](thoughts/images/standard-projective-coordinates.png)
+![[thoughts/images/standard-projective-coordinates.png|Standard projective coordinates on elliptic curve|center]]
 
 Points become straight line through the origin in $(X,Y,Z)$ space, with the affine point being the intersection of the line with the plane $Z=1$. [Equivalence relation](https://crypto.stackexchange.com/questions/40947/what-is-the-projective-space) from plane to projective space can be defined as:
 

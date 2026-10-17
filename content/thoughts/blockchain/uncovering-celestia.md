@@ -27,7 +27,7 @@ In a series of transactions, a blockchain cares about two things, *consensus* an
 
 Celestia uses [[tendermint|Tendermint]] as its consensus protocol and is only responsible to enforce consensus rules. It doesn’t care about transaction validity nor is it responsible to execute them. Rollups on top of celestia monitor for transactions important for them, download and execute them accordingly.
 
-![9448d3db-ignore.png](https://storage.googleapis.com/members-portal-bucket/uploads/2022/02/9448d3db-ignore.png)
+![Celestia consensus and execution separation model|center](https://storage.googleapis.com/members-portal-bucket/uploads/2022/02/9448d3db-ignore.png)
 
 Qn: If execution doesn’t happen on celestia core, then does every app running on top of celestia has to execute each transaction and how does that help solve scalability problems found in other monolithic chains?
 
@@ -41,7 +41,7 @@ Fraud/Validity proofs negate the occurrence of this phenomenon as any light clie
 
 # How Fraud/Validity Proofs Work
 
-![02571c37-simplified-fraud-proof.png](https://storage.googleapis.com/members-portal-bucket/uploads/2022/02/02571c37-simplified-fraud-proof.png)
+![Simplified fraud proof verification by light clients|center](https://storage.googleapis.com/members-portal-bucket/uploads/2022/02/02571c37-simplified-fraud-proof.png)
 
 Full nodes can provide light nodes with just enough data for them to verify that a particular transaction in included in block or not. This happens using merkle trees, which can efficiently prove that a particular tx is included w/o requiring them to download the whole block. So, these full nodes can provide just a subset of data and these light clients can verify against that.
 
@@ -55,7 +55,7 @@ DAS is implemented in celestia using a technique called `Erasure Coding` , which
 
 Light nodes randomly sample small fixed-sized chunks of block data from the block and have probabilistic assurances that other chunks have been made available to the network.
 
-![a4e60aab-eithercase.png](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/CD732BFD-616B-4A45-BDB8-132508E3914F_2/OKzZK6rzyYtwYyNf0SI2pK0Bpv03SG6uzxxRTPczC78z/a4e60aab-eithercase.png)
+![Data availability sampling: available vs withheld block data|center](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/CD732BFD-616B-4A45-BDB8-132508E3914F_2/OKzZK6rzyYtwYyNf0SI2pK0Bpv03SG6uzxxRTPczC78z/a4e60aab-eithercase.png)
 
 When light clients start sampling the chunks of data along with the merkle proofs of inclusion of data in the block, from the block producer, it has two options:
 
@@ -120,7 +120,7 @@ Celestia made simpler architectural decisions that let them reduce any unnecessa
 1. Bootstrapping execution environments: celestia as DA layer has no use if there are no execution environments on top of celestia to take advantage of all the DA throughput.
 2. Determining appropriate block sizes, although celestia has the property of scaling data sampling as more number of nodes join the network, but there are no mechanisms to determine number of light clients in the network. Also, light clients cannot be rewarded for data sampling processes, thus, has no incentives.
 
-![cevmos-celestiums.png](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/EF825D6C-48E0-46D5-85B6-F4FE7DBDD949_2/CfHFGvj6vjieQD4EScjkPaAlunvQm3o1bbkJDOGB3JQz/cevmos-celestiums.png)
+![Cevmos and Celestiums settlement architecture|center](https://res.craft.do/user/full/e83dd57b-d460-d205-2243-2f6ed8de496a/EF825D6C-48E0-46D5-85B6-F4FE7DBDD949_2/CfHFGvj6vjieQD4EScjkPaAlunvQm3o1bbkJDOGB3JQz/cevmos-celestiums.png)
 
 1. Third, is the limitation of Celestia native token utility because DA layer is not where value accrual in a blockchain takes place. Value accrual in a blockchain occurs mostly at settlement layer as no that’t where state execution takes place. Celestia’s native token will have to be moved to settlement layer using trusted bridges.
 

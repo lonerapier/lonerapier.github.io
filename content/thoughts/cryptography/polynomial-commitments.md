@@ -72,7 +72,7 @@ Three main types of functional commitments possible:
 
 A **polynomial commitment scheme** allows anyone to commit to a polynomial $p(X)$ with the properties that this commitment $C$ (an [[elliptic-curves|elliptic curve]] point) can later be verified by anyone at any position $z$ on that polynomial. The prover proves at a position the value of the polynomial known as *proof* $\pi$ versus the claimed value known as *evaluation* $p(z)$ and this is only possible when prover actually has provided proof for that one polynomial that it committed to.
 
-![kzg-steps](thoughts/images/kzg-steps.png)
+![[thoughts/images/kzg-steps.png|KZG polynomial commitment protocol steps|center]]
 
 ### Notation
 
@@ -158,7 +158,7 @@ But it's not possible to do this as $\tau$ is not known to prover and if they ca
 
 Merkle trees are a form of *vector commitments*, i.e. Using a merkle tree of depth $d$ will have $2^{d}-1$ elements, anyone can compute a commitment to a vector $(a_0, a_1, a_2, \ldots, a_{2^d-1})$. Thus, using Merkle trees anyone can prove that element a_i is a member of a vector at position i using d hashes.
 
-![merkle-tree](thoughts/images/merkle-tree.png)
+![[thoughts/images/merkle-tree.png|Merkle tree vector commitment structure|center]]
 
 You can even make polynomial commitment out of Merkle trees. A polynomial is represented as $p(X) = \sum_{i=0}^{n} p_i X^i$, using $a_i = p_i$, we can construct a polynomial of degree $n = 2^d-1$ and computing merkle root of the coefficients. Now, the prover can prove the evaluation by sending all the $p_i$ and verifier verifying the evaluation by computation $p(z) = y$.
 

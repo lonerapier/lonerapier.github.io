@@ -31,7 +31,7 @@ Path for creating a 15 words, with each word of 11 bits due to number of words b
 	```
 - Mnemonic is then generated into a seed that can be used to create HD wallets using BIP32. PBKDF2 with SHA512 is used as hashing function for creating the seed.
 
-![mnemonic-to-seed](https://i.imgur.com/R5WxqEE.png)
+![Mnemonic to seed derivation via PBKDF2|center](https://i.imgur.com/R5WxqEE.png)
 
 ## Mnemonic seed to Master private key
 

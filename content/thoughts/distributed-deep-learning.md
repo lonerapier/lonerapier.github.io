@@ -82,13 +82,11 @@ Similarly, Neural networks especially attention-based architecture is full of la
 
 Suppose, we want to compute $Y=XA$, where $X\in \mathbb{R}^{n\times d},A\in \mathbb{R}^{d\times l}$, thus $Y\in \mathbb{R}^{n\times l}$ which is a common linear operation performed in feed-forward layers inside neural networks.
 
-![[thoughts/images/tensor-parallelism-column-linear.png]]
-*<center>Column Linear Block Matrix Multiplication. [Source](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism_in_a_transformer_block)</center>*
+![[thoughts/images/tensor-parallelism-column-linear.png|Column Linear Block Matrix Multiplication ([Source](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism_in_a_transformer_block))|center]]
 
 We can divide A by column $A=[A_{1}\ |\ A_{2}]$, perform matrix multiplication on two devices to get $XA_{1}\ |\ XA_{2}$ and perform an all-reduce operation to get $XA=[XA_{1}+XA_{2}]$. This is generally called as *Column Linear* operation.
 
-![[thoughts/images/tensor-parallelism-row-linear.png]]
-*<center>Row Linear Block Matrix Multiplication. [Source](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism_in_a_transformer_block)</center>*
+![[thoughts/images/tensor-parallelism-row-linear.png|Row Linear Block Matrix Multiplication ([Source](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism_in_a_transformer_block))|center]]
 
 Another way of doing the same operation is using *Row Linear* sharding. By dividing input by column $X=[X_{1}\ |\ X_{2}]$, first matrix by rows, and perform matrix multiplication on separate devices, combining the results using all-gather operation.
 
@@ -104,8 +102,7 @@ $$
 
 ## FFN
 
-![[thoughts/images/tensor-parallelism-ffn.png]]
-*<center>TP-FFN with Column + Row Linear. [Source](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism_in_a_transformer_block)</center>*
+![[thoughts/images/tensor-parallelism-ffn.png|TP-FFN with Column + Row Linear ([Source](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism_in_a_transformer_block))|center]]
 
 Usually, the operation includes two linear layers (expansion and compression linear operation) along with a non-linear operation like $\text{FFN}(x)=\text{ReLu}(xW_{1}+b_{1})\cdot W_{2}+b_{2}$, where $W_{1}\in \mathbb{R}^{d\times4d},W_{2}\in \mathbb{R}^{4d\times d}$.
 
@@ -142,7 +139,7 @@ To encourage model to learn diverse features, hidden dimension is divided into *
 - Finally, *all-reduce* operation is performed to broadcast results from other devices and aggregated into the final output.
 - Typically, deep learning libraries like PyTorch provides methods for batch matmul operations like [`torch.bmm`](https://docs.pytorch.org/docs/2.13/generated/torch.bmm.html) where first dimension of matmul is broadcasted.
 
-![[thoughts/images/tensor-parallel.png]]*<center>Tensor Parallel. [Source](https://arxiv.org/abs/2205.05198)</center>*
+![[thoughts/images/tensor-parallel.png|Tensor Parallelism ([Source](https://arxiv.org/abs/2205.05198))|center]]
 
 - In forward pass, each Tensor parallel unit perform a **broadcast** when entering the TP stage and an **all-reduce** operation after exiting the TP stage for next operations like LayerNorm or Dropout which require all activations from each GPU.
 - During backward pass, we apply a **no-op** operation (because $x=x_{1}+x_{2}\implies \nabla_{x_{1}}x=\nabla x_{1}$) when entering the TP stage and apply an **all-reduce** when exiting the stage.
@@ -165,8 +162,7 @@ Sequence Parallelism [@korthikanti2023reducing] refers to strategies that potent
 
 $$\text{LayerNorm}(x)=\gamma\cdot\frac{x-\mu}{\sqrt{ \sigma^{2}+\epsilon }} + \beta$$
 
-![[thoughts/images/tensor-sequence-parallelism.png]]
-*<center>Tensor + Sequence Parallelism. [Source](https://arxiv.org/abs/2205.05198)</center>*
+![[thoughts/images/tensor-sequence-parallelism.png|Tensor + Sequence Parallelism ([Source](https://arxiv.org/abs/2205.05198))|center]]
 
 With sequence parallelism, we divide the input sequence, and apply a sequence of parallel operations at each boundary of SP -> TP and TP -> SP stages. For concreteness, let's take an example of a Linear layer with 2 GPUs and the input dimension `[B,L,H]`.
 - SP layer starts with input `[B,L/2,H]` and LayerNorm is performed on the input at respective devices.
@@ -297,19 +293,16 @@ Backward pass
 - PipeDream saves on memory usage as there's no need to save activations for batches whose backward computation is already scheduled (for example, the last device executes backward and forward for the same batch immediately, and doesn't need to save activations. But the first device still need to save it).
 - Asynchronous 1F1B: Bubble overhead is introduced because pipeline has to be flushed so that gradient could be applied to update the weights. A simple solution is to maintain $K$ weight versions (at any point, at most K micro-batches in-flight), each corresponding to one micro-batch in the pipeline. Updates happen asynchronously for different micro-batch. But this creates a problem of managing multiple weights which beats the purpose of storage savings which is the reason for doing pipeline parallelism.
 
-![[thoughts/images/pp-pipedream.png]]
-*<center> PipeDream Schedule. [Source](https://sighingnow.github.io/machine%20learning/pipeline-model-parallelism.html)</center>*
+![[thoughts/images/pp-pipedream.png|PipeDream Schedule ([Source](https://sighingnow.github.io/machine%20learning/pipeline-model-parallelism.html))|center]]
 
 **PipeDream-2BW**: Flushing happens because the next mini-batch needs the updated weights. What if we keep 2 versions of weights? This would imply that the next mini-batch can start immediately with old weights while the new updates happen asynchronously. PipeDream-2BW [@narayanan2021memory] solved the worst case weight versions using exactly this solution.
 - By adding a 1-step weight delay $W^{(t+1)}=W^{(t)}-\eta \nabla f(W^{(t-1)})$, the double-buffered weight updates (2BW) can be applied to older version while the in-flight micro-batches uses the newest version.
 
-![[thoughts/images/pp-pipedream-2bw.png]]
-*<center>PipeDream-2BW. [Source](https://sighingnow.github.io/machine%20learning/pipeline-model-parallelism.html)</center>*
+![[thoughts/images/pp-pipedream-2bw.png|PipeDream-2BW Schedule ([Source](https://sighingnow.github.io/machine%20learning/pipeline-model-parallelism.html))|center]]
 
 While this does eliminate all the bubbles in the pipeline, convergence of asynchronous training is still questionable. This is the main reason why Megatron-LM and DeepSpeed still uses synchronous 1B1W pipeline parallelism.
 
-![[thoughts/images/deepspeed-pipeline.png]]
-*<center>DeepSpeed Data + Pipeline Parallelism. [Source](https://www.deepspeed.ai/tutorials/pipeline/)</center>*
+![[thoughts/images/deepspeed-pipeline.png|DeepSpeed Data + Pipeline Parallelism ([Source](https://www.deepspeed.ai/tutorials/pipeline/))|center]]
 
 Other works like Alpa [@zheng2022alpa] improve the training dynamics by merging inter- and intra-operator parallelism in deep neural network training.
 
@@ -319,8 +312,7 @@ Running [[thoughts/transformers#Mixture of Experts|mixture of experts]] on multi
 
 MoE gain both on quality with respect to dense counterparts with similar sparse parameters [@jiang2024mixtral] and scalability [@xu2026deepseek], and thus have become a fundamental strategy for efficient scaling in foundational Large Language models.
 
-![[thoughts/images/models-expert-parallelism.png]]
-*<center>[Source](https://arxiv.org/abs/2407.06204)</center>*
+![[thoughts/images/models-expert-parallelism.png|Expert parallelism workflow ([Source](https://arxiv.org/abs/2407.06204))|center]]
 
 Following the analysis performed by LatentMoE [@elango2026latentmoe], with the example of Qwen3-235B-A22B for modeling on H200 ($F=2000\text{TFLOP}/s$ and $\text{BW}=4.8\text{TB}/s$ HBM bandwidth).
 - Process flow for FFN layer in an expert parallel deployment looks like: `Router Gate -> Encode -> All-to-All Dispatch -> Expert FFN -> All-to-All combine -> Decode`.
@@ -357,7 +349,7 @@ TODO
 # ToDo
 - GPU Networking and Data Center Topology: [GPU Networking Basics, Part 1 - by Austin Lyons - Chipstrat](https://www.chipstrat.com/p/gpu-networking-basics-part-1)
 
-# References
+# Further Reading
 - [The Ultra-Scale Playbook - a Hugging Face Space by nanotron](https://huggingface.co/spaces/nanotron/ultrascale-playbook)
 - [RL Post-Training on Macs \| Pluralis Research](https://pluralis.ai/blog/rl-post-training-on-macs/)
 - [GitHub - DLYuanGod/MegaTrain · GitHub](https://github.com/DLYuanGod/MegaTrain), [How to Train 100B+ Large Models on a Single GPU - Hanchi Sun’s Personal Website](https://mastergodzilla.github.io/posts/2026/04/megatrain/)
@@ -372,6 +364,6 @@ TODO
 
 ---
 
-# Bibliography
+# References
 
 [^1]: [The Ultra-Scale Playbook - a Hugging Face Space by nanotron](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=sequence_parallelism)

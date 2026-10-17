@@ -57,7 +57,8 @@ and $\mathbf{z}_{i}\sim \mathcal{N}(0,I)$. As $\epsilon\to0$ and $K\to \infty$, 
 > [!question] For what scenarios, we can have access to the ground truth score function, and for what, do we not have?
 
 In case, we do not have access, we can use score matching techniques to minimize fisher divergence. Combination of learning the score function using score matching, and sampling using Langevin dynamics is known as SCGM.
-![naive-score-matching](thoughts/images/naive-score-matching.png)
+
+![[thoughts/images/naive-score-matching.png|Naive score matching and Langevin dynamics|center]]
 
 > [!question] What are the three main problems of vanilla score matching?
 
@@ -70,7 +71,7 @@ How to mitigate this problem? How can the problem be summed in one sentence? The
 The solution introduced by @song2019generative is quite simple, yet elegant, and follows the same process as VDM, i.e. to perturb data points with noise, and train a score based model on the noisy data. This fixes two of the three previously stated problems. Suppose, we perturb a high-dimensional distribution with additional Gaussian noise: $\tilde{x}=x+\sigma z,\ z\sim \mathcal{N}(0,I)$.
 - Due to the support of Gaussian being the entire space, a perturbed sample is no longer confined to high-density region, $p_{\sigma}(x)>0, \ \forall x$. Mathematically, this is equivalent of taking a convolution with a Gaussian kernel: $$p_{\sigma}(\tilde{x})=\int p(x)\mathcal{N}(\tilde{x};x,\sigma^{2}I)dx$$
 - Adding Large Gaussian noise smoothens out the peaks of the distribution more aggressively, and model can get training signal from low-density areas.
-![score-multi-scale](thoughts/images/score-multi-scale.png)
+![[thoughts/images/score-multi-scale.png|Multi-scale score matching with perturbed distributions|center]]
 
 To fix the third problem is a little tricky, because adding single big noise could alter the distribution and the model could potentially be learning an incorrect distribution altogether. The solution to this is actually, quite similar to VDMs again, i.e. add multiple noise at successive levels that result in intermediate distributions. Distributions with smaller noise respect the weighing coefficients in a mixture of distributions while larger noise the model can learn global structure to sufficiently guide the score matching objective.
 

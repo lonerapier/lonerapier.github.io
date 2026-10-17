@@ -59,3 +59,5 @@ To build the intuition for the final update, the parameters are optimised such t
 - Basic Score matching
 - Denoising score matching
 - Sliced score matching
+
+[Energy-Based Models: Representation, Inference, and Composition](https://energy-based-model.github.io/)

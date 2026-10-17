@@ -59,9 +59,7 @@ mm2 --> Y
 > [!note] Reason for normalizing with $\frac{1}{\sqrt{ D_{k} }}$
 > Assume $Q_{i}, K_{j}$ are i.i.d. with $\mu=0,\sigma=1$, then $E[Q_{i}K_{j}]=0$ and $\sigma[Q_{i}K_{j}]=D_{k}$. So, as dimension increase, dot products can be large in magnitude that saturates softmax and gradients becomes exponentially small. We want $\sigma\left[ \frac{Q_{i}K_{j}}{c} \right]=1\implies c=\sqrt{ D_{k} }$.
 
-![attention|900](thoughts/images/attention.png)
-
-*<center>Attention matrices [^1]</center>*
+![[thoughts/images/attention.png|Attention matrices [^1]|center|900]]
 
 > [!note] History
 > Attention was first introduced by @bahdanau2014neural which used additive attention which used vectors of different tokens (and not the input token as done in self-attention) as key vectors. @luong2015effective introduced multiplicative or dot-product to calculate the alignment scores.
@@ -250,13 +248,13 @@ Latent-MoE [@elango2026latentmoe]
 | [Nemotron 3 Ultra](https://arxiv.org/abs/2606.15007) | 2026 | Super: 120B-A12B<br>Ultra: 550B-A55B       | Hybrid Mamba-Attention                                                                       | -         | -              | - NVFP4 training<br>- LatentMoe<br>- MTP |
 | [Gemma4](https://arxiv.org/abs/2607.02770)           | 2026 | 2.3B, 4.5B, 12B, 26B-A4B (MoE), 31B        | MQA                                                                                          | -         | 1M             | - MTP                                    |
 
-# References
+# Further Reading
 
 - [You could have designed state of the art positional encoding](https://huggingface.co/blog/designing-positional-encoding)
 - [A Visual Guide to Mixture of Experts (MoE)](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts)
 - Cai, Weilin, et al. "A survey on mixture of experts in large language models." IEEE Transactions on Knowledge and Data Engineering (2025). [URL](https://arxiv.org/abs/2407.06204)
 
-# Bibliography
+# References
 
 [^1]: [What is an attention mechanism? \| IBM](https://www.ibm.com/think/topics/attention-mechanism)
 [^2]: Nain, Aakash. 2024. _Rotary Position Encoding_. accepted, December 10. [https://aakashkumarnain.github.io/posts/ml_dl_concepts/rope.html](https://aakashkumarnain.github.io/posts/ml_dl_concepts/rope.html).

@@ -9,7 +9,7 @@ tags:
 
 Definition of [divisor](https://crypto.stanford.edu/pbc/notes/elliptic/divisor.html) of a [[rational-functions|rational function]] $z \in k(C)$:
 
-![divisor definition](thoughts/images/divisors.png)
+![[thoughts/images/divisors.png|Divisor definition of a rational function|center]]
 
 Degree of a divisor as $\deg{D} = \sum_{P \in \mathbb{C^{*}}} n_{p}$.
 

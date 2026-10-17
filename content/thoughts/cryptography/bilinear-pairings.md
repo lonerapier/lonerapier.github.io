@@ -79,7 +79,7 @@ MOV attack refers to the transfer of DLP over EC to finite field $\mathbb{F_{p^k
 - Discrete Log problem is still difficult if target group is sufficiently large.
 - CDH (Computation Diffie-Hellman) is still hard as we can't find $g^{xy}$ if we know $g$, $g^x$, $g^y$.
 - Bilinear Diffie-Hellman Problem: Given $P, aP, bP, cP \in G_1$, compute $e(P, P)^{abc}$
-	![tripartite-key-exchange](thoughts/images/example-tripartite-key-exchange.jpeg)
+![[thoughts/images/example-tripartite-key-exchange.jpeg|Tripartite Diffie-Hellman key exchange using bilinear pairings|center]]
 
 # Prerequisites
 

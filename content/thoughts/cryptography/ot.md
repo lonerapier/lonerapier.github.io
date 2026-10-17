@@ -116,7 +116,7 @@ Let's review Naor-Pinkas OT:
 [IKNP03][IKNP03]:
 - 
 
-![cot](/thoughts/images/cot.svg)
+![[thoughts/images/cot.svg|Correlated oblivious transfer (COT)|center]]
 
 ## SFE
 

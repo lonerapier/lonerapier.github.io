@@ -19,7 +19,7 @@ Any proving system defines an n-variate polynomial with an evaluation recipe. Tw
 
 # SNARK
 
-![snark](thoughts/images/easy-snark.png)
+![[thoughts/images/easy-snark.png|SNARK prover and verifier architecture|center]]
 
 Argument system that generate **succinct** and **fast** proofs for public statement $x$ in $\mathbb{F}^n$ and secret witness $w$ in $\mathbb{F}^m$. The statement and witness need to be encoded in an arithmetic circuit $C$.
 
@@ -118,7 +118,7 @@ Plonk IOP can be used with different PCS to generate different proving systems. 
 
 Suppose you have a circuit with inputs $I: I_{x},I_{w}$, and gates C where $x$ is the statement inputs and $w$ is the witness input. Our goal is to prove to verifier that $C(w)=0$.
 
-![circuit](thoughts/images/example-circuit.png)
+![[thoughts/images/example-circuit.png|Arithmetic circuit computation trace|center]]
 
 We put inputs $x_1=5, x_2=6, w_1=1$, and compute the computation trace through the circuit. The **computation trace** comes out to be:
 
@@ -154,7 +154,7 @@ What does prover needs to prove to verifier in order to convince it?
 - soundness error -> two polynomials in $\mathbb{F}_{p}$ can be zero at atmost d roots, if f(r)-g(r)=0 => f-g=0 => f=g v.h.p
 	- this assumption has error d/p such that if suppose g is not same as f, then g can have at most d different roots. thus, error -> d/p
 	- this is derived from [Schwartz-Zippel Lemma](https://courses.cs.washington.edu/courses/cse521/17wi/521-lecture-7.pdf)
-	![kzg-proof-system](thoughts/images/kzg-proof-system.png)
+![[thoughts/images/kzg-proof-system.png|KZG polynomial commitment proof system|center]]
 
 let $\Upomega$ be some subset of $\mathbb{F}_{p}$ of size $k$. Let $f \in \mathbb{F}_{p}^{<=d}[X]$ be the polynomial that prover wants to prove. Verifier has commitment to this polynomial $Com(f)$.
 
@@ -214,7 +214,7 @@ So, we can define polynomial $t$ s.t. $t(1)=1, \enspace t(\omega^{s})=\prod_{i=0
 
 It is used to check that two polynomials $f, g$ are permutation of each other. Mainly, prover wants to prove that: $(f(1),f(\omega),\cdots,f(\omega^{k-1}))\in\mathbb{F}_{p}^{k}$ is a permutation of $(g(1),g(\omega),\cdots,g(\omega^{k-1}))\in\mathbb{F}_{p}^{k}$.
 
-![permutation](thoughts/images/permutation.png)
+![[thoughts/images/permutation.png|Permutation check gadget|center]]
 
 Can be done by creating two polynomials $\hat{F}=\prod_{a\in\Upomega}(X-f(a))$ and $\hat{G}=\prod_{a\in\Upomega}(X-g(a))$ and doing product check on these two polynomials. How will the product check work? It's simply testing that $\frac{\hat{f}(r)}{\hat{g}(r)} = \prod_{a\in\Upomega}\left(\frac{r-f(a)}{r-g(a)}\right)=1$.
 
@@ -308,7 +308,7 @@ But we have three different n-degree poly, namely $a(X),b(X),c(X)$, this
 
 ## Recap
 
-![plonk-iop](thoughts/images/plonk-iop.png)
+![[thoughts/images/plonk-iop.png|PLONK IOP protocol flow|center]]
 
 ## Formal Protocol
 

@@ -44,7 +44,7 @@ Can be found in [Chris Peikert's Lec1](https://github.com/cpeikert/LatticesInCry
 
 # Introduction
 
-![lattices](https://i.imgur.com/Rw6PouE.png)
+![2D lattice grid and basis vectors|center](https://i.imgur.com/Rw6PouE.png)
 
 Lattices are simply evenly-spaced points on a grid stretched infinitely from the origin. Vectors are name for a point on the grid. More formally, n-dimensional lattice $\mathcal{L}$ is a discrete subgroup of $\mathbb{R}^{n}$, because points in lattice follow group axioms, and points are discrete, i.e. difference between any two points > 0.
 

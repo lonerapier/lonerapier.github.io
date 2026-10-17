@@ -67,7 +67,7 @@ Stream ciphers mainly rely on generating long pseudorandom sequences of keystrea
 - degree of LFSR = number of flip-flops
 
 - a simple example from [Understanding Cryptography textbook][uct], degree of LFSR = 3, as it has 3 flip flops namely, $FF_{0},FF_{1},FF_{2}$.
-	![simple-lfsr](https://i.imgur.com/CO78gWb.png)
+![Linear feedback shift register (LFSR) circuit|center](https://i.imgur.com/CO78gWb.png)
 - initialised with state: $s_{0},s_{1},s_{2}$, with next state calculated as: $s_{3}=s_{1}+s_{0} \mod{2}$, or more generally, $s_{i+3}=s_{i}+s_{i+1} \mod{2}$
 - this form a cycle of some length, in this example, it forms a cycle of length 6.
 
@@ -91,7 +91,7 @@ $$
 
 Trivium diagram taken from [Understanding Cryptography textbook][uct]
 
-![trivium-stream-cipher](https://i.imgur.com/rgYJ7QU.png)
+![Trivium stream cipher architecture|center](https://i.imgur.com/rgYJ7QU.png)
 
 - consists of 3 shift registers with combined state of 288-bits, $A,B,C$ each with $93,84,111$ bits of state
 - output of one is input of the other.

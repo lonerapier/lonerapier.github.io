@@ -12,11 +12,11 @@ tags:
 Paging is dividing process into equal blocks, but complete process is not treated equal by the cpu. Each process is divided into segments like code, data, functions, symbols, global variables, local variables, etc.
 These segments can be divided and stored in main memory differently rather than single sequence of bytes.
 
-![segmentation](thoughts/images/segmentation.png)
+![[thoughts/images/segmentation.png|Memory segmentation model|center]]
 
 Segmentation is a memory management scheme that divides process into these different segments and allocate the memory accordingly. For example: global variables function symbols are read only whereas local/global variables of the program can be shared with other processes, thus needs to be treated differently.
 
-![segmentation-addressing](thoughts/images/segmentation-addressing.png)
+![[thoughts/images/segmentation-addressing.png|Segmentation hardware and address translation|center]]
 
 ## Questions
 
@@ -27,14 +27,14 @@ Segmentation is a memory management scheme that divides process into these diffe
 - Does segmentation allow sharing between processes? :: It does allow sharing as each segment addresses can be divided into two parts. For example, 16KB segments can be divided into 8KB global and 8KB local segments which is then stored in GDT (global descriptor table), LDT (local descriptor table).
 - what if a program is too big such that segments can't be allocated contiguously? :: then paging can be used to divide segments into pages and then stored accordingly. Logical address derives linear address which contains page number and offset, which is then used to derive the physical address.
 
-![selector-part](thoughts/images/selector-part-logical-address.png)
+![[thoughts/images/selector-part-logical-address.png|Selector part of logical address|center]]
 
 - How does logical address get divided to derive linear address? :: 16bit segment number is divided into 13 bit, i.e. 8KB local and 8KB global address, 1 bit for local/global and 2 bits for permissions.
-![two-level-paging-segmentation](thoughts/images/two-level-paging-segmentation.png)
+![[thoughts/images/two-level-paging-segmentation.png|Two-level paging with segmentation architecture|center]]
 
 - If paging is used to divide the segments, what if page table gets too big as well? 4GB for each segment in a 48 bit architecture is large enough to get divided too, right? :: Yes, multi-level paging is implemented for this case as 4GB, i.e. $2^{22}$ is too large to be accommodated in main memory. So, two-level paging can be used which divides 32 bit into 20 bits for page number, i.e. 10 bit for P1, 10 bit for P2, and 12 bits for offset.
 
-![intel-80386-address-translation](thoughts/images/intel-80386-address-translation.png)
+![[thoughts/images/intel-80386-address-translation.png|Intel 80386 address translation mechanism|center]]
 
 - Show an example of segmentation with paging for 48 bit logical addresses.
 	- 48 bit address is divided into 4GB segments, i.e. 32 bits for segments and 16 bits for selector.
@@ -83,7 +83,7 @@ requires two things:
 - does each process has its own PTE? :: yes
 - can different users of host OS has their own separate virtual tables? :: yes, users like guest OS, hypervisors can have separate, totally unrelated with their own settings, virtual tables. For example: ArmV8 has separate implementation for virtual addresses for these components.
 
-![armv8-address-space](thoughts/images/address-spaces-in-ArmV8-A.png)
+![[thoughts/images/address-spaces-in-ArmV8-A.png|Address spaces in Armv8-A architecture|center]]
 
 - how does MMU determine memory allocation for a process? :: same as frame allocation, each process determine its size and based on that memory is allocated to each process
 - how does MMU knows the disk address for a frame not in main memory? :: Page replacement algorithm
@@ -94,20 +94,21 @@ requires two things:
 		- Improved using associative mapping such as TLB cache
 			- Why its called associative?: comes from psychology that explains associative mapping is used to remember relationship between two unrelated items.
 
-![tlb](thoughts/images/paging-with-tlb.png)
+![[thoughts/images/paging-with-tlb.png|Paging hardware with TLB cache|center]]
 
 - derive access time :: $\epsilon$: time to access TLB, $\delta$: time to access physical memory, $\alpha$: cache hit probability -> $(\delta+\epsilon)\alpha + (2\delta+\epsilon)(1-\alpha)$
 - what if logical address gets too big, doesn't this take too much main memory?
 	- then is page table also divided into pages? :: yes, for example if logical address size is 32 bits and page size is 4KB, then total pages are $2^{20}$ bits. If each PTE takes 4 bytes, so page table size becomes 4MB. Total 1 KB PT entries need to be created, thus page table gets divided into different frames.
 - what's the solution to too big page tables? :: frames are limited and created for main memory, it's better and more efficient to create page tables based on frames, i.e. only one page table instead of creating for every process.
 	- hashed tables: page number is hashed and searched in PT, a linked list containing page number, frame number, pointer to next has all the frame numbers corresponding to that hash.
-![hash-tables](thoughts/images/hashed-tables.png)
+![[thoughts/images/hashed-tables.png|Hashed page table structure|center]]
 	- inverted tables: PTE contains PID along with page number which is searched in the PT, the index is used as actual physical address in the main memory.
-![inverted-tables](thoughts/images/inverted-tables.png)
+![[thoughts/images/inverted-tables.png|Inverted page table architecture|center]]
 	- multi level paging: logical address is divided into different segments and multi-leveled tables are created in memory, only the required one needs to be fetched from physical memory, saves space.
 
-![logical-address-split](thoughts/images/logical-address-split.png)
-![two-level-paging](thoughts/images/two-level-paging.png)
+![[thoughts/images/logical-address-split.png|Multi-level logical address splitting|center]]
+
+![[thoughts/images/two-level-paging.png|Two-level paging address translation scheme|center]]
 
 - if main memory is limited, is sharing of frames possible? :: yes, sharing can occur as physical address is maintained same across different PTs.
 	- how to do sharing for inverted page table format? :: need to look more into this, but since PTE are associated with PIDs and page number, same frame number can't be assigned to different page numbers and thus, frame sharing is not possible.

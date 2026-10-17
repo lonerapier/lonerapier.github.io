@@ -42,7 +42,7 @@ $$
 
 where $\bar{\alpha}_{t}=\prod_{k=1}^{t}\alpha_{k}$. Noise schedule is chosen such that scale term converges to 0, $\bar{\alpha}_{T}\approx0$, and the final sample turns into an isotropic Gaussian $q(\mathbf{x}_{T}|\mathbf{x}_{0})\approx \mathcal{N}(0,I)$. In other words, the forward process is defined as a *Linear Gaussian Markov chain* and the joint distribution conditioned on the input $\mathbf{x}_{0}$ thus, is defined over all latent states as $$q(\mathbf{x}_{1:T}|\mathbf{x}_{0})=\prod_{t=1}^{T}q(\mathbf{x}_{t}|\mathbf{x}_{t-1})$$
 
-![VDM](thoughts/images/vdm.png)
+![[thoughts/images/vdm.png|Variational diffusion model forward and reverse process|center]]
 
 ## 1.2 Reverse Diffusion Process
 

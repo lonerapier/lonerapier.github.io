@@ -59,7 +59,7 @@ This gives protection from a variety of threats:
 
 Program is run inside an encrypted region called **Enclave**. This is made possible by extending x86 architecture with new instruction sets. Enclaves provide confidentiality and integrity of the data inside the enclave through the use of **Enclave Page Cache** (EPC), which the system reserves at boot time. [^1]
 
-![memory-structure-enclave](https://i.imgur.com/UZKnk09.png)
+![Enclave memory structure (EPC)|center](https://i.imgur.com/UZKnk09.png)
 
 Enclaves are secure compartments but have boundaries to determine trusted and untrusted part of the application. Trusted Part contains the sensitive piece or secrets of the enclave's code and untrusted part containing other parts of the program. The enclave memory is a volatile memory that gets removed whenever system goes to sleep, machine is destroyed, or application exits.
 
@@ -94,7 +94,7 @@ Intel provides a pseudo-filesystem[^3] inside enclave as `/dev/attestation` whic
 
 Let's understand attestation flow used in SGX:
 
-![epid-based-attestation](https://i.imgur.com/XGQ1rv2.png)[^4]
+![EPID-based remote attestation flow [^4]|center](https://i.imgur.com/XGQ1rv2.png)
 
 1. Application requests report data from `/dev/attestation/user_report_data` which internally calls `EREPORT` hardware-instruction call to write enclave report.
 2. Calls `/dev/attestation/quote`, reads `/dev/attestation/user_report_data`, sends to Quoting Enclave.
@@ -107,7 +107,7 @@ Let's understand attestation flow used in SGX:
 
 Data Center Attestation Primitives are attestation services that doesn't utilise Intel's attestation service instead have their own ECDSA attestation certificates in a remote data center. Also the Quoting Enclave doesn't talk with Provisioning Enclave but with Provisioning Certificate Enclave which in turn calls Intel Provisioning Certificate service to get the attestation collateral.[^]
 
-![dcap-based-attestation](https://i.imgur.com/Ly7aww5.png)
+![DCAP-based remote attestation flow|center](https://i.imgur.com/Ly7aww5.png)
 
 These certificates are cached at remote verifier and the remote user doesn't need to check with Provisioning service each time a quote arrives, and then periodically fetched to update.
 
@@ -147,7 +147,7 @@ Difference from SGX:
 - Performance:
 	- SGX: depends on number of calls outside the enclave
 
-![vm-vs-containers](https://i.imgur.com/1I6C60V.png)
+![Virtual machines vs. containers isolation model|center](https://i.imgur.com/1I6C60V.png)
 
 ### References
 - [Intel TDX Documentation](https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/documentation.html)

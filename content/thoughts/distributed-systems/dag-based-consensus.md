@@ -33,7 +33,7 @@ DAG protocols comes with a new idea, i.e. why not make every fork count. Why can
 
 # Cordial Miners
 
-![dag-1](thoughts/images/dag_1.png)
+![[thoughts/images/dag_1.png|Structured DAG with rounds and waves|center]]
 
 - Give more structure to DAG.
 - have notion of *rounds*, with each honest party producing one block in each *round*.
@@ -43,7 +43,7 @@ DAG protocols comes with a new idea, i.e. why not make every fork count. Why can
 
 > Notation: For a block $u$, $[u]$ denotes the initial segment of the DAG defined by $u$.
 
-![total-ordering](thoughts/images/total_ordering.png)
+![[thoughts/images/total_ordering.png|Total ordering of leader blocks in DAG consensus|center]]
 
 Now, the idea is to use $\tau$ to arrange the leader blocks in some way such that total ordering is achieved. We define total ordering to be:
 

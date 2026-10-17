@@ -528,7 +528,7 @@ Intuition: Using a proof strategy similar as above, Let M be the l.u.b. of all v
 - Uniform convergence: $\forall \ \epsilon>0, \exists\, N\in \mathbb{N}\ \text{s.t.}\ \forall\, n\geq N\implies|f_{n}(x)-f(x)|<\epsilon$
 	- Cauchy's convergence criterion
 
-![uniform-convergence](thoughts/images/uniform-convergence.svg)
+![[thoughts/images/uniform-convergence.svg|Uniform convergence of a sequence of functions|center]]
 
 - Uniform convergence and Continuity
 	- Suppose $f_{n}\to f$ uniformly on a set E in a metric space. Let x be the limit point, and suppose that $\lim_{ t \to x }f_{n}(t)=A_{n}$. Then, $A_{n}$ converges, and $\lim_{ t \to x }f(t)=\lim_{ n \to \infty }A_{n}$.

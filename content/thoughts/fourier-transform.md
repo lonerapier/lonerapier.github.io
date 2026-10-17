@@ -94,7 +94,7 @@ Above equation is the DFT equation, represented as $DFT_n(a)$.
 
 # FFT
 
-![recursive-fft](thoughts/images/recursive-fft.png)
+![[thoughts/images/recursive-fft.png|Recursive FFT algorithm structure|center]]
 
 Lemma's that help in understanding FFT:
 
@@ -102,7 +102,7 @@ Lemma's that help in understanding FFT:
 2. Halving Lemma: squares of nth complex root of unity are n/2 complex n/2th root of unity. $(\omega_n^{k+n/2})^{2}=(\omega_n^{k})^2$
 3. Summation Lemma: $\sum_{j=0}^{n-1}(\omega_{n}^{k})^j=0$
 
-![fft](thoughts/images/fft.png)
+![[thoughts/images/fft.png|Fast Fourier Transform butterfly diagram|center]]
 
 Domain should be power of 2, and complex roots of unity, $\omega_n^i$.
 

@@ -39,7 +39,7 @@ Simulator model: Any real-world model is clearly distinguishable from ideal worl
 
 Simulator is treated as a PPT algorithm, and is as powerful as its semi-honest adversary. Any real world protocol for the 2-party computation of functionality $F(x,y)$ is secure, if for each party, there exists a PPT algorithm $\textsf{Sim}_{i}(1^{n},r)$ such that simulated ideal world protocol is computationally indistinguishable from real world protocol.
 
-![sim-2pc](/Excalidraw/2pc-sim.svg)
+![[Excalidraw/2pc-sim.svg|2PC Ideal vs. Real World Simulator Model|center]]
 
 **Secure 2PC**: Any 2 party protocol for computation of a PPT function $F(x,y)$ is secure if there exists a PPT algorithm $\textsf{Sim}_{i}(1^{k},r)$ for $i\in\{ 0,1 \}$ such that the ideal world 2PC protocol and original real-world protocol is computationally indistinguishable in the view of ith party.
 

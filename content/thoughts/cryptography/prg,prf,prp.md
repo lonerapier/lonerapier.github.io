@@ -19,7 +19,7 @@ tags:
 	- **expansion**: PRG outputs l(n)-bit string, where  $l(n)>n$
 	- **pseudorandomness**: $\Pr[D(G(s))=1]-\Pr[D(r)=1]\leq \text{negl}(n)$
 
-![prg](https://i.imgur.com/lURIq0q.png)
+![Pseudorandom generator (PRG) indistinguishability game|center](https://i.imgur.com/lURIq0q.png)
 
 - existence of PRG $G$, depend on how computationally feasible it is to for a polynomial time distinguisher $D$ to distinguish between a uniform string and the one output by $G$, because if $D$ were modelled as exponential time distinguisher then the probability of brute force attack become large.
 

@@ -17,13 +17,11 @@ tags:
 As we saw, learning forward and reverse SDE using score function changed the dynamics under which diffusion-based models operate. Differential equations turned out to be the underlying language. Because diffusion is just transporting particles from one state to another where start and end states follows certain distribution. The question arose, "whether we can use ODEs to follow the exact same trajectory as the learned SDE in score-based models?". Flow matching based generative models constructed a suitable ODE,
 solving which gets the **flow** of the equation. Solving the ODE implies learning the associated vector field.
 
-![[thoughts/images/flow-matching-blueprint.png]]
-*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
+![[thoughts/images/flow-matching-blueprint.png|Flow matching generative modeling blueprint ([Source](https://arxiv.org/abs/2412.06264))|center]]
 
 So, the goal of flow matching based generative model is to design a vector field that transforms a sample-able distribution (say Gaussian) to target distribution $p_{\mathcal{D}}$.
 
-![[thoughts/images/flow-matching-flow-field.png]]
-*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
+![[thoughts/images/flow-matching-flow-field.png|Flow field transformation from Gaussian noise to data distribution ([Source](https://arxiv.org/abs/2412.06264))|center]]
 
 
 > [!tip] Vector field and ODE
@@ -55,8 +53,7 @@ $$
 \end{align}
 $$
 
-![[thoughts/images/flow-matching-path-design.png]]
-*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
+![[thoughts/images/flow-matching-path-design.png|Probability path design between source and target distributions ([Source](https://arxiv.org/abs/2412.06264))|center]]
 > [!todo]
 > replace it with something I make
 
@@ -155,8 +152,7 @@ $$
 \end{align}
 $$
 
-![[thoughts/images/flow-matching-diffeo.png]]
-*<center>[Source](https://arxiv.org/abs/2412.06264)</center>*
+![[thoughts/images/flow-matching-diffeo.png|Diffeomorphism between initial and target distributions ([Source](https://arxiv.org/abs/2412.06264))|center]]
 
 Therefore, flow matching training consists of minimizing the conditional flow matching loss. We can see that the loss equation turns out to be simple regression, equivalent to supervised learning. We also thus, don't need to simulate any ODE during training, and can directly train the neural network on the loss.
 

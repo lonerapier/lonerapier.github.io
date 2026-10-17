@@ -23,3 +23,6 @@ tags:
 [A Short Introduction to Optimal Transport and Wasserstein Distance · Its  Neuronal](https://alexhwilliams.info/itsneuronalblog/2020/10/09/optimal-transport/)
 [Optimal Transport Wiki – OT WIKI](https://www.otwiki.xyz/)
 [Rémi Flamary / Optimal Transport for Machine Learning tutorial](https://remi.flamary.com/cours/tuto_otml.html)
+[Everyone Should Learn Optimal Transport, Part 1 - Mufan Li](https://mufan-li.github.io/OT1/)
+[Information Geometry and Optimal Transport – Gabe Khan's blog](https://differentialgeometri.wordpress.com/2022/07/07/information-geometry-and-optimal-transport/)
+[Optimal Transport](https://home.icts.res.in/~athreya/Teaching/OT24/)

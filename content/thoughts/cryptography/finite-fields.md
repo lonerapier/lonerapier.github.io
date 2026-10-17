@@ -39,7 +39,7 @@ $GF(p^m)$ are defined as the finite fields with notation:
 1. m = 1: prime fields
 2. m > 1: extension fields
 
-![Image.jpeg](https://miro.medium.com/max/1400/0*lp3NrLwr0fMyrBZc)
+![Finite fields taxonomy: prime vs. extension fields|center](https://miro.medium.com/max/1400/0*lp3NrLwr0fMyrBZc)
 
 > Note: $\mathbb{F}^*$ are defined as finite fields without 0 as it doesn't have an inverse.
 

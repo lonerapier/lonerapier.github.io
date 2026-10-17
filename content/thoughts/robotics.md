@@ -111,6 +111,8 @@ Resources
 - [GitHub - linchangyi1/Awesome-Touch: Tactile Sensing • Simulation • Representation • Manipulation • RL/IL/VLA • Open Source](https://github.com/linchangyi1/Awesome-Touch)
 - [GitHub - GT-RIPL/Awesome-LLM-Robotics: A comprehensive list of papers using large language/multi-modal models for Robotics/RL, including papers, codes, and related websites](https://github.com/GT-RIPL/Awesome-LLM-Robotics)
 - [GitHub - showlab/Awesome-Robotics-Diffusion: A curated list of recent robot learning papers incorporating diffusion models for robotics tasks.](https://github.com/showlab/Awesome-Robotics-Diffusion)
+- [GitHub - General-Instinct/InstinctFlash: High-Performance Serving Runtime for Robotics Models · GitHub](https://github.com/General-Instinct/InstinctFlash)
+
 Teleop
 - [GitHub - NVIDIA/IsaacTeleop: The unified framework for sim & real robot teleoperation · GitHub](https://github.com/NVIDIA/IsaacTeleop)
 - [\[2307.04577\] AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand Teleoperation System](https://arxiv.org/abs/2307.04577)

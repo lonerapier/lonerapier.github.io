@@ -91,7 +91,7 @@ Prover:
 - commit to randomiser polynomial
 - sample random weights for non linear combination
 - create non linear combination of transition quotient, boundary quotient and randomiser polynomial with weights sampled randomly
-    ![weights](https://i.imgur.com/d5RdAM2.png)
+![STARK non-linear combination codeword weights|center](https://i.imgur.com/d5RdAM2.png)
 
 - prove low degree using fri for combination codeword
     - run fri on all committed polys: boundary quotient, transition quotient, transition zerofier

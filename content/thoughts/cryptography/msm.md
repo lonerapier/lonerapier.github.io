@@ -14,7 +14,7 @@ Scalar size: $b$ bits
 
 Complexity: $N(b-1)$ squaring and $N(b-1)$ point additions
 
-![msm](thoughts/images/msm.png)
+![[thoughts/images/msm.png|Multi-scalar multiplication (MSM) computation tree|center]]
 
 MSM can be divided into two main parts:
 

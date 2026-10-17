@@ -8,11 +8,15 @@ tags:
 Other links:
 - [[technical-links]]
 
+# Oct '26
+- [roomtsc lab: finding a room-temperature superconductor](https://roomtsc.com/)
+
 # Sep '26
 - [How to Choose Your Grad School — Tim Dettmers](https://timdettmers.com/2022/03/13/how-to-choose-your-grad-school/)
 - [Interactive 4D Handbook - Planes of Rotation](https://baileysnyder.com/interactive-4d/rotations/): 30 mins fun ride through rotations and 4D.
 - [How To Write With An LLM — A Final Ward](https://sockpuppet.org/blog/2026/09/17/how-to-write-with-an-llm/)
 - [Grant Sanderson, "If math is more than proof, we need to better celebrate the rest of it" \| Terrence Tao blog](https://terrytao.wordpress.com/2026/09/18/if-math-is-more-than-proof-we-need-to-better-celebrate-the-rest-of-it/): The part that I'm most interested in is how human learning develops further. Expository style lectures are nice but they are not new. People have used them to learn about any field in the past. It also doesn't force you to produce new research.
+- ["On Impactful AI Research" · Omar Khattab | September 4th, 2024](https://github.com/okhat/blog/blob/main/2024.09.impact.md)
 
 # Aug '26
 - [John McGreevy - UCSD Physics, "Some advice I've found useful"](https://mcgreevy.physics.ucsd.edu/advice.html)

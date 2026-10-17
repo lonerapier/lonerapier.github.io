@@ -10,6 +10,7 @@ date: 2026-08-25
 > [!info]
 > Spearman Correlation metric
 
+
 Questions:
 - What's the main motivation behind world models?
 	- LLMs learn to model the world through language, but only language. Intelligence that understands the world around us, has to also learn the physics and geometry of the world, which LLMs do know about, but doesn't know how to act in it.
@@ -74,7 +75,7 @@ Questions:
 	- For VLA, language is the first class citizen of the model along with static images
 	- For WAM, large scale videos with action supervision (aligned with the task that we're looking to solve) is the primary training driver.
 
-![[thoughts/images/world-models-ha-schmidhuber.png]]
+![[thoughts/images/world-models-ha-schmidhuber.png|World models architecture (Ha & Schmidhuber)|center]]
 
 # References
 - [Notboring - World Models: Computing the Uncomputable](https://www.notboring.co/p/world-models)

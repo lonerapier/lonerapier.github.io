@@ -79,7 +79,7 @@ $$q_{\textsf{fold}}(z) = \frac{(x+r)}{2x}q(x) + \frac{(x-r)}{2x}q(-x)$$
 
 Note: q takes values in $\omega\in \mathbb{F}$ where, $\omega$ is nth root of unity. Thus $-1 = \omega^{N/2}$, so The above expression takes same values as initial expression of $q_{fold}(z)$ for $r = \{x, -x\}$ and thus can be used to combine two poly into one.
 
-![fri-folding-merkle](https://i.imgur.com/GSIy2YT.png)
+![FRI folding step and Merkle commitments|center](https://i.imgur.com/GSIy2YT.png)
 
 ## Query Phase
 
@@ -96,7 +96,7 @@ Total proof length and $\mathcal{V}$ time: $\lambda/\log (\rho^{-1}) \cdot \log^
 	- used cryptographic procedure is merkle hashing + fiat-shamir (non-interactivity)
 	- In linear codes one big folding for poly of degree $d$ is done to reduce proof size to $\sqrt{d}$ and thus are field agnostic while In FRI, proofs are recursively reduced in half logarithmically.
 
-![fri-folding-query](https://i.imgur.com/Yhb626l.png)
+![FRI query phase rounds and verification paths|center](https://i.imgur.com/Yhb626l.png)
 
 Above image by Alan Szepieniec's series [anatomy of a stark proof: part 3](https://aszepieniec.github.io/stark-anatomy/fri) very clearly explains the different rounds of interaction between $\mathcal{P}$ and $\mathcal{V}$.
 

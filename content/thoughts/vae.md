@@ -51,7 +51,7 @@ $$
 
 Our goal will be to use the representation of the distribution $p(x)$ to derive a term called the Evidence Lower Bound (ELBO), which gives a lower bound on the evidence. Evidence is written as log likelihood of the observed data: $\log p(\boldsymbol{x})$. ELBO gives a proxy objective that can be optimized with respect to a latent variable model, and in the best case (when true distribution is learned), ELBO exactly equals the evidence.
 
-![vae|200](thoughts/images/vae.png)
+![[thoughts/images/vae.png|Variational autoencoder probabilistic graphical model|center|200]]
 
 # 3 Objective
 
@@ -106,7 +106,7 @@ After training the VAE, to use it as a generative model, we can simply sample a 
 # 4 Hierarchical VAE
 Introduced in \[2, 3\], HVAE can be seen as a generalization of VAE to multiple hierarchies of latent variables. We can generate arbitrary graphical models to condition latent on all other previous latents, which themselves are generated from other higher-level, more abstract latents.
 
-![hvae](thoughts/images/hvae.png)
+![[thoughts/images/hvae.png|Hierarchical variational autoencoder structure|center]]
 
 To consider a simple example, take a Markovian chain of VAEs, where each decoding latent variable $z_{t}$ is dependent on the previous one $z_{t+1}$. This can be simply seen as a recursive stack of VAEs and we can model the joint distribution, and the posterior as:
 

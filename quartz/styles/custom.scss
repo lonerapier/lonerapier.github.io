@@ -246,3 +246,12 @@ article a {
     opacity: 0.75;
   }
 }
+
+/* Dark mode support for standalone SVG diagrams */
+article img[src*=".svg"] {
+  transition: filter 0.2s ease;
+}
+
+:root[saved-theme="dark"] article img[src*=".svg"]:not(.no-invert) {
+  filter: invert(0.92) hue-rotate(180deg);
+}

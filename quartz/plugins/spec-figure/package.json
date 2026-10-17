@@ -1,0 +1,32 @@
+{
+  "name": "@lonerapier/quartz-spec-figure",
+  "version": "0.1.0",
+  "description": "Engineering blueprint and CAD schematic figure frame for Quartz digital gardens",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "@quartz-community/types": "*"
+  },
+  "quartz": {
+    "name": "spec-figure",
+    "displayName": "Spec Figure",
+    "category": "transformer",
+    "version": "0.1.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 42,
+    "defaultEnabled": true
+  }
+}

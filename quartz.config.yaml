@@ -80,6 +80,9 @@ plugins:
   - source: ./quartz/plugins/sidenotes
     enabled: true
     order: 41
+  - source: ./quartz/plugins/spec-figure
+    enabled: true
+    order: 42
   - source: github:quartz-community/table-of-contents
     enabled: true
     order: 50
